@@ -1,0 +1,8 @@
+{
+  "name": "elt-material",
+  "version": "0.0.1",
+  "repository": "https://github.com/ceymard/elt-material",
+  "description": "some description",
+  "license": "MIT",
+  "main": "./material"
+}
