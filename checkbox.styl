@@ -6,11 +6,22 @@
   display inline-block
   height 36px !important
   line-height 36px
+
+  padding 0 8px
+
+
+.eltm-checkbox-content
   vertical-align middle
-  font-weight 500
 
 
 .eltm-checkbox-icon
   margin-right 8px
+  font-size 18px !important
+  vertical-align middle
   // primary
-  color #673AB7
+  &.on
+    color #673AB7
+  &.off
+    color alpha(#000000, 0.54)
+
+  transition color linear 0.3s

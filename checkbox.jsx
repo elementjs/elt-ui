@@ -4,7 +4,7 @@ import {Component} from 'elt/controller';
 import {Icon} from './icon';
 import {o} from 'elt/observable';
 import {click} from 'elt/touch';
-import {bind} from 'elt/decorators';
+import {bind, cls} from 'elt/decorators';
 
 import './checkbox.styl';
 
@@ -21,8 +21,8 @@ export class Checkbox extends Component {
     };
 
     return <label class='eltm-checkbox-label'>
-        <Icon class='eltm-checkbox-icon' name={o(data.model, this.getIcon)}/>
-        <span>{attrs.title || children}</span>
+        <Icon class='eltm-checkbox-icon' name={o(data.model, this.getIcon)} $$={cls({on: data.model, off: o(data.model, (v) => !v)})}/>
+        <span class='eltm-checkbox-content'>{attrs.title || children}</span>
         <input type='checkbox' style='display: none;' $$={bind(data.model)}/>
       </label>;
   }
