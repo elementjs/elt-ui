@@ -6,12 +6,17 @@
   display inline-block
   height 36px !important
   line-height 36px
+  -webkit-tap-highlight-color rgba(0,0,0,0)
 
   padding 0 8px
 
 
 .eltm-checkbox-content
   vertical-align middle
+  &.off
+    color alpha(#000000, 0.74)
+  &.disabled
+    color alpha(#000000, 0.26)
 
 
 .eltm-checkbox-icon
@@ -23,5 +28,7 @@
     color #673AB7
   &.off
     color alpha(#000000, 0.54)
+  &.disabled
+    color alpha(#000000, 0.26)
 
   transition color linear 0.3s

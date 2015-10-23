@@ -17,17 +17,22 @@ export class Checkbox extends Component {
   view(attrs, children) {
 
     let data = this.data = {
-      model: o(attrs.value || undefined)
+      model: o(attrs.model || undefined),
+      disabled: o(attrs.disabled)
     };
 
-    return <label class='eltm-checkbox-label'>
-        <Icon class='eltm-checkbox-icon' name={o(data.model, this.getIcon)} $$={cls({on: data.model, off: o(data.model, (v) => !v)})}/>
-        <span class='eltm-checkbox-content'>{attrs.title || children}</span>
-        <input type='checkbox' style='display: none;' $$={bind(data.model)}/>
+    let classes = cls({on: data.model, off: o(data.model, (v) => !v), disabled: data.disabled});
+
+    return <label class='eltm-checkbox-label' $$={click(this.toggle.bind(this))}>
+        <Icon class='eltm-checkbox-icon' name={o(data.model, this.getIcon)}
+          $$={classes}/>
+        <span class='eltm-checkbox-content' $$={classes}>{attrs.title || children}</span>
       </label>;
   }
 
   toggle() {
+    if (this.data.disabled.get()) return;
+
     let val = this.data.model.get();
     this.data.model.set(!val);
   }
@@ -36,38 +41,6 @@ export class Checkbox extends Component {
     if (value === undefined) return INDETERMINATE;
     if (value) return ON;
     return OFF;
-  }
-
-}
-
-var CHECKED = 'radio_button_checked';
-var UNCHECKED = 'radio_button_unchecked';
-
-export class Radio extends Component {
-
-  view(attrs, children) {
-
-    let data = this.data = {
-      model: o(attrs.model || undefined),
-      value: o(attrs.value)
-    };
-
-    return <label class='eltm-radio-label'>
-        <Icon class='eltm-radio-icon' name={o(data.model, this.getIcon)}/>
-        <span>{attrs.title || children}</span>
-        <input type='radio' style='display: none;' $$={bind(data.model)}/>
-      </label>;
-  }
-
-  toggle() {
-    let val = this.data.model.get();
-    this.data.model.set(!val);
-  }
-
-  getIcon(value) {
-    let self = this.data.value.get();
-    if (value === self) return CHECKED;
-    return UNCHECKED;
   }
 
 }

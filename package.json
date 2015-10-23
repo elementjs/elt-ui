@@ -4,5 +4,5 @@
   "repository": "https://github.com/ceymard/elt-material",
   "description": "some description",
   "license": "MIT",
-  "main": "./material"
+  "main": "./index"
 }
