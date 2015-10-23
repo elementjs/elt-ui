@@ -1,7 +1,6 @@
 
-import {elt} from '../node';
-import {Component} from '../controller';
-import {SVGNode} from '../svg';
+import {elt} from 'elt/node';
+import {Component} from 'elt/controller';
 
 export class Icon extends Component {
   view(attrs, content) {

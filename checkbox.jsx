@@ -1,10 +1,10 @@
 
-import {elt} from '../node';
-import {Component} from '../controller';
+import {elt} from 'elt/node';
+import {Component} from 'elt/controller';
 import {Icon} from './icon';
-import {o} from '../observable';
-import {click} from '../touch';
-import {bind} from '../decorators';
+import {o} from 'elt/observable';
+import {click} from 'elt/touch';
+import {bind} from 'elt/decorators';
 
 import './checkbox.styl';
 

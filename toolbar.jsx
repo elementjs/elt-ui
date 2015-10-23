@@ -1,6 +1,6 @@
 
-import {Component} from '../controller';
-import {elt} from '../node';
+import {Component} from 'elt/controller';
+import {elt} from 'elt/node';
 
 import './toolbar.styl';
 

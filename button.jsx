@@ -1,8 +1,8 @@
 
-import {Component} from '../controller';
-import {o} from '../observable';
-import {cls} from '../decorators';
-import {elt} from '../node';
+import {Component} from 'elt/controller';
+import {o} from 'elt/observable';
+import {cls} from 'elt/decorators';
+import {elt} from 'elt/node';
 
 import './button.styl';
 
