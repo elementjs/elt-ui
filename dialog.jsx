@@ -23,6 +23,10 @@ export class Dialog extends Component {
  */
 export function dialog(opts) {
 
+  let title = <h3>{opts.title}</h3>;
+  let content = <Dialog.Content>{content}</Dialog.Content>;
+  let buttons = <Dialog.Buttonbar>{opts.buttons}</Dialog.Buttonbar>;
+
   // opts.toolbar
   // opts.title
   // opts.fullscreen -- if we want the dialog to take up the whole space.
@@ -31,5 +35,5 @@ export function dialog(opts) {
 
 
 export function modal(opts) {
-  
+
 }
