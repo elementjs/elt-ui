@@ -34,7 +34,6 @@ export class Dialog extends Component {
     if (event.target === this.node.element) {
       // Cancel everything.
       this.node.remove();
-      console.log(arguments);
       if (this.promise) this.promise.reject('cancel');      
     }
   }

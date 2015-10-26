@@ -1,14 +1,26 @@
 
 .eltm-input-container
 
-  height 64px
+  // height 64px
 
   &.floating-label
-    height 72px
+    // height 72px
 
 .eltm-input-element
 
-  font-size 14px
+  box-sizing border-box
+  font-size 16px
+  line-height 32px
+  // padding-top 16px
+  // padding-bottom 8px
+  margin-bottom 8px
   border none
+
+  border-bottom 1px solid alpha(#999, 0.5)
+
+  &:focus
+    border-bottom 2px solid #673AB7
+
+  font-size 14px
   outline 0
   -webkit-tap-highlight-color rgba(0,0,0,0)
