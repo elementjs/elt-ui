@@ -1,0 +1,37 @@
+
+.eltm-dialog-overlay
+
+  border 0
+  padding 0
+  margin 0
+
+  // Its children will be screen centered.
+  display flex
+  align-items center
+  justify-content center
+
+  position fixed
+  top 0
+  left 0
+  height 100vh
+  width 100vw
+
+  background-color alpha(#000000, 0.75)
+
+  transition all linear 0.1s
+  opacity 1
+
+  &.elm-enter
+    opacity 0
+
+.eltm-dialog-root
+  // FIXME color theme.
+  background-color white
+
+  padding 24px
+  // This is to avoid the dialog covering the whole screen.
+  margin 24px 40px
+
+.eltm-dialog-title
+  margin 0
+  padding 0
