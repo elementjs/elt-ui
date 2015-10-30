@@ -5,12 +5,18 @@ import {o} from 'elt/observable';
 import {click} from 'elt/touch';
 import {bind, cls} from 'elt/decorators';
 
+import {Button} from './button';
+
 import './dialog.styl';
 
 export class Dialog extends Component {
 
   constructor() {
     super(...arguments);
+    this.promise = new Promise((resolve, reject) => {
+      this._resolve = resolve;
+      this._reject = reject;
+    });
   }
 
   view(attrs, content) {
@@ -24,18 +30,57 @@ export class Dialog extends Component {
   }
 
   link() {
+    // FIXME should be a special decorator to add enter and leave.
     this.node.element.classList.add('elm-enter');
     requestAnimationFrame(() => {
       this.node.element.classList.remove('elm-enter');
+    });
+
+    this.node.on('mount', (event, root, before) => {
+      this.root = root;
+      root.classList.add('eltm-modal-showing');
     })
+  }
+
+  remove() {
+    this.node.remove();
+    this.root.classList.remove('eltm-modal-showing');
+  }
+
+  resolve(value) {
+    this.remove();
+    this._resolve(value);
+  }
+
+  reject(value) {
+    this.remove();
+    this._reject(value);
   }
 
   close(event) {
     if (event.target === this.node.element) {
       // Cancel everything.
-      this.node.remove();
-      if (this.promise) this.promise.reject('cancel');      
+      this.reject();
     }
+  }
+
+}
+
+export class Modal extends Dialog {
+
+  view(attrs, children) {
+    return <div class='eltm-dialog-overlay' $$={click(this.close.bind(this))}>
+        <div class='eltm-dialog-root'>
+          {attrs.title ? <h3 class='elt-dialog-title'>{attrs.title}</h3> : null}
+          <div class='eltm-dialog-content'>
+            {o(attrs.text, (v) => v.split(/\s*\n\s*/).map((e) => <p>{e}</p>))}
+          </div>
+          <div class='eltm-dialog-buttonbar'>
+            {attrs.disagree ? <Button click={() => this.resolve(false)}>{attrs.disagree}</Button> : null}
+            {attrs.agree ? <Button click={() => this.resolve(true)}>{attrs.agree}</Button> : null}
+          </div>
+        </div>
+      </div>;
   }
 
 }
@@ -56,11 +101,14 @@ export function dialog(opts) {
 }
 
 
-export async function modal(text, agree, disagree) {
+export function modal(title, text, agree, disagree) {
 
-  <Dialog>
-    <h3 class='eltm-dialog-title'>My Title Here</h3>
-    <p>Hullo</p>
-  </Dialog>.mount(document.body);
+  let m = <Modal title={title} text={text} agree={agree} disagree={disagree}/>;
+  m.mount(document.body);
+
+  // maybe a .ctrl when we have a component ?
+  let ctrl = m.getController(Modal);
+
+  return ctrl.promise;
 
 }

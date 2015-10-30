@@ -7,6 +7,7 @@
 
   // Its children will be screen centered.
   display flex
+  flex-direction column
   align-items center
   justify-content center
 
@@ -24,13 +25,26 @@
   &.elm-enter
     opacity 0
 
+.eltm-dialog-buttonbar
+  text-align right
+
+.eltm-dialog-content
+  padding 0 24px
+  color alpha(#000, 0.7)
+
 .eltm-dialog-root
+  h3
+    padding 0 24px
+
   // FIXME color theme.
   background-color white
 
-  padding 24px
   // This is to avoid the dialog covering the whole screen.
   margin 24px 40px
+
+  .eltm-button-content
+    min-width 0
+
 
 .eltm-dialog-title
   margin 0
