@@ -20,12 +20,10 @@ export class DialogCtrl extends Controller {
   }
 
   resolve(value) {
-    this.node.remove();
     this._resolve(value);
   }
 
   reject(value) {
-    this.node.remove();
     this._reject(value);
   }
 
