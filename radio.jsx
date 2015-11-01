@@ -11,38 +11,35 @@ import './checkbox.styl';
 var CHECKED = 'radio_button_checked';
 var UNCHECKED = 'radio_button_unchecked';
 
-export class Radio extends Component {
+export function Radio(attrs, children) {
 
-  view(attrs, children) {
-
-    let data = this.data = {
-      model: o(attrs.model || undefined),
-      value: o(attrs.value),
-      disabled: o(attrs.disabled)
-    };
-
-    let classes = cls({
-      on: o(data.model, data.value, (m, v) => m === v),
-      off: o(data.model, data.value, (m, v) => m !== v),
-      disabled: data.disabled
-    });
-
-    return <label class='eltm-checkbox-label' $$={click(this.toggle.bind(this))}>
-        <Icon class='eltm-checkbox-icon' name={o(data.model, this.getIcon.bind(this))}
-              $$={classes}/>
-        <span class='eltm-checkbox-content' $$={classes}>{attrs.title || children}</span>
-      </label>;
+  function toggle() {
+    let value = data.value.get();
+    data.model.set(value);
   }
 
-  toggle() {
-    let value = this.data.value.get();
-    this.data.model.set(value);
-  }
-
-  getIcon(value) {
-    let self = this.data.value.get();
+  function getIcon(value) {
+    let self = data.value.get();
     if (value === self) return CHECKED;
     return UNCHECKED;
   }
+
+  let data = {
+    model: o(attrs.model || undefined),
+    value: o(attrs.value),
+    disabled: o(attrs.disabled)
+  };
+
+  let classes = cls({
+    on: o(data.model, data.value, (m, v) => m === v),
+    off: o(data.model, data.value, (m, v) => m !== v),
+    disabled: data.disabled
+  });
+
+  return <label class='eltm-checkbox-label' $$={click(toggle)}>
+      <Icon class='eltm-checkbox-icon' name={o(data.model, getIcon)}
+            $$={classes}/>
+      <span class='eltm-checkbox-content' $$={classes}>{attrs.title || children}</span>
+    </label>;
 
 }
