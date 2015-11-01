@@ -65,6 +65,9 @@ export function dialog(opts, cbk) {
     });
   }
 
+  // Remove the dialog from the DOM once we have answered it.
+  dlg.promise.then(() => res.remove(), () => res.remove());
+
   res.mount(opts.parent || document.body);
 
   return dlg.promise;
