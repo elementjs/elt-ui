@@ -1,7 +1,7 @@
 
 .eltm-input-container
-
-  // height 64px
+  display inline-block
+  height 64px
 
   &.floating-label
     // height 72px
@@ -9,6 +9,7 @@
 .eltm-input-element
 
   box-sizing border-box
+
   font-size 16px
   line-height 32px
   // padding-top 16px
@@ -16,9 +17,11 @@
   margin-bottom 8px
   border none
 
+  padding-bottom 1px
   border-bottom 1px solid alpha(#999, 0.5)
 
   &:focus
+    padding-bottom 0
     border-bottom 2px solid #673AB7
 
   font-size 14px
