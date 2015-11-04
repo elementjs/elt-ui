@@ -5,9 +5,9 @@ import {Icon} from './icon';
 
 import './checkbox.styl';
 
-var OFF = 'check_box_outline_blank';
-var ON = 'check_box';
-var INDETERMINATE = 'indeterminate_check_box';
+var OFF = 'square-o';
+var ON = 'check-square';
+var INDETERMINATE = 'minus-square';
 
 export function Checkbox(attrs, children) {
 

@@ -5,8 +5,8 @@ import {Icon} from './icon';
 
 import './checkbox.styl';
 
-var CHECKED = 'radio_button_checked';
-var UNCHECKED = 'radio_button_unchecked';
+var CHECKED = 'dot-circle';
+var UNCHECKED = 'circle-o';
 
 export function Radio(attrs, children) {
 
