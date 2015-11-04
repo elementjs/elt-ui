@@ -20,10 +20,10 @@ export function Input(attrs, content) {
     label: attrs.label || false, // we may not have a label, and we don't try to.
   };
 
-  return <div class='eltm-input-container'>
+  return <div class='carbm-input-container'>
       {data.label ?
-          <label for={id} class='eltm-input-floating-label'>{data.label}</label>
+          <label for={id} class='carbm-input-floating-label'>{data.label}</label>
       : null}
-      <input id={id} placeholder={attrs.placeholder} class='eltm-input-element' type={data.type} $$={bind(data.model)}/>
+      <input id={id} placeholder={attrs.placeholder} class='carbm-input-element' type={data.type} $$={bind(data.model)}/>
     </div>;
 }

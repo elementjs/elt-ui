@@ -31,10 +31,10 @@ export function Checkbox(attrs, children) {
 
   let classes = cls({on: data.model, off: o(data.model, (v) => !v), disabled: data.disabled});
 
-  return <label class='eltm-checkbox-label' $$={click(toggle)}>
-      <Icon class='eltm-checkbox-icon' name={o(data.model, getIcon)}
+  return <label class='carbm-checkbox-label' $$={click(toggle)}>
+      <Icon class='carbm-checkbox-icon' name={o(data.model, getIcon)}
         $$={classes}/>
-      <span class='eltm-checkbox-content' $$={classes}>{attrs.title || children}</span>
+      <span class='carbm-checkbox-content' $$={classes}>{attrs.title || children}</span>
     </label>;
 
 }

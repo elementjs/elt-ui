@@ -5,7 +5,7 @@ import {Button} from './button';
 
 import './dialog.styl';
 
-var NOSCROLL_CLASS = 'eltm-dialog-noscroll';
+var NOSCROLL_CLASS = 'carbm-dialog-noscroll';
 
 export class DialogCtrl extends Controller {
   constructor() {
@@ -27,14 +27,14 @@ export class DialogCtrl extends Controller {
 }
 
 
-export var Overlay = (attrs, children) => <div class='eltm-dialog-overlay'>{children}</div>
-export var Title = (attrs, children) => <h3 class='eltm-dialog-title'>{children}</h3>
-export var Content = (attrs, children) => <div class='eltm-dialog-content'>{children}</div>
+export var Overlay = (attrs, children) => <div class='carbm-dialog-overlay'>{children}</div>
+export var Title = (attrs, children) => <h3 class='carbm-dialog-title'>{children}</h3>
+export var Content = (attrs, children) => <div class='carbm-dialog-content'>{children}</div>
 
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
-export var Buttonbar = (attrs, children) => <div class='eltm-dialog-buttonbar'>{children}</div>
-export var Root = (attrs, children) => <div class='eltm-dialog-root'>{children}</div>
+export var Buttonbar = (attrs, children) => <div class='carbm-dialog-buttonbar'>{children}</div>
+export var Root = (attrs, children) => <div class='carbm-dialog-root'>{children}</div>
 
 /**
  * A function that returns a promise and that allows us to show a nice dialog.

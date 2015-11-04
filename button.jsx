@@ -21,8 +21,8 @@ export function Button(attrs, children) {
     }
   }
 
-  return <button class='eltm-button' disabled={data.disabled} $$={click(doClick)}>
-    <span class='eltm-button-content' $$={cls({disabled: data.disabled, raised: data.raised})} >{children}</span>
+  return <button class='carbm-button' disabled={data.disabled} $$={click(doClick)}>
+    <span class='carbm-button-content' $$={cls({disabled: data.disabled, raised: data.raised})} >{children}</span>
   </button>;
 
 }
