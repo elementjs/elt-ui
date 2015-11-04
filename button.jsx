@@ -1,7 +1,5 @@
 
-import {o} from 'elt/observable';
-import {cls, click} from 'elt/decorators';
-import {elt} from 'elt/node';
+import {o, c, cls, click} from 'carbyne';
 
 import './button.styl';
 

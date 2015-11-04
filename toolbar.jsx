@@ -1,5 +1,5 @@
 
-import {elt} from 'elt/node';
+import {c} from 'carbyne';
 
 import './toolbar.styl';
 

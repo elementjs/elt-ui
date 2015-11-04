@@ -1,6 +1,5 @@
 
-import {elt} from 'elt/node';
-import {Component} from 'elt/controller';
+import {c} from 'carbyne';
 
 export function Icon(attrs, content) {
   return <i class='material-icons'>{attrs.name}</i>;

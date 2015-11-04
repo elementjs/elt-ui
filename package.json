@@ -1,7 +1,7 @@
 {
-  "name": "elt-material",
+  "name": "carbyne-material",
   "version": "0.0.1",
-  "repository": "https://github.com/ceymard/elt-material",
+  "repository": "https://github.com/ceymard/carbyne-material",
   "description": "some description",
   "license": "MIT",
   "main": "./index"

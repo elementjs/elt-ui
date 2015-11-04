@@ -1,9 +1,7 @@
 
-import {elt} from 'elt/node';
-import {Controller} from 'elt/controller';
+import {c, o, bind, cls} from 'carbyne';
+
 import {Icon} from './icon';
-import {o} from 'elt/observable';
-import {bind, cls} from 'elt/decorators';
 
 import './input.styl';
 

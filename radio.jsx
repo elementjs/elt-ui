@@ -1,10 +1,7 @@
 
-import {elt} from 'elt/node';
-import {Component} from 'elt/controller';
+import {o, c, bind, cls, click} from 'carbyne';
+
 import {Icon} from './icon';
-import {o} from 'elt/observable';
-import {click} from 'elt/touch';
-import {bind, cls} from 'elt/decorators';
 
 import './checkbox.styl';
 
