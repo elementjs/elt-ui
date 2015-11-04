@@ -1,5 +1,7 @@
 @require 'common'
 
+$font-size = 24px
+
 .carbm-toolbar
   box-sizing border-box
   display flex
@@ -15,11 +17,12 @@
   font-weight 500
 
 .carbm-toolbar > h3
-  font-size 24px
+  font-size $font-size
   font-weight 500
 
 .carbm-toolbar > .carbm-button
   margin 0 8px
 
-  & > .carbm-button-content
+  & > .carbm-button-content, & > .carbm-button-icon
     color white
+    font-size $font-size

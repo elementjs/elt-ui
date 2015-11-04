@@ -19,34 +19,21 @@
   // A button next to a button does not need so much space around it.
   padding-left 0
 
-.carbm-button-content
+.carbm-button-icon
+  -webkit-tap-highlight-color rgba(0,0,0,0)
+  border-sizing border-box
+
+.carbm-button-content, .carbm-button-icon
   // This is to prevent text selection inside the button.
   user-select(none)
   -webkit-tap-highlight-color rgba(0,0,0,0)
 
-
   border-sizing border-box
 
   display inline-block
-  min-width 64px
-
   // TEXT STYLE
   text-align center
-  text-transform uppercase
-  font-weight 500
-  font-family 'Roboto', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
   vertical-align middle
-
-  // Should probably have a mixin for that
-  // as it should be some global configuration option.
-  border-radius 2px
-  border-style none
-
-  padding 0 16px
-
-  line-height 36px
-  height 36px
-
   cursor pointer
 
   color $primary
@@ -78,6 +65,26 @@
       background none
     background none
     box-shadow(none)
+
+
+.carbm-button-content
+
+  min-width 64px
+
+  text-transform uppercase
+  font-weight 500
+  font-family 'Roboto', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
+
+  // Should probably have a mixin for that
+  // as it should be some global configuration option.
+  border-radius 2px
+  border-style none
+
+  padding 0 16px
+
+  line-height 36px
+  height 36px
+
 
 .fab
   // Rounded button.
