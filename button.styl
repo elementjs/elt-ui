@@ -49,12 +49,13 @@
 
   cursor pointer
 
-  color #673AB7
+  color $primary
   background none
 
   &:hover
     background rgba(#999999, 0.2)
 
+  // ...
   // On click
   &:active
     background rgba(#999999, 0.4)
@@ -63,13 +64,13 @@
     // FIXME will depend on theme
     color white
     // FIXME will be material colors
-    background-color #673AB7
+    background-color $primary
     box-shadow(alpha(#000000, 0.258824) 0px 2px 5px 0px)
 
   &.raised:hover
-    background-color lighten(#673AB7, 10)
+    background-color lighten($primary, 10)
   &.raised:active
-    background-color lighten(#673AB7, 20)
+    background-color lighten($primary, 20)
 
   &.disabled
     color alpha(#999999, 0.4)

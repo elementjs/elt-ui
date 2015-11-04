@@ -4,5 +4,8 @@
   "repository": "https://github.com/ceymard/carbyne-material",
   "description": "some description",
   "license": "MIT",
-  "main": "./index"
+  "main": "./index",
+  "dependencies": {
+    "reset.styl": "^0.1.1"
+  }
 }
