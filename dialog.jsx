@@ -48,7 +48,7 @@ export function dialog(opts, cbk) {
 
   let dlg = new DialogCtrl;
 
-  let res = <Overlay $$={[ctrl(dlg), click((ev) => dlg.reject())]}>{cbk(dlg)}</Overlay>;
+  let res = <Overlay $$={[ctrl(dlg), click((ev) => dlg.reject(null))]}>{cbk(dlg)}</Overlay>;
 
   if (opts.disableScrolling !== false) {
     let parent_elt = null;
