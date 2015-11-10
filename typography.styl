@@ -1,7 +1,17 @@
 @require './common'
 
+@require './node_modules/reset.styl/index.styl'
+
+use_reset('meyer')
+reset('all')
+
+
+*
+  box-sizing border-box
+
 html, body
   color alpha(black, 87%)
+  font-family 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif
 
 h1
   font-size 48px
@@ -10,3 +20,8 @@ h2
   font-size 24px
   font-weight 500
   margin-bottom 32px
+
+h3
+  font-size 18px
+  font-weight 500
+  margin-bottom 24px
