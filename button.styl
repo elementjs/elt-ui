@@ -15,10 +15,6 @@
   outline 0
   -webkit-tap-highlight-color rgba(0,0,0,0)
 
-.carbm-button + .carbm-button
-  // A button next to a button does not need so much space around it.
-  padding-left 0
-
 .carbm-button-icon
   -webkit-tap-highlight-color rgba(0,0,0,0)
   border-sizing border-box
@@ -39,6 +35,15 @@
   color $primary
   background none
 
+  &.disabled
+    color alpha(#999999, 0.4)
+    &:hover, &:active
+      background none
+    background none
+    box-shadow(none)
+
+
+.carbm-button-content
   &:hover
     background rgba(#999999, 0.2)
 
@@ -59,13 +64,6 @@
   &.raised:active
     background-color lighten($primary, 20)
 
-  &.disabled
-    color alpha(#999999, 0.4)
-    &:hover, &:active
-      background none
-    background none
-    box-shadow(none)
-
 // button icons need to be bigger.
 .carbm-button-icon:before
   font-size 24px
@@ -83,7 +81,7 @@
   border-radius 2px
   border-style none
 
-  padding 0 16px
+  padding 0 6px
 
   line-height 36px
   height 36px
@@ -92,3 +90,8 @@
 .fab
   // Rounded button.
   border-radius 50%
+
+.carbm-button + .carbm-button
+  // A button next to a button does not need so much space around it.
+  margin-left 0 !important
+

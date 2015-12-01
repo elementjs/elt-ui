@@ -1,6 +1,7 @@
 @require 'common'
 
 $font-size = 24px
+$height = 64px
 
 .carbm-toolbar
   box-sizing border-box
@@ -9,7 +10,7 @@ $font-size = 24px
   align-items center
 
   padding 0 8px
-  height 64px
+  height $height
   display box
 
   background-color $primary
@@ -19,10 +20,13 @@ $font-size = 24px
 .carbm-toolbar > h3
   font-size $font-size
   font-weight 500
+  margin 0
 
 .carbm-toolbar > .carbm-button
   margin 0 8px
 
   & > .carbm-button-content, & > .carbm-button-icon
     color white
+
+  & > .carbm-button-icon
     font-size $font-size
