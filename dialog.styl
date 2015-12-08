@@ -1,3 +1,6 @@
+$animation_time = 0.3s
+$animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
+
 .carbm-dialog-noscroll
   overflow hidden
 
@@ -6,6 +9,9 @@
   border 0
   padding 0
   margin 0
+
+  &.enter
+    opacity 0
 
   // Its children will be screen centered.
   display flex
@@ -21,7 +27,7 @@
 
   background-color alpha(#000000, 0.75)
 
-  transition all linear 0.1s
+  transition all $animation_fn $animation_time
   opacity 1
 
   &.elm-enter
@@ -30,13 +36,46 @@
 .carbm-dialog-buttonbar
   text-align right
 
+  &.stacked
+    display flex
+    flex-direction column
+    justify-content center
+
+    > .carbm-button
+      text-align right
+      padding-top 6px
+      padding-bottom 6px
+
+  .carbm-button + .carbm-button
+    margin-right 0
+
 .carbm-dialog-content
   padding 0 24px
+  padding-bottom 24px
   color alpha(#000, 0.7)
 
+  &:first-child
+    padding-top 24px
+
+  > *:last-child
+    margin-bottom 0
+
 .carbm-dialog-root
-  h3
+
+  transition all $animation_fn $animation_time
+  transform-origin top center
+
+  &.enter
+    opacity 0
+    transform translate3d(0, -50px, 0)
+
+
+  & > h3
     padding 0 24px
+    padding-top 24px
+
+  & > h3 + .carbm-dialog-content
+    padding-top 20px
 
   // FIXME color theme.
   background-color white

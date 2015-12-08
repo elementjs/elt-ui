@@ -8,5 +8,6 @@ module.exports = {
   Input: require('./input').Input,
   Radio: require('./radio').Radio,
   Toolbar: require('./toolbar').Toolbar,
-  Content: require('./content').Content
+  Content: require('./content').Content,
+  Select: require('./select').Select
 };

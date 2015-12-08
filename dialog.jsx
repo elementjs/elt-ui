@@ -1,5 +1,5 @@
 
-import {c, o, Controller, bind, cls, ctrl, click} from 'carbyne';
+import {c, o, Controller, bind, cls, ctrl, click, transition} from 'carbyne';
 
 import {Button} from './button';
 
@@ -33,8 +33,8 @@ export var Content = (attrs, children) => <div class='carbm-dialog-content'>{chi
 
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
-export var Buttonbar = (attrs, children) => <div class='carbm-dialog-buttonbar'>{children}</div>
-export var Root = (attrs, children) => <div class='carbm-dialog-root'>{children}</div>
+export var Buttonbar = (attrs, children) => <div class='carbm-dialog-buttonbar' $$={cls({stacked: attrs.stacked})}>{children}</div>
+export var Root = (attrs, children) => <div class='carbm-dialog-root' $$={transition()}>{children}</div>
 
 /**
  * A function that returns a promise and that allows us to show a nice dialog.
@@ -48,7 +48,11 @@ export function dialog(opts, cbk) {
 
   let dlg = new DialogCtrl;
 
-  let res = <Overlay $$={[ctrl(dlg), click((ev) => dlg.reject(null))]}>{cbk(dlg)}</Overlay>;
+  let res = <Overlay $$={[
+              ctrl(dlg),
+              click((ev) => ev.target === res.element && dlg.reject(null)),
+              transition()]
+    }>{cbk(dlg)}</Overlay>;
 
   if (opts.disableScrolling !== false) {
     let parent_elt = null;
