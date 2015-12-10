@@ -11,7 +11,9 @@ export function Select(attrs, children) {
 
 	let node = <label class='carbm-select-label'>
 		<select class='carbm-select' $$={bind(_select)}>
-			{options.transform((opts) => opts.map((o, i) => <option value={i}>{o.label||o.name||o}</option>))}
+			{options.tf((opts) => {
+				return opts.map((o, i) => <option value={i} selected={model.get() === o}>{o.label||o.name||o}</option>);
+			})}
 		</select>
 	</label>
 
