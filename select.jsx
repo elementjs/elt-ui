@@ -9,7 +9,7 @@ export function Select(attrs, children) {
 
 	let _select = o(-1);
 
-	let node = <label class='carbm-select-label'>
+	let atom = <label class='carbm-select-label'>
 		<select class='carbm-select' $$={bind(_select)}>
 			{options.tf((opts) => {
 				return opts.map((o, i) => <option value={i} selected={model.get() === o}>{o.label||o.name||o}</option>);
@@ -20,24 +20,24 @@ export function Select(attrs, children) {
 	let mod = false;
 	let touched = () => { if (mod) return true; mod = true; requestAnimationFrame(() => { mod = false; }); };
 
-	node.observe(options, (opts) => {
+	atom.observe(options, (opts) => {
 		if (touched()) return;
 
 		_select.set('' + opts.indexOf(model.get()));
 
 	});
 
-	node.observe(model, (v) => {
+	atom.observe(model, (v) => {
 		if (touched()) return;
 
 		_select.set(''+ options.get().indexOf(v));
 	});
 
-	node.observe(_select, (v) => {
+	atom.observe(_select, (v) => {
 		if (touched()) return;
 
 		model.set(options.get()[v]);
 	});
 
-	return node;
+	return atom;
 }
