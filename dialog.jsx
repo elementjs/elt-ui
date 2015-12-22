@@ -50,7 +50,7 @@ export function dialog(opts, cbk) {
 
   let atom = <Overlay $$={[
               ctrl(dlg),
-              click((ev) => ev.target === atom.element && dlg.reject(null)),
+              click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
               transition()]
     }>{cbk(dlg)}</Overlay>;
 

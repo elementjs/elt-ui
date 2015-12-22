@@ -12,7 +12,7 @@ export function Select(attrs, children) {
 	let atom = <label class='carbm-select-label'>
 		<select class='carbm-select' $$={bind(_select)}>
 			{options.tf((opts) => {
-				return opts.map((o, i) => <option value={i} selected={model.get() === o}>{o.label||o.name||o}</option>);
+				return opts.map((o, i) => <option value={i} selected={model.get() === o ? true : undefined}>{o.label||o.name||o}</option>);
 			})}
 		</select>
 	</label>
