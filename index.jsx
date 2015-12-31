@@ -1,13 +1,11 @@
 
-module.exports = {
-  Button: require('./button').Button,
-  Checkbox: require('./checkbox').Checkbox,
-  Dialog: require('./dialog').Dialog,
-  dialog: require('./dialog'),
-  Icon: require('./icon').Icon,
-  Input: require('./input').Input,
-  Radio: require('./radio').Radio,
-  Toolbar: require('./toolbar').Toolbar,
-  Content: require('./content').Content,
-  Select: require('./select').Select
-};
+export {Button} from './button';
+export {Checkbox} from './checkbox';
+export * as dialog from './dialog';
+export {Icon} from './icon';
+export {Input} from './input';
+export {Radio} from './radio';
+export {Toolbar} from './toolbar';
+export {Content} from './content';
+export {Select} from './select';
+export toast from './toast';

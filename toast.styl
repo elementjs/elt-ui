@@ -8,22 +8,18 @@
 	justify-content center
 
 .carbm--toast
-	padding 14px 24px
-	font-size 14px
-	background alpha(#323232, 0.87)
-	border-radius 2px
-	color white
+	padding: 14px 24px
+	font-size: 14px
+	background: alpha(#323232, 0.87)
+	border-radius: 2px 2px 0 0
+	color: white
+	opacity: 0
+	cursor: pointer
 
 	&.multiline
 		padding 24px
 
-	transition all linear 0.2s
 	transform-origin 0 0
-	opacity 1
-
-	&.enter
-		opacity 0
-		transform translate3d(0, 100%, 0)
 
 .carbm--action
 	text-transform uppercase

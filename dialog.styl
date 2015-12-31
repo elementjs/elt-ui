@@ -9,10 +9,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   border 0
   padding 0
   margin 0
-
-  &.enter
-    opacity 0
-
+  
   // Its children will be screen centered.
   display flex
   flex-direction column
@@ -25,10 +22,9 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   height 100vh
   width 100vw
 
-  background-color alpha(#000000, 0.75)
+  background-color alpha(#000, 0)
 
-  transition all $animation_fn $animation_time
-  opacity 1
+  // background-color alpha(#000000, 0.75)
 
   &.elm-enter
     opacity 0
@@ -61,15 +57,6 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     margin-bottom 0
 
 .carbm-dialog-root
-
-  transition all $animation_fn $animation_time
-  transform-origin top center
-  transform none
-
-  &.enter
-    opacity 0
-    transform translate3d(0, -50px, 0)
-
 
   & > h3
     padding 0 24px
