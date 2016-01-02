@@ -1,7 +1,9 @@
 
 import {c, o, click} from 'carbyne';
 
-import V from 'velocity-animate';
+// import V from 'velocity-animate';
+
+import {V, velocity} from 'carbyne-velocity';
 
 import './toast.styl'
 
@@ -30,17 +32,16 @@ class Toaster {
 			Promise.resolve(true)
 		).then(done => {
 			let cancel = null;
-			let atom = <div class='carbm--toast' $$={click(ev => {
-				atom.destroy();
-				clearTimeout(cancel);
-				if (atom === this._current) this._current = null;
-			})}>{msg}</div>;
-			atom.once('mount', ev => {
-				V(atom.element, {opacity: [1, 0], translateY: [0, '100%']}, 200, 'ease-in');
-			});
-			atom.on('unmount:before', ev => {
-				return V(atom.element, {opacity: 0, translateY: '100%'}, 200, 'ease-out')
-			});
+			let atom = <div class='carbm--toast' $$={[click(ev => {
+					atom.destroy();
+					clearTimeout(cancel);
+					if (atom === this._current) this._current = null;
+				}),
+				velocity({
+					enter: {opacity: [1, 0], translateY: [0, '100%']},
+					leave: {opacity: 0, translateY: '100%'}
+				})
+			]}>{msg}</div>;
 			this._holder.append(atom);
 			this._current = atom;
 			this._cancel = cancel = setTimeout(() => {
