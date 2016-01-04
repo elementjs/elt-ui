@@ -6,7 +6,6 @@
   "license": "MIT",
   "main": "./index",
   "dependencies": {
-    "reset.styl": "^0.1.1",
-    "velocity-animate": "^1.2.3"
+    "reset.styl": "^0.1.1"
   }
 }
