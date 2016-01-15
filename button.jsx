@@ -22,7 +22,7 @@ export function Button(attrs, children) {
     }
   }
 
-  return <button class='carbm-button' disabled={data.disabled} $$={click(doClick)}>
+  return <button class='carbm-button' disabled={o(data.disabled, val => val ? val : undefined)} $$={click(doClick)}>
     {o(attrs.icon, (v) => {
       if (v) return <Icon class='carbm-button-icon' name={v} $$={cls({disabled: data.disabled, raised: data.raised})}/>;
       return <span class='carbm-button-content' $$={cls({disabled: data.disabled, raised: data.raised})} >{children}</span>

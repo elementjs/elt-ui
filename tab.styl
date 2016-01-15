@@ -1,0 +1,32 @@
+
+.carbm-tab-bar
+	display: flex
+
+.carbm-tab-title
+	text-transform: uppercase
+	text-align: center
+	font-weight: bold
+	color: $primary
+
+	border-bottom: 2px solid rgba(0, 0, 0, 0)
+	background: white
+
+	height: 48px
+	line-height: 48px
+	// padding-bottom: 18px // 20 - 2
+
+	font-size: 14px
+
+	max-width: 264px
+	min-width: 160px
+
+	cursor: pointer
+
+	transition border-bottom-color linear 0.3s
+
+	&.active
+		border-bottom: 2px solid $primary
+
+.carbm-tab-content
+	padding: 8px
+	background-color: white
