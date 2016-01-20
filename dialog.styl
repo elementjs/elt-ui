@@ -16,6 +16,10 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   flex-direction column
   align-items center
   justify-content center
+  display -webkit-flex
+  -webkit-flex-direction column
+  -webkit-align-items center
+  -webkit-justify-content center
 
   position fixed
   top 0
@@ -37,6 +41,8 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     display flex
     flex-direction column
     justify-content center
+    -webkit-flex-direction column
+    -webkit-justify-content center
 
     > .carbm-button
       text-align right

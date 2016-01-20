@@ -27,6 +27,11 @@ export class DialogCtrl extends Controller {
 
 }
 
+export var dialogRootAnimation = velocity({
+  enter: {translateY: ['0px', '50px'], opacity: [1, 0], translateZ: 0},
+  leave: {translateY: '50px', opacity: 0, translateZ: 0}
+})
+
 
 export var Overlay = (attrs, children) => <div class='carbm-dialog-overlay'>{children}</div>
 export var Title = (attrs, children) => <h3 class='carbm-dialog-title'>{children}</h3>
@@ -36,10 +41,7 @@ export var Content = (attrs, children) => <div class='carbm-dialog-content'>{chi
 // to switch to the vertical presentation for dialog buttons.
 export var Buttonbar = (attrs, children) => <div class='carbm-dialog-buttonbar' $$={cls({stacked: attrs.stacked})}>{children}</div>
 export var Root = (attrs, children) => <div class='carbm-dialog-root'
-  $$={velocity({
-    enter: {translateY: ['0px', '50px'], opacity: [1, 0], translateZ: 0},
-    leave: {translateY: '50px', opacity: 0, translateZ: 0}
-  })}>{children}</div>
+  $$={dialogRootAnimation}>{children}</div>
 
 /**
  * A function that returns a promise and that allows us to show a nice dialog.

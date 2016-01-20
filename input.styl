@@ -1,35 +1,38 @@
 @require './common'
 
 .carbm-input-container
-  display inline-block
-  height 64px
+  display: inline-block
+  position: relative
+  height: 64px
 
-  &.floating-label
-    // height 72px
+  &.condensed
+    height: 48px
 
 .carbm-input-element
 
-  box-sizing border-box
+  box-sizing: border-box
 
-  border-radius 0
+  border-radius: 0
 
-  font-size 16px
-  line-height 32px
+  font-size: 16px
+  line-height: 32px
   // padding-top 16px
   // padding-bottom 8px
-  margin-bottom 8px
-  border none
+  margin-bottom: 8px
+  border: none
 
-  padding-bottom 1px
-  padding-right 0
-  padding-left 0
-  border-bottom 1px solid alpha(#999, 0.5)
-  width 100%
+  padding-top: 12px
+  padding-bottom: 1px
+  padding-right: 0
+  padding-left: 0
+  border-bottom: 1px solid alpha(#999, 0.5)
+  width: 100%
+  transition: border-bottom-color linear 0.3s
 
   &:focus
-    padding-bottom 0
-    border-bottom 2px solid $primary
+    padding-bottom: 0
+    border-bottom: 2px solid $primary
 
-  font-size 14px
-  outline 0
-  -webkit-tap-highlight-color rgba(0,0,0,0)
+  font-size: 14px
+  outline: 0
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
