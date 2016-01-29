@@ -32,6 +32,11 @@ export var dialogRootAnimation = velocity({
   leave: {translateY: '50px', opacity: 0, translateZ: 0}
 })
 
+export var dialogOverlayAnimation = velocity({
+  enter: {backgroundColor: '#000', backgroundColorAlpha: [0.75, 0], translateZ: 0},
+  leave: {backgroundColorAlpha: 0, translateZ: 0}
+})
+
 
 export var Overlay = (attrs, children) => <div class='carbm-dialog-overlay'>{children}</div>
 export var Title = (attrs, children) => <h3 class='carbm-dialog-title'>{children}</h3>
@@ -58,10 +63,7 @@ export function dialog(opts, cbk) {
   let atom = <Overlay $$={[
     ctrl(dlg),
     click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
-    velocity({
-      enter: {backgroundColor: '#000', backgroundColorAlpha: [0.75, 0], translateZ: 0},
-      leave: {backgroundColorAlpha: 0, translateZ: 0}
-    })
+    dialogOverlayAnimation
   ]}>{cbk(dlg)}</Overlay>;
 
   if (opts.disableScrolling !== false) {

@@ -17,13 +17,30 @@ export function Input(attrs, content) {
   let data = {
     model: o(attrs.model || ''), // model is necessarily an observable.
     type: attrs.type || 'text',
-    label: attrs.label || false, // we may not have a label, and we don't try to.
+    label: attrs.label || attrs.placeholder || false, // we may not have a label, and we don't try to.
+    error: o(attrs.error)
   };
 
-  return <div class='carbm-input-container'>
+  const o_focused = o(false)
+  const input = <input id={id} max={attrs.max} min={attrs.min} class='carbm-input-element' type={data.type} $$={bind(data.model)}/>
+  input.listen('blur', ev => {
+    o_focused.set(false)
+  })
+  input.listen('focus', ev => {
+    o_focused.set(true)
+  })
+
+  const o_unfocus_and_empty = o(data.model, o_focused, (value, focused) => !focused && !value)
+
+  return <div class='carbm-input-container' $$={cls({
+    focused: o_focused,
+    empty_unfocused: o_unfocus_and_empty,
+    error: attrs.error
+  })}>
       {data.label ?
           <label for={id} class='carbm-input-floating-label'>{data.label}</label>
       : null}
-      <input id={id} placeholder={attrs.placeholder} class='carbm-input-element' type={data.type} $$={bind(data.model)}/>
+      {input}
+      {data.error.tf(val => !val ? null : <div class='carbm--input--error'>{attrs.error}</div>)}
     </div>;
 }

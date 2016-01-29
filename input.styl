@@ -8,9 +8,39 @@
   &.condensed
     height: 48px
 
-.carbm-input-element
+  label
+    position: absolute
+    font-size: 12px
+    pointer-events: none
+    color: alpha($sw_col_black, 0.256)
+    transform-origin: top left
+    transform: translateZ(0)
+    transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s
 
-  box-sizing: border-box
+  &.error
+    label
+      color: $sw_col_red !important
+
+    .carbm-input-element
+      border-bottom-color: $sw_col_red !important
+
+
+  &.focused
+    label
+      color: $primary
+
+  &.empty_unfocused
+    label
+      transform: translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)
+      font-size: 14px
+
+.carbm--input--error
+  position: absolute
+  color: $sw_col_red
+  font-size: 10px
+  top: 48px
+
+.carbm-input-element
 
   border-radius: 0
 
@@ -28,6 +58,11 @@
   border-bottom: 1px solid alpha(#999, 0.5)
   width: 100%
   transition: border-bottom-color linear 0.3s
+
+  &[type="time"]
+    -webkit-appearance: none
+    min-width: 15px
+    min-height: 48px
 
   &:focus
     padding-bottom: 0
