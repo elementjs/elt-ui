@@ -1,3 +1,4 @@
+export {default as toast} from './toast'
 
 export {Button} from './button'
 export {Checkbox} from './checkbox'
@@ -8,5 +9,4 @@ export {Radio} from './radio'
 export {Toolbar} from './toolbar'
 export {Content} from './content'
 export {Select} from './select'
-export toast from './toast'
 export {Tab, TabContainer} from './tab'
