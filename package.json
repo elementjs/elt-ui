@@ -1,6 +1,6 @@
 {
   "name": "carbyne-material",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": "https://github.com/ceymard/carbyne-material",
   "description": "some description",
   "license": "MIT",
@@ -8,6 +8,6 @@
   "dependencies": {
     "reset.styl": "^0.1.1",
     "carbyne": "^0.1.1",
-    "carbyne-velocity": "^0.0.1"
+    "carbyne-velocity": "^0.0.2"
   }
 }
