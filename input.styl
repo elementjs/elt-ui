@@ -12,17 +12,17 @@
     position: absolute
     font-size: 12px
     pointer-events: none
-    color: alpha($sw_col_black, 0.256)
+    color: alpha($black, 0.256)
     transform-origin: top left
     transform: translateZ(0)
     transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s
 
   &.error
     label
-      color: $sw_col_red !important
+      color: $red !important
 
     .carbm-input-element
-      border-bottom-color: $sw_col_red !important
+      border-bottom-color: $red !important
 
 
   &.focused
@@ -36,7 +36,7 @@
 
 .carbm--input--error
   position: absolute
-  color: $sw_col_red
+  color: $red
   font-size: 10px
   top: 48px
 

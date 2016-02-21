@@ -1,8 +1,9 @@
+import * as dialog from './dialog'
+export {dialog}
 export {default as toast} from './toast'
 
 export {Button} from './button'
 export {Checkbox} from './checkbox'
-export * as dialog from './dialog'
 export {Icon} from './icon'
 export {Input} from './input'
 export {Radio} from './radio'

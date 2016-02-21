@@ -41,6 +41,6 @@ export function Input(attrs, content) {
           <label for={id} class='carbm-input-floating-label'>{data.label}</label>
       : null}
       {input}
-      {data.error.tf(val => !val ? null : <div class='carbm--input--error'>{attrs.error}</div>)}
+      {data.error.exists(val => <div class='carbm--input--error'>{val}</div>)}
     </div>;
 }
