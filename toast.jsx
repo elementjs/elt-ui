@@ -1,9 +1,10 @@
 
 import {c, o, click} from 'carbyne';
 
-// import V from 'velocity-animate';
-
-import {V, velocity} from 'carbyne-velocity';
+var velocity = () => () => {}
+try {
+  velocity = require('carbyne-velocity').velocity
+} catch (e) { }
 
 import './toast.styl'
 
@@ -27,7 +28,7 @@ class Toaster {
 			clearTimeout(this._cancel);
 		}
 
-		(this._current ? 
+		(this._current ?
 			this._current.destroy() :
 			Promise.resolve(true)
 		).then(done => {
