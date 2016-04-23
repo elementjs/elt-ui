@@ -3,6 +3,7 @@ import {o, c, bind, cls, click} from 'carbyne';
 
 import {Icon} from './icon';
 
+import {inkable} from './ink'
 import './checkbox.styl';
 
 var CHECKED = 'dot-circle';
@@ -33,7 +34,7 @@ export function Radio(attrs, children) {
     disabled: data.disabled
   });
 
-  return <label class='carbm-checkbox-label' $$={click(toggle)}>
+  return <label class='carbm-checkbox-label' $$={[inkable, click(toggle)]}>
       <Icon class='carbm-checkbox-icon' name={o(data.model, getIcon)}
             $$={classes}/>
       <span class='carbm-checkbox-content' $$={classes}>{attrs.title || children}</span>
