@@ -4,8 +4,8 @@ import './ink.styl'
 
 export function inker(atom, event = null) {
 
-	var offset_x = -25 + (event ? event.offsetX : 0)
-	var offset_y = -25 + (event ? event.offsetY : 0)
+	var offset_x = (event ? event.offsetX : 0)
+	var offset_y = (event ? event.offsetY : 0)
 
 	var style = `left: ${offset_x}px; top: ${offset_y}px;`
 	// console.log(style)
