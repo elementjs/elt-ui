@@ -29,3 +29,7 @@ export function inker(atom, event = null) {
 export function inkable(atom) {
 	return click(function (ev) { inker(this, ev) })(atom)
 }
+
+export function inkClickDelay(fn) {
+	return click(function (ev) { inker(this, ev); setTimeout(e => fn.call(this, e), 300) })
+}
