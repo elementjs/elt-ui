@@ -4,13 +4,11 @@ import './ink.styl'
 
 export function inker(atom, event = null) {
 
-	var offset_x = (event ? event.offsetX : 0)
-	var offset_y = (event ? event.offsetY : 0)
+	var clientX = event.clientX
+	var clientY = event.clientY
 
-	var style = `left: ${offset_x}px; top: ${offset_y}px;`
-	// console.log(style)
 
-	var inker = <div class='carbm-ink' style={style}/>
+	var inker = <div class='carbm-ink'/>
 	var ink_container = <div class='carbm-ink-container'/>
 	ink_container.append(inker)
 
@@ -20,6 +18,9 @@ export function inker(atom, event = null) {
 	ink_container.mount(atom.element)
 	// atom.append(inker)
 	requestAnimationFrame(e => {
+		var bb = ink_container.element.getBoundingClientRect()
+		inker.element.style.top = `${clientY - bb.top}px`
+		inker.element.style.left = `${clientX - bb.left}px`
 		inker.element.classList.add('animate')
 		setTimeout(e => ink_container.destroy(), 1000)
 	})
@@ -31,5 +32,5 @@ export function inkable(atom) {
 }
 
 export function inkClickDelay(fn) {
-	return click(function (ev) { inker(this, ev); setTimeout(e => fn.call(this, e), 300) })
+	return click(function (ev) { inker(this, ev); setTimeout(e => fn.call(this, e), 150) })
 }
