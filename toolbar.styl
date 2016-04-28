@@ -50,3 +50,23 @@ $height = 64px
 
   & > .carbm-button-icon
     font-size $font-size
+
+
+.carbm-toolbar > .carbm-input-container
+
+  .carbm-input-element
+    background-color: rgba(0, 0, 0, 0)
+    color: rgba(255, 255, 255, 0.87)
+    border-bottom-color: rgba(255, 255, 255, 0.54)
+
+    &:focus
+      padding-bottom: 0
+      border-bottom: 2px solid rgba(255, 255, 255, 0.87)
+
+
+  label
+    color: rgba(255, 255, 255, 0.54)
+
+  &.focused
+    label
+      color: rgba(255, 255, 255, 0.87)

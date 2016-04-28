@@ -37,10 +37,10 @@ export function Input(attrs, content) {
     empty_unfocused: o_unfocus_and_empty,
     error: attrs.error
   })}>
+      {input}
       {data.label ?
           <label for={id} class='carbm-input-floating-label'>{data.label}</label>
       : null}
-      {input}
       {data.error.exists(val => <div class='carbm--input--error'>{val}</div>)}
     </div>;
 }

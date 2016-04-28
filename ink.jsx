@@ -8,8 +8,8 @@ export function inker(atom, event = null) {
 	var clientY = event.clientY
 
 
-	var inker = <div class='carbm-ink'/>
-	var ink_container = <div class='carbm-ink-container'/>
+	var inker = c('.carbm-ink')
+	var ink_container = c('.carbm-ink-container')
 	ink_container.append(inker)
 
 
