@@ -65,21 +65,22 @@ export function dialog(opts, cbk) {
   let dlg = new DialogCtrl;
 
   let atom = <Overlay $$={[
-    ctrl(dlg),
+    dlg,
     click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
     dialogOverlayAnimation
   ]}>{cbk(dlg)}</Overlay>;
 
   if (opts.disableScrolling !== false) {
     let parent_elt = null;
-    atom.on('mount', function (ev, parent) {
-      parent_elt = parent;
-      parent.classList.add(NOSCROLL_CLASS);
-    });
 
-    atom.on('unmount', function (ev) {
-      parent_elt.classList.remove(NOSCROLL_CLASS);
-    });
+    // atom.on('mount', function (ev, parent) {
+    //   parent_elt = ev.target.element.parentNode;
+    //   parent.classList.add(NOSCROLL_CLASS);
+    // });
+
+    // atom.on('unmount', function (ev) {
+    //   parent_elt.classList.remove(NOSCROLL_CLASS);
+    // });
   }
 
   // Remove the dialog from the DOM once we have answered it.
