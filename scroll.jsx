@@ -1,12 +1,13 @@
 
 var _noscrollsetup = false
 
+
 function _setUpNoscroll() {
 
 	document.body.addEventListener('touchmove', function event(ev) {
 		// If no div marked as scrollable set the moving attribute, then simply don't scroll.
 		if (!ev.scrollable) ev.preventDefault()
-	}, false);
+	}, false)
 
 	_noscrollsetup = true
 }
@@ -28,13 +29,13 @@ export function scrollable(atom) {
 
 		atom.listen('touchstart', function (ev) {
 			if (e.scrollTop == 0) {
-				e.scrollTop = 1;
-			} else if (e.scrollHeight == e.scrollTop + e.offsetHeight) e.scrollTop -= 1;
-		}, true);
+				e.scrollTop = 1
+			} else if (e.scrollHeight == e.scrollTop + e.offsetHeight) e.scrollTop -= 1
+		}, true)
 
 		atom.listen('touchmove', function event (ev) {
-			if (e.scrollHeight > e.offsetHeight) ev.scrollable = true;
-		}, false);
-	});
+			if (e.scrollHeight > e.offsetHeight) ev.scrollable = true
+		}, false)
+	})
 
 }
