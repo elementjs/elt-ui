@@ -1,5 +1,5 @@
 
-import {c, o, bind, cls} from 'carbyne';
+import {c, o, bind, cls, If} from 'carbyne';
 
 import {Icon} from './icon';
 
@@ -41,6 +41,6 @@ export function Input(attrs, content) {
       {data.label ?
           <label for={id} class='carbm-input-floating-label'>{data.label}</label>
       : null}
-      {data.error.exists(val => <div class='carbm--input--error'>{val}</div>)}
+      {If(data.error, val => <div class='carbm--input--error'>{val}</div>)}
     </div>;
 }

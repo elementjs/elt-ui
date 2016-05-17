@@ -1,5 +1,5 @@
 
-import {c, exists} from 'carbyne'
+import {c} from 'carbyne'
 
 import './flex.styl'
 
@@ -36,24 +36,24 @@ function _parse_attributes(atom) {
 	atom.on('create', function (ev) {
 		var el = ev.target.element
 
-		if (exists(at.wrap)) _(el, 'flex-wrap', at.wrap)
-		if (exists(at.direction)) {
+		if (at.wrap != null) _(el, 'flex-wrap', at.wrap)
+		if (at.direction != null) {
 			if (!at.reverse)
 				_(el, 'flex-direction', at.direction)
 			else
 				_(el, 'flex-direction', at.direction === 'column' ? 'column-reverse' : 'row-reverse')
-		} else if (exists(at.reverse)) _(el, 'flex-direction', 'row-reverse')
+		} else if (at.reverse != null) _(el, 'flex-direction', 'row-reverse')
 
-		if (exists(at.grow)) _(el, 'flex-grow', at.grow)
-		if (exists(at.basis)) _(el, 'flex-basis', at.basis)
+		if (at.grow != null) _(el, 'flex-grow', at.grow)
+		if (at.basis != null) _(el, 'flex-basis', at.basis)
 
-		if (exists(at['absolute-grow'])) {
+		if (at['absolute-grow'] != null) {
 			_(el, 'flex-grow', at['absolute-grow'])
 			_(el, 'flex-basis', 0)
 		}
 
-		if (exists(at.align)) _(el, 'align-items', at.align)
-		if (exists(at.justify)) _(el, 'justify-content', at.justify)
+		if (at.align != null) _(el, 'align-items', at.align)
+		if (at.justify != null) _(el, 'justify-content', at.justify)
 
 	})
 

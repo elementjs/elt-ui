@@ -12,67 +12,51 @@ export type TabOptions = {
 export class TabsController extends Controller {
 
 	constructor() {
-		super();
+		super()
 
-		this._tab_count = 0
-		this._registered_tabs = {}
-		this._o_render = o(null)
-	}
-
-	onDestroy() {
-		this._registered_tabs = null
-	}
-
-	register(id, o_is_active, render, onactivate) {
-
-		this._registered_tabs[id] = {
-			o_is_active: o_is_active,
-			render: render,
-			onactivate: onactivate
-		}
-
-		if (this._tab_count === 0)
-			this.activate(id)
-		this._tab_count++
-	}
-
-	activate(id) {
-		const tabs = this._registered_tabs
-		id = id.toString()
-
-		for (let own_id in tabs) {
-			let tab = tabs[own_id]
-			tab.o_is_active.set(own_id === id)
-		}
-
-		this._o_render.set(tabs[id].render)
-		tabs[id].onactivate && tabs[id].onactivate()
-
+		this.o_render = o(null)
 	}
 
 }
 
-let tab_id = 0;
+export class TabController extends Controller {
+	constructor(render) {
+		super()
+		this.o_is_active = o(false)
+		this.render = render
+	}
+
+	onMount() {
+		const tcs = this.getController(TabsController)
+		if (tcs == null) throw new Error('<Tab/> must be inside a <TabContainer/>')
+
+		this.observe(tcs.o_render, rend => this.o_is_active.set(rend === this.render))
+
+		if (tcs.o_render.get() == null)
+			this.activate()
+	}
+
+	activate() {
+		const tcs = this.getController(TabsController)
+		tcs.o_render.set(this.render)
+	}
+
+}
 
 /**
  * Children are ignored
  */
-export function Tab(attrs : TabOptions, children : AtomChildren) : Atom {
+export function Tab(attrs, children) {
 
-	const o_is_active = o(false)
-	const own_id = tab_id++
-	let tc : TabsController = null
+	const tc = new TabController(attrs.render)
 
 	return <div class='carbm-tab-title' $$={[
-		click(ev => tc.activate(own_id)),
-		cls({active: o_is_active})
+		tc,
+		click(ev => tc.activate()),
+		cls({active: tc.o_is_active})
 	]}>
 		{attrs.title}
-	</div>.on('mount', ev => {
-		tc = ev.target.getController(TabsController)
-		if (!tc) throw new Error('must be inside a TabContainer')
-		tc.register(own_id, o_is_active, attrs.render, attrs.onactivate)
-	})
+	</div>
 
 }
 
@@ -80,17 +64,14 @@ export function Tab(attrs : TabOptions, children : AtomChildren) : Atom {
 /**
  *
  */
-export function TabContainer(attrs, children : AtomChildren) : Atom {
+export function TabContainer(attrs, children) {
 
-	const tc = new TabsController()
-	const tabs = children.filter(atom => atom.builder === Tab)
-	const content = children.filter(atom => atom.builder !== Tab)
+	const tcs = new TabsController()
 
-	return <div $$={ctrl(tc)}>
-		<div class='carbm-tab-bar'>{tabs}</div>
+	return <div $$={tcs}>
+		<div class='carbm-tab-bar'>{children}</div>
 		<div class='carbm-tab-content'>
-			{tc._o_render}
-			{content}
+			{tcs.o_render}
 		</div>
 	</div>
 
