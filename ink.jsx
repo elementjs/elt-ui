@@ -22,6 +22,7 @@ export function inker(atom, event = null) {
 		inker.element.style.top = `${clientY - bb.top}px`
 		inker.element.style.left = `${clientX - bb.left}px`
 		inker.element.classList.add('animate')
+		ink_container.element.classList.add('animate')
 		setTimeout(e => ink_container.destroy(), 1000)
 	})
 	// var bb = atom.element.getBounding
