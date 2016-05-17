@@ -1,5 +1,6 @@
 
 import {c, o, Controller, Atom, click, ctrl, cls} from 'carbyne'
+import {inkable} from './ink'
 import './tab.styl'
 
 export type TabOptions = {
@@ -53,7 +54,8 @@ export function Tab(attrs, children) {
 	return <div class='carbm-tab-title' $$={[
 		tc,
 		click(ev => tc.activate()),
-		cls({active: tc.o_is_active})
+		cls({active: tc.o_is_active}),
+		inkable
 	]}>
 		{attrs.title}
 	</div>
