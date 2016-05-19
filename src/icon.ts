@@ -2,7 +2,7 @@
 import {c, o, cls} from 'carbyne';
 
 export function Icon(attrs, content) {
-  let res = <i class='zmdi'></i>;
+  let res = c('i.zmdi')
 
   res.on('mount', function () {
     let old_value = null;
