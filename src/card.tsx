@@ -1,5 +1,5 @@
 
-import {c, o, Atom} from 'carbyne'
+import {c, o, Atom, BaseAtom} from 'carbyne'
 
 import './card.styl'
 

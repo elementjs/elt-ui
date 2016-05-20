@@ -1,18 +1,33 @@
 
-import {c, o, cls, BaseAtom} from 'carbyne';
+import {c, o, cls, Atom, BaseAtom, Controller, O, BasicAttributes} from 'carbyne';
 
-export function Icon(attrs, content) : BaseAtom {
-  let res: Atom = c('i.zmdi')
+export class IconController extends Controller {
 
-  res.on('mount', function () {
-    let old_value = null;
-    res.observe(attrs.name, (v) => {
-      v = `zmdi-${v}`;
-      if (old_value) res.element.classList.remove(old_value);
-      res.element.classList.add(v);
-      old_value = v;
-    });
-  });
+  name: O<string>
 
-  return res;
+  constructor(name) {
+    super()
+    this.name = name
+  }
+
+  onMount() {
+    let old_value = null
+    this.atom.observe(this.name, name => {
+      name = `zmdi-${name}`
+      if (old_value) this.atom.element.classList.remove(old_value)
+      this.atom.element.classList.add(name)
+      old_value = name
+    })
+  }
+
+}
+
+export interface IconAttributes extends BasicAttributes {
+  name: O<string>
+}
+
+export function Icon(attrs: IconAttributes, content) : BaseAtom {
+
+  return c('i.zmdi', {$$: new IconController(attrs.name)})
+
 }
