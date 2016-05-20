@@ -1,5 +1,5 @@
 
-import {c, o, Controller, Atom, click, ctrl, cls, Observable} from 'carbyne'
+import {c, o, Controller, Atom, click, ctrl, cls, Observable, Builder} from 'carbyne'
 import {inkable} from './ink'
 import './tab.styl'
 
@@ -18,6 +18,9 @@ export class TabsController extends Controller {
 
 export class TabController extends Controller {
 
+	o_is_active: Observable<boolean>
+	render: Builder
+
 	constructor(render) {
 		super()
 		this.o_is_active = o(false)
@@ -25,7 +28,7 @@ export class TabController extends Controller {
 	}
 
 	onMount() {
-		const tcs = this.getController(TabsController)
+		const tcs = this.getController(TabsController) as TabsController
 		if (tcs == null) throw new Error('<Tab/> must be inside a <TabContainer/>')
 
 		this.observe(tcs.o_render, rend => this.o_is_active.set(rend === this.render))
@@ -35,7 +38,7 @@ export class TabController extends Controller {
 	}
 
 	activate() {
-		const tcs = this.getController(TabsController)
+		const tcs = this.getController(TabsController) as TabsController
 		tcs.o_render.set(this.render)
 	}
 

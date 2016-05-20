@@ -1,21 +1,23 @@
 
-import {c, o, click} from 'carbyne';
+import {c, o, click, BaseAtom} from 'carbyne';
 
-var velocity = () => () => {}
-try {
-  velocity = require('carbyne-velocity').velocity
-} catch (e) { }
+import {velocity} from 'carbyne-velocity'
 
 import './toast.styl'
 
-class Toaster {
+export class Toaster {
+
+	_mounted: boolean
+	_holder: BaseAtom
+	_current: BaseAtom
+	_cancel: number
 
 	constructor() {
-		this._mounted = false;
-		this._holder = <div class='carbm--toast-holder'/>;
+		this._mounted = false
+		this._holder = c('.carbm--toast-holder')
 	}
 
-	mount(elt, before) {
+	mount(elt: Node, before: Node = null) {
 		this._holder.mount(elt, before);
 		this._mounted = true;
 	}
@@ -28,21 +30,21 @@ class Toaster {
 			clearTimeout(this._cancel);
 		}
 
-		(this._current ?
-			this._current.destroy() :
-			Promise.resolve(true)
-		).then(done => {
+		let promise: Promise<any> = this._current ? this._current.destroy() : Promise.resolve(true)
+		promise.then(done => {
 			let cancel = null;
-			let atom = <div class='carbm--toast' $$={[click(ev => {
+			let atom = c('.carbm-toast', {
+				$$: [click(ev => {
 					atom.destroy();
 					clearTimeout(cancel);
 					if (atom === this._current) this._current = null;
 				}),
-				velocity({
-					enter: {opacity: [1, 0], translateY: [0, '100%']},
-					leave: {opacity: 0, translateY: '100%'}
-				})
-			]}>{msg}</div>;
+					velocity({
+						enter: { opacity: [1, 0], translateY: [0, '100%'] },
+						leave: { opacity: 0, translateY: '100%' }
+					})
+				]
+			}, [msg])
 			this._holder.append(atom);
 			this._current = atom;
 			this._cancel = cancel = setTimeout(() => {

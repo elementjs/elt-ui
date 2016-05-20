@@ -1,6 +1,6 @@
 
-var {o, c, bind, cls, click} = require('carbyne');
-import './select.styl';
+import {o, c, bind, cls, click} from 'carbyne'
+import './select.styl'
 
 export function Select(attrs, children) {
 

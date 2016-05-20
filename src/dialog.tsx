@@ -9,16 +9,21 @@ import './dialog.styl';
 
 var NOSCROLL_CLASS = 'carbm-dialog-noscroll';
 
-export class DialogCtrl extends Controller {
+export class DialogCtrl<T> extends Controller {
+  promise: Promise<T>
+  _resolve: (v: T) => any
+  _reject: (...a: Array<any>) => any
+
   constructor() {
-    super(...arguments);
+    super()
+
     this.promise = new Promise((resolve, reject) => {
       this._resolve = resolve;
       this._reject = reject;
     });
   }
 
-  resolve(value) {
+  resolve(value: T) {
     this._resolve(value);
   }
 
