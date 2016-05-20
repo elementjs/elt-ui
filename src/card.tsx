@@ -1,12 +1,12 @@
 
-import {c, o} from 'carbyne'
+import {c, o, Atom} from 'carbyne'
 
 import './card.styl'
 
-export function Content(attrs, children) {
+export function Content(attrs, children) : Atom {
 	return c('.carbm-card-content', attrs, children)
 }
 
-export function Card(attrs, children) {
+export function Card(attrs, children) : Atom {
 	return c('.carbm-card-frame', attrs, children)
 }

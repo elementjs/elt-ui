@@ -1,7 +1,7 @@
 
-import {c, o, cls} from 'carbyne';
+import {c, o, cls, Atom} from 'carbyne';
 
-export function Icon(attrs, content) {
+export function Icon(attrs, content) : Atom {
   let res = c('i.zmdi')
 
   res.on('mount', function () {

@@ -1,5 +1,5 @@
 
-import {c, o, bind, cls, If} from 'carbyne';
+import {c, o, bind, cls, If, Atom} from 'carbyne';
 
 import {Icon} from './icon';
 
@@ -22,7 +22,15 @@ export function Input(attrs, content) {
   };
 
   const o_focused = o(false)
-  const input = <input id={id} max={attrs.max} min={attrs.min} class='carbm-input-element' type={data.type} $$={bind(data.model)}/>
+  const input = <input
+    id={id}
+    max={attrs.max}
+    min={attrs.min}
+    class='carbm-input-element'
+    type={data.type}
+    $$={bind(data.model)}
+  /> as Atom
+
   input.listen('blur', ev => {
     o_focused.set(false)
   })

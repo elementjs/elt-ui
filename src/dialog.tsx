@@ -1,5 +1,5 @@
 
-import {c, o, Controller, bind, cls, ctrl, click} from 'carbyne';
+import {c, o, Controller, bind, cls, ctrl, click, Atom} from 'carbyne';
 
 import {velocity} from 'carbyne-velocity'
 
@@ -70,7 +70,7 @@ export function dialog(opts, cbk) {
     dlg,
     click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
     dialogOverlayAnimation
-  ]}>{cbk(dlg)}</Overlay>;
+  ]}>{cbk(dlg)}</Overlay> as Atom
 
   if (opts.disableScrolling !== false) {
     let parent_elt = null;

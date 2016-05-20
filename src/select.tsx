@@ -1,5 +1,5 @@
 
-import {o, c, bind, cls, click} from 'carbyne'
+import {o, c, bind, cls, click, Atom} from 'carbyne'
 import './select.styl'
 
 export function Select(attrs, children) {
@@ -22,7 +22,7 @@ export function Select(attrs, children) {
 				return opts.map((o, i) => <option value={i} selected={model.get() === o ? true : undefined}>{labelfn(o)}</option>);
 			})}
 		</select>
-	</label>
+	</label> as Atom
 
 	let mod = false;
 	let touched = () => { if (mod) return true; mod = true; requestAnimationFrame(() => { mod = false; }); };
