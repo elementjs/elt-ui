@@ -1,10 +1,7 @@
 
 import {c, o, Controller, bind, cls, ctrl, click} from 'carbyne';
 
-var velocity = () => () => {}
-try {
-  velocity = require('carbyne-velocity').velocity
-} catch (e) { }
+import {velocity} from 'carbyne-velocity'
 
 import {Button} from './button';
 

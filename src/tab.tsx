@@ -1,16 +1,12 @@
 
-import {c, o, Controller, Atom, click, ctrl, cls} from 'carbyne'
+import {c, o, Controller, Atom, click, ctrl, cls, Observable} from 'carbyne'
 import {inkable} from './ink'
 import './tab.styl'
 
-export type TabOptions = {
-	render : AtomBuilder,
-	title : string,
-	onactivate : () => any
-};
-
 
 export class TabsController extends Controller {
+
+	o_render: Observable<Builder>
 
 	constructor() {
 		super()
@@ -21,6 +17,7 @@ export class TabsController extends Controller {
 }
 
 export class TabController extends Controller {
+
 	constructor(render) {
 		super()
 		this.o_is_active = o(false)
