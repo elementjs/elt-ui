@@ -1,8 +1,8 @@
 
-import {c, o, cls, Atom} from 'carbyne';
+import {c, o, cls, BaseAtom} from 'carbyne';
 
-export function Icon(attrs, content) : Atom {
-  let res = c('i.zmdi')
+export function Icon(attrs, content) : BaseAtom {
+  let res: Atom = c('i.zmdi')
 
   res.on('mount', function () {
     let old_value = null;
