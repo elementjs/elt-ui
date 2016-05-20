@@ -15,7 +15,8 @@
         "!./node_modules/**/*.ts"
     ],
     "files": [
-        "./src/index.ts"
+        "./src/index.ts",
+        "./typings/es6-promise/es6-promise.d.ts"
     ]
 
 }
