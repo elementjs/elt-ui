@@ -1,5 +1,5 @@
 
-import {c, o, Controller, Atom, click, ctrl, cls, Observable, Builder} from 'carbyne'
+import {c, o, Controller, Atom, click, cls, Observable, Builder} from 'carbyne'
 import {inkable} from './ink'
 import './tab.styl'
 

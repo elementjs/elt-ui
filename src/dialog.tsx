@@ -1,5 +1,5 @@
 
-import {c, o, Controller, bind, cls, ctrl, click, Atom} from 'carbyne';
+import {c, o, Controller, bind, cls, click, Atom} from 'carbyne';
 
 import {velocity} from 'carbyne-velocity'
 

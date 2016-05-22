@@ -1,5 +1,5 @@
 
-import {c, o, cls, Atom, BaseAtom, Controller, O, BasicAttributes} from 'carbyne';
+import {c, o, cls, Atom, Controller, O, BasicAttributes} from 'carbyne';
 
 export class IconController extends Controller {
 
@@ -26,7 +26,7 @@ export interface IconAttributes extends BasicAttributes {
   name: O<string>
 }
 
-export function Icon(attrs: IconAttributes, content) : BaseAtom {
+export function Icon(attrs: IconAttributes, content) : Atom {
 
   return c('i.zmdi', {$$: new IconController(attrs.name)})
 

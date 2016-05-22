@@ -8,7 +8,7 @@ import {inkable} from './ink'
 export interface ButtonAttributes extends BasicAttributes {
   disabled?: O<boolean>
   raised?: O<boolean>
-  click?: O<(ev: MouseEvent) => any>
+  click?: (ev: MouseEvent) => any
   icon?: O<string>
 }
 

@@ -1,8 +1,8 @@
 
-import {c, click} from 'carbyne'
+import {c, click, Atom, CarbyneEvent} from 'carbyne'
 import './ink.styl'
 
-export function inker(atom, event = null) {
+export function inker(atom: Atom, event: MouseEvent = null) {
 
 	var clientX = event.clientX
 	var clientY = event.clientY
@@ -29,9 +29,14 @@ export function inker(atom, event = null) {
 }
 
 export function inkable(atom) {
-	return click(function (ev) { inker(this, ev) })(atom)
+	return click(function (ev: MouseEvent, atom: Atom) {
+		inker(atom, ev)
+	})(atom)
 }
 
 export function inkClickDelay(fn) {
-	return click(function (ev) { inker(this, ev); setTimeout(e => fn.call(this, e), 150) })
+	return click(function (ev: MouseEvent, atom: Atom) {
+		inker(atom, ev)
+		setTimeout(e => fn.call(this, e), 150)
+	})
 }

@@ -1,5 +1,5 @@
 
-import {c, o, click, BaseAtom} from 'carbyne';
+import {c, o, click, Atom} from 'carbyne';
 
 import {velocity} from 'carbyne-velocity'
 
@@ -8,8 +8,8 @@ import './toast.styl'
 export class Toaster {
 
 	_mounted: boolean
-	_holder: BaseAtom
-	_current: BaseAtom
+	_holder: Atom
+	_current: Atom
 	_cancel: number
 
 	constructor() {
