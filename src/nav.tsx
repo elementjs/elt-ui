@@ -1,8 +1,7 @@
 
-import {c, click} from 'carbyne'
+import {c, click, Atom} from 'carbyne'
 import {inkClickDelay} from './ink'
 
-import {dialogOverlay} from './dialog'
 import {Icon} from './icon'
 
 import './nav.styl'
@@ -14,7 +13,7 @@ export var navRootAnimation = animator({
   	transform: pct => `translateZ(0) translateX(${pct * 100 - 100}%)`
   },
   leave: {
-  	transform: pct => `translateZ(0) translateX(${pct * 100}%)`
+  	transform: pct => `translateZ(0) translateX(${-pct * 100}%)`
   }
 })
 
@@ -32,8 +31,8 @@ export var navOverlayAnimation = animator({
 export function Nav(a, ch) {
 	var router = a.router
 
-	var res = <div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e) {
-		if (e.target === this.element) res.destroy()
+	var res = <div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
+		if (e.target === atom.element) res.destroy()
 	})]}>
 			<div class='carbm-navigation-drawer' $$={navRootAnimation}>
 				{ch}
@@ -50,21 +49,21 @@ export function Nav(a, ch) {
 	return res
 }
 
-export function Header(a, ch) {
+export function NavHeader(a, ch) {
 	return c('.carbm-navigation-header', null, ch)
 }
 
-export function Subheader(a, ch) {
+export function NavSubheader(a, ch) {
 	return c('.carbm-navigation-subheader', null, ch)
 }
 
-export function Divider(a, ch) {
+export function NavDivider(a, ch) {
 	return c('.carbm-navigation-divider')
 }
 
-export function Item(a, ch) {
-	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e) {
-		this.emit('nav-go', a.state, a.stateArgs || {})
+export function NavItem(a, ch) {
+	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e, atom) {
+		atom.emit('nav-go', a.state, a.stateArgs || {})
 	})}>
 		<Icon class='carbm-navigation-item-icon' name={a.icon}/>
 		{ch}
@@ -73,6 +72,6 @@ export function Item(a, ch) {
 	return res
 }
 
-export function Body(a, ch) {
+export function NavBody(a, ch) {
 	return c('.carbm-navigation-body', null, ch)
 }

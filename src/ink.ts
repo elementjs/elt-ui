@@ -37,6 +37,6 @@ export function inkable(atom) {
 export function inkClickDelay(fn) {
 	return click(function (ev: MouseEvent, atom: Atom) {
 		inker(atom, ev)
-		setTimeout(e => fn.call(this, e), 150)
+		setTimeout(e => fn.call(this, e, atom), 150)
 	})
 }
