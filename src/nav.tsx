@@ -7,19 +7,24 @@ import {Icon} from './icon'
 
 import './nav.styl'
 
-var velocity = () => () => {}
-try {
-  velocity = require('carbyne-velocity').velocity
-} catch (e) { }
+import {animator} from './animate'
 
-export var navRootAnimation = velocity({
-  enter: {translateX: ['0', '-100%']},
-  leave: {translateX: '-100%'}
+export var navRootAnimation = animator({
+  enter: {
+  	transform: pct => `translateZ(0) translateX(${pct * 100 - 100}%)`
+  },
+  leave: {
+  	transform: pct => `translateZ(0) translateX(${pct * 100}%)`
+  }
 })
 
-export var navOverlayAnimation = velocity({
-  enter: {backgroundColor: '#000', backgroundColorAlpha: [0.24, 0]},
-  leave: {backgroundColorAlpha: 0}
+export var navOverlayAnimation = animator({
+  enter: {
+  	'background-color': pct => `rgba(0, 0, 0, ${pct*0.24})`
+  },
+  leave: {
+  	'background-color': pct => `rgba(0, 0, 0, ${0.24 - pct*0.24})`
+  }
 })
 
 

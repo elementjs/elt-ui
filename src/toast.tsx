@@ -1,7 +1,7 @@
 
 import {c, o, click, Atom} from 'carbyne';
 
-import {velocity} from 'carbyne-velocity'
+import {animator} from './animate'
 
 import './toast.styl'
 
@@ -35,13 +35,19 @@ export class Toaster {
 			let cancel = null;
 			let atom = c('.carbm--toast', {
 				$$: [click(ev => {
-					atom.destroy();
-					clearTimeout(cancel);
-					if (atom === this._current) this._current = null;
-				}),
-					velocity({
-						enter: { opacity: [1, 0], translateY: [0, '100%'] },
-						leave: { opacity: 0, translateY: '100%' }
+						atom.destroy();
+						clearTimeout(cancel);
+						if (atom === this._current) this._current = null;
+					}),
+					animator({
+						enter: {
+							opacity: pct => pct,
+							transform: pct => `translateY(${100 - pct * 100}%)`
+						},
+						leave: {
+							opacity: pct => 1 - pct,
+							transform: pct => `translateY(${pct * 100}%)`
+						}
 					})
 				]
 			}, [msg])

@@ -1,7 +1,7 @@
 
 import {c, o, Controller, bind, cls, click, Atom} from 'carbyne';
 
-import {velocity} from 'carbyne-velocity'
+import {animator} from './animate'
 
 import {Button} from './button';
 
@@ -33,14 +33,24 @@ export class DialogCtrl<T> extends Controller {
 
 }
 
-export var dialogRootAnimation = velocity({
-  enter: {translateY: ['0px', '50px'], opacity: [1, 0], translateZ: 0},
-  leave: {translateY: '50px', opacity: 0, translateZ: 0}
+export var dialogRootAnimation = animator({
+  enter: {
+    transform: pct => `translateY(${50 - 50 * pct}px) translateZ(0)`,
+    opacity: pct => pct
+  },
+  leave: {
+    transform: pct => `translateY(${50*pct}px) translateZ(0)`,
+    opacity: pct => 1 - pct
+  }
 })
 
-export var dialogOverlayAnimation = velocity({
-  enter: {backgroundColor: '#000', backgroundColorAlpha: [0.75, 0], translateZ: 0},
-  leave: {backgroundColorAlpha: 0, translateZ: 0}
+export var dialogOverlayAnimation = animator({
+  enter: {
+    'background-color': pct => `rgba(0, 0, 0, ${0.75 * pct})`
+  },
+  leave: {
+    'background-color': pct => `rgba(0, 0, 0, ${0.75 - 0.75 * pct})`
+  }
 })
 
 
@@ -74,15 +84,6 @@ export function dialog(opts, cbk) {
 
   if (opts.disableScrolling !== false) {
     let parent_elt = null;
-
-    // atom.on('mount', function (ev, parent) {
-    //   parent_elt = ev.target.element.parentNode;
-    //   parent.classList.add(NOSCROLL_CLASS);
-    // });
-
-    // atom.on('unmount', function (ev) {
-    //   parent_elt.classList.remove(NOSCROLL_CLASS);
-    // });
   }
 
   // Remove the dialog from the DOM once we have answered it.

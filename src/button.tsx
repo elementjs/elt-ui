@@ -23,10 +23,10 @@ export function Button(attrs : ButtonAttributes, children) {
     fn: o(attrs.click || function () {})
   };
 
-  function doClick(event) {
+  function doClick(event, atom) {
     if (!data.disabled.get()) {
       // in this context, this is the Node.
-      data.fn.get().call(this, event);
+      data.fn.get().call(this, event, atom);
       // this.element.blur() // to prevent focus lingering.
     }
   }
