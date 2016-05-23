@@ -1,10 +1,9 @@
 
 declare namespace JSX {
+
 	export interface ElementClass { }
 
-	export interface Element {
-
-	}
+	export type Element = any
 
 	interface IntrinsicElements {
 		[elemName: string]: any

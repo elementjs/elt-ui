@@ -1,5 +1,5 @@
 
-import {o, c, cls, click, If, Then, Else, O, BasicAttributes} from 'carbyne';
+import {o, c, cls, click, If, Then, Else, O, BasicAttributes, Appendable} from 'carbyne';
 import {Icon} from './icon';
 
 import './button.styl';
