@@ -29,23 +29,23 @@ import {Controller, Atom} from 'carbyne'
 * var spline = KeySpline(0.25, 0.1, 0.25, 1.0)
 * spline(pct)
 */
-function KeySpline(mX1, mY1, mX2, mY2) {
+function KeySpline(mX1: number, mY1: number, mX2: number, mY2: number) {
 
-  function A(aA1, aA2) { return 1.0 - 3.0 * aA2 + 3.0 * aA1; }
-  function B(aA1, aA2) { return 3.0 * aA2 - 6.0 * aA1; }
-  function C(aA1) { return 3.0 * aA1; }
+  function A(aA1: number, aA2: number): number { return 1.0 - 3.0 * aA2 + 3.0 * aA1; }
+  function B(aA1: number, aA2: number): number { return 3.0 * aA2 - 6.0 * aA1; }
+  function C(aA1: number) { return 3.0 * aA1; }
 
   // Returns x(t) given t, x1, and x2, or y(t) given t, y1, and y2.
-  function CalcBezier(aT, aA1, aA2) {
+  function CalcBezier(aT: number, aA1: number, aA2: number): number {
     return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT;
   }
 
   // Returns dx/dt given t, x1, and x2, or dy/dt given t, y1, and y2.
-  function GetSlope(aT, aA1, aA2) {
+  function GetSlope(aT: number, aA1: number, aA2: number): number {
     return 3.0 * A(aA1, aA2) * aT * aT + 2.0 * B(aA1, aA2) * aT + C(aA1);
   }
 
-  function GetTForX(aX) {
+  function GetTForX(aX: number): number {
     // Newton raphson iteration
     var aGuessT = aX;
     for (var i = 0; i < 4; ++i) {
@@ -57,7 +57,7 @@ function KeySpline(mX1, mY1, mX2, mY2) {
     return aGuessT;
   }
 
-  return function(aX) {
+  return function(aX: number): number {
     if (mX1 == mY1 && mX2 == mY2) return aX; // linear
     return CalcBezier(GetTForX(aX), mY1, mY2);
   }
@@ -98,28 +98,31 @@ export interface Props {
 }
 
 
-export function animate(element: HTMLElement, props: Props, duration: number): Promise<any> {
+export function animate(element: HTMLElement, props: Props, dur: number): Promise<any> {
 
-	let start = performance.now()
-	let dur = duration
-	let resolve = null
+	let start: number = null
 	// ease in
-	let E = easings.easeIn
-	let animator = KeySpline(E[0], E[1], E[2], E[3])
+	let E = easings.easeInSine
+	let bezier = KeySpline(E[0], E[1], E[2], E[3])
+	let style: any = element.style
 
 	for (let x in props)
-		element.style[x] = props[x](0)
+		style[x] = props[x](0)
 
 	return new Promise((resolve, reject) => {
 
 		function _next(stamp: number) {
-			let now = performance.now() - start
-			let step = Math.min(now, dur) / dur
+			if (!start) start = stamp
+			let progress = stamp - start
+
+			// let now = performance.now() - start
+			// let step = Math.min(now, dur) / dur
+			let step = Math.min(progress, dur) / dur
 
 			for (let x in props)
-				element.style[x] = props[x](animator(step))
+				style[x] = props[x](bezier(step))
 
-			if (now < dur)
+			if (progress < dur)
 				requestAnimationFrame(_next)
 			else {
 				resolve(true)
@@ -157,6 +160,7 @@ export class Animator extends Controller {
 		if (this.specs.leave) {
 			return animate(this.atom.element, this.specs.leave, 200)
 		}
+		return null
 	}
 
 }

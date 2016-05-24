@@ -1,5 +1,5 @@
 
-import {o, c, cls, click, If, Then, Else, O, BasicAttributes, Appendable} from 'carbyne';
+import {o, c, cls, click, If, Then, Else, O, BasicAttributes, Appendable, Atom} from 'carbyne';
 import {Icon} from './icon';
 
 import './button.styl';
@@ -12,7 +12,7 @@ export interface ButtonAttributes extends BasicAttributes {
   icon?: O<string>
 }
 
-export function Button(attrs : ButtonAttributes, children) {
+export function Button(attrs : ButtonAttributes, children: Appendable): Atom {
 
   // FIXME missing ripple.
   // let fn = attrs.click || function () {};
@@ -23,15 +23,15 @@ export function Button(attrs : ButtonAttributes, children) {
     fn: o(attrs.click || function () {})
   };
 
-  function doClick(event, atom) {
+  function doClick(event: MouseEvent, atom: Atom) {
     if (!data.disabled.get()) {
       // in this context, this is the Node.
-      data.fn.get().call(this, event, atom);
+      data.fn.get()(event, atom);
       // this.element.blur() // to prevent focus lingering.
     }
   }
 
-  return <button class='carbm-button' disabled={o(data.disabled).tf(val => val ? val : undefined)} $$={click(doClick)}>
+  return <button class='carbm-button' disabled={o(data.disabled).tf((val: boolean) => val ? val : undefined)} $$={click(doClick)}>
     {If(attrs.icon,
       Then(name => <Icon
         class='carbm-button-icon'

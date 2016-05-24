@@ -1,5 +1,6 @@
 
-import {c, click, Atom} from 'carbyne'
+import {c, click, Atom, BasicAttributes, Appendable, CarbyneEvent, CarbyneListener} from 'carbyne'
+import {Router, State, StateParams} from 'carbyne-router'
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
@@ -27,8 +28,12 @@ export var navOverlayAnimation = animator({
 })
 
 
+export interface NavAttributes extends BasicAttributes {
+	router: any // should we prevent linking to carbyne-router ?
 
-export function Nav(a, ch) {
+}
+
+export function Nav(a: NavAttributes, ch: Appendable): Atom {
 	var router = a.router
 
 	var res = <div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
@@ -39,29 +44,36 @@ export function Nav(a, ch) {
 		</div>
 	</div>
 
-	res.on('nav-go', function (e, state, args) {
+	res.on('nav-go', function (e: CarbyneEvent<Atom>, state_name: string, args: StateParams) {
 		if (router) {
-			router.go(state)
+			router.go(state_name, args)
 		}
+		// anyway, we're going to kill the nav.
 		res.destroy()
 	})
 
 	return res
 }
 
-export function NavHeader(a, ch) {
+export function NavHeader(a: BasicAttributes, ch: Appendable): Atom {
 	return c('.carbm-navigation-header', null, ch)
 }
 
-export function NavSubheader(a, ch) {
+export function NavSubheader(a: BasicAttributes, ch: Appendable): Atom {
 	return c('.carbm-navigation-subheader', null, ch)
 }
 
-export function NavDivider(a, ch) {
+export function NavDivider(a: BasicAttributes, ch: Appendable): Atom {
 	return c('.carbm-navigation-divider')
 }
 
-export function NavItem(a, ch) {
+export interface NavItemAttributes extends BasicAttributes {
+	icon: string
+	state: string
+	stateArgs: StateParams
+}
+
+export function NavItem(a: NavItemAttributes, ch: Appendable): Atom {
 	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e, atom) {
 		atom.emit('nav-go', a.state, a.stateArgs || {})
 	})}>
@@ -72,6 +84,6 @@ export function NavItem(a, ch) {
 	return res
 }
 
-export function NavBody(a, ch) {
+export function NavBody(a: BasicAttributes, ch: Appendable): Atom {
 	return c('.carbm-navigation-body', null, ch)
 }

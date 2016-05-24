@@ -1,5 +1,5 @@
 
-import {o, c, bind, cls, click} from 'carbyne';
+import {o, O, Observable, c, bind, cls, click, BasicAttributes, Appendable, Atom} from 'carbyne';
 
 import {Icon} from './icon';
 
@@ -10,27 +10,33 @@ var OFF = 'square-o';
 var ON = 'check-square';
 var INDETERMINATE = 'minus-square';
 
-export function Checkbox(attrs, children) {
+export interface CheckboxAttributes extends BasicAttributes {
+  model: Observable<boolean>
+  disabled?: O<boolean>
+  title?: string
+}
+
+export function Checkbox(attrs: CheckboxAttributes, children: Appendable): Atom {
 
   let data = {
-    model: o(attrs.model || undefined),
+    model: o(attrs.model || undefined) as Observable<boolean>,
     disabled: o(attrs.disabled)
   };
 
-  function toggle(event) {
+  function toggle(event: MouseEvent) {
     if (data.disabled.get()) return;
 
     let val = data.model.get();
     data.model.set(!val);
   }
 
-  function getIcon(value) {
+  function getIcon(value: boolean) {
     if (value === undefined) return INDETERMINATE;
     if (value) return ON;
     return OFF;
   }
 
-  let classes = cls({on: data.model, off: o(data.model, (v) => !v), disabled: data.disabled});
+  let classes = cls({on: data.model, off: o(data.model, (v: boolean) => !v), disabled: data.disabled});
 
   return <label class='carbm-checkbox-label' $$={[inkable, click(toggle)]}>
       <Icon class='carbm-checkbox-icon' name={o(data.model, getIcon)}

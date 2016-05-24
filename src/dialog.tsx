@@ -1,5 +1,5 @@
 
-import {c, o, Controller, bind, cls, click, Atom} from 'carbyne';
+import {c, o, O, Controller, bind, cls, click, Atom, BasicAttributes, Appendable} from 'carbyne';
 
 import {animator} from './animate'
 
@@ -27,7 +27,7 @@ export class DialogCtrl<T> extends Controller {
     this._resolve(value);
   }
 
-  reject(value) {
+  reject(value: any) {
     this._reject(value);
   }
 
@@ -39,7 +39,7 @@ export var dialogRootAnimation = animator({
     opacity: pct => pct
   },
   leave: {
-    transform: pct => `translateY(${50*pct}px) translateZ(0)`,
+    transform: pct => `translateY(${50 * pct}px) translateZ(0)`,
     opacity: pct => 1 - pct
   }
 })
@@ -54,37 +54,40 @@ export var dialogOverlayAnimation = animator({
 })
 
 
-export var Overlay = (attrs, children) => <div class='carbm-dialog-overlay'>{children}</div>
-export var Title = (attrs, children) => <h3 class='carbm-dialog-title'>{children}</h3>
-export var Content = (attrs, children) => <div class='carbm-dialog-content'>{children}</div>
+export var Overlay = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-overlay'>{children}</div>
+export var Title = (attrs: BasicAttributes, children: Appendable): Atom => <h3 class='carbm-dialog-title'>{children}</h3>
+export var Content = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-content'>{children}</div>
+
+export interface ButtonbarAttributes extends BasicAttributes {
+  stacked: O<boolean>
+}
 
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
-export var Buttonbar = (attrs, children) => <div class='carbm-dialog-buttonbar' $$={cls({stacked: attrs.stacked})}>{children}</div>
-export var Root = (attrs, children) => <div class='carbm-dialog-root'
+export var Buttonbar = (attrs: ButtonbarAttributes, children: Appendable): Atom =>
+  <div class='carbm-dialog-buttonbar' $$={cls({stacked: attrs.stacked})}>{children}</div>
+
+export var Root = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-root'
   $$={dialogRootAnimation}>{children}</div>
+
+export interface DialogOptions {
+  parent?: Node
+}
+
+export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Atom
 
 /**
  * A function that returns a promise and that allows us to show a nice dialog.
  */
-export function dialog(opts, cbk) {
-
-  if (cbk === undefined) {
-    cbk = opts;
-    opts = {};
-  }
+export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T> {
 
   let dlg = new DialogCtrl;
 
-  let atom = <Overlay $$={[
+  let atom: Atom = <Overlay $$={[
     dlg,
     click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
     dialogOverlayAnimation
   ]}>{cbk(dlg)}</Overlay> as Atom
-
-  if (opts.disableScrolling !== false) {
-    let parent_elt = null;
-  }
 
   // Remove the dialog from the DOM once we have answered it.
   dlg.promise.then(() => atom.destroy(), () => atom.destroy());
@@ -96,19 +99,26 @@ export function dialog(opts, cbk) {
 }
 
 
+export interface ModalOptions extends DialogOptions {
+  text: string
+  title: string
+  agree?: string
+  disagree?: string
+}
+
 /**
  * A modal dialog.
  * @param  {Object} opts Options
  * @return {Promise}
  */
-export function modal(opts) {
+export function modal(opts: ModalOptions) {
 
   return dialog(opts, (dlg) =>
     <Root>
       {opts.title ? <Title>{opts.title}</Title> : null}
       <Content>
         {/* Split the text at \n into distinct paragraphs. */}
-        {o(opts.text, (v) => v.split(/\s*\n\s*/).map((e) => <p>{e}</p>))}
+        {o(opts.text, (v: string) => v.split(/\s*\n\s*/).map((e) => <p>{e}</p>))}
       </Content>
       <Buttonbar>
         {opts.disagree ? <Button click={() => dlg.resolve(false)}>{opts.disagree}</Button> : null}

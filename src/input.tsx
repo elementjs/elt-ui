@@ -1,5 +1,5 @@
 
-import {c, o, bind, cls, If, Atom} from 'carbyne';
+import {c, o, bind, cls, If, Atom, BasicAttributes, Appendable, Observable} from 'carbyne';
 
 import {Icon} from './icon';
 
@@ -7,7 +7,16 @@ import './input.styl';
 
 var id_gen = 0;
 
-export function Input(attrs, content) {
+export interface InputAttributes extends BasicAttributes {
+  model: Observable<string>
+  type: string
+  id?: string
+  label?: string
+  placeholder?: string
+  error: Observable<string>
+}
+
+export function Input(attrs: InputAttributes, content: Appendable): Atom {
 
   // Used in validation ???
   // this.valid = true;
@@ -21,11 +30,11 @@ export function Input(attrs, content) {
     error: o(attrs.error)
   };
 
-  const o_focused = o(false)
+  const o_focused: Observable<boolean> = o(false)
+    // max={attrs.max}
+    // min={attrs.min}
   const input = <input
     id={id}
-    max={attrs.max}
-    min={attrs.min}
     class='carbm-input-element'
     type={data.type}
     $$={bind(data.model)}
@@ -38,7 +47,7 @@ export function Input(attrs, content) {
     o_focused.set(true)
   })
 
-  const o_unfocus_and_empty = o(data.model, o_focused, (value, focused) => !focused && !value)
+  const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
 
   return <div class='carbm-input-container' $$={cls({
     focused: o_focused,

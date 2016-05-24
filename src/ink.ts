@@ -23,20 +23,22 @@ export function inker(atom: Atom, event: MouseEvent = null) {
 		inker.element.style.left = `${clientX - bb.left}px`
 		inker.element.classList.add('animate')
 		ink_container.element.classList.add('animate')
-		setTimeout(e => ink_container.destroy(), 1000)
+		setTimeout(() => ink_container.destroy(), 1000)
 	})
 	// var bb = atom.element.getBounding
 }
 
-export function inkable(atom) {
+export function inkable(atom: Atom) {
 	return click(function (ev: MouseEvent, atom: Atom) {
 		inker(atom, ev)
 	})(atom)
 }
 
-export function inkClickDelay(fn) {
+export type MouseEventCbk = (ev: MouseEvent, atom: Atom) => any
+
+export function inkClickDelay(fn: MouseEventCbk) {
 	return click(function (ev: MouseEvent, atom: Atom) {
 		inker(atom, ev)
-		setTimeout(e => fn.call(this, e, atom), 150)
+		setTimeout(() => fn(ev, atom), 150)
 	})
 }
