@@ -5,7 +5,8 @@
         "moduleResolution": "node",
         "declaration": true,
         "sourceMap": true,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
         "jsx": "react",
         "reactNamespace": "c",
         "noLib": false

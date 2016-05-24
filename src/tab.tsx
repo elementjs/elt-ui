@@ -1,5 +1,5 @@
 
-import {c, o, Controller, Atom, click, cls, Observable, Builder} from 'carbyne'
+import {c, o, Controller, Atom, click, cls, Observable, Builder, BasicAttributes, Appendable} from 'carbyne'
 import {inkable} from './ink'
 import './tab.styl'
 
@@ -21,7 +21,7 @@ export class TabController extends Controller {
 	o_is_active: Observable<boolean>
 	render: Builder
 
-	constructor(render) {
+	constructor(render: Builder) {
 		super()
 		this.o_is_active = o(false)
 		this.render = render
@@ -47,7 +47,13 @@ export class TabController extends Controller {
 /**
  * Children are ignored
  */
-export function Tab(attrs, children) {
+
+export interface TabAttributes extends BasicAttributes {
+	title: string,
+	render: Builder
+}
+
+export function Tab(attrs: TabAttributes, children: Appendable): Atom {
 
 	const tc = new TabController(attrs.render)
 
@@ -63,10 +69,7 @@ export function Tab(attrs, children) {
 }
 
 
-/**
- *
- */
-export function TabContainer(attrs, children) {
+export function TabContainer(attrs: BasicAttributes, children: Appendable): Atom {
 
 	const tcs = new TabsController()
 

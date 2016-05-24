@@ -22,7 +22,7 @@ export class Toaster {
 		this._mounted = true;
 	}
 
-	toast(msg) {
+	toast(msg: string) {
 		if (!this._mounted)
 			this.mount(document.body);
 
@@ -32,7 +32,7 @@ export class Toaster {
 
 		let promise: Promise<any> = this._current ? this._current.destroy() : Promise.resolve(true)
 		promise.then(done => {
-			let cancel = null;
+			let cancel: number = null;
 			let atom = c('.carbm--toast', {
 				$$: [click(ev => {
 						atom.destroy();
