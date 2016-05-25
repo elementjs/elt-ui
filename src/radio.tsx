@@ -12,8 +12,8 @@ var UNCHECKED = 'circle-o'
 export interface RadioAttributes<T> extends BasicAttributes {
   model: Observable<T>
   value: O<T>
-  disabled: O<boolean>
   title: O<string>
+  disabled?: O<boolean>
 }
 
 export function Radio<T>(attrs: RadioAttributes<T>, children: Appendable): Atom {

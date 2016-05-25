@@ -9,11 +9,11 @@ var id_gen = 0;
 
 export interface InputAttributes extends BasicAttributes {
   model: Observable<string>
-  type: string
+  type?: string
   id?: string
   label?: string
   placeholder?: string
-  error: Observable<string>
+  error?: Observable<string>
 }
 
 export function Input(attrs: InputAttributes, content: Appendable): Atom {

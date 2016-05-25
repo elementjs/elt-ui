@@ -70,7 +70,7 @@ export function NavDivider(a: BasicAttributes, ch: Appendable): Atom {
 export interface NavItemAttributes extends BasicAttributes {
 	icon: string
 	state: string
-	stateArgs: StateParams
+	stateArgs?: StateParams
 }
 
 export function NavItem(a: NavItemAttributes, ch: Appendable): Atom {
