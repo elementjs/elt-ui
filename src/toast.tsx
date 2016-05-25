@@ -34,7 +34,8 @@ export class Toaster {
 		promise.then(done => {
 			let cancel: number = null;
 			let atom = c('.carbm--toast', {
-				$$: [click(ev => {
+				$$: [
+					click(ev => {
 						atom.destroy();
 						clearTimeout(cancel);
 						if (atom === this._current) this._current = null;

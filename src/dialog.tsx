@@ -59,7 +59,7 @@ export var Title = (attrs: BasicAttributes, children: Appendable): Atom => <h3 c
 export var Content = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-content'>{children}</div>
 
 export interface ButtonbarAttributes extends BasicAttributes {
-  stacked: O<boolean>
+  stacked?: O<boolean>
 }
 
 // FIXME this node should watch the width of its children to be able

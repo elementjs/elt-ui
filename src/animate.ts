@@ -167,8 +167,9 @@ export class Animator extends Controller {
 
 
 export function animator(specs: AnimationSpec) {
-	return function _decorate(atom: Atom) {
+	return function _decorate(atom: Atom): Atom {
 		let c = new Animator(specs)
 		atom.addController(c)
+		return atom
 	}
 }
