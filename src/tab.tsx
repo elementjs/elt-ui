@@ -1,6 +1,7 @@
 
 import {c, o, Controller, Atom, click, cls, Observable, Builder, BasicAttributes, Appendable} from 'carbyne'
 import {inkable} from './ink'
+import {Row, Column} from './flex'
 import './tab.styl'
 
 
@@ -73,11 +74,11 @@ export function TabContainer(attrs: BasicAttributes, children: Appendable): Atom
 
 	const tcs = new TabsController()
 
-	return <div $$={tcs}>
-		<div class='carbm-tab-bar'>{children}</div>
-		<div class='carbm-tab-content'>
+	return <Column {...attrs} $$={tcs}>
+		<Row justify='center' class='carbm-tab-bar'>{children}</Row>
+		<Column absoluteGrow={1} class='carbm-tab-content'>
 			{tcs.o_render}
-		</div>
-	</div>
+		</Column>
+	</Column>
 
 }
