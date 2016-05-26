@@ -4,7 +4,7 @@ import * as dialog from './dialog'
 export {dialog}
 export {default as toast} from './toast'
 
-export {Button} from './button'
+export {Button, ButtonBar} from './button'
 export {Checkbox} from './checkbox'
 export {Icon} from './icon'
 export {Input} from './input'

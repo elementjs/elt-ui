@@ -1,5 +1,5 @@
 
-import {o, c, cls, click, If, Then, Else, O, BasicAttributes, Appendable, Atom} from 'carbyne';
+import {o, c, on, cls, click, If, Then, Else, O, BasicAttributes, Appendable, Atom, CarbyneEvent} from 'carbyne';
 import {Icon} from './icon';
 
 import './button.styl';
@@ -10,6 +10,19 @@ export interface ButtonAttributes extends BasicAttributes {
   raised?: O<boolean>
   click?: (ev: MouseEvent) => any
   icon?: O<string>
+}
+
+export interface ButtonBarAttributes extends BasicAttributes {
+  stacked?: boolean
+}
+
+export function ButtonBar(attrs: ButtonBarAttributes, children: Appendable): Atom {
+  return <div class='carbm-button-bar' $$={[
+    on('mount', (ev: CarbyneEvent<Atom>) => ev.target.element.parentElement.classList.add('carbm-has-button-bar')),
+    on('unmount:before', (ev: CarbyneEvent<Atom>) => ev.target.element.parentElement.classList.remove('carbm-has-button-bar'))
+  ]}>
+      {children}
+    </div>
 }
 
 export function Button(attrs : ButtonAttributes, children: Appendable): Atom {
