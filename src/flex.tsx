@@ -36,8 +36,9 @@ function _parse_attributes(atom: Atom) {
 
 	atom.on('create', function (ev) {
 		var el = ev.target.element
+		var cls = el.classList
 
-		if (at.wrap != null) _(el, 'flex-wrap', at.wrap)
+		if (at.wrap != null) cls.add('carbm-flex-wrap')
 		if (at.direction != null) {
 			if (!at.reverse)
 				_(el, 'flex-direction', at.direction)

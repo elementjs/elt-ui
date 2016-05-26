@@ -1,5 +1,19 @@
 
+vendor(name, val)
+	-webkit-{name}: val
+	-moz-{name}: val
+	-ms-{name}: val
+	-o-{name}: val
+	{name}: val
+
 .carbm-flex
 	display: -webkit-flex
 	display: -ms-flex
 	display: flex
+
+.carbm-flex-wrap
+	vendor(flex-wrap, wrap)
+
+.carbm-flex-no-wrap
+	vendor(flex-wrap, nowrap)
+
