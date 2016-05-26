@@ -1,7 +1,11 @@
 @require 'common'
 
+$carbm-tar-border-bottom-color = rgba(0, 0, 0, 0.14)
+
 .carbm-tab-bar
 	background-color: white
+	border-bottom: 1px solid $carbm-tar-border-bottom-color
+	height: 48px
 
 .carbm-tab-title
 	user-select(none)
@@ -13,7 +17,7 @@
 	font-weight: bold
 	color: $primary
 
-	border-bottom: 2px solid rgba(0, 0, 0, 0)
+	border-bottom: 1px solid $carbm-tar-border-bottom-color
 	background: white
 
 	height: 48px
@@ -27,7 +31,7 @@
 
 	cursor: pointer
 
-	transition border-bottom-color linear 0.3s
+	transition border-bottom-color linear 0.2s
 
 	&.active
 		border-bottom: 2px solid $primary
