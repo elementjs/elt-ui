@@ -1,3 +1,5 @@
+import './typography.styl'
+
 import * as dialog from './dialog'
 export {dialog}
 export {default as toast} from './toast'

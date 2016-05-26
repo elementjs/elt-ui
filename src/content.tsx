@@ -1,10 +1,12 @@
 
 import {c, BasicAttributes, Appendable, Atom} from 'carbyne';
 
+import {Child, ChildAttributes} from './flex'
+
 import './content.styl';
 
-export function Content(attrs: BasicAttributes, children: Appendable): Atom {
+export function Content(attrs: ChildAttributes, children: Appendable): Atom {
 
-  return <div class='carbm-content'>{children}</div>;
+  return <Child {...attrs} class='carbm-content'>{children}</Child>;
 
 }
