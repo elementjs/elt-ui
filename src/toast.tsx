@@ -1,5 +1,5 @@
 
-import {c, o, click, Atom} from 'carbyne';
+import {c, o, click, Atom, FnBuilder} from 'carbyne';
 
 import {animator} from './animate'
 
@@ -22,7 +22,7 @@ export class Toaster {
 		this._mounted = true;
 	}
 
-	toast(msg: string) {
+	toast(msg: string|FnBuilder) {
 		if (!this._mounted)
 			this.mount(document.body);
 
