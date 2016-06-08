@@ -4,6 +4,7 @@ import {Router, State, StateParams} from 'carbyne-router'
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
+import {Column} from './flex'
 
 import './nav.styl'
 
@@ -39,9 +40,9 @@ export function Nav(a: NavAttributes, ch: Appendable): Atom {
 	var res = <div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
 		if (e.target === atom.element) res.destroy()
 	})]}>
-			<div class='carbm-navigation-drawer' $$={navRootAnimation}>
+		<Column class='carbm-navigation-drawer' $$={navRootAnimation}>
 				{ch}
-		</div>
+		</Column>
 	</div>
 
 	res.on('nav-go', function (e: CarbyneEvent<Atom>, state_name: string, args: StateParams) {
@@ -86,4 +87,8 @@ export function NavItem(a: NavItemAttributes, ch: Appendable): Atom {
 
 export function NavBody(a: BasicAttributes, ch: Appendable): Atom {
 	return c('.carbm-navigation-body', null, ch)
+}
+
+export function NavFooter(a: BasicAttributes, ch: Appendable): Atom {
+	return c('.carbm-navigation-footer', null, ch)
 }
