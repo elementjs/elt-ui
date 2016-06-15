@@ -1,14 +1,14 @@
 import './select.styl'
 
 //////////////////////////////////////////////////////////////
-import {o, c, bind, cls, click, Atom, BasicAttributes, Appendable, Observable} from 'carbyne'
+import {o, O, c, bind, cls, click, Atom, BasicAttributes, Appendable, Observable} from 'carbyne'
 
 export type LabelFn<T> = (opt: T) => string
 export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 
 export interface SelectAttributes<T> extends BasicAttributes {
 	model: Observable<T>
-	options: T[]
+	options: O<T[]>
 	labelfn: LabelFn<T>
 	change: ChangeFn<T>
 }
@@ -20,7 +20,7 @@ export function Select<T>(attrs: SelectAttributes<T>, children: Appendable): Ato
 
 	let labelfn = attrs.labelfn || ((o: any) => o.label || o.name || o);
 
-	let _select = o(-1);
+	let _select = o('-1');
 	let decorators = [bind(_select)];
 
 	if (attrs.change) {
@@ -61,7 +61,7 @@ export function Select<T>(attrs: SelectAttributes<T>, children: Appendable): Ato
 	atom.observe(_select, (v) => {
 		if (touched()) return;
 
-		model.set(options.get()[v]);
+		model.set(options.get()[parseInt(v)]);
 	});
 
 	return atom;
