@@ -4,8 +4,8 @@ import './ink.styl'
 
 export function inker(atom: Atom, event: MouseEvent = null) {
 
-	var clientX = event.clientX
-	var clientY = event.clientY
+	var clientX = event.pageX
+	var clientY = event.pageY
 
 
 	var inker = c('.carbm-ink')
