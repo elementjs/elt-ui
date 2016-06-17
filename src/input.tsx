@@ -1,5 +1,5 @@
 
-import {c, o, bind, cls, If, Atom, BasicAttributes, Appendable, Observable} from 'carbyne';
+import {c, o, bind, cls, If, Atom, BasicAttributes, Appendable, Observable, click} from 'carbyne';
 
 import {Icon} from './icon';
 
@@ -37,7 +37,9 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
     id={id}
     class='carbm-input-element'
     type={data.type}
-    $$={bind(data.model)}
+    $$={[bind(data.model), click((e, atom) => {
+      atom.element.focus()
+    })]}
   /> as Atom
 
   input.listen('blur', ev => {
