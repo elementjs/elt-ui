@@ -46,7 +46,7 @@ export function Nav(a: NavAttributes, ch: Appendable): Atom {
 	</div>
 
 	res.on('nav-go', function (e: CarbyneEvent<Atom>, state_name: string, args: StateParams) {
-		if (router) {
+		if (router && state_name) {
 			router.go(state_name, args)
 		}
 		// anyway, we're going to kill the nav.
