@@ -1,5 +1,5 @@
 
-import {c, o, cls, Atom, Controller, O, BasicAttributes, Appendable} from 'carbyne';
+import {c, Atom, Controller, O, BasicAttributes, Appendable} from 'carbyne';
 
 export class IconController extends Controller {
 

@@ -1,5 +1,5 @@
 
-import {c, click, Atom, CarbyneEvent} from 'carbyne'
+import {c, click, Atom} from 'carbyne'
 import './ink.styl'
 
 export function inker(atom: Atom, event: MouseEvent = null) {

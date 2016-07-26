@@ -1,8 +1,6 @@
 
 import {c, o, bind, cls, If, Atom, BasicAttributes, Appendable, Observable, click} from 'carbyne';
 
-import {Icon} from './icon';
-
 import './input.styl';
 
 var id_gen = 0;

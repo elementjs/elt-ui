@@ -1,13 +1,11 @@
 
-import {c, o, O, Controller, bind, cls, click, Atom, BasicAttributes, Appendable} from 'carbyne';
+import {c, o, O, Controller, cls, click, Atom, BasicAttributes, Appendable} from 'carbyne';
 
 import {animator} from './animate'
 
 import {Button} from './button';
 
 import './dialog.styl';
-
-var NOSCROLL_CLASS = 'carbm-dialog-noscroll';
 
 export class DialogCtrl<T> extends Controller {
   promise: Promise<T>

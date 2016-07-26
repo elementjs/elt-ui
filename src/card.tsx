@@ -1,5 +1,5 @@
 
-import {c, o, Atom, BasicAttributes, Appendable} from 'carbyne'
+import {c, Atom, BasicAttributes, Appendable} from 'carbyne'
 import {Column} from './flex'
 
 import './card.styl'

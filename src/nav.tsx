@@ -1,6 +1,6 @@
 
-import {c, click, Atom, BasicAttributes, Appendable, CarbyneEvent, CarbyneListener} from 'carbyne'
-import {Router, State, StateParams} from 'carbyne-router'
+import {c, click, Atom, BasicAttributes, Appendable, CarbyneEvent} from 'carbyne'
+import {StateParams} from 'carbyne-router'
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'

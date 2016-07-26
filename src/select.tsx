@@ -1,7 +1,7 @@
 import './select.styl'
 
 //////////////////////////////////////////////////////////////
-import {o, O, c, bind, cls, click, Atom, BasicAttributes, Appendable, Observable} from 'carbyne'
+import {o, O, c, bind, Atom, BasicAttributes, Appendable, Observable} from 'carbyne'
 
 export type LabelFn<T> = (opt: T) => string
 export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
@@ -9,8 +9,8 @@ export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export interface SelectAttributes<T> extends BasicAttributes {
 	model: Observable<T>
 	options: O<T[]>
-	labelfn: LabelFn<T>
-	change: ChangeFn<T>
+	labelfn?: LabelFn<T>
+	change?: ChangeFn<T>
 }
 
 export function Select<T>(attrs: SelectAttributes<T>, children: Appendable): Atom {

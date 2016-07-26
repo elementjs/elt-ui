@@ -1,5 +1,5 @@
 
-import {c, BasicAttributes, Appendable, Atom} from 'carbyne';
+import {c, Appendable, Atom} from 'carbyne';
 
 import {Child, ChildAttributes} from './flex'
 

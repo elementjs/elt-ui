@@ -1,5 +1,5 @@
 
-import {o, O, Observable, c, bind, cls, click, BasicAttributes, Appendable, Atom} from 'carbyne';
+import {o, O, Observable, c, cls, click, BasicAttributes, Appendable, Atom} from 'carbyne';
 
 import {Icon} from './icon';
 

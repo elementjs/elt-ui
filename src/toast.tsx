@@ -1,5 +1,5 @@
 
-import {c, o, click, Atom, FnBuilder} from 'carbyne';
+import {c, click, Atom, FnBuilder} from 'carbyne';
 
 import {animator} from './animate'
 

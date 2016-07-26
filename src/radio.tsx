@@ -1,6 +1,6 @@
 import './checkbox.styl'
 
-import {o, c, bind, cls, click, Atom, BasicAttributes, Appendable, Observable, O} from 'carbyne'
+import {o, c, cls, click, Atom, BasicAttributes, Appendable, Observable, O} from 'carbyne'
 
 import {Icon} from './icon'
 
