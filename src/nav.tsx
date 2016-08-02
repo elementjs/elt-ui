@@ -1,6 +1,5 @@
 
-import {c, click, Atom, BasicAttributes, Appendable, CarbyneEvent} from 'carbyne'
-import {StateParams} from 'carbyne-router'
+import {c, click, Atom, BasicAttributes, Appendable, Controller} from 'carbyne'
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
@@ -29,31 +28,29 @@ export var navOverlayAnimation = animator({
 })
 
 
+export class NavController extends Controller {
+
+	remove() {
+		this.atom.destroy()
+	}
+
+}
+
+
 export interface NavAttributes extends BasicAttributes {
-	router: any // should we prevent linking to carbyne-router ?
 
 }
 
 export function Nav(a: NavAttributes, ch: Appendable): Atom {
-	var router = a.router
 
-	var res = <div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
-		if (e.target === atom.element) res.destroy()
-	})]}>
+	return <div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
+		if (e.target === atom.element) atom.destroy()
+	}), new NavController]}>
 		<Column class='carbm-navigation-drawer' $$={navRootAnimation}>
 				{ch}
 		</Column>
 	</div>
 
-	res.on('nav-go', function (e: CarbyneEvent<Atom>, state_name: string, args: StateParams) {
-		if (router && state_name) {
-			router.go(state_name, args)
-		}
-		// anyway, we're going to kill the nav.
-		res.destroy()
-	})
-
-	return res
 }
 
 export function NavHeader(a: BasicAttributes, ch: Appendable): Atom {
@@ -70,13 +67,15 @@ export function NavDivider(a: BasicAttributes, ch: Appendable): Atom {
 
 export interface NavItemAttributes extends BasicAttributes {
 	icon: string
-	state: string
-	stateArgs?: StateParams
+	click?: (ev: MouseEvent, atom?: Atom) => (void|boolean)
 }
 
 export function NavItem(a: NavItemAttributes, ch: Appendable): Atom {
 	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e, atom) {
-		atom.emit('nav-go', a.state, a.stateArgs || {})
+		if (a.click && a.click(e, atom) !== false) {
+			let c = atom.getController(NavController)
+			c.remove()
+		}
 	})}>
 		<Icon class='carbm-navigation-item-icon' name={a.icon}/>
 		{ch}
