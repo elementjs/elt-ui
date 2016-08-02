@@ -7,23 +7,23 @@ import {Column} from './flex'
 
 import './nav.styl'
 
-import {animator} from './animate'
+import {animator, easings} from './animate'
 
 export var navRootAnimation = animator({
   enter: {
-  	transform: pct => `translateZ(0) translateX(${pct * 100 - 100}%)`
+  	transform: easings.easeIn.from(-100, v => `translateZ(0) translateX(${v}%)`)
   },
   leave: {
-  	transform: pct => `translateZ(0) translateX(${-pct * 100}%)`
+  	transform: easings.easeOut.to(-100, v => `translateZ(0) translateX(${v}%)`)
   }
 })
 
 export var navOverlayAnimation = animator({
   enter: {
-  	'background-color': pct => `rgba(0, 0, 0, ${pct*0.24})`
+  	'background-color': easings.easeIn.to(0.24, v => `rgba(0, 0, 0, ${v})`)
   },
   leave: {
-  	'background-color': pct => `rgba(0, 0, 0, ${0.24 - pct*0.24})`
+  	'background-color': easings.easeOut.from(0.24, v => `rgba(0, 0, 0, ${v})`)
   }
 })
 

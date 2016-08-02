@@ -1,7 +1,7 @@
 
 import {c, o, O, Controller, cls, click, Atom, BasicAttributes, Appendable} from 'carbyne';
 
-import {animator} from './animate'
+import {animator, easings} from './animate'
 
 import {Button} from './button';
 
@@ -33,12 +33,12 @@ export class DialogCtrl<T> extends Controller {
 
 export var dialogRootAnimation = animator({
   enter: {
-    transform: pct => `translateY(${50 - 50 * pct}px) translateZ(0)`,
-    opacity: pct => pct
+    transform: easings.easeIn.interval(50, 0, v => `translateY(${v}px) translateZ(0)`),
+    opacity: easings.easeIn.interval(0, 1)
   },
   leave: {
-    transform: pct => `translateY(${50 * pct}px) translateZ(0)`,
-    opacity: pct => 1 - pct
+    transform: easings.easeOut.interval(0, 50, v => `translateY(${v}px) translateZ(0)`),
+    opacity: easings.easeOut.interval(1, 0)
   }
 })
 

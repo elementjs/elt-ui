@@ -63,33 +63,58 @@ function KeySpline(mX1: number, mY1: number, mX2: number, mY2: number) {
   }
 }
 
-var easings = {
-	linear: [0.00, 0.0, 1.00, 1.0],
-	ease: [0.25, 0.1, 0.25, 1.0],
-	easeIn: [0.42, 0.0, 1.00, 1.0],
-	easeOut: [0.00, 0.0, 0.58, 1.0],
-	easeInOut: [0.42, 0.0, 0.58, 1.0],
-	easeInSine: [0.47, 0, 0.745, 0.715],
-	easeOutSine: [0.39, 0.575, 0.565, 1],
-	easeInOutSine: [0.445, 0.05, 0.55, 0.95],
-	easeInQuad: [0.55, 0.085, 0.68, 0.53],
-	easeOutQuad: [0.25, 0.46, 0.45, 0.94],
-	easeInOutQuad: [0.455, 0.03, 0.515, 0.955],
-	easeInCubic: [0.55, 0.055, 0.675, 0.19],
-	easeOutCubic: [0.215, 0.61, 0.355, 1],
-	easeInOutCubic: [0.645, 0.045, 0.355, 1],
-	easeInQuart: [0.895, 0.03, 0.685, 0.22],
-	easeOutQuart: [0.165, 0.84, 0.44, 1],
-	easeInOutQuart: [0.77, 0, 0.175, 1],
-	easeInQuint: [0.755, 0.05, 0.855, 0.06],
-	easeOutQuint: [0.23, 1, 0.32, 1],
-	easeInOutQuint: [0.86, 0, 0.07, 1],
-	easeInExpo: [0.95, 0.05, 0.795, 0.035],
-	easeOutExpo: [0.19, 1, 0.22, 1],
-	easeInOutExpo: [1, 0, 0, 1],
-	easeInCirc: [0.6, 0.04, 0.98, 0.335],
-	easeOutCirc: [0.075, 0.82, 0.165, 1],
-	easeInOutCirc: [0.785, 0.135, 0.15, 0.86]
+
+export class ValueAnimator {
+
+	bezier: (n: number) => number
+
+	constructor(easing: number[]) {
+		this.bezier = KeySpline(easing[0], easing[1], easing[2], easing[3])
+	}
+
+	interval(begin: number, end: number, valuefn: (v: number) => string = null): (pct: number) => string {
+		valuefn = valuefn || ((v: number) => `${v}`)
+		let bez = this.bezier
+		return (pct) => valuefn(begin + bez(pct)*(end - begin))
+	}
+
+	from(begin: number, valuefn: (v: number) => string = null): (pct: number) => string {
+		return this.interval(begin, 0, valuefn)
+	}
+
+	to(end: number, valuefn: (v: number) => string = null): (pct: number) => string {
+		return this.interval(0, end, valuefn)
+	}
+
+}
+
+export const easings = {
+	linear: new ValueAnimator([0.00, 0.0, 1.00, 1.0]),
+	ease: new ValueAnimator([0.25, 0.1, 0.25, 1.0]),
+	easeIn: new ValueAnimator([0.42, 0.0, 1.00, 1.0]),
+	easeOut: new ValueAnimator([0.00, 0.0, 0.58, 1.0]),
+	easeInOut: new ValueAnimator([0.42, 0.0, 0.58, 1.0]),
+	easeInSine: new ValueAnimator([0.47, 0, 0.745, 0.715]),
+	easeOutSine: new ValueAnimator([0.39, 0.575, 0.565, 1]),
+	easeInOutSine: new ValueAnimator([0.445, 0.05, 0.55, 0.95]),
+	easeInQuad: new ValueAnimator([0.55, 0.085, 0.68, 0.53]),
+	easeOutQuad: new ValueAnimator([0.25, 0.46, 0.45, 0.94]),
+	easeInOutQuad: new ValueAnimator([0.455, 0.03, 0.515, 0.955]),
+	easeInCubic: new ValueAnimator([0.55, 0.055, 0.675, 0.19]),
+	easeOutCubic: new ValueAnimator([0.215, 0.61, 0.355, 1]),
+	easeInOutCubic: new ValueAnimator([0.645, 0.045, 0.355, 1]),
+	easeInQuart: new ValueAnimator([0.895, 0.03, 0.685, 0.22]),
+	easeOutQuart: new ValueAnimator([0.165, 0.84, 0.44, 1]),
+	easeInOutQuart: new ValueAnimator([0.77, 0, 0.175, 1]),
+	easeInQuint: new ValueAnimator([0.755, 0.05, 0.855, 0.06]),
+	easeOutQuint: new ValueAnimator([0.23, 1, 0.32, 1]),
+	easeInOutQuint: new ValueAnimator([0.86, 0, 0.07, 1]),
+	easeInExpo: new ValueAnimator([0.95, 0.05, 0.795, 0.035]),
+	easeOutExpo: new ValueAnimator([0.19, 1, 0.22, 1]),
+	easeInOutExpo: new ValueAnimator([1, 0, 0, 1]),
+	easeInCirc: new ValueAnimator([0.6, 0.04, 0.98, 0.335]),
+	easeOutCirc: new ValueAnimator([0.075, 0.82, 0.165, 1]),
+	easeInOutCirc: new ValueAnimator([0.785, 0.135, 0.15, 0.86]),
 }
 
 
@@ -102,8 +127,8 @@ export function animate(element: HTMLElement, props: Props, dur: number): Promis
 
 	let start: number = null
 	// ease in
-	let E = easings.easeInSine
-	let bezier = KeySpline(E[0], E[1], E[2], E[3])
+	// let E = easings.easeInSine
+	// let bezier = KeySpline(E[0], E[1], E[2], E[3])
 	let style: any = element.style
 
 	for (let x in props)
@@ -120,7 +145,7 @@ export function animate(element: HTMLElement, props: Props, dur: number): Promis
 			let step = Math.min(progress, dur) / dur
 
 			for (let x in props)
-				style[x] = props[x](bezier(step))
+				style[x] = props[x](step)
 
 			if (progress < dur)
 				requestAnimationFrame(_next)
@@ -144,21 +169,23 @@ export interface AnimationSpec {
 export class Animator extends Controller {
 
 	protected specs: AnimationSpec
+	protected duration: number
 
-	constructor(specs: AnimationSpec) {
+	constructor(specs: AnimationSpec, duration: number = 200) {
 		super()
 		this.specs = specs
+		this.duration = duration
 	}
 
 	onMount() {
 		if (this.specs.enter) {
-			animate(this.atom.element, this.specs.enter, 200)
+			animate(this.atom.element, this.specs.enter, this.duration)
 		}
 	}
 
 	onUnmountBefore() {
 		if (this.specs.leave) {
-			return animate(this.atom.element, this.specs.leave, 200)
+			return animate(this.atom.element, this.specs.leave, this.duration)
 		}
 		return null
 	}
@@ -166,9 +193,9 @@ export class Animator extends Controller {
 }
 
 
-export function animator(specs: AnimationSpec) {
+export function animator(specs: AnimationSpec, duration: number = 200) {
 	return function _decorate(atom: Atom): Atom {
-		let c = new Animator(specs)
+		let c = new Animator(specs, duration)
 		atom.addController(c)
 		return atom
 	}

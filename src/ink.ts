@@ -1,5 +1,7 @@
 
 import {c, click, Atom} from 'carbyne'
+import {animator, easings} from './animate'
+
 import './ink.styl'
 
 export function inker(atom: Atom, event: MouseEvent = null) {
