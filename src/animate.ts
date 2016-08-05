@@ -144,7 +144,8 @@ export function animate(element: HTMLElement, props: Props, dur: number): Promis
 			// let step = Math.min(now, dur) / dur
 			let step = Math.min(progress, dur) / dur
 
-			for (let x in props)
+			let x: string = null
+			for (x in props)
 				style[x] = props[x](step)
 
 			if (progress < dur)
