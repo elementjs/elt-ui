@@ -76,7 +76,7 @@ export function TabContainer(attrs: BasicAttributes, children: Appendable): Atom
 
 	return <Column {...attrs} $$={tcs}>
 		<Row justify='center' class='carbm-tab-bar'>{children}</Row>
-		<Column absoluteGrow={1} class='carbm-tab-content'>
+		<Column absoluteGrow='1' class='carbm-tab-content'>
 			{tcs.o_render}
 		</Column>
 	</Column>
