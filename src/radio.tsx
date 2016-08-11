@@ -16,6 +16,8 @@ export interface RadioAttributes<T> extends BasicAttributes {
   disabled?: O<boolean>
 }
 
+export type Builder<T> = (attrs: T, children: Appendable) => Atom
+
 export function Radio<T>(attrs: RadioAttributes<T>, children: Appendable): Atom {
 
   const o_value: Observable<T> = o(attrs.value)
@@ -43,3 +45,8 @@ export function Radio<T>(attrs: RadioAttributes<T>, children: Appendable): Atom 
     </label>;
 
 }
+
+
+export const RadioBoolean = Radio as Builder<RadioAttributes<boolean>>
+export const RadioString = Radio as Builder<RadioAttributes<string>>
+export const RadioNumber = Radio as Builder<RadioAttributes<number>>

@@ -6,16 +6,16 @@ declare module 'carbyne-material' {
     import * as dialog from 'carbyne-material/dialog';
     export { dialog };
     export { default as toast } from 'carbyne-material/toast';
-    export { Button, ButtonBar } from 'carbyne-material/button';
-    export { Checkbox } from 'carbyne-material/checkbox';
-    export { Icon } from 'carbyne-material/icon';
-    export { Input } from 'carbyne-material/input';
-    export { Radio } from 'carbyne-material/radio';
+    export { Button, ButtonBar, ButtonAttributes, ButtonBarAttributes } from 'carbyne-material/button';
+    export { Checkbox, CheckboxAttributes } from 'carbyne-material/checkbox';
+    export { Icon, IconAttributes } from 'carbyne-material/icon';
+    export { Input, InputAttributes } from 'carbyne-material/input';
+    export { Radio, RadioBoolean, RadioString, RadioNumber, RadioAttributes } from 'carbyne-material/radio';
     export { Toolbar } from 'carbyne-material/toolbar';
     export { Content } from 'carbyne-material/content';
-    export { Select } from 'carbyne-material/select';
-    export { Tab, TabContainer } from 'carbyne-material/tab';
-    export { Child, Row, Column } from 'carbyne-material/flex';
+    export { Select, SelectAttributes } from 'carbyne-material/select';
+    export { Tab, TabAttributes, TabContainer } from 'carbyne-material/tab';
+    export { Child, Row, Column, FlexAttributes } from 'carbyne-material/flex';
     export { Card } from 'carbyne-material/card';
     export { Nav, NavHeader, NavSubheader, NavDivider, NavItem, NavBody, NavFooter } from 'carbyne-material/nav';
     export { animate, animator, Animator, AnimationSpec, easings } from 'carbyne-material/animate';
@@ -142,7 +142,11 @@ declare module 'carbyne-material/radio' {
         title: O<string>;
         disabled?: O<boolean>;
     }
+    export type Builder<T> = (attrs: T, children: Appendable) => Atom;
     export function Radio<T>(attrs: RadioAttributes<T>, children: Appendable): Atom;
+    export const RadioBoolean: (attrs: RadioAttributes<boolean>, children: string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node) | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node))[] | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node) | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node))[])[]) => Atom;
+    export const RadioString: (attrs: RadioAttributes<string>, children: string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node) | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node))[] | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node) | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node))[])[]) => Atom;
+    export const RadioNumber: (attrs: RadioAttributes<number>, children: string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node) | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node))[] | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node) | (string | number | boolean | Atom | Node | ((...a: any[]) => string | number | boolean | Atom | Node))[])[]) => Atom;
 }
 
 declare module 'carbyne-material/toolbar' {
