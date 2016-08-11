@@ -1,5 +1,5 @@
 
-import {c, o, bind, cls, If, Atom, BasicAttributes, Appendable, Observable, click} from 'carbyne';
+import {c, o, bind, If, Atom, BasicAttributes, Appendable, Observable, click} from 'carbyne';
 
 import './input.styl';
 
@@ -11,6 +11,9 @@ export interface InputAttributes extends BasicAttributes {
   id?: string
   label?: string
   placeholder?: string
+  autocapitalize?: 'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'
+  spellcheck?: boolean
+  autofocus?: boolean
   error?: Observable<string>
 }
 
@@ -28,6 +31,8 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
     error: o(attrs.error)
   };
 
+  let other_attrs = {autofocus: attrs.autofocus, autocapitalize: attrs.autocapitalize}
+
   const o_focused: Observable<boolean> = o(false)
     // max={attrs.max}
     // min={attrs.min}
@@ -38,6 +43,7 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
     $$={[bind(data.model), click((e, atom) => {
       atom.element.focus()
     })]}
+    {...other_attrs}
   /> as Atom
 
   input.listen('blur', ev => {
@@ -49,11 +55,11 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
 
   const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
 
-  return <div class='carbm-input-container' $$={cls({
+  return <div class={['carbm-input-container', {
     focused: o_focused,
     empty_unfocused: o_unfocus_and_empty,
     error: attrs.error
-  })}>
+  }]}>
       {input}
       {data.label ?
           <label for={id} class='carbm-input-floating-label'>{data.label}</label>

@@ -63,7 +63,7 @@ function _parse_attributes(atom: Atom) {
 }
 
 export interface FlexAttributes extends BasicAttributes {
-	wrap?: string
+	wrap?: string | boolean
 	direction?: string
 	align?: string
 	reverse?: boolean

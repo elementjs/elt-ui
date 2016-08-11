@@ -126,6 +126,9 @@ declare module 'carbyne-material/input' {
         id?: string;
         label?: string;
         placeholder?: string;
+        autocapitalize?: 'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off';
+        spellcheck?: boolean;
+        autofocus?: boolean;
         error?: Observable<string>;
     }
     export function Input(attrs: InputAttributes, content: Appendable): Atom;
@@ -193,7 +196,7 @@ declare module 'carbyne-material/tab' {
 declare module 'carbyne-material/flex' {
     import { Atom, BasicAttributes, Appendable } from 'carbyne';
     export interface FlexAttributes extends BasicAttributes {
-        wrap?: string;
+        wrap?: string | boolean;
         direction?: string;
         align?: string;
         reverse?: boolean;
