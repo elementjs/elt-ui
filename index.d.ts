@@ -175,6 +175,7 @@ declare module 'carbyne-material/select' {
 
 declare module 'carbyne-material/tab' {
     import { Controller, Atom, Observable, Builder, BasicAttributes, Appendable } from 'carbyne';
+    import { FlexAttributes } from 'carbyne-material/flex';
     export class TabsController extends Controller {
         o_render: Observable<Builder>;
         constructor();
@@ -194,7 +195,7 @@ declare module 'carbyne-material/tab' {
         render: Builder;
     }
     export function Tab(attrs: TabAttributes, children: Appendable): Atom;
-    export function TabContainer(attrs: BasicAttributes, children: Appendable): Atom;
+    export function TabContainer(attrs: FlexAttributes, children: Appendable): Atom;
 }
 
 declare module 'carbyne-material/flex' {

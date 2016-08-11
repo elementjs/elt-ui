@@ -1,7 +1,7 @@
 
 import {c, o, Controller, Atom, click, cls, Observable, Builder, BasicAttributes, Appendable} from 'carbyne'
 import {inkable} from './ink'
-import {Row, Column} from './flex'
+import {Row, Column, FlexAttributes} from './flex'
 import './tab.styl'
 
 
@@ -70,7 +70,7 @@ export function Tab(attrs: TabAttributes, children: Appendable): Atom {
 }
 
 
-export function TabContainer(attrs: BasicAttributes, children: Appendable): Atom {
+export function TabContainer(attrs: FlexAttributes, children: Appendable): Atom {
 
 	const tcs = new TabsController()
 
