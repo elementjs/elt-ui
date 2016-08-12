@@ -1,6 +1,7 @@
 
 import {o, c, on, cls, click, If, Then, Else, O, BasicAttributes, Appendable, Atom, CarbyneEvent} from 'carbyne';
 import {Icon} from './icon';
+import {Row} from './flex'
 
 import './button.styl';
 import {inkable} from './ink'
@@ -17,12 +18,12 @@ export interface ButtonBarAttributes extends BasicAttributes {
 }
 
 export function ButtonBar(attrs: ButtonBarAttributes, children: Appendable): Atom {
-  return <div class='carbm-button-bar' $$={[
+  return <Row class='carbm-button-bar' $$={[
     on('mount', (ev: CarbyneEvent<Atom>) => ev.target.element.parentElement.classList.add('carbm-has-button-bar')),
     on('unmount:before', (ev: CarbyneEvent<Atom>) => ev.target.element.parentElement.classList.remove('carbm-has-button-bar'))
   ]}>
       {children}
-    </div>
+    </Row>
 }
 
 export function Button(attrs : ButtonAttributes, children: Appendable): Atom {
