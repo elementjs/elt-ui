@@ -1,5 +1,5 @@
 
-import {c, o, O, Controller, cls, click, Atom, BasicAttributes, Appendable} from 'carbyne';
+import {c, o, O, Controller, cls, click, Atom, BasicAttributes, Appendable, ClassDef} from 'carbyne';
 
 import {animator, easings} from './animate'
 
@@ -52,7 +52,18 @@ export var dialogOverlayAnimation = animator({
 })
 
 
-export var Overlay = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-overlay'>{children}</div>
+export var Overlay = (attrs: BasicAttributes, children: Appendable): Atom => {
+  let classes: ClassDef[] = ['carbm-dialog-overlay']
+  if (attrs.class) { 
+    if (attrs.class instanceof Array)
+      classes = classes.concat(attrs.class)
+    else
+      classes.push(attrs.class) 
+  }
+
+  return <div class={classes}>{children}</div>
+}
+
 export var Title = (attrs: BasicAttributes, children: Appendable): Atom => <h3 class='carbm-dialog-title'>{children}</h3>
 export var Content = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-content'>{children}</div>
 
@@ -70,6 +81,7 @@ export var Root = (attrs: BasicAttributes, children: Appendable): Atom => <div c
 
 export interface DialogOptions {
   parent?: Node
+  class?: string
 }
 
 export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Atom
@@ -81,7 +93,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   let dlg = new DialogCtrl;
 
-  let atom: Atom = <Overlay $$={[
+  let atom: Atom = <Overlay class={opts.class ? opts.class : null} $$={[
     dlg,
     click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
     dialogOverlayAnimation
