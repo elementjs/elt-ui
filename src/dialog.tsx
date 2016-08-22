@@ -82,6 +82,7 @@ export var Root = (attrs: BasicAttributes, children: Appendable): Atom => <div c
 export interface DialogOptions {
   parent?: Node
   class?: string
+  animate?: boolean
 }
 
 export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Atom
@@ -93,11 +94,21 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   let dlg = new DialogCtrl;
 
+  var animateCtrl = (atom: Atom) => {
+    if (atom && opts.animate !== false) {
+      return dialogOverlayAnimation(atom)
+    } else {
+      return atom
+    }
+  }
+
   let atom: Atom = <Overlay class={opts.class ? opts.class : null} $$={[
     dlg,
     click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
-    dialogOverlayAnimation
+    animateCtrl
   ]}>{cbk(dlg)}</Overlay> as Atom
+
+
 
   // Remove the dialog from the DOM once we have answered it.
   dlg.promise.then(() => atom.destroy(), () => atom.destroy());
