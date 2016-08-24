@@ -45,16 +45,16 @@ export function Button(attrs : ButtonAttributes, children: Appendable): Atom {
     }
   }
 
-  return <button class='carbm-button' disabled={o(data.disabled).tf((val: boolean) => val ? val : undefined)} $$={click(doClick)}>
+  return <button class='carbm-button' disabled={o(data.disabled).tf((val: boolean) => val ? val : undefined)} $$={[click(doClick), inkable]}>
     {If(attrs.icon,
       name => <Icon
         class='carbm-button-icon'
         name={name}
-        $$={[inkable, cls({disabled: data.disabled, raised: data.raised})]}
+        $$={[cls({disabled: data.disabled, raised: data.raised})]}
       />,
       _ => <span
         class='carbm-button-content'
-        $$={[inkable, cls({disabled: data.disabled, raised: data.raised})]} >
+        $$={[cls({disabled: data.disabled, raised: data.raised})]} >
           {children}
       </span>
     )}
