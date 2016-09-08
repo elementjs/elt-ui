@@ -27,9 +27,10 @@ export interface NavAttributes extends BasicAttributes {
 
 export function Nav(a: NavAttributes, ch: Appendable): Atom {
 
-	return <div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
-		if (e.target === atom.element) atom.destroy()
-	}), new NavController]}>
+	return <div $$={[new NavController(), cssAnimator]}>
+		<div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
+			if (e.target === atom.element) atom.getController(NavController).remove()
+		})]}/>
 		<Column class='carbm-navigation-drawer' $$={navRootAnimation}>
 				{ch}
 		</Column>
