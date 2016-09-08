@@ -7,26 +7,10 @@ import {Column} from './flex'
 
 import './nav.styl'
 
-import {animator, easings} from './animate'
+import {cssAnimator} from './animate'
 
-export var navRootAnimation = animator({
-  enter: {
-  	transform: easings.easeIn.from(-100, v => `translateZ(0) translateX(${v}%)`)
-  },
-  leave: {
-  	transform: easings.easeOut.to(-100, v => `translateZ(0) translateX(${v}%)`)
-  }
-})
-
-export var navOverlayAnimation = animator({
-  enter: {
-  	'background-color': easings.easeIn.to(0.24, v => `rgba(0, 0, 0, ${v})`)
-  },
-  leave: {
-  	'background-color': easings.easeOut.from(0.24, v => `rgba(0, 0, 0, ${v})`)
-  }
-})
-
+export const navRootAnimation = cssAnimator
+export const navOverlayAnimation = cssAnimator
 
 export class NavController extends Controller {
 

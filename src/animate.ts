@@ -201,3 +201,46 @@ export function animator(specs: AnimationSpec, duration: number = 200) {
 		return atom
 	}
 }
+
+
+export function cssAnimator(atom: Atom): Atom {
+
+	atom.on('mount:before', e => {
+		atom.element.classList.add('transition-mount-before')
+		atom.element.classList.add('animation-mount')
+	})
+
+	atom.on('mount', e => {
+		setTimeout(() => {
+			atom.element.classList.remove('transition-mount-before')
+		}, 1)
+
+		atom.element.addEventListener('animationend', e => {
+			atom.element.classList.remove('animation-mount')
+		})
+	})
+
+	atom.on('unmount:before', e => {
+
+		atom.element.classList.remove('animation-mount')
+		atom.element.classList.add('transition-unmount')
+		atom.element.classList.add('animation-unmount')
+
+		return new Promise((resolve, reject) => {
+			let onend = (e: Event) => {
+				atom.element.removeEventListener('transitionend', onend)
+				atom.element.removeEventListener('animationend', onend)
+				resolve(true)
+			}
+			atom.element.addEventListener('transitionend', onend)
+			atom.element.addEventListener('animationend', onend)
+		})
+	})
+
+	atom.on('unmount', e => {
+		atom.element.classList.remove('transition-unmount')
+		atom.element.classList.remove('animation-unmount')
+	})
+
+	return atom
+}

@@ -1,7 +1,7 @@
 
 import {c, o, O, Controller, cls, click, Atom, BasicAttributes, Appendable, ClassDef} from 'carbyne';
 
-import {animator, easings} from './animate'
+import {cssAnimator} from './animate'
 
 import {Button} from './button';
 
@@ -31,34 +31,16 @@ export class DialogCtrl<T> extends Controller {
 
 }
 
-export var dialogRootAnimation = animator({
-  enter: {
-    transform: easings.easeIn.interval(50, 0, v => `translateY(${v}px) translateZ(0)`),
-    opacity: easings.easeIn.interval(0, 1)
-  },
-  leave: {
-    transform: easings.easeOut.interval(0, 50, v => `translateY(${v}px) translateZ(0)`),
-    opacity: easings.easeOut.interval(1, 0)
-  }
-})
-
-export var dialogOverlayAnimation = animator({
-  enter: {
-    'background-color': pct => `rgba(0, 0, 0, ${0.75 * pct})`
-  },
-  leave: {
-    'background-color': pct => `rgba(0, 0, 0, ${0.75 - 0.75 * pct})`
-  }
-})
-
+export const dialogRootAnimation = cssAnimator
+export const dialogOverlayAnimation = cssAnimator
 
 export var Overlay = (attrs: BasicAttributes, children: Appendable): Atom => {
   let classes: ClassDef[] = ['carbm-dialog-overlay']
-  if (attrs.class) { 
+  if (attrs.class) {
     if (attrs.class instanceof Array)
       classes = classes.concat(attrs.class)
     else
-      classes.push(attrs.class) 
+      classes.push(attrs.class)
   }
 
   return <div class={classes}>{children}</div>
