@@ -65,6 +65,7 @@ export interface DialogOptions {
   parent?: Node
   class?: string
   animate?: boolean
+  clickOutsideToClose?: boolean
 }
 
 export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Atom
@@ -84,9 +85,13 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
     }
   }
 
+  let outSideToClose = opts.clickOutsideToClose ?
+    click(ev => ev.target === atom.element && dlg.resolve(undefined))
+    : (atom: Atom) => atom
+
   let atom: Atom = <Overlay class={opts.class ? opts.class : null} $$={[
     dlg,
-    click((ev) => ev.target === atom.element && dlg.resolve(undefined)),
+    outSideToClose,
     animateCtrl
   ]}>{cbk(dlg)}</Overlay> as Atom
 
