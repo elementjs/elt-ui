@@ -11,7 +11,9 @@ export interface InputAttributes extends BasicAttributes {
   id?: string
   label?: string
   placeholder?: string
+  autocomplete?: 'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'
   autocapitalize?: 'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'
+  autocorrect?: 'on' | 'off'
   spellcheck?: boolean
   autofocus?: boolean
   error?: Observable<string>
@@ -31,7 +33,13 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
     error: o(attrs.error)
   };
 
-  let other_attrs = {autofocus: attrs.autofocus, autocapitalize: attrs.autocapitalize}
+  let other_attrs = {
+    autofocus: attrs.autofocus,
+    autocapitalize: attrs.autocapitalize,
+    spellcheck: attrs.spellcheck,
+    autocorrect: attrs.autocorrect,
+    autocomplete: attrs.autocomplete
+  }
 
   const o_focused: Observable<boolean> = o(false)
     // max={attrs.max}
