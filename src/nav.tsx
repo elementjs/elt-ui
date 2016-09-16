@@ -52,7 +52,7 @@ export function NavDivider(a: BasicAttributes, ch: Appendable): Atom {
 
 export interface NavItemAttributes extends BasicAttributes {
 	icon: string
-	click?: (ev: MouseEvent, atom?: Atom) => (void|boolean)
+	click?: (ev: MouseEvent, atom?: Atom) => any
 }
 
 export function NavItem(a: NavItemAttributes, ch: Appendable): Atom {
