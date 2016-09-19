@@ -13,7 +13,9 @@ export interface SelectAttributes<T> extends BasicAttributes {
 	change?: ChangeFn<T>
 }
 
-export class Select<T> extends Component<SelectAttributes<T>> {
+export class Select<T> extends Component {
+
+	attrs: SelectAttributes<T>
 
 	model: Observable<T>
 	options: Observable<T[]>

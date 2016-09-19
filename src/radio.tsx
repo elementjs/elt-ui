@@ -17,7 +17,9 @@ export interface RadioAttributes<T> extends BasicAttributes {
 }
 
 
-export class Radio<T> extends Component<RadioAttributes<T>> {
+export class Radio<T> extends Component {
+
+  attrs: RadioAttributes<T>
 
   disabled: Observable<boolean>
   value: T
