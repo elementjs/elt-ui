@@ -8,7 +8,7 @@ export {Button, ButtonBar, ButtonAttributes, ButtonBarAttributes} from './button
 export {Checkbox, CheckboxAttributes} from './checkbox'
 export {Icon, IconAttributes} from './icon'
 export {Input, InputAttributes} from './input'
-export {Radio, RadioBoolean, RadioString, RadioNumber, RadioAttributes} from './radio'
+export {Radio, RadioAttributes} from './radio'
 export {Toolbar} from './toolbar'
 export {Content} from './content'
 export {Select, SelectAttributes} from './select'

@@ -1,6 +1,6 @@
 import './checkbox.styl'
 
-import {o, c, cls, click, Atom, BasicAttributes, Appendable, Observable, O} from 'carbyne'
+import {o, c, cls, click, Atom, BasicAttributes, Appendable, Observable, O, Component} from 'carbyne'
 
 import {Icon} from './icon'
 
@@ -11,42 +11,46 @@ var UNCHECKED = 'circle-o'
 
 export interface RadioAttributes<T> extends BasicAttributes {
   model: Observable<T>
-  value: O<T>
-  title: O<string>
+  value: T
+  title?: O<string>
   disabled?: O<boolean>
 }
 
-export type Builder<T> = (attrs: T, children: Appendable) => Atom
 
-export function Radio<T>(attrs: RadioAttributes<T>, children: Appendable): Atom {
+export class Radio<T> extends Component<RadioAttributes<T>> {
 
-  const o_value: Observable<T> = o(attrs.value)
-  const o_disabled: Observable<boolean> = o(attrs.disabled)
+  disabled: Observable<boolean>
+  value: T
+  model: Observable<T>
 
-  function toggle() {
-    attrs.model.set(o_value.get());
+  constructor(attrs: RadioAttributes<T>) {
+    super(attrs)
+
+    this.disabled = o(attrs.disabled||false)
+    this.value = attrs.value
+    this.model = o(attrs.model)
   }
 
-  function getIcon(value: T) {
-    if (value === o_value.get()) return CHECKED;
-    return UNCHECKED;
+  setValue() {
+    this.model.set(this.value)
   }
 
-  let classes = cls({
-    on: o(attrs.model, o_value, (m: T, v: T) => m === v),
-    off: o(attrs.model, o_value, (m: T, v: T) => m !== v),
-    disabled: o_disabled
-  });
+  render(children: Appendable): Atom {
 
-  return <label class='carbm-checkbox-label' $$={[inkable, click(toggle)]}>
-      <Icon class='carbm-checkbox-icon' name={o(attrs.model, getIcon)}
-            $$={classes}/>
-      <span class='carbm-checkbox-content' $$={classes}>{attrs.title || children}</span>
-    </label>;
+    let classes = {
+      on: this.model.eq(this.value),
+      off: this.model.ne(this.value),
+      disabled: this.disabled
+    };
 
+    return <label class='carbm-checkbox-label' $$={[inkable, click(e => this.setValue())]}>
+        <Icon
+          class={['carbm-checkbox-icon']}
+          name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
+        />
+        <span class={['carbm-checkbox-content', classes]}>{children}</span>
+      </label>;
+
+  }
 }
 
-
-export const RadioBoolean = Radio as Builder<RadioAttributes<boolean>>
-export const RadioString = Radio as Builder<RadioAttributes<string>>
-export const RadioNumber = Radio as Builder<RadioAttributes<number>>
