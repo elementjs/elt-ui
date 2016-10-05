@@ -1,5 +1,5 @@
 
-import {o, O, Observable, c, cls, click, BasicAttributes, Appendable, Atom} from 'carbyne';
+import {o, O, Observable, c, cls, click, BasicAttributes, Appendable, Atom, Component} from 'carbyne';
 
 import {Icon} from './icon';
 
@@ -13,35 +13,43 @@ var INDETERMINATE = 'minus-square';
 export interface CheckboxAttributes extends BasicAttributes {
   model: Observable<boolean>
   disabled?: O<boolean>
-  title?: string
 }
 
-export function Checkbox(attrs: CheckboxAttributes, children: Appendable): Atom {
+export class Checkbox extends Component {
 
-  let data = {
-    model: o(attrs.model || undefined) as Observable<boolean>,
-    disabled: o(attrs.disabled)
-  };
+  attrs: CheckboxAttributes
 
-  function toggle(event: MouseEvent) {
-    if (data.disabled.get()) return;
+  o_model: Observable<boolean>
+  o_disabled: Observable<boolean>
 
-    let val = data.model.get();
-    data.model.set(!val);
+  constructor(attrs: CheckboxAttributes) {
+    super(attrs)
+
+    this.o_model = o(this.attrs.model)
+    this.o_disabled = o(this.attrs.disabled)
   }
 
-  function getIcon(value: boolean) {
-    if (value === undefined) return INDETERMINATE;
-    if (value) return ON;
-    return OFF;
+  toggle() {
+    if (this.o_disabled.get()) return;
+
+    this.o_model.set(!this.o_model.get());
   }
 
-  let classes = cls({on: data.model, off: o(data.model, (v: boolean) => !v), disabled: data.disabled});
+  render(children: Appendable): Atom {
 
-  return <label class='carbm-checkbox-label' $$={[inkable, click(toggle)]}>
-      <Icon class='carbm-checkbox-icon' name={o(data.model, getIcon)}
-        $$={classes}/>
-      <span class='carbm-checkbox-content' $$={classes}>{attrs.title || children}</span>
-    </label>;
+    function getIcon(value: boolean) {
+      if (value === undefined) return INDETERMINATE;
+      if (value) return ON;
+      return OFF;
+    }
 
+    let classes = cls({on: this.o_model, off: this.o_model.isFalse(), disabled: this.o_disabled});
+
+    return <label class='carbm-checkbox-label' $$={[inkable, click(e => this.toggle())]}>
+        <Icon class='carbm-checkbox-icon' name={this.o_model.tf(getIcon)}
+          $$={classes}/>
+        <span class='carbm-checkbox-content' $$={classes}>{children}</span>
+      </label>;
+
+  }
 }

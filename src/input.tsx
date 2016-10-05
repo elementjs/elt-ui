@@ -1,5 +1,5 @@
 
-import {c, o, bind, If, Atom, BasicAttributes, Appendable, Observable, click} from 'carbyne';
+import {c, o, bind, If, Atom, BasicAttributes, Appendable, Observable, click, O} from 'carbyne';
 
 import './input.styl';
 
@@ -7,6 +7,7 @@ var id_gen = 0;
 
 export interface InputAttributes extends BasicAttributes {
   model: Observable<string>
+  disabled?: O<boolean>
   type?: string
   id?: string
   label?: string
@@ -30,7 +31,8 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
     model: o(attrs.model || ''), // model is necessarily an observable.
     type: attrs.type || 'text',
     label: attrs.label || attrs.placeholder || false, // we may not have a label, and we don't try to.
-    error: o(attrs.error)
+    error: o(attrs.error),
+    disabled: o(attrs.disabled).tf(v => v ? 'disabled' : undefined)
   };
 
   let other_attrs = {
@@ -47,6 +49,7 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
   const input = <input
     id={id}
     class='carbm-input-element'
+    disabled={data.disabled}
     type={data.type}
     $$={[bind(data.model), click((e, atom) => {
       atom.element.focus()
