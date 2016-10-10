@@ -49,7 +49,7 @@ export function Button(attrs : ButtonAttributes, children: Appendable): Atom {
     {If(attrs.icon,
       name => <Icon
         class='carbm-button-icon'
-        name={name}
+        name={attrs.icon}
         $$={[cls({disabled: data.disabled, raised: data.raised})]}
       />,
       _ => <span
