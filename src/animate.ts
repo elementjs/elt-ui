@@ -19,7 +19,7 @@
 // 	});
 // }
 
-import {Controller, Atom} from 'carbyne'
+import {Controller, onmount} from 'domic'
 
 /**
 * KeySpline - use bezier curve for transition easing function
@@ -178,69 +178,72 @@ export class Animator extends Controller {
 		this.duration = duration
 	}
 
-	onMount() {
+	@onmount
+	onMount(node: HTMLElement) {
 		if (this.specs.enter) {
-			animate(this.atom.element, this.specs.enter, this.duration)
+			animate(node, this.specs.enter, this.duration)
 		}
 	}
 
-	onUnmountBefore() {
-		if (this.specs.leave) {
-			return animate(this.atom.element, this.specs.leave, this.duration)
-		}
-		return null
-	}
+	// @onunmount
+	// onUnmountBefore() {
+	// 	if (this.specs.leave) {
+	// 		return animate(node, this.specs.leave, this.duration)
+	// 	}
+	// 	return null
+	// }
 
 }
 
 
 export function animator(specs: AnimationSpec, duration: number = 200) {
-	return function _decorate(atom: Atom): Atom {
+	return function _decorate(node: Node): void {
 		let c = new Animator(specs, duration)
-		atom.addController(c)
-		return atom
+		c.bindToNode(node)
 	}
 }
 
 
-export function cssAnimator(atom: Atom): Atom {
+export function cssAnimator(node: Node): void {
 
-	atom.on('mount:before', e => {
-		atom.element.classList.add('transition-mount-before')
-		atom.element.classList.add('animation-mount')
-	})
+	// FIXME this needs a reimplementation with controllers
 
-	atom.on('mount', e => {
-		setTimeout(() => {
-			atom.element.classList.remove('transition-mount-before')
-		}, 1)
+	// atom.on('mount:before', e => {
+	// 	atom.element.classList.add('transition-mount-before')
+	// 	atom.element.classList.add('animation-mount')
+	// })
 
-		atom.element.addEventListener('animationend', e => {
-			atom.element.classList.remove('animation-mount')
-		})
-	})
+	// atom.on('mount', e => {
+	// 	setTimeout(() => {
+	// 		atom.element.classList.remove('transition-mount-before')
+	// 	}, 1)
 
-	atom.on('unmount:before', e => {
+	// 	atom.element.addEventListener('animationend', e => {
+	// 		atom.element.classList.remove('animation-mount')
+	// 	})
+	// })
 
-		atom.element.classList.remove('animation-mount')
-		atom.element.classList.add('transition-unmount')
-		atom.element.classList.add('animation-unmount')
+	// atom.on('unmount:before', e => {
 
-		return new Promise((resolve, reject) => {
-			let onend = (e: Event) => {
-				atom.element.removeEventListener('transitionend', onend)
-				atom.element.removeEventListener('animationend', onend)
-				resolve(true)
-			}
-			atom.element.addEventListener('transitionend', onend)
-			atom.element.addEventListener('animationend', onend)
-		})
-	})
+	// 	atom.element.classList.remove('animation-mount')
+	// 	atom.element.classList.add('transition-unmount')
+	// 	atom.element.classList.add('animation-unmount')
 
-	atom.on('unmount', e => {
-		atom.element.classList.remove('transition-unmount')
-		atom.element.classList.remove('animation-unmount')
-	})
+	// 	return new Promise((resolve, reject) => {
+	// 		let onend = (e: Event) => {
+	// 			atom.element.removeEventListener('transitionend', onend)
+	// 			atom.element.removeEventListener('animationend', onend)
+	// 			resolve(true)
+	// 		}
+	// 		atom.element.addEventListener('transitionend', onend)
+	// 		atom.element.addEventListener('animationend', onend)
+	// 	})
+	// })
 
-	return atom
+	// atom.on('unmount', e => {
+	// 	atom.element.classList.remove('transition-unmount')
+	// 	atom.element.classList.remove('animation-unmount')
+	// })
+
+	// return atom
 }

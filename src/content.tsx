@@ -1,11 +1,11 @@
 
-import {c, Appendable, Atom} from 'carbyne';
+import {d} from 'domic'
 
 import {Child, ChildAttributes} from './flex'
 
-import './content.styl';
+import './content.styl'
 
-export function Content(attrs: ChildAttributes, children: Appendable): Atom {
+export function Content(attrs: ChildAttributes, children: DocumentFragment): Node {
 
   return <Child {...attrs} class='carbm-content'>{children}</Child>;
 

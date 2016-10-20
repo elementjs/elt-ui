@@ -1,12 +1,13 @@
 
 import {
+  BasicAttributes,
+  ClassDefinition,
+  click,
+  ctrl,
+  Controller,
   d,
   o,
   O,
-  Controller,
-  click,
-  BasicAttributes,
-  ClassDef,
 } from 'domic';
 
 import {cssAnimator} from './animate'
@@ -42,20 +43,12 @@ export class DialogCtrl<T> extends Controller {
 export const dialogRootAnimation = cssAnimator
 export const dialogOverlayAnimation = cssAnimator
 
-export var Overlay = (attrs: BasicAttributes, children: Appendable): Atom => {
-  let classes: ClassDef[] = ['carbm-dialog-overlay']
-  if (attrs.class) {
-    if (attrs.class instanceof Array)
-      classes = classes.concat(attrs.class)
-    else
-      classes.push(attrs.class)
-  }
-
-  return <div class={classes}>{children}</div>
+export var Overlay = (attrs: BasicAttributes, children: DocumentFragment): Node => {
+  return <div class='carbm-dialog-overlay'>{children}</div>
 }
 
-export var Title = (attrs: BasicAttributes, children: Appendable): Atom => <h3 class='carbm-dialog-title'>{children}</h3>
-export var Content = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-content'>{children}</div>
+export var Title = (attrs: BasicAttributes, children: DocumentFragment): Node => <h3 class='carbm-dialog-title'>{children}</h3>
+export var Content = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='carbm-dialog-content'>{children}</div>
 
 export interface ButtonbarAttributes extends BasicAttributes {
   stacked?: O<boolean>
@@ -63,10 +56,10 @@ export interface ButtonbarAttributes extends BasicAttributes {
 
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
-export var Buttonbar = (attrs: ButtonbarAttributes, children: Appendable): Atom =>
-  <div class='carbm-dialog-buttonbar' $$={cls({stacked: attrs.stacked})}>{children}</div>
+export var Buttonbar = (attrs: ButtonbarAttributes, children: DocumentFragment): Node =>
+  <div class={['carbm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
 
-export var Root = (attrs: BasicAttributes, children: Appendable): Atom => <div class='carbm-dialog-root'
+export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='carbm-dialog-root'
   $$={dialogRootAnimation}>{children}</div>
 
 export interface DialogOptions {
@@ -76,7 +69,7 @@ export interface DialogOptions {
   clickOutsideToClose?: boolean
 }
 
-export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Atom
+export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Node
 
 /**
  * A function that returns a promise and that allows us to show a nice dialog.
@@ -85,32 +78,31 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   let dlg = new DialogCtrl;
 
-  var animateCtrl = (atom: Atom) => {
+  var animateCtrl = (atom: Node) => {
     if (atom && opts.animate !== false) {
-      return dialogOverlayAnimation(atom)
-    } else {
-      return atom
+      dialogOverlayAnimation(atom)
     }
   }
 
   let outSideToClose = opts.clickOutsideToClose ?
-    click(ev => ev.target === atom.element && dlg.resolve(undefined))
-    : (atom: Atom) => atom
+    click(ev => ev.target === overlay && dlg.resolve(undefined))
+    : (atom: Node) => atom
 
-  let atom: Atom = <Overlay class={opts.class ? opts.class : null} $$={[
-    dlg,
+  let overlay: HTMLElement = <Overlay class={opts.class ? opts.class : null} $$={[
     outSideToClose,
     animateCtrl
-  ]}>{cbk(dlg)}</Overlay> as Atom
-
-
+  ]}>{cbk(dlg)}</Overlay> as HTMLElement
+  dlg.bindToNode(overlay)
 
   // Remove the dialog from the DOM once we have answered it.
-  dlg.promise.then(() => atom.destroy(), () => atom.destroy());
+  dlg.promise.then(
+    () => overlay.remove(),
+    () => overlay.remove()
+  );
 
-  atom.mount(opts.parent || document.body);
+  (opts.parent || document.body).appendChild(overlay)
 
-  return dlg.promise;
+  return dlg.promise
 
 }
 

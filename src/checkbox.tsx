@@ -1,14 +1,22 @@
 
-import {o, O, Observable, c, cls, click, BasicAttributes, Appendable, Atom, Component} from 'carbyne';
+import {
+  o,
+  O,
+  Observable,
+  d,
+  click,
+  BasicAttributes,
+  Component
+} from 'domic'
 
-import {Icon} from './icon';
+import {Icon} from './icon'
 
 import {inkable} from './ink'
-import './checkbox.styl';
+import './checkbox.styl'
 
-var OFF = 'square-o';
-var ON = 'check-square';
-var INDETERMINATE = 'minus-square';
+var OFF = 'square-o'
+var ON = 'check-square'
+var INDETERMINATE = 'minus-square'
 
 export interface CheckboxAttributes extends BasicAttributes {
   model: Observable<boolean>
@@ -35,20 +43,19 @@ export class Checkbox extends Component {
     this.o_model.set(!this.o_model.get());
   }
 
-  render(children: Appendable): Atom {
+  render(children: DocumentFragment): Node {
 
     function getIcon(value: boolean) {
-      if (value === undefined) return INDETERMINATE;
-      if (value) return ON;
-      return OFF;
+      if (value === undefined) return INDETERMINATE
+      if (value) return ON
+      return OFF
     }
 
-    let classes = cls({on: this.o_model, off: this.o_model.isFalse(), disabled: this.o_disabled});
+    let classes = {on: this.o_model, off: this.o_model.isFalse(), disabled: this.o_disabled}
 
     return <label class='carbm-checkbox-label' $$={[inkable, click(e => this.toggle())]}>
-        <Icon class='carbm-checkbox-icon' name={this.o_model.tf(getIcon)}
-          $$={classes}/>
-        <span class='carbm-checkbox-content' $$={classes}>{children}</span>
+        <Icon class={['carbm-checkbox-icon', classes]} name={this.o_model.tf(getIcon)}/>
+        <span class={['carbm-checkbox-content', classes]}>{children}</span>
       </label>;
 
   }
