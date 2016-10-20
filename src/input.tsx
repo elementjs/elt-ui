@@ -1,5 +1,14 @@
 
-import {c, o, bind, If, Atom, BasicAttributes, Appendable, Observable, click, O} from 'carbyne';
+import {
+  d,
+  o,
+  bind,
+  DisplayIf,
+  BasicAttributes,
+  O,
+  Observable,
+  click,
+} from 'domic';
 
 import './input.styl';
 
@@ -20,7 +29,7 @@ export interface InputAttributes extends BasicAttributes {
   error?: Observable<string>
 }
 
-export function Input(attrs: InputAttributes, content: Appendable): Atom {
+export function Input(attrs: InputAttributes, content: DocumentFragment): Node {
 
   // Used in validation ???
   // this.valid = true;
@@ -51,16 +60,16 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
     class='carbm-input-element'
     disabled={data.disabled}
     type={data.type}
-    $$={[bind(data.model), click((e, atom) => {
-      atom.element.focus()
+    $$={[bind(data.model), click(function (this: HTMLInputElement, e: Event) {
+      this.focus()
     })]}
     {...other_attrs}
-  /> as Atom
+  />
 
-  input.listen('blur', ev => {
+  input.addEventListener('blur', ev => {
     o_focused.set(false)
   })
-  input.listen('focus', ev => {
+  input.addEventListener('focus', ev => {
     o_focused.set(true)
   })
 
@@ -75,6 +84,6 @@ export function Input(attrs: InputAttributes, content: Appendable): Atom {
       {data.label ?
           <label for={id} class='carbm-input-floating-label'>{data.label}</label>
       : null}
-      {If(data.error, val => <div class='carbm--input--error'>{val}</div>)}
+      {DisplayIf(data.error, error => <div class='carbm--input--error'>{error}</div>)}
     </div>;
 }

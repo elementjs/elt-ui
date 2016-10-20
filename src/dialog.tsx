@@ -1,5 +1,13 @@
 
-import {c, o, O, Controller, cls, click, Atom, BasicAttributes, Appendable, ClassDef} from 'carbyne';
+import {
+  d,
+  o,
+  O,
+  Controller,
+  click,
+  BasicAttributes,
+  ClassDef,
+} from 'domic';
 
 import {cssAnimator} from './animate'
 

@@ -1,5 +1,8 @@
 
-import {c, Atom, BasicAttributes, Appendable} from 'carbyne'
+import {
+	BasicAttributes,
+	d,
+} from 'domic'
 
 import './flex.styl'
 
@@ -30,36 +33,30 @@ function _(elt: HTMLElement, prop: string, value: string) {
 	style[`-webkit-${prop}`] = value
 }
 
-function _parse_attributes(atom: Atom) {
+function _parse_attributes(node: HTMLElement, at: FlexAttributes) {
 
-	var at = atom.attrs as FlexAttributes
+	var el = node
+	var cls = el.classList
 
-	atom.on('create', function (ev) {
-		var el = ev.target.element
-		var cls = el.classList
+	if (at.wrap != null) cls.add('carbm-flex-wrap')
+	if (at.direction != null) {
+		if (!at.reverse)
+			_(el, 'flex-direction', at.direction)
+		else
+			_(el, 'flex-direction', at.direction === 'column' ? 'column-reverse' : 'row-reverse')
+	} else if (at.reverse != null) _(el, 'flex-direction', 'row-reverse')
 
-		if (at.wrap != null) cls.add('carbm-flex-wrap')
-		if (at.direction != null) {
-			if (!at.reverse)
-				_(el, 'flex-direction', at.direction)
-			else
-				_(el, 'flex-direction', at.direction === 'column' ? 'column-reverse' : 'row-reverse')
-		} else if (at.reverse != null) _(el, 'flex-direction', 'row-reverse')
+	if (at.grow != null) _(el, 'flex-grow', at.grow)
+	if (at.basis != null) _(el, 'flex-basis', at.basis)
 
-		if (at.grow != null) _(el, 'flex-grow', at.grow)
-		if (at.basis != null) _(el, 'flex-basis', at.basis)
+	if (at.absoluteGrow != null) {
+		_(el, 'flex-grow', at.absoluteGrow)
+		_(el, 'flex-basis', '0')
+	}
 
-		if (at.absoluteGrow != null) {
-			_(el, 'flex-grow', at.absoluteGrow)
-			_(el, 'flex-basis', '0')
-		}
+	if (at.align != null) _(el, 'align-items', at.align)
+	if (at.justify != null) _(el, 'justify-content', at.justify)
 
-		if (at.align != null) _(el, 'align-items', at.align)
-		if (at.justify != null) _(el, 'justify-content', at.justify)
-
-	})
-
-	return atom
 }
 
 export interface FlexAttributes extends BasicAttributes {
@@ -73,13 +70,17 @@ export interface FlexAttributes extends BasicAttributes {
 	absoluteGrow?: string
 }
 
-export function Row(at: FlexAttributes, ch: Appendable): Atom {
-	return _parse_attributes(<div {...at} class='carbm-flex'>{ch}</div>)
+export function Row(at: FlexAttributes, ch: DocumentFragment): Node {
+	let node = d('div', {class: 'carbm-flex'}, ch)
+	_parse_attributes(node, at)
+	return node
 }
 
-export function Column(at: FlexAttributes, ch: Appendable): Atom {
+export function Column(at: FlexAttributes, ch: DocumentFragment): Node {
 	at.direction = 'column'
-	return _parse_attributes(<div {...at} class='carbm-flex'>{ch}</div>)
+	let node = d('div', {class: 'carbm-flex'}, ch)
+	_parse_attributes(node, at)
+	return node
 }
 
 export interface ChildAttributes extends FlexAttributes {
@@ -90,6 +91,8 @@ export interface ChildAttributes extends FlexAttributes {
  * A child that's not a flex itself (otherwise we'd use Row or Column), on which
  * there is hence no point in using the special align-items, ...
  */
-export function Child(at: ChildAttributes, ch: Appendable): Atom {
-	return _parse_attributes(<div {...at}>{ch}</div>)
+export function Child(at: ChildAttributes, ch: DocumentFragment): Node {
+	let node = d('div', null, ch)
+	_parse_attributes(node, at)
+	return node
 }

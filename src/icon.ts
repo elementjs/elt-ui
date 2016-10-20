@@ -1,5 +1,5 @@
 
-import {o, c, Atom, Controller, O, BasicAttributes, Appendable} from 'carbyne';
+import {o, d, Controller, O, BasicAttributes} from 'domic'
 
 
 export interface IconAttributes extends BasicAttributes {
@@ -7,6 +7,8 @@ export interface IconAttributes extends BasicAttributes {
 }
 
 
-export function Icon({name}: IconAttributes, content: Appendable) : Atom {
-  return c('i.zmdi', {'class': o(name).tf(name => `zmdi-${name || 'help-outline'}`)})
+export function Icon({name}: IconAttributes, content: DocumentFragment): Node {
+  return d('i', {
+    'class': ['zmdi', o(name).tf(name => `zmdi-${name || 'help-outline'}`)]
+  })
 }
