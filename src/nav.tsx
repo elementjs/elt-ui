@@ -3,7 +3,7 @@ import {
 	d,
 	click,
 	BasicAttributes,
-	Controller
+	Component
 } from 'domic'
 
 import {inkClickDelay} from './ink'
@@ -23,17 +23,24 @@ export interface NavAttributes extends BasicAttributes {
 
 }
 
-export function Nav(a: NavAttributes, ch: DocumentFragment): Node {
+export class Nav extends Component {
 
-	return <div $$={[cssAnimator]}>
-		<div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (this: HTMLElement, e: Event) {
-			if (e.target === this)
-				this.parentElement.parentElement.removeChild(this.parentElement)
-		})]}/>
-		<Column class='carbm-navigation-drawer' $$={navRootAnimation}>
-				{ch}
-		</Column>
-	</div>
+	detach() {
+		// FIXME should add this.node in the end...
+		// this.node.remove()
+	}
+
+	render(ch: DocumentFragment): Node {
+		return <div $$={[cssAnimator]}>
+			<div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (this: HTMLElement, e: Event) {
+				if (e.target === this)
+					this.parentElement.parentElement.removeChild(this.parentElement)
+			})]}/>
+			<Column class='carbm-navigation-drawer' $$={navRootAnimation}>
+					{ch}
+			</Column>
+		</div>
+	}
 
 }
 
@@ -55,10 +62,10 @@ export interface NavItemAttributes extends BasicAttributes {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
-	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e, atom) {
-		if (a.click && a.click(e, atom) !== false) {
-			let c = atom.getController(NavController)
-			c.remove()
+	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e) {
+		if (a.click && a.click(e) !== false) {
+			let c = Nav.get(res)
+			c.detach()
 		}
 	})}>
 		<Icon class='carbm-navigation-item-icon' name={a.icon}/>
