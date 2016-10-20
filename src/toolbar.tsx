@@ -1,9 +1,9 @@
 
-import {c, BasicAttributes, Appendable, Atom} from 'carbyne';
+import {d, BasicAttributes} from 'domic';
 
 import './toolbar.styl';
 
-export function Toolbar(attrs: BasicAttributes, children: Appendable): Atom {
+export function Toolbar(attrs: BasicAttributes, children: DocumentFragment): Node {
 
   return <div class='carbm-toolbar'>
       {children}

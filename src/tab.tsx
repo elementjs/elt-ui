@@ -1,84 +1,96 @@
 
-import {c, o, Controller, Atom, click, cls, Observable, Builder, BasicAttributes, Appendable} from 'carbyne'
+import {
+	BasicAttributes,
+	click,
+	Component,
+	d,
+	Display,
+	o,
+	O,
+	onmount,
+	onunmount,
+	Observable,
+	NodeCreatorFn,
+} from 'domic'
+
 import {inkable} from './ink'
-import {Row, Column, FlexAttributes} from './flex'
+
+import {
+	Row,
+	Column,
+	FlexAttributes
+} from './flex'
+
 import './tab.styl'
 
 
-export class TabsController extends Controller {
+export class TabContainer extends Component {
 
-	o_render: Observable<Builder>
+	attrs: FlexAttributes
+	o_render: Observable<NodeCreatorFn> = o(null)
 
-	constructor() {
-		super()
+	render(children: DocumentFragment): Node {
 
-		this.o_render = o(null)
+		return <Column {...this.attrs}>
+			<Row justify='center' class='carbm-tab-bar'>{children}</Row>
+			<Column absoluteGrow='1' class='carbm-tab-content'>
+				{Display(this.o_render)}
+			</Column>
+		</Column>
+
 	}
 
 }
 
-export class TabController extends Controller {
-
-	o_is_active: Observable<boolean>
-	render: Builder
-
-	constructor(render: Builder) {
-		super()
-		this.o_is_active = o(false)
-		this.render = render
-	}
-
-	onMount() {
-		const tcs = this.getController(TabsController) as TabsController
-		if (tcs == null) throw new Error('<Tab/> must be inside a <TabContainer/>')
-
-		this.observe(tcs.o_render, rend => this.o_is_active.set(rend === this.render))
-
-		if (tcs.o_render.get() == null)
-			this.activate()
-	}
-
-	activate() {
-		const tcs = this.getController(TabsController) as TabsController
-		tcs.o_render.set(this.render)
-	}
-
-}
-
-/**
- * Children are ignored
- */
 
 export interface TabAttributes extends BasicAttributes {
-	title: string,
-	render: Builder
-}
-
-export function Tab(attrs: TabAttributes, children: Appendable): Atom {
-
-	const tc = new TabController(attrs.render)
-
-	return <div class='carbm-tab-title' $$={[
-		tc,
-		click(ev => tc.activate()),
-		cls({active: tc.o_is_active}),
-		inkable
-	]}>
-		{attrs.title}
-	</div>
-
+	title: O<string>,
+	render: NodeCreatorFn
 }
 
 
-export function TabContainer(attrs: FlexAttributes, children: Appendable): Atom {
+/**
+ * FIXME missing is_active logic, since I don't know how to dynamically
+ * watch the parent container observable.
+ */
+export class Tab extends Component {
 
-	const tcs = new TabsController()
+	attrs: TabAttributes
+	container: TabContainer
 
-	return <Column {...attrs} $$={tcs}>
-		<Row justify='center' class='carbm-tab-bar'>{children}</Row>
-		<Column absoluteGrow='1' class='carbm-tab-content'>
-			{tcs.o_render}
-		</Column>
-	</Column>
+	o_is_active = o(false)
 
+	activate() {
+		this.container.o_render.set(this.attrs.render)
+	}
+
+	@onmount
+	linkToTabs(node: Node) {
+		this.container = TabContainer.get(node)
+
+		if (!this.container)
+			throw new Error('Tab must be inside a TabContainer')
+
+		// This this tab as the active one if no tab is being displayed
+		if (this.container.o_render.get() == null)
+			this.container.o_render.set(this.attrs.render)
+
+	}
+
+	render(children: DocumentFragment): Node {
+
+		// const tc = new TabController(this.attrs.render)
+
+		return <div
+			class={['carbm-tab-title', {active: this.o_is_active}]}
+			$$={[
+				click(ev => this.container.o_render.set(this.attrs.render)),
+				inkable
+		]}>
+			{this.attrs.title}
+		</div>
+
+	}
 }
+
+

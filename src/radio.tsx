@@ -1,6 +1,14 @@
 import './checkbox.styl'
 
-import {o, c, cls, click, Atom, BasicAttributes, Appendable, Observable, O, Component} from 'carbyne'
+import {
+  o,
+  d,
+  click,
+  BasicAttributes,
+  Observable,
+  O,
+  Component
+} from 'domic'
 
 import {Icon} from './icon'
 
@@ -36,7 +44,7 @@ export class Radio<T> extends Component {
     this.model.set(this.value)
   }
 
-  render(children: Appendable): Atom {
+  render(children: DocumentFragment): Node {
 
     let classes = {
       on: this.model.eq(this.value),

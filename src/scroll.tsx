@@ -1,7 +1,5 @@
 import './scroll.styl'
 
-import {Atom} from 'carbyne'
-
 var _noscrollsetup = false
 
 
@@ -22,26 +20,25 @@ function _setUpNoscroll() {
  *
  * Calling this functions makes anything not marked scrollable as non-scrollable.
  */
-export function scrollable(atom: Atom): Atom {
+export function scrollable(nod: Node): void {
+	if (!(nod instanceof HTMLElement)) throw new Error(`scrollable() only works on HTMLElement`)
+
+	let node = nod as HTMLElement
 
 	if (!_noscrollsetup) _setUpNoscroll()
 
-	atom.on('create', function () {
-		const e: HTMLElement = atom.element
-		e.classList.add('carbm-scrollable')
+	node.classList.add('carbm-scrollable')
 
-		e.addEventListener('touchstart', function (ev: TouchEvent) {
-			if (e.scrollTop == 0) {
-				e.scrollTop = 1
-			} else if (e.scrollTop + e.offsetHeight >= e.scrollHeight - 1) e.scrollTop -= 1
-		}, true)
+	node.addEventListener('touchstart', function (ev: TouchEvent) {
+		if (node.scrollTop == 0) {
+			node.scrollTop = 1
+		} else if (node.scrollTop + node.offsetHeight >= node.scrollHeight - 1) node.scrollTop -= 1
+	}, true)
 
-		e.addEventListener('touchmove', function event (ev: TouchEvent) {
-			if (e.offsetHeight < e.scrollHeight)
-				(ev as any).scrollable = true
-		}, true)
-	})
+	node.addEventListener('touchmove', function event (ev: TouchEvent) {
+		if (node.offsetHeight < node.scrollHeight)
+			(ev as any).scrollable = true
+	}, true)
 
-	return atom
 
 }

@@ -1,46 +1,47 @@
 
-import {c, click, Atom} from 'carbyne'
+import {d, click} from 'domic'
 import {animator, easings} from './animate'
 
 import './ink.styl'
 
-export function inker(atom: Atom, event: MouseEvent = null) {
+export function inker(node: Node, event: MouseEvent = null) {
 
 	var clientX = event.pageX
 	var clientY = event.pageY
 
 
-	var inker = c('.carbm-ink')
-	var ink_container = c('.carbm-ink-container')
-	ink_container.append(inker)
+	var inker = d('div', {class: 'carbm-ink'}) as HTMLDivElement
+	var ink_container = d('div', {class: 'carbm-ink-container'},
+		inker
+	) as HTMLDivElement
 
+	node.appendChild(ink_container)
 
-	// console.log(offset_x, offset_y)
-
-	ink_container.mount(atom.element)
 	// atom.append(inker)
 	requestAnimationFrame(e => {
-		var bb = ink_container.element.getBoundingClientRect()
-		inker.element.style.top = `${clientY - bb.top}px`
-		inker.element.style.left = `${clientX - bb.left}px`
-		inker.element.classList.add('animate')
-		ink_container.element.classList.add('animate')
-		setTimeout(() => ink_container.destroy(), 1000)
+		var bb = ink_container.getBoundingClientRect()
+		inker.style.top = `${clientY - bb.top}px`
+		inker.style.left = `${clientX - bb.left}px`
+		inker.classList.add('animate')
+		ink_container.classList.add('animate')
+		setTimeout(() => ink_container.remove(), 1000)
 	})
 	// var bb = atom.element.getBounding
 }
 
-export function inkable(atom: Atom) {
-	return click(function (ev: MouseEvent, atom: Atom) {
-		inker(atom, ev)
-	})(atom)
+
+export function inkable(node: Node) {
+	return click(function (ev: MouseEvent) {
+		inker(node, ev)
+	})(node as HTMLElement)
 }
 
-export type MouseEventCbk = (ev: MouseEvent, atom: Atom) => any
 
-export function inkClickDelay(fn: MouseEventCbk) {
-	return click(function (ev: MouseEvent, atom: Atom) {
-		inker(atom, ev)
-		setTimeout(() => fn(ev, atom), 150)
-	})
+export function inkClickDelay(fn: (ev: MouseEvent) => void) {
+	return function (node: Node) {
+		return click(function (ev: MouseEvent) {
+			inker(node, ev)
+			setTimeout(() => fn(ev), 150)
+		})(node as HTMLElement)
+	}
 }

@@ -8,7 +8,9 @@
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "jsx": "react",
-        "reactNamespace": "c",
+        "experimentalDecorators": true,
+        "reactNamespace": "d",
+        "outDir": "./build",
         "noLib": false
     },
     "files": [

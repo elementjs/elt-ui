@@ -1,5 +1,11 @@
 
-import {c, click, Atom, BasicAttributes, Appendable, Controller} from 'carbyne'
+import {
+	d,
+	click,
+	BasicAttributes,
+	Controller
+} from 'domic'
+
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
@@ -12,24 +18,17 @@ import {cssAnimator} from './animate'
 export const navRootAnimation = cssAnimator
 export const navOverlayAnimation = cssAnimator
 
-export class NavController extends Controller {
-
-	remove() {
-		this.atom.destroy()
-	}
-
-}
-
 
 export interface NavAttributes extends BasicAttributes {
 
 }
 
-export function Nav(a: NavAttributes, ch: Appendable): Atom {
+export function Nav(a: NavAttributes, ch: DocumentFragment): Node {
 
-	return <div $$={[new NavController(), cssAnimator]}>
-		<div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (e, atom) {
-			if (e.target === atom.element) atom.getController(NavController).remove()
+	return <div $$={[cssAnimator]}>
+		<div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (this: HTMLElement, e: Event) {
+			if (e.target === this)
+				this.parentElement.parentElement.removeChild(this.parentElement)
 		})]}/>
 		<Column class='carbm-navigation-drawer' $$={navRootAnimation}>
 				{ch}
@@ -38,24 +37,24 @@ export function Nav(a: NavAttributes, ch: Appendable): Atom {
 
 }
 
-export function NavHeader(a: BasicAttributes, ch: Appendable): Atom {
-	return c('.carbm-navigation-header', null, ch)
+export function NavHeader(a: BasicAttributes, ch: DocumentFragment): Node {
+	return <div class='carbm-navigation-header'>{ch}</div>
 }
 
-export function NavSubheader(a: BasicAttributes, ch: Appendable): Atom {
-	return c('.carbm-navigation-subheader', null, ch)
+export function NavSubheader(a: BasicAttributes, ch: DocumentFragment): Node {
+	return <div class='carbm-navigation-subheader'>{ch}</div>
 }
 
-export function NavDivider(a: BasicAttributes, ch: Appendable): Atom {
-	return c('.carbm-navigation-divider')
+export function NavDivider(a: BasicAttributes, ch: DocumentFragment): Node {
+	return <div class='carbm-navigation-divider'/>
 }
 
 export interface NavItemAttributes extends BasicAttributes {
 	icon: string
-	click?: (ev: MouseEvent, atom?: Atom) => any
+	click?: (ev: MouseEvent) => any
 }
 
-export function NavItem(a: NavItemAttributes, ch: Appendable): Atom {
+export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
 	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e, atom) {
 		if (a.click && a.click(e, atom) !== false) {
 			let c = atom.getController(NavController)
@@ -69,10 +68,10 @@ export function NavItem(a: NavItemAttributes, ch: Appendable): Atom {
 	return res
 }
 
-export function NavBody(a: BasicAttributes, ch: Appendable): Atom {
-	return c('.carbm-navigation-body', null, ch)
+export function NavBody(a: BasicAttributes, ch: DocumentFragment): Node {
+	return <div class='carbm-navigation-body'>{ch}</div>
 }
 
-export function NavFooter(a: BasicAttributes, ch: Appendable): Atom {
-	return c('.carbm-navigation-footer', null, ch)
+export function NavFooter(a: BasicAttributes, ch: DocumentFragment): Node {
+	return <div class='carbm-navigation-footer'>{ch}</div>
 }

@@ -1,49 +1,57 @@
 import './select.styl'
 
 //////////////////////////////////////////////////////////////
-import {o, O, c, bind, Atom, BasicAttributes, Appendable, Observable, Component} from 'carbyne'
+import {
+	BasicAttributes,
+	bind,
+	Component,
+	d,
+	o,
+	O,
+	Observable,
+} from 'domic'
+
 
 export type LabelFn<T> = (opt: T) => string
-export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
+// export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
+export type ChangeFn<T> = (value: T, ev?: Event) => any
+
 
 export interface SelectAttributes<T> extends BasicAttributes {
 	model: Observable<T>
 	options: O<T[]>
 	labelfn?: LabelFn<T>
-	change?: ChangeFn<T>
+	onchange?: ChangeFn<T>
 }
 
 export class Select<T> extends Component {
 
+	// FIXME attrs handling is probably not wonderful.
+
 	attrs: SelectAttributes<T>
 
-	model: Observable<T>
-	options: Observable<T[]>
-	labelfn: LabelFn<T>
-	change: ChangeFn<T>
+	// model: Observable<T>
+	// options: Observable<T[]>
+	// labelfn: LabelFn<T>
+	// onchange: ChangeFn<T>
 
 	protected selected: Observable<string>
 
-	constructor(attrs: SelectAttributes<T>) {
-		super(attrs)
-
-		this.model = o(attrs.model)
-		this.options = o(attrs.options || [])
-		this.labelfn = attrs.labelfn || ((o: any) => o.label || o.name || o);
-		this.change = attrs.change
-
-		this.selected = o('-1')
-	}
-
 	/**
 	 * Setup the observation logic.
-	 * We use a touched() function to avoid infinite loops since there
-	 * is a circular logic here.
 	 */
-	onCreate() {
-		let atom = this.atom
+	render(children: DocumentFragment): Node {
 		let mod = false;
 
+		let attrs = this.attrs
+
+		let options = o(attrs.options)
+		let {model, labelfn, onchange} = attrs
+
+		if (!labelfn) labelfn = (obj: any) => obj.label || obj.text || obj
+
+		//  We use a touched() function to avoid infinite loops since there
+		//  is a circular logic here.
 		let touched = () => {
 			if (mod)
 				return true
@@ -52,41 +60,42 @@ export class Select<T> extends Component {
 			return false
 		}
 
-		atom.observe(this.options, (opts) => {
+		this.observe(options, (opts) => {
 			if (touched()) return;
 
-			this.selected.set('' + opts.indexOf(this.model.get()));
+			this.selected.set('' + opts.indexOf(model.get()));
 
 		});
 
-		atom.observe(this.model, (v) => {
+		this.observe(model, (v) => {
 			if (touched()) return;
 
-			this.selected.set(''+ this.options.get().indexOf(v));
+			this.selected.set(''+ options.get().indexOf(v));
 		});
 
-		atom.observe(this.selected, (v) => {
+		this.observe(this.selected, (v) => {
 			if (touched()) return;
 
-			this.model.set(this.options.get()[parseInt(v)]);
+			model.set(options.get()[parseInt(v)]);
 		});
 
-	}
-
-	render(children: Appendable): Atom {
+		////////////////////////////////
 
 		let decorators = [bind(this.selected)];
 
-		if (this.change) {
-			decorators.push(atom => atom.listen('change', ev => this.change(this.model.get(), ev, atom)))
+		if (onchange) {
+			decorators.push(node => node.addEventListener(
+				'change',
+				ev => onchange(model.get(), ev))
+			)
 		}
 
 		return <label class='carbm-select-label'>
 			<select class='carbm-select' $$={decorators}>
-				{this.options.tf((opts) => {
+				{options.tf((opts) => {
 					return opts.map((o, i) => <option
 						value={i}
-						selected={this.model.get() === o ? true : undefined}>{this.labelfn(o)}</option>);
+						selected={model.get() === o ? true : undefined}>{labelfn(o)}</option>);
 				})}
 			</select>
 		</label>
