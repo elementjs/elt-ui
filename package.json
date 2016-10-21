@@ -1,13 +1,13 @@
 {
   "name": "domic-material",
   "version": "0.0.8",
-  "repository": "https://github.com/ceymard/carbyne-material",
+  "repository": "https://github.com/ceymard/domic-material",
   "description": "some description",
   "license": "MIT",
   "main": "./src/index",
   "typings": "./index.d.ts",
   "scripts": {
-    "build:dts": "dts-bundle --name carbyne-material --main src/index.d.ts --out ../index.d.ts && sed -i '/\\(require\\|import\\).*\\.\\(styl\\|css\\)/d' ./index.d.ts",
+    "build:dts": "dts-bundle --name domic-material --main src/index.d.ts --out ../index.d.ts && sed -i '/\\(require\\|import\\).*\\.\\(styl\\|css\\)/d' ./index.d.ts",
     "build:js": "tsc",
     "build": "npm run build:js && npm run build:dts",
     "watch": "parallel -u ::: 'ls src/*.d.ts | entr -d npm run build:dts' 'tscc -w'"
