@@ -1,4 +1,3 @@
-import './checkbox.styl'
 
 import {
   o,

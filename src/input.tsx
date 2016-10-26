@@ -10,7 +10,6 @@ import {
   click,
 } from 'domic';
 
-import './input.styl';
 
 var id_gen = 0;
 

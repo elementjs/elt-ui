@@ -14,7 +14,6 @@ import {cssAnimator} from './animate'
 
 import {Button} from './button';
 
-import './dialog.styl';
 
 export class DialogCtrl<T> extends Controller {
   promise: Promise<T>

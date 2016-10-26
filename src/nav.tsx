@@ -11,7 +11,6 @@ import {inkClickDelay} from './ink'
 import {Icon} from './icon'
 import {Column} from './flex'
 
-import './nav.styl'
 
 import {cssAnimator} from './animate'
 

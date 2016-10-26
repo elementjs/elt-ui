@@ -3,7 +3,6 @@ import {d} from 'domic'
 
 import {Child, ChildAttributes} from './flex'
 
-import './content.styl'
 
 export function Content(attrs: ChildAttributes, children: DocumentFragment): Node {
 

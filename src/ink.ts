@@ -2,7 +2,6 @@
 import {d, click} from 'domic'
 import {animator, easings} from './animate'
 
-import './ink.styl'
 
 export function inker(node: Node, event: MouseEvent = null) {
 

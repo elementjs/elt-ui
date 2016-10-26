@@ -3,7 +3,6 @@ import {d, click} from 'domic';
 
 import {animator} from './animate'
 
-import './toast.styl'
 
 export class Toaster {
 

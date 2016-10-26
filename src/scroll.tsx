@@ -1,4 +1,3 @@
-import './scroll.styl'
 
 var _noscrollsetup = false
 

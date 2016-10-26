@@ -4,7 +4,6 @@ import {
 	d,
 } from 'domic'
 
-import './flex.styl'
 
 // flex-direction
 // flex-wrap

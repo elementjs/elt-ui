@@ -12,7 +12,6 @@ import {
 import {Icon} from './icon'
 
 import {inkable} from './ink'
-import './checkbox.styl'
 
 var OFF = 'square-o'
 var ON = 'check-square'

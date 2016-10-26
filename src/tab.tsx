@@ -21,8 +21,6 @@ import {
 	FlexAttributes
 } from './flex'
 
-import './tab.styl'
-
 
 export class TabContainer extends Component {
 

@@ -16,7 +16,6 @@ import {
 import {Icon} from './icon'
 import {Row} from './flex'
 
-import './button.styl';
 import {inkable} from './ink'
 
 export interface ButtonAttributes extends BasicAttributes {
