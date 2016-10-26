@@ -4,10 +4,9 @@
   "repository": "https://github.com/ceymard/domic-material",
   "description": "some description",
   "license": "MIT",
-  "main": "./lib/domic-material.js",
-  "typings": "./lib/index.d.ts",
+  "typings": "./index.d.ts",
   "scripts": {
-    "build:dts": "dts-bundle --name domic-material --main build/index.d.ts --out ../lib/index.d.ts && sed -i '/\\(require\\|import\\).*\\.\\(styl\\|css\\)/d' ./lib/index.d.ts",
+    "build:dts": "dts-bundle --name domic-material --main build/index.d.ts --out ../index.d.ts",
     "build:js": "tsc",
     "build": "npm run build:js && npm run build:dts",
     "watch": "parallel -u ::: 'ls src/*.d.ts | entr -d npm run build:dts' 'tscc -w'"
