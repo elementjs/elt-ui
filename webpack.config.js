@@ -14,8 +14,7 @@ module.exports = {
   output: {
     path: "./",
     publicPath: "/",
-    library: '',
-    target: 'commonjs',
+    libraryTarget: 'commonjs',
     filename: "index.js",
     sourceMapFilename: "[file].map"
   },
