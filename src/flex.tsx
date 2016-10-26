@@ -37,7 +37,7 @@ function _parse_attributes(node: HTMLElement, at: FlexAttributes) {
 	var el = node
 	var cls = el.classList
 
-	if (at.wrap != null) cls.add('carbm-flex-wrap')
+	if (at.wrap != null) cls.add('dm-flex-wrap')
 	if (at.direction != null) {
 		if (!at.reverse)
 			_(el, 'flex-direction', at.direction)
@@ -70,14 +70,14 @@ export interface FlexAttributes extends BasicAttributes {
 }
 
 export function Row(at: FlexAttributes, ch: DocumentFragment): Node {
-	let node = d('div', {class: 'carbm-flex'}, ch)
+	let node = d('div', {class: 'dm-flex'}, ch)
 	_parse_attributes(node, at)
 	return node
 }
 
 export function Column(at: FlexAttributes, ch: DocumentFragment): Node {
 	at.direction = 'column'
-	let node = d('div', {class: 'carbm-flex'}, ch)
+	let node = d('div', {class: 'dm-flex'}, ch)
 	_parse_attributes(node, at)
 	return node
 }

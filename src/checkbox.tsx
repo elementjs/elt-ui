@@ -52,9 +52,9 @@ export class Checkbox extends Component {
 
     let classes = {on: this.o_model, off: this.o_model.isFalse(), disabled: this.o_disabled}
 
-    return <label class='carbm-checkbox-label' $$={[inkable, click(e => this.toggle())]}>
-        <Icon class={['carbm-checkbox-icon', classes]} name={this.o_model.tf(getIcon)}/>
-        <span class={['carbm-checkbox-content', classes]}>{children}</span>
+    return <label class='dm-checkbox-label' $$={[inkable, click(e => this.toggle())]}>
+        <Icon class={['dm-checkbox-icon', classes]} name={this.o_model.tf(getIcon)}/>
+        <span class={['dm-checkbox-content', classes]}>{children}</span>
       </label>;
 
   }

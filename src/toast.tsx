@@ -13,7 +13,7 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class='carbm--toast-holder'/>
+		this._holder = <div class='dm--toast-holder'/>
 	}
 
 	toast(msg: string|Node) {
@@ -28,7 +28,7 @@ export class Toaster {
 
 		// promise.then(done => {
 		// 	let cancel: number = null;
-		// 	let atom = d('.carbm--toast', {
+		// 	let atom = d('.dm--toast', {
 		// 		$$: [
 		// 			click(ev => {
 		// 				// atom.destroy();

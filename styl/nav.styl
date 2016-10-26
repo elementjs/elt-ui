@@ -1,14 +1,14 @@
 
-.carbm-navigation-overlay
+.dm-navigation-overlay
 
   animation-duration: 0.2s
 
   &.animation-mount
-    animation-name: carbm-nav-overlay-enter
+    animation-name: dm-nav-overlay-enter
     animation-timing-function: ease-out
 
   &.animation-unmount
-    animation-name: carbm-nav-overlay-enter
+    animation-name: dm-nav-overlay-enter
     animation-timing-function: ease-in
     animation-direction: reverse
 
@@ -19,16 +19,16 @@
   width: 100vw
   background-color: rgba(0, 0, 0, 0.24)
 
-.carbm-navigation-drawer
+.dm-navigation-drawer
 
   animation-duration: 0.2s
 
   &.animation-mount
-    animation-name: carbm-nav-drawer-enter
+    animation-name: dm-nav-drawer-enter
     animation-timing-function: ease-out
 
   &.animation-unmount
-    animation-name: carbm-nav-drawer-enter
+    animation-name: dm-nav-drawer-enter
     animation-timing-function: ease-in
     animation-direction: reverse
 
@@ -45,7 +45,7 @@
   background-color: white
 
 
-.carbm-navigation-item
+.dm-navigation-item
   position: relative
 
   display: flex
@@ -59,7 +59,7 @@
   &.selected
     background-color: rgba(0, 0, 0, 0.14)
 
-.carbm-navigation-item-icon
+.dm-navigation-item-icon
   &:before
     font-size: 24px
   padding-left: 16px
@@ -67,32 +67,32 @@
   color: rgba(0, 0, 0, 0.65)
 
 
-.carbm-navigation-divider
+.dm-navigation-divider
   position: relative
   width: 100%
   border-bottom: 1px solid rgba(0, 0, 0, 0.07)
   margin-top: 4px
   margin-bottom: 3px
 
-.carbm-navigation-body
+.dm-navigation-body
   display: flex
   flex-direction: column
   flex-grow: 1
 
-.carbm-navigation-header
+.dm-navigation-header
   padding-top: 16px
   padding-left: 16px
 
-.carbm-navigation-subheader
+.dm-navigation-subheader
   padding-left: 16px
 
-.carbm-navigation-footer
+.dm-navigation-footer
   text-align: center
   padding-bottom: 16px
 
 
 
-@keyframes carbm-nav-drawer-enter
+@keyframes dm-nav-drawer-enter
   0%
     transform: translate3d(-100%, 0, 0)
 
@@ -100,7 +100,7 @@
     transform: translate3d(0, 0, 0)
 
 
-@keyframes carbm-nav-overlay-enter
+@keyframes dm-nav-overlay-enter
 
   0%
     opacity: 0

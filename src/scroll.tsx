@@ -26,7 +26,7 @@ export function scrollable(nod: Node): void {
 
 	if (!_noscrollsetup) _setUpNoscroll()
 
-	node.classList.add('carbm-scrollable')
+	node.classList.add('dm-scrollable')
 
 	node.addEventListener('touchstart', function (ev: TouchEvent) {
 		if (node.scrollTop == 0) {

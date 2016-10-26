@@ -36,16 +36,16 @@ export class ButtonBar extends Component {
 
   @onmount
   addCls(node: HTMLElement) {
-    node.parentElement.classList.add('carbm-has-button-bar')
+    node.parentElement.classList.add('dm-has-button-bar')
   }
 
   @onunmount
   removeCls(node: HTMLElement) {
-    node.parentElement.classList.remove('carbm-has-button-bar')
+    node.parentElement.classList.remove('dm-has-button-bar')
   }
 
   render(children: DocumentFragment): Node {
-    return <Row class='carbm-button-bar'>{children}</Row>
+    return <Row class='dm-button-bar'>{children}</Row>
   }
 }
 
@@ -65,17 +65,17 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
   }
 
   return <button
-    class='carbm-button'
+    class='dm-button'
     disabled={o(attrs.disabled).tf((val: boolean) => val ? val : undefined)}
     $$={[click(doClick), inkable]}
   >
     {DisplayIf(attrs.icon,
       name => <Icon
-        class={['carbm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
+        class={['dm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
         name={attrs.icon}
       />)}
     {DisplayUnless(attrs.icon, () => <span
-      class={['carbm-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
+      class={['dm-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
     >
         {children}
     </span>

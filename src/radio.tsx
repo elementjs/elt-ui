@@ -51,12 +51,12 @@ export class Radio<T> extends Component {
       disabled: this.disabled
     };
 
-    return <label class='carbm-checkbox-label' $$={[inkable, click(e => this.setValue())]}>
+    return <label class='dm-checkbox-label' $$={[inkable, click(e => this.setValue())]}>
         <Icon
-          class={['carbm-checkbox-icon']}
+          class={['dm-checkbox-icon']}
           name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
         />
-        <span class={['carbm-checkbox-content', classes]}>{children}</span>
+        <span class={['dm-checkbox-content', classes]}>{children}</span>
       </label>;
 
   }

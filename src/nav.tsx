@@ -31,11 +31,11 @@ export class Nav extends Component {
 
 	render(ch: DocumentFragment): Node {
 		return <div $$={[cssAnimator]}>
-			<div class='carbm-navigation-overlay' $$={[navOverlayAnimation, click(function (this: HTMLElement, e: Event) {
+			<div class='dm-navigation-overlay' $$={[navOverlayAnimation, click(function (this: HTMLElement, e: Event) {
 				if (e.target === this)
 					this.parentElement.parentElement.removeChild(this.parentElement)
 			})]}/>
-			<Column class='carbm-navigation-drawer' $$={navRootAnimation}>
+			<Column class='dm-navigation-drawer' $$={navRootAnimation}>
 					{ch}
 			</Column>
 		</div>
@@ -44,15 +44,15 @@ export class Nav extends Component {
 }
 
 export function NavHeader(a: BasicAttributes, ch: DocumentFragment): Node {
-	return <div class='carbm-navigation-header'>{ch}</div>
+	return <div class='dm-navigation-header'>{ch}</div>
 }
 
 export function NavSubheader(a: BasicAttributes, ch: DocumentFragment): Node {
-	return <div class='carbm-navigation-subheader'>{ch}</div>
+	return <div class='dm-navigation-subheader'>{ch}</div>
 }
 
 export function NavDivider(a: BasicAttributes, ch: DocumentFragment): Node {
-	return <div class='carbm-navigation-divider'/>
+	return <div class='dm-navigation-divider'/>
 }
 
 export interface NavItemAttributes extends BasicAttributes {
@@ -61,13 +61,13 @@ export interface NavItemAttributes extends BasicAttributes {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
-	let res = <div class='carbm-navigation-item' $$={inkClickDelay(function (e) {
+	let res = <div class='dm-navigation-item' $$={inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			c.detach()
 		}
 	})}>
-		<Icon class='carbm-navigation-item-icon' name={a.icon}/>
+		<Icon class='dm-navigation-item-icon' name={a.icon}/>
 		{ch}
 	</div>
 
@@ -75,9 +75,9 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
 }
 
 export function NavBody(a: BasicAttributes, ch: DocumentFragment): Node {
-	return <div class='carbm-navigation-body'>{ch}</div>
+	return <div class='dm-navigation-body'>{ch}</div>
 }
 
 export function NavFooter(a: BasicAttributes, ch: DocumentFragment): Node {
-	return <div class='carbm-navigation-footer'>{ch}</div>
+	return <div class='dm-navigation-footer'>{ch}</div>
 }

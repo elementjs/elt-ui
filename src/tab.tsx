@@ -30,8 +30,8 @@ export class TabContainer extends Component {
 	render(children: DocumentFragment): Node {
 
 		return <Column {...this.attrs}>
-			<Row justify='center' class='carbm-tab-bar'>{children}</Row>
-			<Column absoluteGrow='1' class='carbm-tab-content'>
+			<Row justify='center' class='dm-tab-bar'>{children}</Row>
+			<Column absoluteGrow='1' class='dm-tab-content'>
 				{Display(this.o_render)}
 			</Column>
 		</Column>
@@ -80,7 +80,7 @@ export class Tab extends Component {
 		// const tc = new TabController(this.attrs.render)
 
 		return <div
-			class={['carbm-tab-title', {active: this.o_is_active}]}
+			class={['dm-tab-title', {active: this.o_is_active}]}
 			$$={[
 				click(ev => this.container.o_render.set(this.attrs.render)),
 				inkable

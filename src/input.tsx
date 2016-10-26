@@ -56,7 +56,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Node {
     // min={attrs.min}
   const input = <input
     id={id}
-    class='carbm-input-element'
+    class='dm-input-element'
     disabled={data.disabled}
     type={data.type}
     $$={[bind(data.model), click(function (this: HTMLInputElement, e: Event) {
@@ -74,15 +74,15 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Node {
 
   const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
 
-  return <div class={['carbm-input-container', {
+  return <div class={['dm-input-container', {
     focused: o_focused,
     empty_unfocused: o_unfocus_and_empty,
     error: attrs.error
   }]}>
       {input}
       {data.label ?
-          <label for={id} class='carbm-input-floating-label'>{data.label}</label>
+          <label for={id} class='dm-input-floating-label'>{data.label}</label>
       : null}
-      {DisplayIf(data.error, error => <div class='carbm--input--error'>{error}</div>)}
+      {DisplayIf(data.error, error => <div class='dm--input--error'>{error}</div>)}
     </div>;
 }

@@ -89,8 +89,8 @@ export class Select<T> extends Component {
 			)
 		}
 
-		return <label class='carbm-select-label'>
-			<select class='carbm-select' $$={decorators}>
+		return <label class='dm-select-label'>
+			<select class='dm-select' $$={decorators}>
 				{options.tf((opts) => {
 					return opts.map((o, i) => <option
 						value={i}

@@ -4,5 +4,5 @@ import {Column} from './flex'
 
 
 export function Card(attrs: BasicAttributes, children: DocumentFragment): Node {
-	return <Column class='carbm-card-frame' {...attrs}>{children}</Column>
+	return <Column class='dm-card-frame' {...attrs}>{children}</Column>
 }

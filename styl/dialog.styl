@@ -1,19 +1,19 @@
 $animation_time = 0.3s
 $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
-.carbm-dialog-noscroll
+.dm-dialog-noscroll
   overflow hidden
 
-.carbm-dialog-overlay
+.dm-dialog-overlay
 
   animation-duration: 0.2s
 
   &.animation-mount
-    animation-name: carbm-dialog-overlay-enter
+    animation-name: dm-dialog-overlay-enter
     animation-timing-function: ease-out
 
   &.animation-unmount
-    animation-name: carbm-dialog-overlay-enter
+    animation-name: dm-dialog-overlay-enter
     animation-timing-function: ease-in
     animation-direction: reverse
 
@@ -39,7 +39,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
   background-color rgba(0, 0, 0, 0.75)
 
-.carbm-dialog-buttonbar
+.dm-dialog-buttonbar
   text-align right
   display flex
   justify-content flex-end
@@ -50,15 +50,15 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     -webkit-flex-direction column
     -webkit-justify-content center
 
-    > .carbm-button
+    > .dm-button
       text-align right
       padding-top 6px
       padding-bottom 6px
 
-  .carbm-button + .carbm-button
+  .dm-button + .dm-button
     margin-right 0
 
-.carbm-dialog-content
+.dm-dialog-content
   padding 0 24px
   padding-bottom 24px
   color alpha(#000, 0.7)
@@ -69,17 +69,17 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   > *:last-child
     margin-bottom 0
 
-.carbm-dialog-root
+.dm-dialog-root
 
   transform-origin: 50% 0
   animation-duration: 0.2s
 
   &.animation-mount
-    animation-name: carbm-dialog-root-enter
+    animation-name: dm-dialog-root-enter
     animation-timing-function: ease-out
 
   &.animation-unmount
-    animation-name: carbm-dialog-root-leave
+    animation-name: dm-dialog-root-leave
     animation-timing-function: ease-in
 
 
@@ -87,7 +87,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     padding 0 24px
     padding-top 24px
 
-  & > h3 + .carbm-dialog-content, & > .carbm-toolbar + .carbm-dialog-content
+  & > h3 + .dm-dialog-content, & > .dm-toolbar + .dm-dialog-content
     padding-top 20px
 
   // FIXME color theme.
@@ -96,16 +96,16 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   // This is to avoid the dialog covering the whole screen.
   margin 24px 40px
 
-  .carbm-button-content
+  .dm-button-content
     min-width 0
 
 
-.carbm-dialog-title
+.dm-dialog-title
   margin 0
   padding 0
 
 
-@keyframes carbm-dialog-root-enter
+@keyframes dm-dialog-root-enter
 
   0%
     transform: translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)
@@ -113,7 +113,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   100%
     transform: translate3d(0, 0, 0) scale3d(1, 1, 1)
 
-@keyframes carbm-dialog-root-leave
+@keyframes dm-dialog-root-leave
 
   0%
     transform: translate3d(0, 0, 0) scale3d(1, 1, 1)
@@ -122,7 +122,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     transform: translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)
 
 
-@keyframes carbm-dialog-overlay-enter
+@keyframes dm-dialog-overlay-enter
 
   0%
     opacity: 0

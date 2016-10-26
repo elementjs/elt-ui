@@ -43,11 +43,11 @@ export const dialogRootAnimation = cssAnimator
 export const dialogOverlayAnimation = cssAnimator
 
 export var Overlay = (attrs: BasicAttributes, children: DocumentFragment): Node => {
-  return <div class='carbm-dialog-overlay'>{children}</div>
+  return <div class='dm-dialog-overlay'>{children}</div>
 }
 
-export var Title = (attrs: BasicAttributes, children: DocumentFragment): Node => <h3 class='carbm-dialog-title'>{children}</h3>
-export var Content = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='carbm-dialog-content'>{children}</div>
+export var Title = (attrs: BasicAttributes, children: DocumentFragment): Node => <h3 class='dm-dialog-title'>{children}</h3>
+export var Content = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='dm-dialog-content'>{children}</div>
 
 export interface ButtonbarAttributes extends BasicAttributes {
   stacked?: O<boolean>
@@ -56,9 +56,9 @@ export interface ButtonbarAttributes extends BasicAttributes {
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
 export var Buttonbar = (attrs: ButtonbarAttributes, children: DocumentFragment): Node =>
-  <div class={['carbm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
+  <div class={['dm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
 
-export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='carbm-dialog-root'
+export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='dm-dialog-root'
   $$={dialogRootAnimation}>{children}</div>
 
 export interface DialogOptions {
