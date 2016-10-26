@@ -1,3 +1,2 @@
-*.tsx
-src/**/*.d.ts
-src/**/*.ts
+build
+node_modules
