@@ -1,6 +1,8 @@
 node_modules
+build
+index.js
+
 elt
-*.js
 *.css
 *.d.ts
 *.map

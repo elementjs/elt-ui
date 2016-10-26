@@ -9,7 +9,8 @@
     "build:dts": "dts-bundle --name domic-material --main build/index.d.ts --out ../index.d.ts",
     "build:js": "tsc && webpack",
     "build": "npm run build:js && npm run build:dts",
-    "watch": "parallel -u ::: 'ls src/*.d.ts | entr -d npm run build:dts' 'tscc -w'"
+    "prepublish": "npm run build",
+    "watch": "parallel -u ::: 'ls build/*.d.ts | entr -d npm run build:dts' 'tscc -w' 'webpack -w'"
   },
   "devDependencies": {
     "@types/es6-shim": "^0.31.32",
