@@ -7,7 +7,7 @@
   "typings": "./index.d.ts",
   "scripts": {
     "build:dts": "dts-bundle --name domic-material --main build/index.d.ts --out ../index.d.ts",
-    "build:js": "tsc",
+    "build:js": "tsc && webpack",
     "build": "npm run build:js && npm run build:dts",
     "watch": "parallel -u ::: 'ls src/*.d.ts | entr -d npm run build:dts' 'tscc -w'"
   },

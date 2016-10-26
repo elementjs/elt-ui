@@ -55,28 +55,27 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
   // FIXME missing ripple.
   // let fn = attrs.click || function () {};
 
-  let data = {
-    disabled: o(attrs.disabled),
-    raised: o(attrs.raised),
-    fn: o(attrs.click || function () {})
-  };
-
   function doClick(this: Node, event: MouseEvent) {
-    if (!data.disabled.get()) {
+    let click = o.get(attrs.click)
+    if (!o.get(attrs.disabled)) {
       // in this context, this is the Node.
-      data.fn.get()(event);
+      click(event);
       // this.element.blur() // to prevent focus lingering.
     }
   }
 
-  return <button class='carbm-button' disabled={o(data.disabled).tf((val: boolean) => val ? val : undefined)} $$={[click(doClick), inkable]}>
+  return <button
+    class='carbm-button'
+    disabled={o(attrs.disabled).tf((val: boolean) => val ? val : undefined)}
+    $$={[click(doClick), inkable]}
+  >
     {DisplayIf(attrs.icon,
       name => <Icon
-        class={['carbm-button-icon', {disabled: data.disabled, raised: data.raised}]}
+        class={['carbm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
         name={attrs.icon}
       />)}
     {DisplayUnless(attrs.icon, () => <span
-      class={['carbm-button-content', {disabled: data.disabled, raised: data.raised}]}
+      class={['carbm-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
     >
         {children}
     </span>
