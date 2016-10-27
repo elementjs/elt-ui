@@ -6,11 +6,15 @@ import {
   ctrl,
   Controller,
   d,
+  DisplayIf,
+  Fragment as F,
+  getDocumentFragment,
   o,
   O,
 } from 'domic';
 
 
+import {animate} from './animate'
 import {Button} from './button';
 
 
@@ -72,9 +76,10 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   let dlg = new DialogCtrl;
 
-  var animateCtrl = (atom: Node) => {
-    if (atom && opts.animate !== false) {
+  var animateCtrl = (node: Node) => {
+    if (node && opts.animate !== false) {
       // dialogOverlayAnimation(atom)
+
     }
   }
 
@@ -82,17 +87,29 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
     click(ev => ev.target === overlay && dlg.resolve(undefined))
     : (atom: Node) => atom
 
+  let contents = cbk(dlg)
+  let root = <Root>{contents}</Root> as HTMLElement
   let overlay: HTMLElement = <Overlay class={opts.class ? opts.class : null} $$={[
     outSideToClose,
     animateCtrl
-  ]}>{cbk(dlg)}</Overlay> as HTMLElement
+  ]}>{root}</Overlay> as HTMLElement
+
+  animate(overlay, 'dm-fade-in 0.2s both ease-in')
+  animate(root, 'dm-dialog-root-enter 0.2s both ease-in')
+
   dlg.bindToNode(overlay)
 
+  function bye() {
+    return Promise.all([
+      animate(overlay, 'dm-fade-out 0.2s both ease-out'),
+      animate(root, 'dm-dialog-root-leave 0.2s both ease-out')
+    ]).then(() => {
+      overlay.remove()
+    })
+  }
+
   // Remove the dialog from the DOM once we have answered it.
-  dlg.promise.then(
-    () => overlay.remove(),
-    () => overlay.remove()
-  );
+  dlg.promise.then(bye, bye);
 
   (opts.parent || document.body).appendChild(overlay)
 
@@ -116,17 +133,20 @@ export interface ModalOptions extends DialogOptions {
 export function modal(opts: ModalOptions) {
 
   return dialog(opts, (dlg) =>
-    <Root>
+    <F>
       {opts.title ? <Title>{opts.title}</Title> : null}
       <Content>
-        {/* Split the text at \n into distinct paragraphs. */}
-        {o(opts.text, (v: string) => v.split(/\s*\n\s*/).map((e) => <p>{e}</p>))}
+        {getDocumentFragment(opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>))}
       </Content>
       <Buttonbar>
-        {opts.disagree ? <Button click={() => dlg.resolve(false)}>{opts.disagree}</Button> : null}
-        {opts.agree ? <Button click={() => dlg.resolve(true)}>{opts.agree}</Button> : null}
+        {DisplayIf(opts.disagree, disagree =>
+          <Button click={() => dlg.resolve(false)}>{disagree}</Button>
+        )}
+        {DisplayIf(opts.agree, agree =>
+          <Button click={() => dlg.resolve(true)}>{agree}</Button>
+        )}
       </Buttonbar>
-    </Root>
+    </F>
   );
 
 }

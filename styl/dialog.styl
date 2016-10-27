@@ -103,28 +103,3 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 .dm-dialog-title
   margin 0
   padding 0
-
-
-@keyframes dm-dialog-root-enter
-
-  0%
-    transform: translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)
-
-  100%
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1)
-
-@keyframes dm-dialog-root-leave
-
-  0%
-    transform: translate3d(0, 0, 0) scale3d(1, 1, 1)
-
-  100%
-    transform: translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)
-
-
-@keyframes dm-dialog-overlay-enter
-
-  0%
-    opacity: 0
-  100%
-    opacity: 1
