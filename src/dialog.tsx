@@ -63,7 +63,7 @@ export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => 
 export interface DialogOptions {
   parent?: Node
   class?: string
-  animate?: boolean
+  noanimate?: boolean
   clickOutsideToClose?: boolean
 }
 
@@ -76,26 +76,20 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   let dlg = new DialogCtrl;
 
-  var animateCtrl = (node: Node) => {
-    if (node && opts.animate !== false) {
-      // dialogOverlayAnimation(atom)
-
-    }
-  }
-
   let outSideToClose = opts.clickOutsideToClose ?
     click(ev => ev.target === overlay && dlg.resolve(undefined))
-    : (atom: Node) => atom
+    : (node: Node) => node
 
   let contents = cbk(dlg)
   let root = <Root>{contents}</Root> as HTMLElement
   let overlay: HTMLElement = <Overlay class={opts.class ? opts.class : null} $$={[
     outSideToClose,
-    animateCtrl
   ]}>{root}</Overlay> as HTMLElement
 
-  animate(overlay, 'dm-fade-in 0.2s both ease-in')
-  animate(root, 'dm-dialog-root-enter 0.2s both ease-in')
+  if (!opts.noanimate) {
+    animate(overlay, 'dm-fade-in 0.2s both ease-in')
+    animate(root, 'dm-dialog-root-enter 0.2s both ease-in')
+  }
 
   dlg.bindToNode(overlay)
 
@@ -112,6 +106,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   dlg.promise.then(bye, bye);
 
   (opts.parent || document.body).appendChild(overlay)
+
 
   return dlg.promise
 
