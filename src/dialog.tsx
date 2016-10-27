@@ -65,6 +65,8 @@ export interface DialogOptions {
   class?: string
   noanimate?: boolean
   clickOutsideToClose?: boolean
+  animationEnter?: string
+  animationLeave?: string
 }
 
 export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Node
@@ -117,7 +119,7 @@ export interface ModalOptions extends DialogOptions {
   text: string
   title: string
   agree?: string
-  disagree?: string
+  disagree?: string,
 }
 
 /**
@@ -131,7 +133,7 @@ export function modal(opts: ModalOptions) {
     <F>
       {opts.title ? <Title>{opts.title}</Title> : null}
       <Content>
-        {getDocumentFragment(opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>))}
+        {opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>)}
       </Content>
       <Buttonbar>
         {DisplayIf(opts.disagree, disagree =>

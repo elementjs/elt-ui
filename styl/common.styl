@@ -1,3 +1,21 @@
+//////////////////////////////////////////
+// Global variables that will be used throughout.
+
+// Color for buttons, toolbar backgrounds, etc.
+$dm-color-primary ?= #3F51B5 // default is the classic material indigo 500.
+
+// Accent color, usually used in conjunction with the warn class (and attribute.)
+$dm-color-warn ?= #F44336 // default is red 500
+
+// Text color.
+$dm-color-text ?= #3C3C3B
+
+// When an element is disabled, its borders/text use this color.
+$dm-color-disabled ?= rgba(0, 0, 0, 0.30)
+
+// Horizontal lines used to separate elements
+$dm-color-separator ?= rgba(0, 0, 0, 0.07)
+
 
 ////////////////////////////////////////
 ///  A few vendor extensions.
@@ -41,6 +59,6 @@ background-linear-gradient(startPoint, startColor, startInterval, endColor, endI
 ////////////////////////////////
 /// Colors !
 
-$primary ?= #455A64
+$dm-color-primary ?= #455A64
 $black ?= #3C3C3B
 $warn ?= #F44336

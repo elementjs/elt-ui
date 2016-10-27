@@ -1,7 +1,8 @@
 @require 'common'
 
-.dm-modal-showing
-  overflow hidden
+
+$dm-disabled-button-background ?= rgba(0, 0, 0, 0.54)
+
 
 .dm-button
   // This style applies to a button, that we want to completely reset.
@@ -11,66 +12,76 @@
   position: relative
 
   display inline-block
-  border-sizing border-box
   padding 8px // this is to allow more space for touch events.
 
   outline 0
   -webkit-tap-highlight-color rgba(0,0,0,0)
 
-.dm-button-icon
-  -webkit-tap-highlight-color rgba(0,0,0,0)
-  border-sizing border-box
 
 .dm-button-content, .dm-button-icon
+
   // This is to prevent text selection inside the button.
   user-select(none)
-  -webkit-tap-highlight-color rgba(0,0,0,0)
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+
+  // necessary for correct inking.
   position: relative
 
-  border-sizing border-box
-
   display inline-block
-  // TEXT STYLE
-  text-align center
-  vertical-align middle
-  cursor pointer
 
-  color $primary
-  background none
+  // TEXT STYLE
+  text-align: center
+  vertical-align: middle
+  cursor: pointer
+
+  color: $dm-color-primary
+  background: none
 
   &.disabled
-    color alpha(#999999, 0.4)
-    &:hover, &:active
-      background none
-    background none
+    color: $dm-color-disabled
     box-shadow(none)
 
 
+/**
+  Classes that will apply on buttons with text content.
+ */
 .dm-button-content
+
   &:hover
-    background rgba(#999999, 0.2)
+    background rgba(0, 0, 0, 0.07)
 
   // ...
   // On click
   &:active
-    background rgba(#999999, 0.4)
+    background rgba(0, 0, 0, 0.14)
+
 
   &.raised
     // FIXME will depend on theme
     color white
     // FIXME will be material colors
-    background-color $primary
-    box-shadow(alpha(#000000, 0.258824) 0px 2px 5px 0px)
+    background-color $dm-color-primary
+
+    box-shadow(rgba(0, 0, 0, 0.24) 0px 2px 5px 0px)
 
     &.disabled
-      color: rgba(0, 0, 0, 0.26)
+      color: $dm-color-disabled
       background-color: rgba(0, 0, 0, 0.12)
       box-shadow: none
 
   &.raised:hover
-    background-color lighten($primary, 10)
+    background-color lighten($dm-color-primary, 10)
+
+    &.disabled
+      background-color: $dm-color-disabled
+
   &.raised:active
-    background-color lighten($primary, 20)
+    background-color lighten($dm-color-primary, 20)
+
+  &.disabled
+    &:hover
+      background-color: $dm-color-disabled
+
 
 // button icons need to be bigger.
 .dm-button-icon:before

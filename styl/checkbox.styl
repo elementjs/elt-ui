@@ -24,11 +24,12 @@
 
 .dm-checkbox-icon
   margin-right 8px
-  font-size 18px !important
+  &:before
+    font-size 18px
   vertical-align middle
   // primary
   &.on
-    color $primary
+    color $dm-color-primary
   &.off
     color alpha(#000000, 0.54)
   &.disabled
