@@ -12,10 +12,7 @@ import {Icon} from './icon'
 import {Column} from './flex'
 
 
-import {cssAnimator} from './animate'
-
-export const navRootAnimation = cssAnimator
-export const navOverlayAnimation = cssAnimator
+import {animate} from './animate'
 
 
 export interface NavAttributes extends BasicAttributes {
@@ -30,12 +27,12 @@ export class Nav extends Component {
 	}
 
 	render(ch: DocumentFragment): Node {
-		return <div $$={[cssAnimator]}>
-			<div class='dm-navigation-overlay' $$={[navOverlayAnimation, click(function (this: HTMLElement, e: Event) {
+		return <div>
+			<div class='dm-navigation-overlay' $$={[click(function (this: HTMLElement, e: Event) {
 				if (e.target === this)
 					this.parentElement.parentElement.removeChild(this.parentElement)
 			})]}/>
-			<Column class='dm-navigation-drawer' $$={navRootAnimation}>
+			<Column class='dm-navigation-drawer'>
 					{ch}
 			</Column>
 		</div>

@@ -10,7 +10,6 @@ import {
   O,
 } from 'domic';
 
-import {cssAnimator} from './animate'
 
 import {Button} from './button';
 
@@ -39,9 +38,6 @@ export class DialogCtrl<T> extends Controller {
 
 }
 
-export const dialogRootAnimation = cssAnimator
-export const dialogOverlayAnimation = cssAnimator
-
 export var Overlay = (attrs: BasicAttributes, children: DocumentFragment): Node => {
   return <div class='dm-dialog-overlay'>{children}</div>
 }
@@ -58,8 +54,7 @@ export interface ButtonbarAttributes extends BasicAttributes {
 export var Buttonbar = (attrs: ButtonbarAttributes, children: DocumentFragment): Node =>
   <div class={['dm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
 
-export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='dm-dialog-root'
-  $$={dialogRootAnimation}>{children}</div>
+export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='dm-dialog-root'>{children}</div>
 
 export interface DialogOptions {
   parent?: Node
@@ -79,7 +74,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   var animateCtrl = (atom: Node) => {
     if (atom && opts.animate !== false) {
-      dialogOverlayAnimation(atom)
+      // dialogOverlayAnimation(atom)
     }
   }
 

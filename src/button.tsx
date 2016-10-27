@@ -11,6 +11,7 @@ import {
   onmount,
   onunmount,
   BasicAttributes,
+  Listener
 } from 'domic'
 
 import {Icon} from './icon'
@@ -21,7 +22,7 @@ import {inkable} from './ink'
 export interface ButtonAttributes extends BasicAttributes {
   disabled?: O<boolean>
   raised?: O<boolean>
-  click?: (ev: MouseEvent) => any
+  click?: Listener<MouseEvent>
   icon?: O<string>
 }
 
@@ -59,7 +60,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
     let click = o.get(attrs.click)
     if (!o.get(attrs.disabled)) {
       // in this context, this is the Node.
-      click && click(event);
+      click && click.call(this, event);
       // this.element.blur() // to prevent focus lingering.
     }
   }
