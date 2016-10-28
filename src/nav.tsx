@@ -3,7 +3,7 @@ import {
 	d,
 	click,
 	BasicAttributes,
-	Component
+	HTMLComponent
 } from 'domic'
 
 import {inkClickDelay} from './ink'
@@ -19,22 +19,34 @@ export interface NavAttributes extends BasicAttributes {
 
 }
 
-export class Nav extends Component {
+export class Nav extends HTMLComponent {
+
+	overlay: HTMLElement
+	drawer: HTMLElement
 
 	detach() {
-		// FIXME should add this.node in the end...
-		// this.node.remove()
+		this.node.remove()
+	}
+
+	show() {
+		this.drawer.style.animation = 'dm-slide-from-right 0.2s'
+		this.overlay.style.animation = 'dm-fade-in 0.2s'
+		document.body.appendChild(this.node)
 	}
 
 	render(ch: DocumentFragment): Node {
+		this.overlay = <div class='dm-navigation-overlay' $$={[click((e) => {
+				if (e.target === this.overlay)
+					this.detach()
+			})]}/> as HTMLElement
+
+		this.drawer = <Column class='dm-navigation-drawer'>
+			{ch}
+		</Column> as HTMLElement
+
 		return <div>
-			<div class='dm-navigation-overlay' $$={[click(function (this: HTMLElement, e: Event) {
-				if (e.target === this)
-					this.parentElement.parentElement.removeChild(this.parentElement)
-			})]}/>
-			<Column class='dm-navigation-drawer'>
-					{ch}
-			</Column>
+			{this.overlay}
+			{this.drawer}
 		</div>
 	}
 

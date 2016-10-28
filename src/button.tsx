@@ -53,9 +53,6 @@ export class ButtonBar extends Component {
 
 export function Button(attrs : ButtonAttributes, children: DocumentFragment): Node {
 
-  // FIXME missing ripple.
-  // let fn = attrs.click || function () {};
-
   function doClick(this: Node, event: MouseEvent) {
     let click = o.get(attrs.click)
     if (!o.get(attrs.disabled)) {
