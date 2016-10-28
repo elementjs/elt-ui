@@ -62,25 +62,25 @@ $dm-disabled-button-background ?= rgba(0, 0, 0, 0.54)
     // FIXME will be material colors
     background-color $dm-color-primary
 
-    box-shadow(rgba(0, 0, 0, 0.24) 0px 2px 5px 0px)
+    dm-shadow-highlight()
 
     &.disabled
       color: $dm-color-disabled
-      background-color: rgba(0, 0, 0, 0.12)
-      box-shadow: none
+      background-color: $dm-color-darken3
+      box-shadow(none)
 
   &.raised:hover
-    background-color lighten($dm-color-primary, 10)
+    background-color: lighten($dm-color-primary, 10)
 
     &.disabled
-      background-color: $dm-color-disabled
+      background-color: $dm-color-darken2
 
   &.raised:active
     background-color lighten($dm-color-primary, 20)
 
   &.disabled
     &:hover
-      background-color: $dm-color-disabled
+      background-color: $dm-color-darken2
 
 
 // button icons need to be bigger.

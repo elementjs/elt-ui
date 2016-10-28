@@ -11,10 +11,15 @@ $dm-color-warn ?= #F44336 // default is red 500
 $dm-color-text ?= #3C3C3B
 
 // When an element is disabled, its borders/text use this color.
-$dm-color-disabled ?= rgba(0, 0, 0, 0.30)
 
 // Horizontal lines used to separate elements
 $dm-color-separator ?= rgba(0, 0, 0, 0.07)
+
+$dm-color-darken ?= rgba(0, 0, 0, 0.24)
+$dm-color-darken2 ?= rgba(0, 0, 0, 0.14)
+$dm-color-darken3 ?= rgba(0, 0, 0, 0.07)
+
+$dm-color-disabled ?= $dm-color-darken
 
 
 ////////////////////////////////////////
@@ -44,6 +49,13 @@ transform-origin()
 
 user-select()
 	vendor('user-select', arguments)
+
+/**
+	Use this function for elements that are to be presented as "raised",
+	like a toolbar or a button.
+ */
+dm-shadow-highlight()
+	box-shadow($dm-color-darken 0px 2px 5px 0px)
 
 background-linear-gradient(startPoint, startColor, startInterval, endColor, endInterval, deprecatedWebkitStartPoint = false, deprecatedWebkitEndPoint = false)
 	background-color startColor
