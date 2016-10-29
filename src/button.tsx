@@ -17,7 +17,7 @@ import {
 import {Icon} from './icon'
 import {Row} from './flex'
 
-import {inkable} from './ink'
+import {inker} from './ink'
 
 export interface ButtonAttributes extends BasicAttributes {
   disabled?: O<boolean>
@@ -57,6 +57,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
     let click = o.get(attrs.click)
     if (!o.get(attrs.disabled)) {
       // in this context, this is the Node.
+      inker(event.target, event)
       click && click.call(this, event);
       // this.element.blur() // to prevent focus lingering.
     }
@@ -65,7 +66,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
   return <button
     class='dm-button'
     disabled={o(attrs.disabled).tf((val: boolean) => val ? val : undefined)}
-    $$={[click(doClick), inkable]}
+    $$={[click(doClick)]}
   >
     {DisplayIf(attrs.icon,
       name => <Icon
