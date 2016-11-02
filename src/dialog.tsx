@@ -87,7 +87,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   }
 
   let dialog_holder = <Overlay  $$={[click(function (e) {
-    if (e.target === this) dlg.resolve(undefined)
+    if (e.target === this && opts.clickOutsideToClose) dlg.resolve(undefined)
   }), ctrl(dlg)]}>
     <Root class={opts.class ? opts.class : null}>{contents}</Root>
   </Overlay> as HTMLElement
