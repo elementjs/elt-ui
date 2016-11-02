@@ -27,6 +27,10 @@ export function transition() {
 }
 
 
+const END_EVENTS = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend']
+const START_EVENTS = ['webkitAnimationStart', 'mozAnimationStart', 'MSAnimationStart', 'oanimationstart', 'animationstart']
+
+
 export function animate(node: HTMLElement, anim: string): Promise<HTMLElement> {
 
 	return new Promise((resolve, reject) => {
@@ -42,4 +46,40 @@ export function animate(node: HTMLElement, anim: string): Promise<HTMLElement> {
 
 	})
 
+}
+
+
+export function animateClass(node: HTMLElement, cls: string) {
+	node.classList.add(cls)
+
+	return new Promise((resolve, reject) => {
+
+		let fnend = function () {
+			anim_end_count += 1
+			// Remove all the event listeners.
+			if (anim_start_count <= anim_end_count) {
+				START_EVENTS.forEach(name => node.removeEventListener(name, fnstart))
+				END_EVENTS.forEach(name => node.removeEventListener(name, fnend))
+				node.classList.remove(cls)
+				resolve()
+			}
+		}
+
+		let fnstart = function () {
+			anim_start_count += 1
+		}
+
+		let anim_start_count = 0
+		let anim_end_count = 0
+
+		START_EVENTS.forEach(name => node.addEventListener(name, fnstart))
+		END_EVENTS.forEach(name => node.addEventListener(name, fnend))
+
+		// We leave 100 ms to the animations to potentially start. If during
+		// this delay nothing started, we call the end function.
+		setTimeout(() => {
+			if (anim_start_count === 0) fnend()
+		}, 100)
+
+	})
 }

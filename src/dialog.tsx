@@ -13,8 +13,8 @@ import {
   O,
 } from 'domic';
 
-
-import {animate} from './animate'
+import {Column} from './flex'
+import {animateClass} from './animate'
 import {Button} from './button';
 
 
@@ -43,7 +43,7 @@ export class DialogCtrl<T> extends Controller {
 }
 
 export var Overlay = (attrs: BasicAttributes, children: DocumentFragment): Node => {
-  return <div class='dm-dialog-overlay'>{children}</div>
+  return <Column align='center' justify='center' class='dm-dialog-overlay'>{children}</Column>
 }
 
 export var Title = (attrs: BasicAttributes, children: DocumentFragment): Node => <h3 class='dm-dialog-title'>{children}</h3>
@@ -76,39 +76,32 @@ export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Node
  */
 export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T> {
 
-  let dlg = new DialogCtrl;
-
-  let outSideToClose = opts.clickOutsideToClose ?
-    click(ev => ev.target === overlay && dlg.resolve(undefined))
-    : (node: Node) => node
+  let dlg = new DialogCtrl();
 
   let contents = cbk(dlg)
-  let root = <Root>{contents}</Root> as HTMLElement
-  let overlay: HTMLElement = <Overlay class={opts.class ? opts.class : null} $$={[
-    outSideToClose,
-  ]}>{root}</Overlay> as HTMLElement
-
-  if (!opts.noanimate) {
-    animate(overlay, 'dm-fade-in 0.2s both ease-in')
-    animate(root, 'dm-dialog-root-enter 0.2s both ease-in')
-  }
-
-  dlg.bindToNode(overlay)
 
   function bye() {
-    return Promise.all([
-      animate(overlay, 'dm-fade-out 0.2s both ease-out'),
-      animate(root, 'dm-dialog-root-leave 0.2s both ease-out')
-    ]).then(() => {
-      overlay.remove()
+    animateClass(dialog_holder, 'animation-leave').then(() => {
+      dialog_holder.remove()
     })
+  }
+
+  let dialog_holder = <Overlay  $$={[click(function (e) {
+    if (e.target === this) dlg.resolve(undefined)
+  }), ctrl(dlg)]}>
+    <Root class={opts.class ? opts.class : null}>{contents}</Root>
+  </Overlay> as HTMLElement
+
+  if (!opts.noanimate) {
+    animateClass(dialog_holder, 'animation-enter')
   }
 
   // Remove the dialog from the DOM once we have answered it.
   dlg.promise.then(bye, bye);
 
-  (opts.parent || document.body).appendChild(overlay)
+  let parent = opts.parent || document.body
 
+  parent.appendChild(dialog_holder)
 
   return dlg.promise
 

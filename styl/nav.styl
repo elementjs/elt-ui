@@ -1,16 +1,21 @@
 
+.dm-nav-holder.animation-enter
+
+  & > .dm-navigation-overlay
+    animation: dm-fade-in 0.2s ease-in
+  & > .dm-navigation-drawer
+    animation: dm-slide-from-right 0.2s ease-in
+
+
+.dm-nav-holder.animation-leave
+
+  & > .dm-navigation-overlay
+    animation: dm-fade-out 0.2s ease-out
+  & > .dm-navigation-drawer
+    animation: dm-slide-to-right 0.2s ease-out
+
+
 .dm-navigation-overlay
-
-  animation-duration: 0.2s
-
-  &.animation-mount
-    animation-name: dm-nav-overlay-enter
-    animation-timing-function: ease-out
-
-  &.animation-unmount
-    animation-name: dm-nav-overlay-enter
-    animation-timing-function: ease-in
-    animation-direction: reverse
 
   position: fixed
   top: 0
@@ -19,19 +24,8 @@
   width: 100vw
   background-color: rgba(0, 0, 0, 0.24)
 
+
 .dm-navigation-drawer
-
-  animation-duration: 0.2s
-
-  &.animation-mount
-    animation-name: dm-nav-drawer-enter
-    animation-timing-function: ease-out
-
-  &.animation-unmount
-    animation-name: dm-nav-drawer-enter
-    animation-timing-function: ease-in
-    animation-direction: reverse
-
 
   position: fixed
   font-size: 14px
@@ -89,20 +83,3 @@
 .dm-navigation-footer
   text-align: center
   padding-bottom: 16px
-
-
-
-@keyframes dm-nav-drawer-enter
-  0%
-    transform: translate3d(-100%, 0, 0)
-
-  100%
-    transform: translate3d(0, 0, 0)
-
-
-@keyframes dm-nav-overlay-enter
-
-  0%
-    opacity: 0
-  100%
-    opacity: 1

@@ -1,43 +1,53 @@
 $animation_time = 0.3s
 $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
+.dm-dialog-overlay.animation-enter
+
+  animation: dm-fade-in 0.2s both ease-in
+  & .dm-dialog-root
+    animation: dm-dialog-root-enter 0.2s both ease-in, dm-fade-in 0.2s both ease-in
+
+
+.dm-dialog-overlay.animation-leave
+
+  animation: dm-fade-out 0.2s both ease-out
+  & .dm-dialog-root
+    animation: dm-dialog-root-leave 0.2s both ease-out, dm-fade-out 0.2s both ease-out
+
+
 .dm-dialog-noscroll
   overflow hidden
 
 .dm-dialog-overlay
 
-  animation-duration: 0.2s
-
-  &.animation-mount
-    animation-name: dm-dialog-overlay-enter
-    animation-timing-function: ease-out
-
-  &.animation-unmount
-    animation-name: dm-dialog-overlay-enter
-    animation-timing-function: ease-in
-    animation-direction: reverse
-
-  border 0
-  padding 0
-  margin 0
-
-  // Its children will be screen centered.
-  display flex
-  flex-direction column
-  align-items center
-  justify-content center
-  display -webkit-flex
-  -webkit-flex-direction column
-  -webkit-align-items center
-  -webkit-justify-content center
-
   position absolute
   top 0
   left 0
-  height 100vh
-  width 100vw
+  height: 100vh
+  width: 100vw
 
   background-color rgba(0, 0, 0, 0.75)
+
+.dm-dialog-root
+
+  transform-origin: 50% 0
+
+  & > h3
+    padding 0 24px
+    padding-top 24px
+
+  & > h3 + .dm-dialog-content, & > .dm-toolbar + .dm-dialog-content
+    padding-top 20px
+
+  // FIXME color theme.
+  background-color white
+
+  // This is to avoid the dialog covering the whole screen.
+  margin 24px 40px
+
+  .dm-button-content
+    min-width 0
+
 
 .dm-dialog-buttonbar
   text-align right
@@ -69,35 +79,6 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   > *:last-child
     margin-bottom 0
 
-.dm-dialog-root
-
-  transform-origin: 50% 0
-  animation-duration: 0.2s
-
-  &.animation-mount
-    animation-name: dm-dialog-root-enter
-    animation-timing-function: ease-out
-
-  &.animation-unmount
-    animation-name: dm-dialog-root-leave
-    animation-timing-function: ease-in
-
-
-  & > h3
-    padding 0 24px
-    padding-top 24px
-
-  & > h3 + .dm-dialog-content, & > .dm-toolbar + .dm-dialog-content
-    padding-top 20px
-
-  // FIXME color theme.
-  background-color white
-
-  // This is to avoid the dialog covering the whole screen.
-  margin 24px 40px
-
-  .dm-button-content
-    min-width 0
 
 
 .dm-dialog-title

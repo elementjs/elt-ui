@@ -12,7 +12,7 @@ import {Icon} from './icon'
 import {Column} from './flex'
 
 
-import {animate} from './animate'
+import {animate, animateClass} from './animate'
 
 
 export interface NavAttributes extends BasicAttributes {
@@ -21,32 +21,29 @@ export interface NavAttributes extends BasicAttributes {
 
 export class Nav extends HTMLComponent {
 
-	overlay: HTMLElement
-	drawer: HTMLElement
-
 	detach() {
-		this.node.remove()
+		animateClass(this.node, 'animation-leave').then(() => {
+			this.node.remove()
+		})
 	}
 
 	show() {
-		this.drawer.style.animation = 'dm-slide-from-right 0.2s'
-		this.overlay.style.animation = 'dm-fade-in 0.2s'
+		animateClass(this.node, 'animation-enter')
 		document.body.appendChild(this.node)
 	}
 
 	render(ch: DocumentFragment): Node {
-		this.overlay = <div class='dm-navigation-overlay' $$={[click((e) => {
-				if (e.target === this.overlay)
+
+		let overlay = <div class='dm-navigation-overlay' $$={[click((e) => {
+				if (e.target === overlay)
 					this.detach()
-			})]}/> as HTMLElement
+			})]}/>
 
-		this.drawer = <Column class='dm-navigation-drawer'>
-			{ch}
-		</Column> as HTMLElement
-
-		return <div>
-			{this.overlay}
-			{this.drawer}
+		return <div class='dm-nav-holder'>
+			{overlay}
+			<Column class='dm-navigation-drawer'>
+				{ch}
+			</Column>
 		</div>
 	}
 
