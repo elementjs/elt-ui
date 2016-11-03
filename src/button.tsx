@@ -57,7 +57,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
     let click = o.get(attrs.click)
     if (!o.get(attrs.disabled)) {
       // in this context, this is the Node.
-      inker(event.target, event)
+      inker(event.target as Node, event)
       click && click.call(this, event);
       // this.element.blur() // to prevent focus lingering.
     }
