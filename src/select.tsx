@@ -8,6 +8,8 @@ import {
 	o,
 	O,
 	Observable,
+	Repeat,
+	Write
 } from 'domic'
 
 
@@ -34,7 +36,7 @@ export class Select<T> extends Component {
 	// labelfn: LabelFn<T>
 	// onchange: ChangeFn<T>
 
-	protected selected: Observable<string>
+	protected selected: Observable<string> = o('-1')
 
 	/**
 	 * Setup the observation logic.
@@ -91,11 +93,10 @@ export class Select<T> extends Component {
 
 		return <label class='dm-select-label'>
 			<select class='dm-select' $$={decorators}>
-				{options.tf((opts) => {
-					return opts.map((o, i) => <option
+				{Repeat(options, (opt, i) => <option
 						value={i}
-						selected={model.get() === o ? true : undefined}>{labelfn(o)}</option>);
-				})}
+						selected={o(model, opt, (model, opt) => model === opt ? true : undefined)}>{opt.tf(labelfn)}</option>
+				)}
 			</select>
 		</label>
 	}
