@@ -2,6 +2,7 @@
 import {
 	d,
 	click,
+	clickfix,
 	BasicAttributes,
 	HTMLComponent
 } from 'domic'
@@ -34,7 +35,7 @@ export class Nav extends HTMLComponent {
 
 	render(ch: DocumentFragment): Node {
 
-		let overlay = <div class='dm-navigation-overlay' $$={[click((e) => {
+		let overlay = <div class='dm-navigation-overlay' $$={[clickfix, click((e) => {
 				if (e.target === overlay)
 					this.detach()
 			})]}/>
@@ -67,12 +68,12 @@ export interface NavItemAttributes extends BasicAttributes {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
-	let res = <div class='dm-navigation-item' $$={inkClickDelay(function (e) {
+	let res = <div class='dm-navigation-item' $$={[clickfix, inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			c.detach()
 		}
-	})}>
+	})]}>
 		<Icon class='dm-navigation-item-icon' name={a.icon}/>
 		{ch}
 	</div>

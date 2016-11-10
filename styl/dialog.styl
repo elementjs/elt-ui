@@ -5,20 +5,21 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
   animation: dm-fade-in 0.2s both ease-in
   & .dm-dialog-root
-    animation: dm-dialog-root-enter 0.2s both ease-in, dm-fade-in 0.2s both ease-in
+    animation: dm-dialog-root-enter 0.2s ease-in //, dm-fade-in 0.2s both ease-in
 
 
 .dm-dialog-overlay.animation-leave
 
-  animation: dm-fade-out 0.2s both ease-out
+  animation: dm-fade-out 0.2s both ease-in
   & .dm-dialog-root
-    animation: dm-dialog-root-leave 0.2s both ease-out, dm-fade-out 0.2s both ease-out
+    animation: dm-dialog-root-leave 0.2s ease-in // , dm-fade-out 0.2s both ease-out
 
 
 .dm-dialog-noscroll
   overflow hidden
 
 .dm-dialog-overlay
+  display: none
 
   overflow: hidden
   position absolute
@@ -27,9 +28,15 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   height: 100vh
   width: 100vw
 
+  transform: translateZ(0)
+
   background-color rgba(0, 0, 0, 0.75)
 
 .dm-dialog-root
+  -webkit-transform-style: preserve-3d
+  -webkit-backface-visibility: hidden
+
+  transform: translateZ(0)
 
   transform-origin: 50% 0
 

@@ -23,6 +23,7 @@ export class DialogCtrl<T> extends Controller {
   _resolve: (v: T) => any
   _reject: (...a: Array<any>) => any
 
+
   constructor() {
     super()
 
@@ -58,7 +59,7 @@ export interface ButtonbarAttributes extends BasicAttributes {
 export var Buttonbar = (attrs: ButtonbarAttributes, children: DocumentFragment): Node =>
   <div class={['dm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
 
-export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='dm-dialog-root'>{children}</div>
+export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <Column class='dm-dialog-root'>{children}</Column>
 
 export interface DialogOptions {
   parent?: Node
@@ -80,9 +81,10 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   let contents = cbk(dlg)
 
-  function bye() {
-    animateClass(dialog_holder, 'animation-leave').then(() => {
+  function bye(res: T) {
+    return animateClass(dialog_holder, 'animation-leave').then(() => {
       dialog_holder.remove()
+      return res
     })
   }
 
@@ -97,13 +99,12 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   }
 
   // Remove the dialog from the DOM once we have answered it.
-  dlg.promise.then(bye, bye);
 
   let parent = opts.parent || document.body
 
   parent.appendChild(dialog_holder)
 
-  return dlg.promise
+  return dlg.promise.then(bye, bye)
 
 }
 

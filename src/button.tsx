@@ -5,6 +5,7 @@ import {
   on,
   Component,
   click,
+  clickfix,
   DisplayIf,
   DisplayUnless,
   O,
@@ -58,7 +59,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
     if (!o.get(attrs.disabled)) {
       // in this context, this is the Node.
       inker(event.target as Node, event)
-      click && click.call(this, event);
+      click && click.call(this, event)
       // this.element.blur() // to prevent focus lingering.
     }
   }
@@ -74,7 +75,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
   return <button
     class='dm-button'
     disabled={o(attrs.disabled).tf((val: boolean) => val ? val : undefined)}
-    $$={[click(doClick)]}
+    $$={[clickfix, click(doClick)]}
   >
     {DisplayIf(attrs.icon,
       name => <Icon

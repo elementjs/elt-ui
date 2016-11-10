@@ -57,10 +57,10 @@ export function animateClass(node: HTMLElement, cls: string) {
 		let fnend = function () {
 			anim_end_count += 1
 			// Remove all the event listeners.
-			if (anim_start_count <= anim_end_count) {
+			if (anim_start_count == anim_end_count) {
 				START_EVENTS.forEach(name => node.removeEventListener(name, fnstart))
 				END_EVENTS.forEach(name => node.removeEventListener(name, fnend))
-				node.classList.remove(cls)
+				// setTimeout(() => node.classList.remove(cls), 100)
 				resolve()
 			}
 		}
@@ -78,7 +78,10 @@ export function animateClass(node: HTMLElement, cls: string) {
 		// We leave 100 ms to the animations to potentially start. If during
 		// this delay nothing started, we call the end function.
 		setTimeout(() => {
-			if (anim_start_count === 0) fnend()
+			if (anim_start_count === 0) {
+				anim_end_count -= 1
+				fnend()
+			}
 		}, 100)
 
 	})
