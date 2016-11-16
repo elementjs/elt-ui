@@ -3,11 +3,14 @@ import {
   o,
   d,
   click,
+  clickfix,
   BasicAttributes,
   Observable,
   O,
   Component
 } from 'domic'
+
+import {Row} from './flex'
 
 import {Icon} from './icon'
 
@@ -51,12 +54,14 @@ export class Radio<T> extends Component {
       disabled: this.disabled
     };
 
-    return <label class='dm-checkbox-label' $$={[inkable, click(e => this.setValue())]}>
-        <Icon
-          class={['dm-checkbox-icon']}
-          name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
-        />
-        <span class={['dm-checkbox-content', classes]}>{children}</span>
+    return <label class='dm-checkbox-label' $$={[inkable, clickfix, click(e => this.setValue())]}>
+        <Row align='center'>
+          <Icon
+            class={['dm-checkbox-icon', classes]}
+            name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
+          />
+          <span class={['dm-checkbox-content', classes]}>{children}</span>
+        </Row>
       </label>;
 
   }

@@ -4,6 +4,7 @@ import {
 	BasicAttributes,
 	bind,
 	Component,
+	clickfix,
 	d,
 	o,
 	O,
@@ -82,7 +83,7 @@ export class Select<T> extends Component {
 
 		////////////////////////////////
 
-		let decorators = [bind(this.selected)];
+		let decorators = [clickfix, bind(this.selected)];
 
 		if (onchange) {
 			decorators.push(node => node.addEventListener(
