@@ -5,12 +5,16 @@ import {
 	Component,
 	d,
 	Display,
+	getDocumentFragment,
 	o,
 	O,
 	onmount,
+	onfirstmount,
 	onunmount,
 	Observable,
+	Observe,
 	NodeCreatorFn,
+	VirtualHolder
 } from 'domic'
 
 import {inkable} from './ink'
@@ -25,14 +29,15 @@ import {
 export class TabContainer extends Component {
 
 	attrs: FlexAttributes
-	o_render: Observable<NodeCreatorFn> = o(null)
+	o_content: Observable<Node> = o(null)
+	o_active_tab: Observable<Tab> = o(null)
 
 	render(children: DocumentFragment): Node {
 
 		return <Column {...this.attrs}>
 			<Row justify='center' class='dm-tab-bar'>{children}</Row>
 			<Column absoluteGrow='1' class='dm-tab-content'>
-				{Display(this.o_render)}
+				{Observe(this.o_content)}
 			</Column>
 		</Column>
 
@@ -43,9 +48,13 @@ export class TabContainer extends Component {
 
 export interface TabAttributes extends BasicAttributes {
 	title: O<string>,
-	render: NodeCreatorFn
+	// render: NodeCreatorFn
 }
 
+
+export class TabContents extends VirtualHolder {
+	name = 'tab contents'
+}
 
 /**
  * FIXME missing is_active logic, since I don't know how to dynamically
@@ -54,15 +63,12 @@ export interface TabAttributes extends BasicAttributes {
 export class Tab extends Component {
 
 	attrs: TabAttributes
+
 	container: TabContainer
-
 	o_is_active = o(false)
+	children: Node[] = []
 
-	activate() {
-		this.container.o_render.set(this.attrs.render)
-	}
-
-	@onmount
+	@onfirstmount
 	linkToTabs(node: Node) {
 		this.container = TabContainer.get(node)
 
@@ -70,19 +76,33 @@ export class Tab extends Component {
 			throw new Error('Tab must be inside a TabContainer')
 
 		// This this tab as the active one if no tab is being displayed
-		if (this.container.o_render.get() == null)
-			this.container.o_render.set(this.attrs.render)
+		if (this.container.o_content.get() == null)
+			this.activate()
 
+		this.observe(this.container.o_active_tab, tab => {
+			this.o_is_active.set(tab === this)
+		})
+		// ...............
+		this.onmount[this.onmount.length - 1]()
+	}
+
+	activate() {
+		this.container.o_content.set(getDocumentFragment(this.children))
+		this.container.o_active_tab.set(this)
 	}
 
 	render(children: DocumentFragment): Node {
 
-		// const tc = new TabController(this.attrs.render)
+		let iter = children.firstChild
+		while (iter) {
+			this.children.push(iter)
+			iter = iter.nextSibling
+		}
 
 		return <div
 			class={['dm-tab-title', {active: this.o_is_active}]}
 			$$={[
-				click(ev => this.container.o_render.set(this.attrs.render)),
+				click(ev => this.activate()),
 				inkable
 		]}>
 			{this.attrs.title}
