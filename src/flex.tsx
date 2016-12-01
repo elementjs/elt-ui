@@ -32,16 +32,6 @@ function _(elt: HTMLElement, prop: string, value: string) {
 	style[`webkit${prop[0].toUpperCase() + prop.slice(1)}`] = value
 }
 
-function value(v: string): string {
-	switch (v) {
-		case 'around': return 'space-around'
-		case 'between': return 'space-between'
-		case 'start': return 'flex-start'
-		case 'end': return 'flex-end'
-		case 'no': return 'nowrap'
-	}
-	return v
-}
 
 function _parse_attributes(el: HTMLElement, at: FlexAttributes) {
 
