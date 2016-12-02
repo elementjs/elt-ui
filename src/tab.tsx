@@ -6,6 +6,7 @@ import {
 	d,
 	Display,
 	getDocumentFragment,
+	getChildren,
 	o,
 	O,
 	onmount,
@@ -93,11 +94,7 @@ export class Tab extends Component {
 
 	render(children: DocumentFragment): Node {
 
-		let iter = children.firstChild
-		while (iter) {
-			this.children.push(iter)
-			iter = iter.nextSibling
-		}
+		this.children = getChildren(children)
 
 		return <div
 			class={['dm-tab-title', {active: this.o_is_active}]}
