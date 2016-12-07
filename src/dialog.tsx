@@ -1,6 +1,7 @@
 
 import {
   BasicAttributes,
+  ArrayOrSingle,
   ClassDefinition,
   click,
   ctrl,
@@ -63,7 +64,7 @@ export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => 
 
 export interface DialogOptions {
   parent?: Node
-  class?: string
+  class?: ArrayOrSingle<ClassDefinition>
   noanimate?: boolean
   clickOutsideToClose?: boolean
   animationEnter?: string
@@ -89,7 +90,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   }
 
   let dialog_holder = <Overlay  $$={[click(function (e) {
-    if (e.target === this && opts.clickOutsideToClose) dlg.resolve(undefined)
+    if (e.target === this && opts.clickOutsideToClose) dlg.reject('clicked outside to close')
   }), ctrl(dlg)]}>
     <Root class={opts.class ? opts.class : null}>{contents}</Root>
   </Overlay> as HTMLElement
