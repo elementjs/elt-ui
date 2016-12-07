@@ -90,7 +90,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   }
 
   let dialog_holder = <Overlay  $$={[click(function (e) {
-    if (e.target === this && opts.clickOutsideToClose) dlg.reject('clicked outside to close')
+    if (e.target === this && opts.clickOutsideToClose) dlg.reject(new Error('clicked outside to close'))
   }), ctrl(dlg)]}>
     <Root class={opts.class ? opts.class : null}>{contents}</Root>
   </Overlay> as HTMLElement
@@ -105,7 +105,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   parent.appendChild(dialog_holder)
 
-  return dlg.promise.then(bye, bye)
+  return dlg.promise.then(bye, (err) => bye(Promise.reject(err) as any))
 
 }
 
