@@ -12,6 +12,8 @@ import {
   getDocumentFragment,
   o,
   O,
+  onmount,
+  onunmount,
 } from 'domic';
 
 import {Column} from './flex'
@@ -67,6 +69,7 @@ export interface DialogOptions {
   class?: ArrayOrSingle<ClassDefinition>
   noanimate?: boolean
   clickOutsideToClose?: boolean
+  noEscapeKey?: boolean
   animationEnter?: string
   animationLeave?: string
 }
@@ -89,9 +92,21 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
     })
   }
 
-  let dialog_holder = <Overlay  $$={[click(function (e) {
-    if (e.target === this && opts.clickOutsideToClose) dlg.reject(new Error('clicked outside to close'))
-  }), ctrl(dlg)]}>
+  function handleEscape(ev: KeyboardEvent) {
+    if (opts.noEscapeKey) return
+    if (ev.keyCode === 27)
+      dlg.reject('pressed escape')
+  }
+
+  let dialog_holder = <Overlay $$={[
+    click(function (e) {
+      if (e.target === this && opts.clickOutsideToClose) dlg.reject('clicked outside to close')
+    }),
+    ctrl(dlg),
+    // Handle the escape key.
+    onmount(node => node.ownerDocument.addEventListener('keyup', handleEscape)),
+    onunmount(node => node.ownerDocument.removeEventListener('keyup', handleEscape))
+  ]}>
     <Root class={opts.class ? opts.class : null}>{contents}</Root>
   </Overlay> as HTMLElement
 
