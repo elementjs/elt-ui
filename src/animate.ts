@@ -19,9 +19,6 @@
 // 	});
 // }
 
-import {Controller, onmount} from 'domic'
-
-
 export function transition() {
 
 }

@@ -4,17 +4,13 @@ import {
 	click,
 	Component,
 	d,
-	Display,
 	getDocumentFragment,
 	getChildren,
 	o,
 	O,
-	onmount,
 	onfirstmount,
-	onunmount,
 	Observable,
 	Observe,
-	NodeCreatorFn,
 	VirtualHolder
 } from 'domic'
 

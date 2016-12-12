@@ -13,7 +13,7 @@ import {Icon} from './icon'
 import {Column} from './flex'
 
 
-import {animate, animateClass} from './animate'
+import {animateClass} from './animate'
 
 
 export interface NavAttributes extends BasicAttributes {

@@ -10,7 +10,6 @@ import {
 	O,
 	Observable,
 	Repeat,
-	Write
 } from 'domic'
 
 

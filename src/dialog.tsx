@@ -9,8 +9,6 @@ import {
   d,
   DisplayIf,
   Fragment as F,
-  getDocumentFragment,
-  o,
   O,
   onmount,
   onunmount,

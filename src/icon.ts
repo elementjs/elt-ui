@@ -1,5 +1,5 @@
 
-import {o, d, Controller, O, BasicAttributes} from 'domic'
+import {o, d, O, BasicAttributes} from 'domic'
 
 
 export interface IconAttributes extends BasicAttributes {

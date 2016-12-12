@@ -1,5 +1,5 @@
 
-import {d, click} from 'domic';
+import {d} from 'domic';
 
 import {animate} from './animate'
 
