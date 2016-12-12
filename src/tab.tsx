@@ -77,7 +77,7 @@ export class Tab extends Component {
 			throw new Error('Tab must be inside a TabContainer')
 
 		// This this tab as the active one if no tab is being displayed
-		if (this.container.o_content.get() == null)
+		if (this.container.o_active_tab.get() == null)
 			this.activate()
 
 		this.observe(this.container.o_active_tab, tab => {
@@ -88,8 +88,12 @@ export class Tab extends Component {
 	}
 
 	activate() {
-		this.container.o_content.set(getDocumentFragment(this.children))
+		if (this.container.o_active_tab.get() === this) return
+
 		this.container.o_active_tab.set(this)
+		requestAnimationFrame(() => {
+			this.container.o_content.set(getDocumentFragment(this.children))
+		})
 	}
 
 	render(children: DocumentFragment): Node {
