@@ -3,6 +3,7 @@ import {
 	BasicAttributes,
 	click,
 	Component,
+	Display,
 	d,
 	getDocumentFragment,
 	getChildren,
@@ -10,7 +11,6 @@ import {
 	O,
 	onfirstmount,
 	Observable,
-	Observe,
 	VirtualHolder
 } from 'domic'
 
@@ -34,7 +34,7 @@ export class TabContainer extends Component {
 		return <Column {...this.attrs}>
 			<Row justify='center' class='dm-tab-bar'>{children}</Row>
 			<Column absoluteGrow='1' class='dm-tab-content'>
-				{Observe(this.o_content)}
+				{Display(this.o_content)}
 			</Column>
 		</Column>
 
@@ -87,9 +87,7 @@ export class Tab extends Component {
 		if (this.container.o_active_tab.get() === this) return
 
 		this.container.o_active_tab.set(this)
-		requestAnimationFrame(() => {
-			this.container.o_content.set(getDocumentFragment(this.children))
-		})
+		this.container.o_content.set(getDocumentFragment(this.children))
 	}
 
 	render(children: DocumentFragment): Node {

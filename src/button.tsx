@@ -80,8 +80,11 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
       name => <Icon
         class={['dm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
         name={attrs.icon}
-      />)}
-    {DisplayUnless(attrs.icon, () => txt_button)}
+      />
+    ,
+      () => txt_button
+    )}
+
   </button>
 
 }
