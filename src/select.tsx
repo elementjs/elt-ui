@@ -7,7 +7,7 @@ import {
 	clickfix,
 	d,
 	o,
-	O,
+	MaybeObservable,
 	Observable,
 	Repeat,
 } from 'domic'
@@ -20,7 +20,7 @@ export type ChangeFn<T> = (value: T, ev?: Event) => any
 
 export interface SelectAttributes<T> extends BasicAttributes {
 	model: Observable<T>
-	options: O<T[]>
+	options: MaybeObservable<T[]>
 	labelfn?: LabelFn<T>
 	onchange?: ChangeFn<T>
 }
@@ -95,7 +95,11 @@ export class Select<T> extends Component {
 			<select class='dm-select' $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
-						selected={o(model, opt, (model, opt) => model === opt ? true : undefined)}>{opt.tf(labelfn)}</option>
+						selected={o.join({model, opt})
+							.tf(val => val.model === val.opt ? true : undefined)
+						}>
+							{opt.tf(labelfn)}
+					</option>
 				)}
 			</select>
 		</label>

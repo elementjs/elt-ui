@@ -9,7 +9,7 @@ import {
   d,
   DisplayIf,
   Fragment as F,
-  O,
+  MaybeObservable,
   onmount,
   onunmount,
 } from 'domic';
@@ -52,7 +52,7 @@ export var Title = (attrs: BasicAttributes, children: DocumentFragment): Node =>
 export var Content = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='dm-dialog-content'>{children}</div>
 
 export interface ButtonbarAttributes extends BasicAttributes {
-  stacked?: O<boolean>
+  stacked?: MaybeObservable<boolean>
 }
 
 // FIXME this node should watch the width of its children to be able

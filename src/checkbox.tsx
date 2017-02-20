@@ -1,7 +1,7 @@
 
 import {
   o,
-  O,
+  MaybeObservable,
   Observable,
   d,
   click,
@@ -21,7 +21,7 @@ var INDETERMINATE = 'minus-square'
 
 export interface CheckboxAttributes extends BasicAttributes {
   model: Observable<boolean>
-  disabled?: O<boolean>
+  disabled?: MaybeObservable<boolean>
 }
 
 export class Checkbox extends Component {
@@ -40,8 +40,7 @@ export class Checkbox extends Component {
 
   toggle() {
     if (this.o_disabled.get()) return;
-
-    this.o_model.set(!this.o_model.get());
+    this.o_model.toggle()
   }
 
   render(children: DocumentFragment): Node {
@@ -52,7 +51,11 @@ export class Checkbox extends Component {
       return OFF
     }
 
-    let classes = {on: this.o_model, off: this.o_model.isFalse(), disabled: this.o_disabled}
+    let classes = {
+      on: this.o_model,
+      off: this.o_model.isFalse(),
+      disabled: this.o_disabled
+    }
 
     return <label class='dm-checkbox-label' $$={[inkable, clickfix, click(e => this.toggle())]}>
         <Row class='dm-checkbox-row' align='center'>

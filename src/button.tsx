@@ -6,7 +6,7 @@ import {
   click,
   clickfix,
   DisplayIf,
-  O,
+  MaybeObservable,
   onmount,
   onunmount,
   BasicAttributes,
@@ -19,10 +19,10 @@ import {Row} from './flex'
 import {inker} from './ink'
 
 export interface ButtonAttributes extends BasicAttributes {
-  disabled?: O<boolean>
-  raised?: O<boolean>
+  disabled?: MaybeObservable<boolean>
+  raised?: MaybeObservable<boolean>
   click?: Listener<MouseEvent>
-  icon?: O<string>
+  icon?: MaybeObservable<string>
 }
 
 export interface ButtonBarAttributes extends BasicAttributes {

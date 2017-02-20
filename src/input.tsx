@@ -5,7 +5,7 @@ import {
   bind,
   DisplayIf,
   BasicAttributes,
-  O,
+  MaybeObservable,
   Observable,
   click,
 } from 'domic';
@@ -15,7 +15,7 @@ var id_gen = 0;
 
 export interface InputAttributes extends BasicAttributes {
   model: Observable<string>
-  disabled?: O<boolean>
+  disabled?: MaybeObservable<boolean>
   type?: string
   id?: string
   label?: string
@@ -72,7 +72,9 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Node {
     o_focused.set(true)
   })
 
-  const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
+  // const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
+  const o_unfocus_and_empty = o.join({model: data.model, focus: o_focused})
+    .tf(value => !value.model && !value.focus)
 
   return <div class={['dm-input-container', {
     focused: o_focused,

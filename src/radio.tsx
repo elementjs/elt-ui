@@ -6,7 +6,7 @@ import {
   clickfix,
   BasicAttributes,
   Observable,
-  O,
+  MaybeObservable,
   Component
 } from 'domic'
 
@@ -22,7 +22,7 @@ var UNCHECKED = 'circle-o'
 export interface RadioAttributes<T> extends BasicAttributes {
   model: Observable<T>
   value: T
-  disabled?: O<boolean>
+  disabled?: MaybeObservable<boolean>
 }
 
 

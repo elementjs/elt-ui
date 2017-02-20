@@ -8,7 +8,7 @@ import {
 	getDocumentFragment,
 	getChildren,
 	o,
-	O,
+	MaybeObservable,
 	onfirstmount,
 	Observable,
 	VirtualHolder
@@ -44,7 +44,7 @@ export class TabContainer extends Component {
 
 
 export interface TabAttributes extends BasicAttributes {
-	title: O<string>,
+	title: MaybeObservable<string>,
 	// render: NodeCreatorFn
 }
 
