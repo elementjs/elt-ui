@@ -95,7 +95,7 @@ export class Select<T> extends Component {
 			<select class='dm-select' $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
-						selected={o.join({model, opt})
+						selected={o.merge({model, opt})
 							.tf(val => val.model === val.opt ? true : undefined)
 						}>
 							{opt.tf(labelfn)}

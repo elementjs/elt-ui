@@ -73,7 +73,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Node {
   })
 
   // const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
-  const o_unfocus_and_empty = o.join({model: data.model, focus: o_focused})
+  const o_unfocus_and_empty = o.merge({model: data.model, focus: o_focused})
     .tf(value => !value.model && !value.focus)
 
   return <div class={['dm-input-container', {
