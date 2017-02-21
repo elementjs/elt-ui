@@ -28,18 +28,11 @@ export class Checkbox extends Component {
 
   attrs: CheckboxAttributes
 
-  o_model: Observable<boolean>
-  o_disabled: Observable<boolean>
-
-  constructor(attrs: CheckboxAttributes) {
-    super(attrs)
-
-    this.o_model = o(this.attrs.model)
-    this.o_disabled = o(this.attrs.disabled)
-  }
+  o_model: Observable<boolean> = o(this.attrs.model)
+  o_disabled: Observable<boolean> = o(this.attrs.disabled)
 
   toggle() {
-    if (this.o_disabled.get()) return;
+    if (this.o_disabled.get()) return
     this.o_model.toggle()
   }
 
