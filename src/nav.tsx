@@ -1,6 +1,5 @@
 
 import {
-	d,
 	click,
 	clickfix,
 	BasicAttributes,

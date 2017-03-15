@@ -6,7 +6,6 @@ import {
   click,
   ctrl,
   Controller,
-  d,
   DisplayIf,
   Fragment as F,
   MaybeObservable,

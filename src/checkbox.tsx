@@ -3,7 +3,6 @@ import {
   o,
   MaybeObservable,
   Observable,
-  d,
   click,
   clickfix,
   BasicAttributes,

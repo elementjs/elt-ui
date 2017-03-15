@@ -1,5 +1,5 @@
 
-import {d, BasicAttributes} from 'domic'
+import {BasicAttributes} from 'domic'
 import {Column} from './flex'
 
 

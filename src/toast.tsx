@@ -1,6 +1,5 @@
 
-import {d} from 'domic';
-
+import {Insertable} from 'domic'
 import {animate} from './animate'
 
 /**
@@ -24,7 +23,7 @@ export class Toaster {
 		)
 	}
 
-	toast(msg: string|Node) {
+	toast(msg: Insertable) {
 		// if (!this._mounted)
 		// 	this.mount(document.body);
 

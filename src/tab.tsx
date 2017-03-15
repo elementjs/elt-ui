@@ -4,7 +4,6 @@ import {
 	click,
 	Component,
 	Display,
-	d,
 	getDocumentFragment,
 	getChildren,
 	o,
@@ -44,8 +43,7 @@ export class TabContainer extends Component {
 
 
 export interface TabAttributes extends BasicAttributes {
-	title: MaybeObservable<string>,
-	// render: NodeCreatorFn
+	title: MaybeObservable<string|number>|Node,
 }
 
 

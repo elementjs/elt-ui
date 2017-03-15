@@ -10,7 +10,7 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "jsx": "react",
-	"jsxFactory": "d",
+	"jsxFactory": "D",
         "experimentalDecorators": true,
         "outDir": "./build",
         "lib": ["es6", "dom"]

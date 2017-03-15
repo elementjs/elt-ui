@@ -1,7 +1,6 @@
 
 import {
   o,
-  d,
   Component,
   click,
   clickfix,

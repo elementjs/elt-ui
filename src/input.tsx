@@ -1,6 +1,5 @@
 
 import {
-  d,
   o,
   bind,
   DisplayIf,
@@ -18,8 +17,8 @@ export interface InputAttributes extends BasicAttributes {
   disabled?: MaybeObservable<boolean>
   type?: string
   id?: string
-  label?: string
-  placeholder?: string
+  label?: MaybeObservable<string>
+  placeholder?: MaybeObservable<string>
   autocomplete?: 'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'
   autocapitalize?: 'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'
   autocorrect?: 'on' | 'off'

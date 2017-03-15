@@ -5,11 +5,10 @@ import {
 	bind,
 	Component,
 	clickfix,
-	d,
 	o,
 	MaybeObservable,
 	Observable,
-	Repeat,
+	RepeatObservable,
 } from 'domic'
 
 
@@ -93,7 +92,7 @@ export class Select<T> extends Component {
 
 		return <label class='dm-select-label'>
 			<select class='dm-select' $$={decorators}>
-				{Repeat(options, (opt, i) => <option
+				{RepeatObservable(options, (opt, i) => <option
 						value={i}
 						selected={o.merge({model, opt})
 							.tf(val => val.model === val.opt ? true : undefined)

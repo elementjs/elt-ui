@@ -1,6 +1,4 @@
 
-import {d} from 'domic'
-
 import {Child, ChildAttributes} from './flex'
 
 
