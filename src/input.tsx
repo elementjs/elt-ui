@@ -51,8 +51,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Node {
   }
 
   const o_focused: Observable<boolean> = o(false)
-    // max={attrs.max}
-    // min={attrs.min}
+
   const input = <input
     id={id}
     class='dm-input-element'

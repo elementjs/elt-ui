@@ -34,13 +34,13 @@ export class ButtonBar extends Component {
   attrs: ButtonBarAttributes
 
   @onmount
-  addCls(node: HTMLElement) {
-    node.parentElement.classList.add('dm-has-button-bar')
+  addCls(node: HTMLElement, parent: HTMLElement) {
+    parent.classList.add('dm-has-button-bar')
   }
 
   @onunmount
-  removeCls(node: HTMLElement) {
-    node.parentElement.classList.remove('dm-has-button-bar')
+  removeCls(node: HTMLElement, parent: HTMLElement) {
+    parent.classList.remove('dm-has-button-bar')
   }
 
   render(children: DocumentFragment): Node {
@@ -77,7 +77,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
     {DisplayIf(attrs.icon,
       name => <Icon
         class={['dm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
-        name={attrs.icon}
+        name={name}
       />
     ,
       () => txt_button

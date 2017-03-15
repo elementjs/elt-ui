@@ -2,7 +2,7 @@
 import {d, click} from 'domic'
 
 
-export function inker(node: Node, event: MouseEvent = null) {
+export function inker(node: Node, event: MouseEvent) {
 
 	var clientX = event.pageX
 	var clientY = event.pageY

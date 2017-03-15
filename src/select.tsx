@@ -48,7 +48,9 @@ export class Select<T> extends Component {
 		let options = o(attrs.options)
 		let {model, labelfn, onchange} = attrs
 
-		if (!labelfn) labelfn = (obj: any) => obj.label || obj.text || obj
+		// Used for typing, to avoid the undefined part.
+		var real_labelfn = (obj: any) => obj.label || obj.text || obj
+		if (labelfn) real_labelfn = labelfn
 
 		//  We use a touched() function to avoid infinite loops since there
 		//  is a circular logic here.
@@ -84,9 +86,10 @@ export class Select<T> extends Component {
 		let decorators = [clickfix, bind(this.selected)];
 
 		if (onchange) {
+			var fn = onchange // used this for typing matters.
 			decorators.push(node => node.addEventListener(
 				'change',
-				ev => onchange(model.get(), ev))
+				ev => fn(model.get(), ev))
 			)
 		}
 
@@ -97,7 +100,7 @@ export class Select<T> extends Component {
 						selected={o.merge({model, opt})
 							.tf(val => val.model === val.opt ? true : undefined)
 						}>
-							{opt.tf(labelfn)}
+							{opt.tf(real_labelfn)}
 					</option>
 				)}
 			</select>

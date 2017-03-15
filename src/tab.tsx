@@ -25,8 +25,8 @@ import {
 export class TabContainer extends Component {
 
 	attrs: FlexAttributes
-	o_content: Observable<Node> = o(null)
-	o_active_tab: Observable<Tab> = o(null)
+	o_content: Observable<Node|null> = o(null)
+	o_active_tab: Observable<Tab|null> = o(null)
 
 	render(children: DocumentFragment): Node {
 
@@ -59,7 +59,7 @@ export class Tab extends Component {
 
 	attrs: TabAttributes
 
-	container: TabContainer
+	container: TabContainer|null
 	o_is_active = o(false)
 	children: Node[] = []
 
@@ -70,18 +70,17 @@ export class Tab extends Component {
 		if (!this.container)
 			throw new Error('Tab must be inside a TabContainer')
 
-		// This this tab as the active one if no tab is being displayed
-		if (this.container.o_active_tab.get() == null)
-			this.activate()
-
 		this.observe(this.container.o_active_tab, tab => {
 			this.o_is_active.set(tab === this)
 		})
-		// ...............
-		this.onmount[this.onmount.length - 1]()
+
+		// This this tab as the active one if no tab is being displayed
+		if (this.container.o_active_tab.get() == null)
+			this.activate()
 	}
 
 	activate() {
+		if (!this.container) throw new Error('No container')
 		if (this.container.o_active_tab.get() === this) return
 
 		this.container.o_active_tab.set(this)

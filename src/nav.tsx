@@ -70,7 +70,8 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
 	let res = <div class='dm-navigation-item' $$={[clickfix, inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
-			c.detach()
+			// XXX should we log an error here if c was null ?
+			if (c) c.detach()
 		}
 	})]}>
 		<Icon class='dm-navigation-item-icon' name={a.icon}/>
