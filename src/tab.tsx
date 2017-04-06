@@ -3,7 +3,6 @@ import {
 	BasicAttributes,
 	click,
 	Component,
-	Display,
 	getDocumentFragment,
 	getChildren,
 	o,
@@ -33,7 +32,7 @@ export class TabContainer extends Component {
 		return <Column {...this.attrs}>
 			<Row justify='center' class='dm-tab-bar'>{children}</Row>
 			<Column absoluteGrow='1' class='dm-tab-content'>
-				{Display(this.o_content)}
+				{this.o_content}
 			</Column>
 		</Column>
 

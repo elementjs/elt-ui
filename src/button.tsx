@@ -61,26 +61,22 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): No
     }
   }
 
-  // we put it outside since children should be called only once, which
-  // would not happen inside a DisplayUnless.
-  let txt_button = <span
-    class={['dm-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
-  >
-    {children}
-  </span>
-
   return <button
     class='dm-button'
-    disabled={o(attrs.disabled).tf((val: boolean) => val ? val : undefined)}
+    disabled={o(attrs.disabled).tf(val => val ? val : undefined)}
     $$={[clickfix, click(doClick)]}
   >
     {DisplayIf(attrs.icon,
-      name => <Icon
+      o_name => <Icon
         class={['dm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
-        name={name}
+        name={o_name}
       />
     ,
-      () => txt_button
+      () => <span
+        class={['dm-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
+      >
+        {children}
+      </span>
     )}
 
   </button>

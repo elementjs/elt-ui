@@ -8,7 +8,7 @@ import {
 	o,
 	MaybeObservable,
 	Observable,
-	RepeatObservable,
+	Repeat
 } from 'domic'
 
 
@@ -95,7 +95,7 @@ export class Select<T> extends Component {
 
 		return <label class='dm-select-label'>
 			<select class='dm-select' $$={decorators}>
-				{RepeatObservable(options, (opt, i) => <option
+				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={o.merge({model, opt})
 							.tf(val => val.model === val.opt ? true : undefined)
