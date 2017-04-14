@@ -8,11 +8,12 @@ import {
 	o,
 	MaybeObservable,
 	Observable,
-	Repeat
+	Repeat,
+	Write
 } from 'domic'
 
 
-export type LabelFn<T> = (opt: T) => string
+export type LabelFn<T> = (opt: T) => MaybeObservable<string>
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 
@@ -100,7 +101,7 @@ export class Select<T> extends Component {
 						selected={o.merge({model, opt})
 							.tf(val => val.model === val.opt ? true : undefined)
 						}>
-							{opt.tf(real_labelfn)}
+							{opt.tf(val => Write(real_labelfn(val)))}
 					</option>
 				)}
 			</select>
