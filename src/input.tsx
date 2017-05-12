@@ -27,7 +27,7 @@ export interface InputAttributes extends BasicAttributes {
   error?: Observable<string>
 }
 
-export function Input(attrs: InputAttributes, content: DocumentFragment): Node {
+export function Input(attrs: InputAttributes, content: DocumentFragment): HTMLElement {
 
   // Used in validation ???
   // this.valid = true;

@@ -43,13 +43,13 @@ export class ButtonBar extends Component {
     parent.classList.remove('dm-has-button-bar')
   }
 
-  render(children: DocumentFragment): Node {
+  render(children: DocumentFragment): HTMLElement {
     return <Row class='dm-button-bar'>{children}</Row>
   }
 }
 
 
-export function Button(attrs : ButtonAttributes, children: DocumentFragment): Node {
+export function Button(attrs : ButtonAttributes, children: DocumentFragment): HTMLElement {
 
   function doClick(this: Node, event: MouseEvent) {
     let click = o.get(attrs.click)

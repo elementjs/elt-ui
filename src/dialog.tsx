@@ -43,12 +43,12 @@ export class DialogCtrl<T> extends Controller {
 
 }
 
-export var Overlay = (attrs: BasicAttributes, children: DocumentFragment): Node => {
+export function Overlay(attrs: BasicAttributes, children: DocumentFragment): HTMLElement {
   return <Column align='center' justify='center' class='dm-dialog-overlay'>{children}</Column>
 }
 
-export var Title = (attrs: BasicAttributes, children: DocumentFragment): Node => <h3 class='dm-dialog-title'>{children}</h3>
-export var Content = (attrs: BasicAttributes, children: DocumentFragment): Node => <div class='dm-dialog-content'>{children}</div>
+export function Title(attrs: BasicAttributes, children: DocumentFragment): HTMLElement { return <h3 class='dm-dialog-title'>{children}</h3> }
+export function Content(attrs: BasicAttributes, children: DocumentFragment): HTMLElement { return <div class='dm-dialog-content'>{children}</div> }
 
 export interface ButtonbarAttributes extends BasicAttributes {
   stacked?: MaybeObservable<boolean>
@@ -56,10 +56,11 @@ export interface ButtonbarAttributes extends BasicAttributes {
 
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
-export var Buttonbar = (attrs: ButtonbarAttributes, children: DocumentFragment): Node =>
-  <div class={['dm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
+export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment): HTMLElement {
+  return <div class={['dm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
+}
 
-export var Root = (attrs: BasicAttributes, children: DocumentFragment): Node => <Column class='dm-dialog-root'>{children}</Column>
+export function Root(attrs: BasicAttributes, children: DocumentFragment): HTMLElement { return <Column class='dm-dialog-root'>{children}</Column> }
 
 export interface DialogOptions {
   parent?: Node

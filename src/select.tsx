@@ -41,7 +41,7 @@ export class Select<T> extends Component {
 	/**
 	 * Setup the observation logic.
 	 */
-	render(children: DocumentFragment): Node {
+	render(children: DocumentFragment): HTMLElement {
 		let mod = false;
 
 		let attrs = this.attrs

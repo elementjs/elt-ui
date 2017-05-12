@@ -2,8 +2,8 @@
 import {
 	click,
 	clickfix,
-	BasicAttributes,
-	HTMLComponent
+	Component,
+	BasicAttributes
 } from 'domic'
 
 import {inkClickDelay} from './ink'
@@ -19,7 +19,7 @@ export interface NavAttributes extends BasicAttributes {
 
 }
 
-export class Nav extends HTMLComponent {
+export class Nav extends Component {
 
 	detach() {
 		animateClass(this.node, 'animation-leave').then(() => {
@@ -32,7 +32,7 @@ export class Nav extends HTMLComponent {
 		document.body.appendChild(this.node)
 	}
 
-	render(ch: DocumentFragment): Node {
+	render(ch: DocumentFragment): HTMLElement {
 
 		let overlay = <div class='dm-navigation-overlay' $$={[clickfix, click((e) => {
 				if (e.target === overlay)
@@ -49,15 +49,15 @@ export class Nav extends HTMLComponent {
 
 }
 
-export function NavHeader(a: BasicAttributes, ch: DocumentFragment): Node {
+export function NavHeader(a: BasicAttributes, ch: DocumentFragment): HTMLElement {
 	return <div class='dm-navigation-header'>{ch}</div>
 }
 
-export function NavSubheader(a: BasicAttributes, ch: DocumentFragment): Node {
+export function NavSubheader(a: BasicAttributes, ch: DocumentFragment): HTMLElement {
 	return <div class='dm-navigation-subheader'>{ch}</div>
 }
 
-export function NavDivider(a: BasicAttributes, ch: DocumentFragment): Node {
+export function NavDivider(a: BasicAttributes, ch: DocumentFragment): HTMLElement {
 	return <div class='dm-navigation-divider'/>
 }
 
@@ -66,7 +66,7 @@ export interface NavItemAttributes extends BasicAttributes {
 	click?: (ev: MouseEvent) => any
 }
 
-export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
+export function NavItem(a: NavItemAttributes, ch: DocumentFragment): HTMLElement {
 	let res = <div class='dm-navigation-item' $$={[clickfix, inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
@@ -81,10 +81,10 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Node {
 	return res
 }
 
-export function NavBody(a: BasicAttributes, ch: DocumentFragment): Node {
+export function NavBody(a: BasicAttributes, ch: DocumentFragment): HTMLElement {
 	return <div class='dm-navigation-body'>{ch}</div>
 }
 
-export function NavFooter(a: BasicAttributes, ch: DocumentFragment): Node {
+export function NavFooter(a: BasicAttributes, ch: DocumentFragment): HTMLElement {
 	return <div class='dm-navigation-footer'>{ch}</div>
 }
