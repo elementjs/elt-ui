@@ -27,7 +27,7 @@ export interface InputAttributes extends BasicAttributes {
   error?: Observable<string>
 }
 
-export function Input(attrs: InputAttributes, content: DocumentFragment): HTMLElement {
+export function Input(attrs: InputAttributes, content: DocumentFragment): Element {
 
   // Used in validation ???
   // this.valid = true;
@@ -37,9 +37,9 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): HTMLEl
   let data = {
     model: o(attrs.model || ''), // model is necessarily an observable.
     type: attrs.type || 'text',
-    label: attrs.label || attrs.placeholder || false, // we may not have a label, and we don't try to.
+    label: attrs.label || attrs.placeholder || '', // we may not have a label, and we don't try to.
     error: o(attrs.error),
-    disabled: o(attrs.disabled).tf(v => v ? 'disabled' : undefined)
+    disabled: o(attrs.disabled).tf(v => !!v)
   };
 
   let other_attrs = {

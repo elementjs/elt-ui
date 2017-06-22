@@ -45,7 +45,7 @@ export class Radio<T> extends Component {
     this.model.set(this.value)
   }
 
-  render(children: DocumentFragment): HTMLElement {
+  render(children: DocumentFragment): Element {
 
     let classes = {
       on: this.model.eq(this.value),

@@ -74,13 +74,13 @@ export interface FlexAttributes extends BasicAttributes {
 	absoluteGrow?: string
 }
 
-export function Row(at: FlexAttributes, ch: DocumentFragment): HTMLElement {
+export function Row(at: FlexAttributes, ch: DocumentFragment): Element {
 	let node = d('div', {class: 'dm-flex'}, ch)
 	_parse_attributes(node, at)
 	return node
 }
 
-export function Column(at: FlexAttributes, ch: DocumentFragment): HTMLElement {
+export function Column(at: FlexAttributes, ch: DocumentFragment): Element {
 	at.direction = 'column'
 	let node = d('div', {class: 'dm-flex'}, ch)
 	_parse_attributes(node, at)
@@ -95,7 +95,7 @@ export interface ChildAttributes extends FlexAttributes {
  * A child that's not a flex itself (otherwise we'd use Row or Column), on which
  * there is hence no point in using the special align-items, ...
  */
-export function Child(at: ChildAttributes, ch: DocumentFragment): HTMLElement {
+export function Child(at: ChildAttributes, ch: DocumentFragment): Element {
 	let node = d('div', null, ch)
 	_parse_attributes(node, at)
 	return node

@@ -35,7 +35,7 @@ export class Checkbox extends Component {
     this.o_model.toggle()
   }
 
-  render(children: DocumentFragment): HTMLElement {
+  render(children: DocumentFragment): Element {
 
     function getIcon(value: boolean) {
       if (value === undefined) return INDETERMINATE

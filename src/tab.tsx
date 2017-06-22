@@ -27,7 +27,7 @@ export class TabContainer extends Component {
 	o_content: Observable<Node|null> = o(null)
 	o_active_tab: Observable<Tab|null> = o(null)
 
-	render(c: DocumentFragment): HTMLElement {
+	render(c: DocumentFragment): Element {
 		var {$$children, ...attrs} = this.attrs
 		return <Column {...attrs}>
 			<Row justify='center' class='dm-tab-bar'>{c}</Row>
@@ -86,7 +86,7 @@ export class Tab extends Component {
 		this.container.o_content.set(getDocumentFragment(this.children))
 	}
 
-	render(children: DocumentFragment): HTMLElement {
+	render(children: DocumentFragment): Element {
 
 		this.children = getChildren(children)
 

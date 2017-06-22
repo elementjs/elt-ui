@@ -34,22 +34,22 @@ export class ButtonBar extends Component {
   attrs: ButtonBarAttributes
 
   @onmount
-  addCls(node: HTMLElement, parent: HTMLElement) {
+  addCls(node: Element, parent: Element) {
     parent.classList.add('dm-has-button-bar')
   }
 
   @onunmount
-  removeCls(node: HTMLElement, parent: HTMLElement) {
+  removeCls(node: Element, parent: Element) {
     parent.classList.remove('dm-has-button-bar')
   }
 
-  render(children: DocumentFragment): HTMLElement {
+  render(children: DocumentFragment): Element {
     return <Row class='dm-button-bar'>{children}</Row>
   }
 }
 
 
-export function Button(attrs : ButtonAttributes, children: DocumentFragment): HTMLElement {
+export function Button(attrs : ButtonAttributes, children: DocumentFragment): Element {
 
   function doClick(this: Node, event: MouseEvent) {
     let click = o.get(attrs.click)
@@ -63,7 +63,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): HT
 
   return <button
     class='dm-button'
-    disabled={o(attrs.disabled).tf(val => val ? val : undefined)}
+    disabled={o(attrs.disabled).tf(val => !!val)}
     $$={[clickfix, click(doClick)]}
   >
     {DisplayIf(attrs.icon,

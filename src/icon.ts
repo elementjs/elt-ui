@@ -7,7 +7,7 @@ export interface IconAttributes extends BasicAttributes {
 }
 
 
-export function Icon({name}: IconAttributes, content: DocumentFragment): HTMLElement {
+export function Icon({name}: IconAttributes, content: DocumentFragment): Element {
   return d('i', {
     'class': ['zmdi', o(name).tf(name => `zmdi-${name || 'help-outline'}`)]
   })

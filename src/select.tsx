@@ -41,7 +41,7 @@ export class Select<T> extends Component {
 	/**
 	 * Setup the observation logic.
 	 */
-	render(children: DocumentFragment): HTMLElement {
+	render(children: DocumentFragment): Element {
 		let mod = false;
 
 		let attrs = this.attrs
@@ -98,9 +98,7 @@ export class Select<T> extends Component {
 			<select class='dm-select' $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
-						selected={o.merge({model, opt})
-							.tf(val => val.model === val.opt ? true : undefined)
-						}>
+						selected={model.equal(opt)}>
 							{opt.tf(val => Write(real_labelfn(val)))}
 					</option>
 				)}
