@@ -3,8 +3,7 @@ import {
 	BasicAttributes,
 	click,
 	Component,
-	getDocumentFragment,
-	getChildren,
+	Repeat,
 	o,
 	MaybeObservable,
 	onfirstmount,
@@ -26,14 +25,13 @@ export class TabContainer extends Component {
 	attrs: FlexAttributes
 	o_content: Observable<Node|null> = o(null)
 	o_active_tab: Observable<Tab|null> = o(null)
+	o_titles: Observable<Node[]> = o([])
 
-	render(c: DocumentFragment): Element {
+	render(children: DocumentFragment): Element {
 		var {$$children, ...attrs} = this.attrs
 		return <Column {...attrs}>
-			<Row justify='center' class='dm-tab-bar'>{c}</Row>
-			<Column absoluteGrow='1' class='dm-tab-content'>
-				{this.o_content}
-			</Column>
+			<Row justify='center' class='dm-tab-bar'>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
+			{children}
 		</Column>
 
 	}
@@ -42,7 +40,7 @@ export class TabContainer extends Component {
 
 
 export interface TabAttributes extends BasicAttributes {
-	title: MaybeObservable<string|number>|Node,
+	title: MaybeObservable<string|number|Node>,
 }
 
 
@@ -59,8 +57,8 @@ export class Tab extends Component {
 	attrs: TabAttributes
 
 	container: TabContainer|null
-	o_is_active = o(false)
 	children: Node[] = []
+	o_is_active = o(false)
 
 	@onfirstmount
 	linkToTabs(node: Node) {
@@ -68,6 +66,15 @@ export class Tab extends Component {
 
 		if (!this.container)
 			throw new Error('Tab must be inside a TabContainer')
+
+		this.container.o_titles.push(<div
+			class={['dm-tab-title', {active: this.o_is_active}]}
+			$$={[
+				click(ev => this.activate()),
+				inkable
+		]}>
+			{this.attrs.title}
+		</div>)
 
 		this.observe(this.container.o_active_tab, tab => {
 			this.o_is_active.set(tab === this)
@@ -83,21 +90,16 @@ export class Tab extends Component {
 		if (this.container.o_active_tab.get() === this) return
 
 		this.container.o_active_tab.set(this)
-		this.container.o_content.set(getDocumentFragment(this.children))
 	}
 
 	render(children: DocumentFragment): Element {
 
-		this.children = getChildren(children)
-
-		return <div
-			class={['dm-tab-title', {active: this.o_is_active}]}
-			$$={[
-				click(ev => this.activate()),
-				inkable
-		]}>
-			{this.attrs.title}
-		</div>
+		return <Column 
+			absoluteGrow='1' 
+			class='dm-tab-content' 
+			style={ {display: this.o_is_active.tf(act => act ? 'flex' : 'none')} }>
+			{children}
+		</Column>
 
 	}
 }
