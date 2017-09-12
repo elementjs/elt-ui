@@ -3,8 +3,7 @@ import {
 	click,
 	clickfix,
 	Component,
-	BasicAttributes,
-	onmount
+	BasicAttributes
 } from 'domic'
 
 import {inkClickDelay} from './ink'
@@ -28,9 +27,8 @@ export class Nav extends Component {
 		})
 	}
 
-	@onmount
-	show() {
-		animateClass(this.node, 'animation-enter')
+	onmount(node: HTMLElement) {
+		animateClass(node, 'animation-enter')
 	}
 
 	render(ch: DocumentFragment): Element {

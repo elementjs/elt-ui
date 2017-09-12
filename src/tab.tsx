@@ -6,7 +6,6 @@ import {
 	Repeat,
 	o,
 	MaybeObservable,
-	onfirstmount,
 	Observable,
 	VirtualHolder
 } from 'domic'
@@ -60,8 +59,9 @@ export class Tab extends Component {
 	children: Node[] = []
 	o_is_active = o(false)
 
-	@onfirstmount
-	linkToTabs(node: Node) {
+	onmount(node: Element) {
+		if (this.container) return
+
 		this.container = TabContainer.get(node)
 
 		if (!this.container)
@@ -94,9 +94,9 @@ export class Tab extends Component {
 
 	render(children: DocumentFragment): Element {
 
-		return <Column 
-			absoluteGrow='1' 
-			class='dm-tab-content' 
+		return <Column
+			absoluteGrow='1'
+			class='dm-tab-content'
 			style={ {display: this.o_is_active.tf(act => act ? 'flex' : 'none')} }>
 			{children}
 		</Column>

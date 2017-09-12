@@ -6,8 +6,6 @@ import {
   clickfix,
   DisplayIf,
   MaybeObservable,
-  onmount,
-  onunmount,
   BasicAttributes,
   Listener
 } from 'domic'
@@ -33,13 +31,11 @@ export class ButtonBar extends Component {
 
   attrs: ButtonBarAttributes
 
-  @onmount
-  addCls(node: Element, parent: Element) {
+  onmount(node: Element, parent: Element) {
     parent.classList.add('dm-has-button-bar')
   }
 
-  @onunmount
-  removeCls(node: Element, parent: Element) {
+  onunmount(node: Element, parent: Element) {
     parent.classList.remove('dm-has-button-bar')
   }
 
@@ -66,7 +62,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): El
     disabled={o(attrs.disabled).tf(val => !!val)}
     $$={[clickfix, click(doClick)]}
   >
-    {DisplayIf(attrs.icon,
+    {DisplayIf(attrs.icon || '',
       o_name => <Icon
         class={['dm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
         name={o_name}

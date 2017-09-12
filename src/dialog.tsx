@@ -79,7 +79,7 @@ export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Node
  */
 export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T> {
 
-  let dlg = new DialogCtrl();
+  let dlg = new DialogCtrl<T>();
 
   let contents = cbk(dlg)
 
