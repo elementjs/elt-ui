@@ -4,7 +4,6 @@ import {
 	BasicAttributes,
 	bind,
 	Component,
-	clickfix,
 	o,
 	MaybeObservable,
 	Observable,
@@ -78,13 +77,12 @@ export class Select<T> extends Component {
 
 		this.observe(this.selected, (v) => {
 			if (touched()) return;
-
 			model.set(options.get()[parseInt(v)]);
 		});
 
 		////////////////////////////////
 
-		let decorators = [clickfix, bind(this.selected)];
+		let decorators = [bind(this.selected)];
 
 		if (onchange) {
 			var fn = onchange // used this for typing matters.

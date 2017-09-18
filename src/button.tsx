@@ -3,7 +3,6 @@ import {
   o,
   Component,
   click,
-  clickfix,
   DisplayIf,
   MaybeObservable,
   BasicAttributes,
@@ -60,7 +59,7 @@ export function Button(attrs : ButtonAttributes, children: DocumentFragment): El
   return <button
     class='dm-button'
     disabled={o(attrs.disabled).tf(val => !!val)}
-    $$={[clickfix, click(doClick)]}
+    $$={click(doClick)}
   >
     {DisplayIf(attrs.icon || '',
       o_name => <Icon

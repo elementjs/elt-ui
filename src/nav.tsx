@@ -1,7 +1,6 @@
 
 import {
 	click,
-	clickfix,
 	Component,
 	BasicAttributes
 } from 'domic'
@@ -34,7 +33,7 @@ export class Nav extends Component {
 	render(ch: DocumentFragment): Element {
 
 		return <div class='dm-nav-holder'>
-			<div class='dm-navigation-overlay' $$={[clickfix, click((e, overlay) => {
+			<div class='dm-navigation-overlay' $$={[click((e, overlay) => {
 				if (e.target === overlay)
 					this.detach()
 			})]}/>
@@ -64,7 +63,7 @@ export interface NavItemAttributes extends BasicAttributes {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
-	let res = <div class='dm-navigation-item' $$={[clickfix, inkClickDelay(function (e) {
+	let res = <div class='dm-navigation-item' $$={[inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			// XXX should we log an error here if c was null ?

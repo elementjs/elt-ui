@@ -4,7 +4,6 @@ import {
   MaybeObservable,
   Observable,
   click,
-  clickfix,
   BasicAttributes,
   Component
 } from 'domic'
@@ -49,7 +48,7 @@ export class Checkbox extends Component {
       disabled: this.o_disabled
     }
 
-    return <label class='dm-checkbox-label' $$={[inkable, clickfix, click(e => this.toggle())]}>
+    return <label class='dm-checkbox-label' $$={[inkable, click(e => this.toggle())]}>
         <Row class='dm-checkbox-row' align='center'>
           <Icon class={['dm-checkbox-icon', classes]} name={this.o_model.tf(getIcon)}/>
           <span class={['dm-checkbox-content', classes]}>{children}</span>

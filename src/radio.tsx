@@ -2,7 +2,6 @@
 import {
   o,
   click,
-  clickfix,
   BasicAttributes,
   Observable,
   MaybeObservable,
@@ -53,7 +52,7 @@ export class Radio<T> extends Component {
       disabled: this.disabled
     };
 
-    return <label class='dm-checkbox-label' $$={[inkable, clickfix, click(e => this.setValue())]}>
+    return <label class='dm-checkbox-label' $$={[inkable, click(e => this.setValue())]}>
         <Row align='center'>
           <Icon
             class={['dm-checkbox-icon', classes]}
