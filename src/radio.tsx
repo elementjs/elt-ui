@@ -2,7 +2,7 @@
 import {
   o,
   click,
-  BasicAttributes,
+  Attrs,
   Observable,
   MaybeObservable,
   Component
@@ -17,7 +17,7 @@ import {inkable} from './ink'
 var CHECKED = 'dot-circle'
 var UNCHECKED = 'circle-o'
 
-export interface RadioAttributes<T> extends BasicAttributes {
+export interface RadioAttributes<T> extends Attrs {
   model: Observable<T>
   value: T
   disabled?: MaybeObservable<boolean>

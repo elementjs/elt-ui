@@ -1,7 +1,7 @@
 
 //////////////////////////////////////////////////////////////
 import {
-	BasicAttributes,
+	Attrs,
 	bind,
 	Component,
 	o,
@@ -17,7 +17,7 @@ export type LabelFn<T> = (opt: T) => MaybeObservable<string>
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 
 
-export interface SelectAttributes<T> extends BasicAttributes {
+export interface SelectAttributes<T> extends Attrs {
 	model: Observable<T>
 	options: MaybeObservable<T[]>
 	labelfn?: LabelFn<T>

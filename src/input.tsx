@@ -3,7 +3,7 @@ import {
   o,
   bind,
   DisplayIf,
-  BasicAttributes,
+  Attrs,
   MaybeObservable,
   Observable,
   click,
@@ -12,7 +12,7 @@ import {
 
 var id_gen = 0;
 
-export interface InputAttributes extends BasicAttributes {
+export interface InputAttributes extends Attrs {
   model: Observable<string>
   disabled?: MaybeObservable<boolean>
   type?: string

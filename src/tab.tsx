@@ -1,6 +1,6 @@
 
 import {
-	BasicAttributes,
+	Attrs,
 	click,
 	Component,
 	Repeat,
@@ -38,7 +38,7 @@ export class TabContainer extends Component {
 }
 
 
-export interface TabAttributes extends BasicAttributes {
+export interface TabAttributes extends Attrs {
 	title: MaybeObservable<string|number|Node>,
 }
 

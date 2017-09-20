@@ -1,8 +1,8 @@
 
-import {o, d, MaybeObservable, BasicAttributes} from 'domic'
+import {o, d, MaybeObservable, Attrs} from 'domic'
 
 
-export interface IconAttributes extends BasicAttributes {
+export interface IconAttributes extends Attrs {
   name: MaybeObservable<string>
 }
 

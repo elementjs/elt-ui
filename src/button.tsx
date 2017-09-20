@@ -5,7 +5,7 @@ import {
   click,
   DisplayIf,
   MaybeObservable,
-  BasicAttributes,
+  Attrs,
   Listener
 } from 'domic'
 
@@ -14,21 +14,21 @@ import {Row} from './flex'
 
 import {inker} from './ink'
 
-export interface ButtonAttributes extends BasicAttributes {
+export interface ButtonAttrs extends Attrs {
   disabled?: MaybeObservable<boolean>
   raised?: MaybeObservable<boolean>
   click?: Listener<MouseEvent>
   icon?: MaybeObservable<string>
 }
 
-export interface ButtonBarAttributes extends BasicAttributes {
+export interface ButtonBarAttrs extends Attrs {
   stacked?: boolean
 }
 
 
 export class ButtonBar extends Component {
 
-  attrs: ButtonBarAttributes
+  attrs: ButtonBarAttrs
 
   onmount(node: Element, parent: Element) {
     parent.classList.add('dm-has-button-bar')
@@ -44,7 +44,7 @@ export class ButtonBar extends Component {
 }
 
 
-export function Button(attrs : ButtonAttributes, children: DocumentFragment): Element {
+export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element {
 
   function doClick(this: Node, event: MouseEvent) {
     let click = o.get(attrs.click)

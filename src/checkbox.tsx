@@ -4,7 +4,7 @@ import {
   MaybeObservable,
   Observable,
   click,
-  BasicAttributes,
+  Attrs,
   Component
 } from 'domic'
 
@@ -17,7 +17,7 @@ var OFF = 'square-o'
 var ON = 'check-square'
 var INDETERMINATE = 'minus-square'
 
-export interface CheckboxAttributes extends BasicAttributes {
+export interface CheckboxAttributes extends Attrs {
   model: Observable<boolean>
   disabled?: MaybeObservable<boolean>
 }

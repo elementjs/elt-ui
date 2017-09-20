@@ -3,7 +3,7 @@ import * as dialog from './dialog'
 export {dialog}
 export {default as toast} from './toast'
 
-export {Button, ButtonBar, ButtonAttributes, ButtonBarAttributes} from './button'
+export {Button, ButtonBar, ButtonAttrs, ButtonBarAttrs} from './button'
 export {Checkbox, CheckboxAttributes} from './checkbox'
 export {Icon, IconAttributes} from './icon'
 export {Input, InputAttributes} from './input'

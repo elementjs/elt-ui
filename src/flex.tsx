@@ -1,6 +1,6 @@
 
 import {
-	BasicAttributes,
+	Attrs,
 	d,
 } from 'domic'
 
@@ -63,7 +63,7 @@ function _parse_attributes(el: HTMLElement, at: FlexAttributes) {
 
 }
 
-export interface FlexAttributes extends BasicAttributes {
+export interface FlexAttributes extends Attrs {
 	wrap?: string | boolean
 	direction?: string
 	align?: string

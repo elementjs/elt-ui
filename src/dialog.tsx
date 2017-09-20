@@ -1,16 +1,15 @@
 
 import {
-  BasicAttributes,
+  Attrs,
   ArrayOrSingle,
   ClassDefinition,
   click,
-  ctrl,
-  Controller,
+  Mixin,
   DisplayIf,
   Fragment as F,
   MaybeObservable,
-  onmount,
-  onunmount,
+  inserted,
+  removed,
 } from 'domic';
 
 import {Column} from './flex'
@@ -18,7 +17,7 @@ import {animateClass} from './animate'
 import {Button} from './button';
 
 
-export class DialogCtrl<T> extends Controller {
+export class DialogCtrl<T> extends Mixin {
   promise: Promise<T>
   _resolve: (v: T) => any
   _reject: (...a: Array<any>) => any
@@ -43,14 +42,14 @@ export class DialogCtrl<T> extends Controller {
 
 }
 
-export function Overlay(attrs: BasicAttributes, children: DocumentFragment): Element {
+export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
   return <Column align='center' justify='center' class='dm-dialog-overlay'>{children}</Column>
 }
 
-export function Title(attrs: BasicAttributes, children: DocumentFragment): Element { return <h3 class='dm-dialog-title'>{children}</h3> }
-export function Content(attrs: BasicAttributes, children: DocumentFragment): Element { return <div class='dm-dialog-content'>{children}</div> }
+export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class='dm-dialog-title'>{children}</h3> }
+export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class='dm-dialog-content'>{children}</div> }
 
-export interface ButtonbarAttributes extends BasicAttributes {
+export interface ButtonbarAttributes extends Attrs {
   stacked?: MaybeObservable<boolean>
 }
 
@@ -60,7 +59,7 @@ export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment
   return <div class={['dm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
 }
 
-export function Root(attrs: BasicAttributes, children: DocumentFragment): Element { return <Column class='dm-dialog-root'>{children}</Column> }
+export function Root(attrs: Attrs, children: DocumentFragment): Element { return <Column class='dm-dialog-root'>{children}</Column> }
 
 export interface DialogOptions {
   parent?: Node
@@ -100,10 +99,10 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
     click(function (e) {
       if (e.target === this && opts.clickOutsideToClose) dlg.reject('clicked outside to close')
     }),
-    ctrl(dlg),
+    dlg,
     // Handle the escape key.
-    onmount(node => node.ownerDocument.addEventListener('keyup', handleEscape)),
-    onunmount(node => node.ownerDocument.removeEventListener('keyup', handleEscape))
+    inserted(node => node.ownerDocument.addEventListener('keyup', handleEscape)),
+    removed(node => node.ownerDocument.removeEventListener('keyup', handleEscape))
   ]}>
     <Root class={opts.class ? opts.class : null}>{contents}</Root>
   </Overlay> as HTMLElement

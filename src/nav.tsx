@@ -2,7 +2,7 @@
 import {
 	click,
 	Component,
-	BasicAttributes
+	Attrs
 } from 'domic'
 
 import {inkClickDelay} from './ink'
@@ -14,7 +14,7 @@ import {Column} from './flex'
 import {animateClass} from './animate'
 
 
-export interface NavAttributes extends BasicAttributes {
+export interface NavAttributes extends Attrs {
 
 }
 
@@ -45,19 +45,19 @@ export class Nav extends Component {
 
 }
 
-export function NavHeader(a: BasicAttributes, ch: DocumentFragment): Element {
+export function NavHeader(a: Attrs, ch: DocumentFragment): Element {
 	return <div class='dm-navigation-header'>{ch}</div>
 }
 
-export function NavSubheader(a: BasicAttributes, ch: DocumentFragment): Element {
+export function NavSubheader(a: Attrs, ch: DocumentFragment): Element {
 	return <div class='dm-navigation-subheader'>{ch}</div>
 }
 
-export function NavDivider(a: BasicAttributes, ch: DocumentFragment): Element {
+export function NavDivider(a: Attrs, ch: DocumentFragment): Element {
 	return <div class='dm-navigation-divider'/>
 }
 
-export interface NavItemAttributes extends BasicAttributes {
+export interface NavItemAttributes extends Attrs {
 	icon: string
 	click?: (ev: MouseEvent) => any
 }
@@ -77,10 +77,10 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 	return res
 }
 
-export function NavBody(a: BasicAttributes, ch: DocumentFragment): Element {
+export function NavBody(a: Attrs, ch: DocumentFragment): Element {
 	return <div class='dm-navigation-body'>{ch}</div>
 }
 
-export function NavFooter(a: BasicAttributes, ch: DocumentFragment): Element {
+export function NavFooter(a: Attrs, ch: DocumentFragment): Element {
 	return <div class='dm-navigation-footer'>{ch}</div>
 }
