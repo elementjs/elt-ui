@@ -104,7 +104,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
     inserted(node => node.ownerDocument.addEventListener('keyup', handleEscape)),
     removed(node => node.ownerDocument.removeEventListener('keyup', handleEscape))
   ]}>
-    <Root class={opts.class ? opts.class : null}>{contents}</Root>
+    <Root class={opts.class ? opts.class : ''}>{contents}</Root>
   </Overlay> as HTMLElement
 
   if (!opts.noanimate) {
