@@ -8,7 +8,8 @@ import {
 	MaybeObservable,
 	Observable,
 	Repeat,
-	Write
+	Write,
+	Mixin
 } from 'domic'
 
 
@@ -26,15 +27,7 @@ export interface SelectAttributes<T> extends Attrs {
 
 export class Select<T> extends Component {
 
-	// FIXME attrs handling is probably not wonderful.
-
 	attrs: SelectAttributes<T>
-
-	// model: Observable<T>
-	// options: Observable<T[]>
-	// labelfn: LabelFn<T>
-	// onchange: ChangeFn<T>
-
 	protected selected: Observable<string> = o('-1')
 
 	/**
@@ -49,7 +42,9 @@ export class Select<T> extends Component {
 		let {model, labelfn, onchange} = attrs
 
 		// Used for typing, to avoid the undefined part.
-		var real_labelfn = (obj: any) => obj.label || obj.text || obj
+		var real_labelfn = (obj: any) => {
+			return obj.label || obj.text || obj
+		}
 		if (labelfn) real_labelfn = labelfn
 
 		//  We use a touched() function to avoid infinite loops since there
@@ -82,13 +77,15 @@ export class Select<T> extends Component {
 
 		////////////////////////////////
 
-		let decorators = [bind(this.selected)];
+		let decorators: (Mixin | ((node: Node) => void))[] = [bind(this.selected)];
 
 		if (onchange) {
 			var fn = onchange // used this for typing matters.
 			decorators.push(node => node.addEventListener(
 				'change',
-				ev => fn(model.get(), ev))
+				ev => {
+					fn(model.get(), ev)
+				})
 			)
 		}
 
