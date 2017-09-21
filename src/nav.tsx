@@ -20,14 +20,21 @@ export interface NavAttributes extends Attrs {
 
 export class Nav extends Component {
 
+	node: HTMLElement
+
 	detach() {
 		animateClass(this.node, 'animation-leave').then(() => {
 			this.node.remove()
 		})
 	}
 
-	onmount(node: HTMLElement) {
+	inserted(node: HTMLElement) {
+		this.node = node
 		animateClass(node, 'animation-enter')
+	}
+
+	removed() {
+		this.node = null!
 	}
 
 	render(ch: DocumentFragment): Element {

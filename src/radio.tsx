@@ -32,12 +32,10 @@ export class Radio<T> extends Component {
   value: T
   model: Observable<T>
 
-  constructor(attrs: RadioAttributes<T>) {
-    super(attrs)
-
-    this.disabled = o(attrs.disabled||false)
-    this.value = attrs.value
-    this.model = o(attrs.model)
+  init() {
+    this.disabled = o(this.attrs.disabled||false)
+    this.value = this.attrs.value
+    this.model = o(this.attrs.model)
   }
 
   setValue() {

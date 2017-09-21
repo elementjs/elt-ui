@@ -59,7 +59,7 @@ export class Tab extends Component {
 	children: Node[] = []
 	o_is_active = o(false)
 
-	onmount(node: Element) {
+	inserted(node: Element) {
 		if (this.container) return
 
 		this.container = TabContainer.get(node)

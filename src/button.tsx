@@ -30,11 +30,11 @@ export class ButtonBar extends Component {
 
   attrs: ButtonBarAttrs
 
-  onmount(node: Element, parent: Element) {
+  inserted(node: Element, parent: Element) {
     parent.classList.add('dm-has-button-bar')
   }
 
-  onunmount(node: Element, parent: Element) {
+  removed(node: Element, parent: Element) {
     parent.classList.remove('dm-has-button-bar')
   }
 
