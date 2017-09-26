@@ -93,7 +93,7 @@ export class Select<T> extends Component {
 			<select class='dm-select' $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
-						selected={model.equal(opt)}>
+						selected={model.equals(opt)}>
 							{opt.tf(val => Write(real_labelfn(val)))}
 					</option>
 				)}

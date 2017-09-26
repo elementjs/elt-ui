@@ -45,8 +45,8 @@ export class Radio<T> extends Component {
   render(children: DocumentFragment): Element {
 
     let classes = {
-      on: this.model.eq(this.value),
-      off: this.model.ne(this.value),
+      on: this.model.equals(this.value),
+      off: this.model.differs(this.value),
       disabled: this.disabled
     };
 
