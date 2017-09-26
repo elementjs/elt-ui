@@ -5,6 +5,7 @@ import {
 	bind,
 	Component,
 	o,
+	on,
 	MaybeObservable,
 	Observable,
 	Repeat,
@@ -77,16 +78,11 @@ export class Select<T> extends Component {
 
 		////////////////////////////////
 
-		let decorators: (Mixin | ((node: Node) => void))[] = [bind(this.selected)];
+		let decorators: Mixin[] = [bind(this.selected)];
 
 		if (onchange) {
 			var fn = onchange // used this for typing matters.
-			decorators.push(node => node.addEventListener(
-				'change',
-				ev => {
-					fn(model.get(), ev)
-				})
-			)
+			decorators.push(on('change', ev => fn(model.get(), ev)))
 		}
 
 		return <label class='dm-select-label'>

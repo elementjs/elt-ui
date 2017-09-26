@@ -71,8 +71,8 @@ export class Tab extends Component {
 			class={['dm-tab-title', {active: this.o_is_active}]}
 			$$={[
 				click(ev => this.activate()),
-				inkable
-		]}>
+				inkable()
+			]}>
 			{this.attrs.title}
 		</div>)
 

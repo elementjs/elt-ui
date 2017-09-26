@@ -1,5 +1,5 @@
 
-import {d, click} from 'domic'
+import {d, click, Mixin} from 'domic'
 
 
 export function inker(node: Node, event: MouseEvent) {
@@ -27,18 +27,16 @@ export function inker(node: Node, event: MouseEvent) {
 }
 
 
-export function inkable(node: Node) {
-	return click(function (ev: MouseEvent) {
+export function inkable(): Mixin {
+	return click(function (ev, node) {
 		inker(node, ev)
-	})(node as HTMLElement)
+	})
 }
 
 
 export function inkClickDelay(fn: (ev: MouseEvent) => void) {
-	return function (node: Node) {
-		return click(function (ev: MouseEvent) {
-			inker(node, ev)
-			setTimeout(() => fn(ev), 150)
-		})(node as HTMLElement)
-	}
+	return click(function (ev, node) {
+		inker(node, ev)
+		setTimeout(() => fn(ev), 150)
+	})
 }
