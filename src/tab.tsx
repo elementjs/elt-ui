@@ -6,8 +6,7 @@ import {
 	Repeat,
 	o,
 	MaybeObservable,
-	Observable,
-	VirtualHolder
+	Observable
 } from 'domic'
 
 import {inkable} from './ink'
@@ -42,10 +41,6 @@ export interface TabAttributes extends Attrs {
 	title: MaybeObservable<string|number|Node>,
 }
 
-
-export class TabContents extends VirtualHolder {
-	name = 'tab contents'
-}
 
 /**
  * FIXME missing is_active logic, since I don't know how to dynamically
