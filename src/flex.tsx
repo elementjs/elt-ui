@@ -1,8 +1,8 @@
 
 import {
 	Attrs,
-	d,
-} from 'domic'
+	e,
+} from 'elt'
 
 
 // flex-direction
@@ -75,14 +75,14 @@ export interface FlexAttributes extends Attrs {
 }
 
 export function Row(at: FlexAttributes, ch: DocumentFragment): Element {
-	let node = d('div', {class: 'dm-flex'}, ch)
+	let node = e('div', {class: 'dm-flex'}, ch)
 	_parse_attributes(node, at)
 	return node
 }
 
 export function Column(at: FlexAttributes, ch: DocumentFragment): Element {
 	at.direction = 'column'
-	let node = d('div', {class: 'dm-flex'}, ch)
+	let node = e('div', {class: 'dm-flex'}, ch)
 	_parse_attributes(node, at)
 	return node
 }
@@ -96,7 +96,7 @@ export interface ChildAttributes extends FlexAttributes {
  * there is hence no point in using the special align-items, ...
  */
 export function Child(at: ChildAttributes, ch: DocumentFragment): Element {
-	let node = d('div', null, ch)
+	let node = e('div', null, ch)
 	_parse_attributes(node, at)
 	return node
 }

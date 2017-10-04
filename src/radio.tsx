@@ -6,7 +6,7 @@ import {
   Observable,
   MaybeObservable,
   Component
-} from 'domic'
+} from 'elt'
 
 import {Row} from './flex'
 

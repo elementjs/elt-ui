@@ -6,7 +6,7 @@ import {
   click,
   Attrs,
   Component
-} from 'domic'
+} from 'elt'
 
 import {Row} from './flex'
 import {Icon} from './icon'

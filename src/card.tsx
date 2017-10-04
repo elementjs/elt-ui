@@ -1,5 +1,5 @@
 
-import {Attrs} from 'domic'
+import {Attrs} from 'elt'
 import {Column} from './flex'
 
 

@@ -10,7 +10,7 @@ import {
   MaybeObservable,
   inserted,
   removed,
-} from 'domic';
+} from 'elt';
 
 import {Column} from './flex'
 import {animateClass} from './animate'

@@ -1,5 +1,5 @@
 
-import {Insertable} from 'domic'
+import {Insertable} from 'elt'
 import {animate} from './animate'
 
 /**

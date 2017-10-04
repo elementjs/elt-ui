@@ -7,7 +7,7 @@ import {
   MaybeObservable,
   Observable,
   click,
-} from 'domic';
+} from 'elt';
 
 
 var id_gen = 0;

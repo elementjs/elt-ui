@@ -9,9 +9,9 @@ import {
 	MaybeObservable,
 	Observable,
 	Repeat,
-	Write,
+	Display,
 	Mixin
-} from 'domic'
+} from 'elt'
 
 
 export type LabelFn<T> = (opt: T) => MaybeObservable<string>
@@ -90,7 +90,7 @@ export class Select<T> extends Component {
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={model.equals(opt)}>
-							{opt.tf(val => Write(real_labelfn(val)))}
+							{opt.tf(val => Display(real_labelfn(val)))}
 					</option>
 				)}
 			</select>

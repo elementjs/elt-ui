@@ -7,7 +7,7 @@ import {
   MaybeObservable,
   Attrs,
   Listener
-} from 'domic'
+} from 'elt'
 
 import {Icon} from './icon'
 import {Row} from './flex'

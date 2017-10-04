@@ -1,5 +1,5 @@
 
-import {d, click, Mixin} from 'domic'
+import {e, click, Mixin} from 'elt'
 
 
 export function inker(node: Node, event: MouseEvent) {
@@ -7,8 +7,8 @@ export function inker(node: Node, event: MouseEvent) {
 	var clientX = event.pageX
 	var clientY = event.pageY
 
-	var inker = d('div', {class: 'dm-ink'}) as HTMLDivElement
-	var ink_container = d('div', {class: 'dm-ink-container'},
+	var inker = e('div', {class: 'dm-ink'}) as HTMLDivElement
+	var ink_container = e('div', {class: 'dm-ink-container'},
 		inker
 	) as HTMLDivElement
 

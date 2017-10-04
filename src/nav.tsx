@@ -3,7 +3,7 @@ import {
 	click,
 	Component,
 	Attrs
-} from 'domic'
+} from 'elt'
 
 import {inkClickDelay} from './ink'
 

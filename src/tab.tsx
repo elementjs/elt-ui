@@ -7,7 +7,7 @@ import {
 	o,
 	MaybeObservable,
 	Observable
-} from 'domic'
+} from 'elt'
 
 import {inkable} from './ink'
 

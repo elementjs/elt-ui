@@ -1,5 +1,5 @@
 
-import {o, d, MaybeObservable, Attrs} from 'domic'
+import {o, e, MaybeObservable, Attrs} from 'elt'
 
 
 export interface IconAttributes extends Attrs {
@@ -8,7 +8,7 @@ export interface IconAttributes extends Attrs {
 
 
 export function Icon({name}: IconAttributes, content: DocumentFragment): Element {
-  return d('i', {
+  return e('i', {
     'class': ['zmdi', o(name).tf(name => `zmdi-${name || 'help-outline'}`)]
   })
 }
