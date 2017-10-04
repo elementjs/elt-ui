@@ -1,12 +1,12 @@
 {
-  "name": "domic-material",
-  "version": "0.2.3",
-  "repository": "https://github.com/domicjs/domic-material",
+  "name": "elt-material",
+  "version": "0.3.0",
+  "repository": "https://github.com/domicjs/elt-material",
   "description": "some description",
   "license": "MIT",
   "typings": "./index.d.ts",
   "scripts": {
-    "build:dts": "dts-bundle --name domic-material --main build/index.d.ts --out ../index.d.ts",
+    "build:dts": "dts-bundle --name elt-material --main build/index.d.ts --out ../index.d.ts",
     "build:js": "tsc && webpack",
     "build": "npm run build:js && npm run build:dts",
     "prepublish": "npm run build",
