@@ -57,9 +57,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
     class='dm-input-element'
     disabled={data.disabled}
     type={data.type}
-    $$={[bind(data.model), click(function (this: HTMLInputElement, e: Event) {
-      this.focus()
-    })]}
+    $$={[bind(data.model)]}
     {...other_attrs}
   />
 

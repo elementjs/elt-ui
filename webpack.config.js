@@ -10,7 +10,7 @@ module.exports = {
   cache: true,
   entry: "./build/index.js",
   stats: {children: false},
-  externals: ['domic'],
+  externals: ['elt'],
   output: {
     path: "./",
     publicPath: "/",

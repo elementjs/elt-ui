@@ -25,6 +25,8 @@ export class Nav extends Component {
 	detach() {
 		animateClass(this.node, 'animation-leave').then(() => {
 			this.node.remove()
+		}).catch(e => {
+			console.error(e)
 		})
 	}
 
