@@ -96,8 +96,8 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   }
 
   let dialog_holder = <Overlay $$={[
-    click(function (e) {
-      if (e.target === this && opts.clickOutsideToClose) dlg.reject('clicked outside to close')
+    click(function (e, node) {
+      if (e.target === node && opts.clickOutsideToClose) dlg.reject('clicked outside to close')
     }),
     dlg,
     // Handle the escape key.

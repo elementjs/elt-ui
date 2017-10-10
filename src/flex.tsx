@@ -5,19 +5,6 @@ import {
 } from 'elt'
 
 
-// flex-direction
-// flex-wrap
-// justify-content
-// align-items
-// align-content
-
-// CHILDREN :
-// order
-// shrink
-// grow
-// basis !
-// align-self
-
 function _(elt: HTMLElement, prop: string, value: string) {
 	switch (value) {
 		case 'around': value = 'space-around'; break
