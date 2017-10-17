@@ -4,7 +4,8 @@
   "repository": "https://github.com/domicjs/elt-material",
   "description": "some description",
   "license": "MIT",
-  "main": "./src",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
   "scripts": {
     "build:dts": "dts-bundle --name elt-material --main build/index.d.ts --out ../index.d.ts",
     "build:js": "tsc && webpack",

@@ -18,6 +18,9 @@ import {
 } from './flex'
 
 
+import * as css from './tab.styl'
+
+
 export class TabContainer extends Component {
 
 	attrs: FlexAttributes
@@ -28,7 +31,7 @@ export class TabContainer extends Component {
 	render(children: DocumentFragment): Element {
 		var {$$children, ...attrs} = this.attrs
 		return <Column {...attrs}>
-			<Row justify='center' class='em-tab-bar'>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
+			<Row justify='center' class={css.bar}>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
 			{children}
 		</Column>
 
@@ -63,7 +66,7 @@ export class Tab extends Component {
 			throw new Error('Tab must be inside a TabContainer')
 
 		this.container.o_titles.push(<div
-			class={['em-tab-title', {active: this.o_is_active}]}
+			class={[css.title, {active: this.o_is_active}]}
 			$$={[
 				click(ev => this.activate()),
 				inkable()
@@ -91,7 +94,7 @@ export class Tab extends Component {
 
 		return <Column
 			absoluteGrow='1'
-			class='em-tab-content'
+			class={css.content}
 			style={ {display: this.o_is_active.tf(act => act ? 'flex' : 'none')} }>
 			{children}
 		</Column>

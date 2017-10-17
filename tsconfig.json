@@ -13,7 +13,6 @@
         "jsx": "react",
 	"jsxFactory": "E",
         "experimentalDecorators": true,
-        "outDir": "./build",
         "lib": ["es6", "dom"]
     },
     "files": [
