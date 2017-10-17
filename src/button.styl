@@ -1,10 +1,7 @@
 @require 'common'
 
 
-$em-disabled-button-background ?= rgba(0, 0, 0, 0.54)
-
-
-.em-button
+.button
   // This style applies to a button, that we want to completely reset.
   border: 0
   margin: 0
@@ -18,7 +15,7 @@ $em-disabled-button-background ?= rgba(0, 0, 0, 0.54)
   -webkit-tap-highlight-color rgba(0,0,0,0)
 
 
-.em-button-content, .em-button-icon
+.button-content, .button-icon
 
   // This is to prevent text selection inside the button.
   user-select(none)
@@ -34,18 +31,18 @@ $em-disabled-button-background ?= rgba(0, 0, 0, 0.54)
   vertical-align: middle
   cursor: pointer
 
-  color: $em-color-primary
+  color: var(--em-color-primary)
   background: none
 
   &.disabled
-    color: $em-color-disabled
+    color: var(--em-color-disabled)
     box-shadow(none)
 
 
 /**
   Classes that will apply on buttons with text content.
  */
-.em-button-content
+.button-content
 
   &:hover
     background rgba(0, 0, 0, 0.07)
@@ -60,34 +57,34 @@ $em-disabled-button-background ?= rgba(0, 0, 0, 0.54)
     // FIXME will depend on theme
     color white
     // FIXME will be material colors
-    background-color $em-color-primary
+    background-color var(--em-color-primary)
 
     em-shadow-highlight()
 
     &.disabled
       color: $em-color-disabled
-      background-color: $em-color-darken3
+      background-color: var(--em-color-darken3)
       box-shadow(none)
 
   &.raised:hover
     background-color: lighten($em-color-primary, 10)
 
     &.disabled
-      background-color: $em-color-darken2
+      background-color: var(--em-color-darken2)
 
   &.raised:active
     background-color lighten($em-color-primary, 20)
 
   &.disabled
     &:hover
-      background-color: $em-color-darken2
+      background-color: var(--em-color-darken2)
 
 
 // button icons need to be bigger.
-.em-button-icon:before
+.button-icon:before
   font-size 24px
 
-.em-button-content
+.button-content
 
   min-width 64px
 
@@ -110,12 +107,12 @@ $em-disabled-button-background ?= rgba(0, 0, 0, 0.54)
   // Rounded button.
   border-radius 50%
 
-.em-button + .em-button
+.button + .button
   // A button next to a button does not need so much space around it.
   margin-left 0 !important
 
-.em-button-bar > .em-button
+.button-bar > .button
   padding-bottom: 0
 
-.em-has-button-bar
+.has-button-bar
   padding-bottom: 0

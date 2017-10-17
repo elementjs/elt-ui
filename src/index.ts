@@ -1,4 +1,6 @@
 
+import './typography.styl'
+
 import * as dialog from './dialog'
 export {dialog}
 export {default as toast} from './toast'
@@ -16,5 +18,4 @@ export {Child, Row, Column, FlexAttributes} from './flex'
 export {Card} from './card'
 export {Nav, NavHeader, NavSubheader, NavDivider, NavItem, NavBody, NavFooter} from './nav'
 export {animate} from './animate'
-export {scrollable} from './scroll'
 export {inkable, inkClickDelay} from './ink'

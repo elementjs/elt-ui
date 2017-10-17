@@ -13,6 +13,10 @@ import {Icon} from './icon'
 
 import {inkable} from './ink'
 
+
+import * as css from './checkbox.styl'
+
+
 var OFF = 'square-o'
 var ON = 'check-square'
 var INDETERMINATE = 'minus-square'
@@ -45,15 +49,15 @@ export class Checkbox extends Component {
     }
 
     let classes = {
-      on: this.o_model,
-      off: this.o_model.isFalse(),
-      disabled: this.o_disabled
+      [css.on]: this.o_model,
+      [css.off]: this.o_model.isFalse(),
+      [css.disabled]: this.o_disabled
     }
 
-    return <label class='em-checkbox-label' $$={[inkable(), click(e => this.toggle())]}>
-        <Row class='em-checkbox-row' align='center'>
-          <Icon class={['em-checkbox-icon', classes]} name={this.o_model.tf(getIcon)}/>
-          <span class={['em-checkbox-content', classes]}>{children}</span>
+    return <label class={css.label} $$={[inkable(), click(e => this.toggle())]}>
+        <Row align='center'>
+          <Icon class={[css.icon, classes]} name={this.o_model.tf(getIcon)}/>
+          <span class={[css.content, classes]}>{children}</span>
         </Row>
       </label>;
 

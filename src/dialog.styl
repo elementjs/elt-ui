@@ -1,24 +1,22 @@
-$animation_time = 0.3s
-$animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
-.em-dialog-overlay.animation-enter
+.overlay.animation-enter
 
   animation: em-fade-in 0.2s both ease-in
-  & .em-dialog-root
-    animation: em-dialog-root-enter 0.2s ease-in //, em-fade-in 0.2s both ease-in
+  & .root
+    animation: root-enter 0.2s ease-in //, em-fade-in 0.2s both ease-in
 
 
-.em-dialog-overlay.animation-leave
+.overlay.animation-leave
 
   animation: em-fade-out 0.2s both ease-in
-  & .em-dialog-root
-    animation: em-dialog-root-leave 0.2s ease-in // , em-fade-out 0.2s both ease-out
+  & .root
+    animation: root-leave 0.2s ease-in // , em-fade-out 0.2s both ease-out
 
 
-.em-dialog-noscroll
+.noscroll
   overflow hidden
 
-.em-dialog-overlay
+.overlay
   display: none
 
   overflow: hidden
@@ -32,7 +30,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
   background-color rgba(0, 0, 0, 0.75)
 
-.em-dialog-root
+.root
   -webkit-transform-style: preserve-3d
   -webkit-backface-visibility: hidden
 
@@ -44,7 +42,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     padding 0 24px
     padding-top 24px
 
-  & > h3 + .em-dialog-content, & > .em-toolbar + .em-dialog-content
+  & > h3 + .content, & > .em-toolbar + .content
     padding-top 20px
 
   // FIXME color theme.
@@ -57,7 +55,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     min-width 0
 
 
-.em-dialog-buttonbar
+.buttonbar
   text-align right
   display flex
   justify-content flex-end
@@ -76,7 +74,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   .em-button + .em-button
     margin-right 0
 
-.em-dialog-content
+.content
   padding 0 24px
   padding-bottom 24px
   color alpha(#000, 0.7)
@@ -89,6 +87,6 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
 
 
-.em-dialog-title
+.title
   margin 0
   padding 0

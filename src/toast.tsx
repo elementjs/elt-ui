@@ -2,6 +2,9 @@
 import {Insertable} from 'elt'
 import {animate} from './animate'
 
+import * as cssanim from './animations.styl'
+import * as css from './toast.styl'
+
 /**
  * FIXME: there should be a queue instead of brutally dismissing everything.
  */
@@ -14,11 +17,11 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class='em--toast-holder'/>
+		this._holder = <div class={css.holder}/>
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, 'em-fade-out 0.2s ease-out both').then(node =>
+		animate(node, `${cssanim.fadeOut} 0.2s ease-out both`).then(node =>
 			node.remove()
 		)
 	}
@@ -38,9 +41,9 @@ export class Toaster {
 			document.body.appendChild(this._holder)
 
 		let toast = (msg instanceof Node ? msg
-			: <div class='em--toast'>{msg}</div>) as HTMLElement
+			: <div class={css.toast}>{msg}</div>) as HTMLElement
 
-		animate(toast, 'em-fade-in 0.2s ease-in both')
+		animate(toast, `${cssanim.fadeIn} 0.2s ease-in both`)
 		this._holder.appendChild(toast)
 
 		this._cancel = setTimeout(() => this.kill(toast), 3000)

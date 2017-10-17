@@ -5,10 +5,10 @@ import {
   DisplayIf,
   Attrs,
   MaybeObservable,
-  Observable,
-  click,
+  Observable
 } from 'elt';
 
+import * as css from './input.styl'
 
 var id_gen = 0;
 
@@ -54,7 +54,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
 
   const input = <input
     id={id}
-    class='em-input-element'
+    class={css.inputElement}
     disabled={data.disabled}
     type={data.type}
     $$={[bind(data.model)]}
@@ -75,15 +75,15 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
       return res
     })
 
-  return <div class={['em-input-container', {
-    focused: o_focused,
-    empty_unfocused: o_unfocus_and_empty,
-    error: attrs.error
+  return <div class={[css.container, {
+    [css.focused]: o_focused,
+    [css.emptyUnfocused]: o_unfocus_and_empty,
+    [css.error]: attrs.error
   }]}>
       {input}
       {data.label ?
-          <label for={id} class='em-input-floating-label'>{data.label}</label>
+          <label for={id}>{data.label}</label>
       : null}
-      {DisplayIf(data.error, error => <div class='em--input--error'>{error}</div>)}
+      {DisplayIf(data.error, error => <div class={css.inputError}>{error}</div>)}
     </div>;
 }

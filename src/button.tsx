@@ -14,6 +14,8 @@ import {Row} from './flex'
 
 import {inker} from './ink'
 
+import * as css from './button.styl'
+
 export interface ButtonAttrs extends Attrs {
   disabled?: MaybeObservable<boolean>
   raised?: MaybeObservable<boolean>
@@ -31,15 +33,15 @@ export class ButtonBar extends Component {
   attrs: ButtonBarAttrs
 
   inserted(node: Element, parent: Element) {
-    parent.classList.add('em-has-button-bar')
+    parent.classList.add(css.hasButtonBar)
   }
 
   removed(node: Element, parent: Element) {
-    parent.classList.remove('em-has-button-bar')
+    parent.classList.remove(css.hasButtonBar)
   }
 
   render(children: DocumentFragment): Element {
-    return <Row class='em-button-bar'>{children}</Row>
+    return <Row class={css.buttonBar}>{children}</Row>
   }
 }
 
@@ -57,18 +59,18 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   }
 
   return <button
-    class='em-button'
+    class={css.button}
     disabled={o(attrs.disabled).tf(val => !!val)}
     $$={click(doClick)}
   >
     {DisplayIf(attrs.icon || '',
       o_name => <Icon
-        class={['em-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
+        class={[css.buttonIcon, {[css.disabled]: attrs.disabled, [css.raised]: attrs.raised}]}
         name={o_name}
       />
     ,
       () => <span
-        class={['em-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
+        class={[css.buttonContent, {[css.disabled]: attrs.disabled, [css.raised]: attrs.raised}]}
       >
         {children}
       </span>

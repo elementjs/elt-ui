@@ -1,9 +1,8 @@
-@require 'common'
 
 $font-size = 24px
 $height = 64px
 
-.em-toolbar
+.toolbar
   box-sizing border-box
   display flex
   display -webkit-flex
@@ -20,43 +19,41 @@ $height = 64px
   color white
   font-weight 500
 
-  em-shadow-highlight()
 
-.em-toolbar > h3
+.toolbar > h3
   font-size $font-size
   font-weight 500
   margin 0
 
-.em-toolbar > h3:first-child
+.toolbar > h3:first-child
   padding-left 8px
 
-.em-toolbar > h3:last-child
+.toolbar > h3:last-child
   padding-right 8px
 
-.em-toolbar > button:first-child
+.toolbar > button:first-child
   margin-left 0px
 
-.em-toolbar > button:last-child
+.toolbar > button:last-child
   margin-right 0px
 
 
-
-.em-toolbar > .em-button
+.toolbar > .button
   margin 0 8px
 
-  & > .em-button-content, & > .em-button-icon
+  & > .button-content, & > .button-icon
     color white
 
     &.disabled
       color alpha(white, 0.25)
 
-  & > .em-button-icon
+  & > .button-icon
     font-size $font-size
 
 
-.em-toolbar > .em-input-container
+.toolbar > .container from './input.styl'
 
-  .em-input-element
+  .input-element
     background-color: rgba(0, 0, 0, 0)
     color: rgba(255, 255, 255, 0.87)
     border-bottom-color: rgba(255, 255, 255, 0.54)

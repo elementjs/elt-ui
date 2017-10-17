@@ -1,6 +1,5 @@
-@require './common'
 
-.em--toast-holder
+.holder
 	position fixed
 	bottom 0
 	left 0
@@ -8,7 +7,7 @@
 	display flex
 	justify-content center
 
-.em--toast
+.toast
 	padding: 14px 24px
 	font-size: 14px
 	background: alpha(#323232, 0.87)
@@ -21,7 +20,7 @@
 
 	transform-origin 0 0
 
-.em--action
+.action
 	text-transform uppercase
 	margin-left 48px
-	color $em-color-primary
+	color var(--em-color-primary)

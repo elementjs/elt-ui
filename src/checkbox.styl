@@ -1,6 +1,5 @@
-@require 'common'
 
-.em-checkbox-label
+.label
   cursor pointer
   user-select(none)
   display: inline-block
@@ -16,7 +15,7 @@
   position: relative
 
 
-.em-checkbox-content
+.content
   vertical-align middle
   &.off
     color alpha(#000000, 0.74)
@@ -24,14 +23,14 @@
     color alpha(#000000, 0.26)
 
 
-.em-checkbox-icon
+.icon
   margin-right 8px
   &:before
     font-size 18px
   vertical-align middle
   // primary
   &.on
-    color $em-color-primary
+    color var(--em-color-primary)
   &.off
     color alpha(#000000, 0.54)
   &.disabled
