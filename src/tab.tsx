@@ -28,7 +28,7 @@ export class TabContainer extends Component {
 	render(children: DocumentFragment): Element {
 		var {$$children, ...attrs} = this.attrs
 		return <Column {...attrs}>
-			<Row justify='center' class='dm-tab-bar'>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
+			<Row justify='center' class='em-tab-bar'>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
 			{children}
 		</Column>
 
@@ -63,7 +63,7 @@ export class Tab extends Component {
 			throw new Error('Tab must be inside a TabContainer')
 
 		this.container.o_titles.push(<div
-			class={['dm-tab-title', {active: this.o_is_active}]}
+			class={['em-tab-title', {active: this.o_is_active}]}
 			$$={[
 				click(ev => this.activate()),
 				inkable()
@@ -91,7 +91,7 @@ export class Tab extends Component {
 
 		return <Column
 			absoluteGrow='1'
-			class='dm-tab-content'
+			class='em-tab-content'
 			style={ {display: this.o_is_active.tf(act => act ? 'flex' : 'none')} }>
 			{children}
 		</Column>

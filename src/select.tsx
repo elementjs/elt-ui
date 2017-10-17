@@ -85,8 +85,8 @@ export class Select<T> extends Component {
 			decorators.push(on('change', ev => fn(model.get(), ev)))
 		}
 
-		return <label class='dm-select-label'>
-			<select class='dm-select' $$={decorators}>
+		return <label class='em-select-label'>
+			<select class='em-select' $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={model.equals(opt)}>

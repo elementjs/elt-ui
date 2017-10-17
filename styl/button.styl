@@ -1,10 +1,10 @@
 @require 'common'
 
 
-$dm-disabled-button-background ?= rgba(0, 0, 0, 0.54)
+$em-disabled-button-background ?= rgba(0, 0, 0, 0.54)
 
 
-.dm-button
+.em-button
   // This style applies to a button, that we want to completely reset.
   border: 0
   margin: 0
@@ -18,7 +18,7 @@ $dm-disabled-button-background ?= rgba(0, 0, 0, 0.54)
   -webkit-tap-highlight-color rgba(0,0,0,0)
 
 
-.dm-button-content, .dm-button-icon
+.em-button-content, .em-button-icon
 
   // This is to prevent text selection inside the button.
   user-select(none)
@@ -34,18 +34,18 @@ $dm-disabled-button-background ?= rgba(0, 0, 0, 0.54)
   vertical-align: middle
   cursor: pointer
 
-  color: $dm-color-primary
+  color: $em-color-primary
   background: none
 
   &.disabled
-    color: $dm-color-disabled
+    color: $em-color-disabled
     box-shadow(none)
 
 
 /**
   Classes that will apply on buttons with text content.
  */
-.dm-button-content
+.em-button-content
 
   &:hover
     background rgba(0, 0, 0, 0.07)
@@ -60,34 +60,34 @@ $dm-disabled-button-background ?= rgba(0, 0, 0, 0.54)
     // FIXME will depend on theme
     color white
     // FIXME will be material colors
-    background-color $dm-color-primary
+    background-color $em-color-primary
 
-    dm-shadow-highlight()
+    em-shadow-highlight()
 
     &.disabled
-      color: $dm-color-disabled
-      background-color: $dm-color-darken3
+      color: $em-color-disabled
+      background-color: $em-color-darken3
       box-shadow(none)
 
   &.raised:hover
-    background-color: lighten($dm-color-primary, 10)
+    background-color: lighten($em-color-primary, 10)
 
     &.disabled
-      background-color: $dm-color-darken2
+      background-color: $em-color-darken2
 
   &.raised:active
-    background-color lighten($dm-color-primary, 20)
+    background-color lighten($em-color-primary, 20)
 
   &.disabled
     &:hover
-      background-color: $dm-color-darken2
+      background-color: $em-color-darken2
 
 
 // button icons need to be bigger.
-.dm-button-icon:before
+.em-button-icon:before
   font-size 24px
 
-.dm-button-content
+.em-button-content
 
   min-width 64px
 
@@ -110,12 +110,12 @@ $dm-disabled-button-background ?= rgba(0, 0, 0, 0.54)
   // Rounded button.
   border-radius 50%
 
-.dm-button + .dm-button
+.em-button + .em-button
   // A button next to a button does not need so much space around it.
   margin-left 0 !important
 
-.dm-button-bar > .dm-button
+.em-button-bar > .em-button
   padding-bottom: 0
 
-.dm-has-button-bar
+.em-has-button-bar
   padding-bottom: 0

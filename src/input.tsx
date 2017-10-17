@@ -54,7 +54,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
 
   const input = <input
     id={id}
-    class='dm-input-element'
+    class='em-input-element'
     disabled={data.disabled}
     type={data.type}
     $$={[bind(data.model)]}
@@ -75,15 +75,15 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
       return res
     })
 
-  return <div class={['dm-input-container', {
+  return <div class={['em-input-container', {
     focused: o_focused,
     empty_unfocused: o_unfocus_and_empty,
     error: attrs.error
   }]}>
       {input}
       {data.label ?
-          <label for={id} class='dm-input-floating-label'>{data.label}</label>
+          <label for={id} class='em-input-floating-label'>{data.label}</label>
       : null}
-      {DisplayIf(data.error, error => <div class='dm--input--error'>{error}</div>)}
+      {DisplayIf(data.error, error => <div class='em--input--error'>{error}</div>)}
     </div>;
 }

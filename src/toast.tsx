@@ -14,11 +14,11 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class='dm--toast-holder'/>
+		this._holder = <div class='em--toast-holder'/>
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, 'dm-fade-out 0.2s ease-out both').then(node =>
+		animate(node, 'em-fade-out 0.2s ease-out both').then(node =>
 			node.remove()
 		)
 	}
@@ -38,9 +38,9 @@ export class Toaster {
 			document.body.appendChild(this._holder)
 
 		let toast = (msg instanceof Node ? msg
-			: <div class='dm--toast'>{msg}</div>) as HTMLElement
+			: <div class='em--toast'>{msg}</div>) as HTMLElement
 
-		animate(toast, 'dm-fade-in 0.2s ease-in both')
+		animate(toast, 'em-fade-in 0.2s ease-in both')
 		this._holder.appendChild(toast)
 
 		this._cancel = setTimeout(() => this.kill(toast), 3000)

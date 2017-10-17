@@ -7,8 +7,8 @@ export function inker(node: Node, event: MouseEvent) {
 	var clientX = event.pageX
 	var clientY = event.pageY
 
-	var inker = e('div', {class: 'dm-ink'}) as HTMLDivElement
-	var ink_container = e('div', {class: 'dm-ink-container'},
+	var inker = e('div', {class: 'em-ink'}) as HTMLDivElement
+	var ink_container = e('div', {class: 'em-ink-container'},
 		inker
 	) as HTMLDivElement
 

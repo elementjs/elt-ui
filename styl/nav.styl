@@ -1,21 +1,21 @@
 
-.dm-nav-holder.animation-enter
+.em-nav-holder.animation-enter
 
-  & > .dm-navigation-overlay
-    animation: dm-fade-in 0.2s ease-in
-  & > .dm-navigation-drawer
-    animation: dm-slide-from-right 0.2s ease-in
-
-
-.dm-nav-holder.animation-leave
-
-  & > .dm-navigation-overlay
-    animation: dm-fade-out 0.2s ease-out
-  & > .dm-navigation-drawer
-    animation: dm-slide-to-right 0.2s ease-out
+  & > .em-navigation-overlay
+    animation: em-fade-in 0.2s ease-in
+  & > .em-navigation-drawer
+    animation: em-slide-from-right 0.2s ease-in
 
 
-.dm-navigation-overlay
+.em-nav-holder.animation-leave
+
+  & > .em-navigation-overlay
+    animation: em-fade-out 0.2s ease-out
+  & > .em-navigation-drawer
+    animation: em-slide-to-right 0.2s ease-out
+
+
+.em-navigation-overlay
 
   position: fixed
   top: 0
@@ -26,7 +26,7 @@
   transform: translateZ(0)
 
 
-.dm-navigation-drawer
+.em-navigation-drawer
 
   position: fixed
   font-size: 14px
@@ -41,7 +41,7 @@
   background-color: white
 
 
-.dm-navigation-item
+.em-navigation-item
   position: relative
 
   display: flex
@@ -55,7 +55,7 @@
   &.selected
     background-color: rgba(0, 0, 0, 0.14)
 
-.dm-navigation-item-icon
+.em-navigation-item-icon
   &:before
     font-size: 24px
   padding-left: 16px
@@ -63,25 +63,25 @@
   color: rgba(0, 0, 0, 0.65)
 
 
-.dm-navigation-divider
+.em-navigation-divider
   position: relative
   width: 100%
   border-bottom: 1px solid rgba(0, 0, 0, 0.07)
   margin-top: 4px
   margin-bottom: 3px
 
-.dm-navigation-body
+.em-navigation-body
   display: flex
   flex-direction: column
   flex-grow: 1
 
-.dm-navigation-header
+.em-navigation-header
   padding-top: 16px
   padding-left: 16px
 
-.dm-navigation-subheader
+.em-navigation-subheader
   padding-left: 16px
 
-.dm-navigation-footer
+.em-navigation-footer
   text-align: center
   padding-bottom: 16px

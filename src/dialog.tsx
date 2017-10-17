@@ -43,11 +43,11 @@ export class DialogCtrl<T> extends Mixin {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <Column align='center' justify='center' class='dm-dialog-overlay'>{children}</Column>
+  return <Column align='center' justify='center' class='em-dialog-overlay'>{children}</Column>
 }
 
-export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class='dm-dialog-title'>{children}</h3> }
-export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class='dm-dialog-content'>{children}</div> }
+export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class='em-dialog-title'>{children}</h3> }
+export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class='em-dialog-content'>{children}</div> }
 
 export interface ButtonbarAttributes extends Attrs {
   stacked?: MaybeObservable<boolean>
@@ -56,10 +56,10 @@ export interface ButtonbarAttributes extends Attrs {
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
 export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment): Element {
-  return <div class={['dm-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
+  return <div class={['em-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
 }
 
-export function Root(attrs: Attrs, children: DocumentFragment): Element { return <Column class='dm-dialog-root'>{children}</Column> }
+export function Root(attrs: Attrs, children: DocumentFragment): Element { return <Column class='em-dialog-root'>{children}</Column> }
 
 export interface DialogOptions {
   parent?: Node

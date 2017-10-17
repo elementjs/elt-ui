@@ -3,7 +3,7 @@
 $font-size = 24px
 $height = 64px
 
-.dm-toolbar
+.em-toolbar
   box-sizing border-box
   display flex
   display -webkit-flex
@@ -16,47 +16,47 @@ $height = 64px
   height $height
   display box
 
-  background-color $dm-color-primary
+  background-color $em-color-primary
   color white
   font-weight 500
 
-  dm-shadow-highlight()
+  em-shadow-highlight()
 
-.dm-toolbar > h3
+.em-toolbar > h3
   font-size $font-size
   font-weight 500
   margin 0
 
-.dm-toolbar > h3:first-child
+.em-toolbar > h3:first-child
   padding-left 8px
 
-.dm-toolbar > h3:last-child
+.em-toolbar > h3:last-child
   padding-right 8px
 
-.dm-toolbar > button:first-child
+.em-toolbar > button:first-child
   margin-left 0px
 
-.dm-toolbar > button:last-child
+.em-toolbar > button:last-child
   margin-right 0px
 
 
 
-.dm-toolbar > .dm-button
+.em-toolbar > .em-button
   margin 0 8px
 
-  & > .dm-button-content, & > .dm-button-icon
+  & > .em-button-content, & > .em-button-icon
     color white
 
     &.disabled
       color alpha(white, 0.25)
 
-  & > .dm-button-icon
+  & > .em-button-icon
     font-size $font-size
 
 
-.dm-toolbar > .dm-input-container
+.em-toolbar > .em-input-container
 
-  .dm-input-element
+  .em-input-element
     background-color: rgba(0, 0, 0, 0)
     color: rgba(255, 255, 255, 0.87)
     border-bottom-color: rgba(255, 255, 255, 0.54)

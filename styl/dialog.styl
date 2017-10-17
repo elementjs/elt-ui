@@ -1,24 +1,24 @@
 $animation_time = 0.3s
 $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
-.dm-dialog-overlay.animation-enter
+.em-dialog-overlay.animation-enter
 
-  animation: dm-fade-in 0.2s both ease-in
-  & .dm-dialog-root
-    animation: dm-dialog-root-enter 0.2s ease-in //, dm-fade-in 0.2s both ease-in
-
-
-.dm-dialog-overlay.animation-leave
-
-  animation: dm-fade-out 0.2s both ease-in
-  & .dm-dialog-root
-    animation: dm-dialog-root-leave 0.2s ease-in // , dm-fade-out 0.2s both ease-out
+  animation: em-fade-in 0.2s both ease-in
+  & .em-dialog-root
+    animation: em-dialog-root-enter 0.2s ease-in //, em-fade-in 0.2s both ease-in
 
 
-.dm-dialog-noscroll
+.em-dialog-overlay.animation-leave
+
+  animation: em-fade-out 0.2s both ease-in
+  & .em-dialog-root
+    animation: em-dialog-root-leave 0.2s ease-in // , em-fade-out 0.2s both ease-out
+
+
+.em-dialog-noscroll
   overflow hidden
 
-.dm-dialog-overlay
+.em-dialog-overlay
   display: none
 
   overflow: hidden
@@ -32,7 +32,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
   background-color rgba(0, 0, 0, 0.75)
 
-.dm-dialog-root
+.em-dialog-root
   -webkit-transform-style: preserve-3d
   -webkit-backface-visibility: hidden
 
@@ -44,7 +44,7 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     padding 0 24px
     padding-top 24px
 
-  & > h3 + .dm-dialog-content, & > .dm-toolbar + .dm-dialog-content
+  & > h3 + .em-dialog-content, & > .em-toolbar + .em-dialog-content
     padding-top 20px
 
   // FIXME color theme.
@@ -53,11 +53,11 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
   // This is to avoid the dialog covering the whole screen.
   margin 24px 40px
 
-  .dm-button-content
+  .em-button-content
     min-width 0
 
 
-.dm-dialog-buttonbar
+.em-dialog-buttonbar
   text-align right
   display flex
   justify-content flex-end
@@ -68,15 +68,15 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
     -webkit-flex-direction column
     -webkit-justify-content center
 
-    > .dm-button
+    > .em-button
       text-align right
       padding-top 6px
       padding-bottom 6px
 
-  .dm-button + .dm-button
+  .em-button + .em-button
     margin-right 0
 
-.dm-dialog-content
+.em-dialog-content
   padding 0 24px
   padding-bottom 24px
   color alpha(#000, 0.7)
@@ -89,6 +89,6 @@ $animation_fn = cubic-bezier(0.550, 0.085, 0.680, 0.530)
 
 
 
-.dm-dialog-title
+.em-dialog-title
   margin 0
   padding 0

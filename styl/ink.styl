@@ -1,10 +1,10 @@
 
 @require 'common'
 
-.dm-button-content.raised .dm-ink
+.em-button-content.raised .em-ink
 	background-color: #fff
 
-.dm-ink-container
+.em-ink-container
 	width: 100%
 	height: 100%
 	top: 0
@@ -16,12 +16,12 @@
 	background-color: rgba(0, 0, 0, 0)
 
 	&.animate
-		animation: dm-ink-container-ripple 0.6s ease-out
+		animation: em-ink-container-ripple 0.6s ease-out
 
-.dm-ink
+.em-ink
 	display: block
 	position: absolute
-	background-color: $dm-color-primary
+	background-color: $em-color-primary
 	opacity: 0.4
 	border-radius: 100%
 	transform: scale(0)
@@ -33,9 +33,9 @@
 	height: 50px
 
 	&.animate
-		animation: dm-ink-ripple 0.45s ease-out
+		animation: em-ink-ripple 0.45s ease-out
 
-@keyframes dm-ink-ripple {
+@keyframes em-ink-ripple {
 	/** scale the element to 250% */
 	100% {
 		opacity: 0
@@ -43,9 +43,9 @@
 	}
 }
 
-@keyframes dm-ink-container-ripple {
+@keyframes em-ink-container-ripple {
 	50% {
-		background-color: alpha($dm-color-primary, 0.2)
+		background-color: alpha($em-color-primary, 0.2)
 	}
 
 	100% {

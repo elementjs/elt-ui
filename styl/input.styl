@@ -1,6 +1,6 @@
 @require './common'
 
-.dm-input-container
+.em-input-container
   display: inline-block
   position: relative
   height: 64px
@@ -24,26 +24,26 @@
     label
       color: $warn !important
 
-    .dm-input-element
+    .em-input-element
       border-bottom-color: $warn !important
 
 
   &.focused
     label
-      color: $dm-color-primary
+      color: $em-color-primary
 
   &.empty_unfocused
     label
       transform: translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)
       font-size: 14px
 
-.dm--input--error
+.em--input--error
   position: absolute
   color: $warn
   font-size: 10px
   top: 48px
 
-.dm-input-element
+.em-input-element
 
   position: relative
   border-radius: 0
@@ -73,7 +73,7 @@
 
   &:focus
     padding-bottom: 3px
-    border-bottom: 2px solid $dm-color-primary
+    border-bottom: 2px solid $em-color-primary
 
   font-size: 14px
   outline: 0

@@ -31,15 +31,15 @@ export class ButtonBar extends Component {
   attrs: ButtonBarAttrs
 
   inserted(node: Element, parent: Element) {
-    parent.classList.add('dm-has-button-bar')
+    parent.classList.add('em-has-button-bar')
   }
 
   removed(node: Element, parent: Element) {
-    parent.classList.remove('dm-has-button-bar')
+    parent.classList.remove('em-has-button-bar')
   }
 
   render(children: DocumentFragment): Element {
-    return <Row class='dm-button-bar'>{children}</Row>
+    return <Row class='em-button-bar'>{children}</Row>
   }
 }
 
@@ -57,18 +57,18 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   }
 
   return <button
-    class='dm-button'
+    class='em-button'
     disabled={o(attrs.disabled).tf(val => !!val)}
     $$={click(doClick)}
   >
     {DisplayIf(attrs.icon || '',
       o_name => <Icon
-        class={['dm-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
+        class={['em-button-icon', {disabled: attrs.disabled, raised: attrs.raised}]}
         name={o_name}
       />
     ,
       () => <span
-        class={['dm-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
+        class={['em-button-content', {disabled: attrs.disabled, raised: attrs.raised}]}
       >
         {children}
       </span>

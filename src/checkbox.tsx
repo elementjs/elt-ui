@@ -26,8 +26,8 @@ export class Checkbox extends Component {
 
   attrs: CheckboxAttributes
 
-  o_model: Observable<boolean> = o(this.attrs.model)
-  o_disabled: Observable<boolean|undefined> = o(this.attrs.disabled)
+  o_model: Observable<boolean>
+  o_disabled: Observable<boolean|undefined>
 
   toggle() {
     if (this.o_disabled.get()) return
@@ -35,6 +35,8 @@ export class Checkbox extends Component {
   }
 
   render(children: DocumentFragment): Element {
+    this.o_model = o(this.attrs.model)
+    this.o_disabled = o(this.attrs.disabled)
 
     function getIcon(value: boolean) {
       if (value === undefined) return INDETERMINATE
@@ -48,10 +50,10 @@ export class Checkbox extends Component {
       disabled: this.o_disabled
     }
 
-    return <label class='dm-checkbox-label' $$={[inkable(), click(e => this.toggle())]}>
-        <Row class='dm-checkbox-row' align='center'>
-          <Icon class={['dm-checkbox-icon', classes]} name={this.o_model.tf(getIcon)}/>
-          <span class={['dm-checkbox-content', classes]}>{children}</span>
+    return <label class='em-checkbox-label' $$={[inkable(), click(e => this.toggle())]}>
+        <Row class='em-checkbox-row' align='center'>
+          <Icon class={['em-checkbox-icon', classes]} name={this.o_model.tf(getIcon)}/>
+          <span class={['em-checkbox-content', classes]}>{children}</span>
         </Row>
       </label>;
 
