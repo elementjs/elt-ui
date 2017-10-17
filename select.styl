@@ -1,5 +1,5 @@
 
-.em-select
+.select
   padding 0px 8px
   height 32px
   margin 0
@@ -21,30 +21,19 @@
 
 /* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
 @media screen and (-webkit-min-device-pixel-ratio:0)
-  .em-select
+  .select
   	padding-right 18px
 
-.em-select-label
+.label
 	position: relative
 
-.em-select-label:after
+.label:after
     content: '\f2f2'
     font: 14px "Material-Design-Iconic-Font", monospace;
     color: #aaa
     right: 8px
     top: 2px
     padding:0 0 2px
-    // line-height 32px
-    // border-bottom:1px solid #ddd;
     position:absolute;
     pointer-events:none;
     vertical-align middle
-
-// .em-select-label:before
-//     content:'';
-//     right:6px; top:0px;
-//     width:20px; height:20px;
-//     background:#f8f8f8;
-//     position:absolute;
-//     pointer-events:none;
-//     display:block;

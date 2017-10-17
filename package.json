@@ -7,22 +7,16 @@
   "main": "./index.js",
   "typings": "./index.d.ts",
   "scripts": {
-    "build:dts": "dts-bundle --name elt-material --main build/index.d.ts --out ../index.d.ts",
-    "build:js": "tsc && webpack",
-    "build": "npm run build:js && npm run build:dts",
+    "build:js": "node scripts/genstyldts *.styl && tsc",
+    "build": "npm run build:js",
     "prepublish": "npm run build",
-    "watch": "parallel -u ::: 'ls build/*.d.ts | entr -d npm run build:dts' 'tscc -w' 'webpack -w'"
-  },
-  "devDependencies": {
-    "css-loader": "^0.25.0",
-    "dts-bundle": "^0.6.1",
-    "source-map-loader": "^0.1.5",
-    "style-loader": "^0.13.1",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^2.3.1",
-    "webpack": "^1.13.2"
+    "watch": "concurrently -n tscc,styl -c red,blue 'tscc -w' \"watch -m '*.styl' node scripts/genstyldts *.styl\""
   },
   "dependencies": {
     "reset.styl": "^0.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "watch-js": "0.0.7"
   }
 }
