@@ -13,8 +13,93 @@ import {
 } from 'elt';
 
 import {Column} from './flex'
-import {animateClass} from './animate'
+import {animateClass, animations} from './animate'
 import {Button} from './button';
+
+// import * as css from './dialog.styl'
+
+import {style, cssRule} from 'typestyle'
+import {vertical, endJustified, horizontal, centerJustified} from 'csstips'
+
+namespace CSS {
+
+  export const stacked = 'em-stacked'
+  export const enter = 'em-enter'
+  export const leave = 'em-leave'
+
+  export const root = style({
+    '-webkit-transform-style': 'preserve-3d',
+    '-webkit-backface-visibility': 'hidden',
+    transform: `translateZ(0)`,
+    transformOrigin: `50% 0`,
+    margin: `24px 24px`,
+    backgroundColor: `white`
+  })
+
+  export const overlay = style({
+    overflow: 'hidden',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100vh',
+    width: '100vw',
+
+    transform: 'translateZ(0)',
+    backgroundColor: `rgba(0, 0, 0, 0.75)`,
+
+    $nest: {
+      [`&.${enter}`]: {
+        animation: `${animations.fadeIn} 0.2s both ease-in`,
+        $nest: {
+          [`& .${root}`]: {
+            animation: `${animations.topEnter} 0.2s both ease-in`
+          }
+        }
+      },
+      [`&.${leave}`]: {
+        animation: `${animations.fadeOut} 0.2s both ease-out`,
+        $nest: {
+          [`& .${root}`]: {
+            animation: `${animations.topLeave} 0.2s both ease-out`
+          }
+        }
+      }
+    }
+  })
+
+  export const buttonbar = style(
+    horizontal,
+    endJustified
+  )
+
+  cssRule(`.${buttonbar}.${stacked}`,
+    vertical,
+    centerJustified
+  )
+
+
+
+  export const content = style({
+    padding: '0 24px',
+    paddingBottom: '24px',
+    color: 'var(--em-text-color)',
+    $nest: {
+      '&:first-child': {
+        paddingTop: '24px'
+      },
+      '> *:last-child': {
+        marginBottom: 0
+      }
+    }
+  })
+
+  export const title = style({
+    margin: 0,
+    padding: 0
+  })
+
+
+}
 
 
 export class DialogCtrl<T> extends Mixin {
@@ -43,11 +128,11 @@ export class DialogCtrl<T> extends Mixin {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <Column align='center' justify='center' class='em-dialog-overlay'>{children}</Column>
+  return <Column align='center' justify='center' class={CSS.overlay}>{children}</Column>
 }
 
-export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class='em-dialog-title'>{children}</h3> }
-export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class='em-dialog-content'>{children}</div> }
+export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={CSS.title}>{children}</h3> }
+export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={CSS.content}>{children}</div> }
 
 export interface ButtonbarAttributes extends Attrs {
   stacked?: MaybeObservable<boolean>
@@ -56,10 +141,12 @@ export interface ButtonbarAttributes extends Attrs {
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
 export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment): Element {
-  return <div class={['em-dialog-buttonbar', {stacked: attrs.stacked}]}>{children}</div>
+  return <div class={[CSS.buttonbar, {[CSS.stacked]: attrs.stacked}]}>{children}</div>
 }
 
-export function Root(attrs: Attrs, children: DocumentFragment): Element { return <Column class='em-dialog-root'>{children}</Column> }
+export function Root(attrs: Attrs, children: DocumentFragment): Element {
+  return <Column class={CSS.root}>{children}</Column>
+}
 
 export interface DialogOptions {
   parent?: Node
@@ -83,7 +170,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   let contents = cbk(dlg)
 
   function bye(res: T) {
-    return animateClass(dialog_holder, 'animation-leave').then(() => {
+    return animateClass(dialog_holder, CSS.leave).then(() => {
       dialog_holder.remove()
       return res
     })
@@ -108,7 +195,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   </Overlay> as HTMLElement
 
   if (!opts.noanimate) {
-    animateClass(dialog_holder, 'animation-enter')
+    animateClass(dialog_holder, CSS.enter)
   }
 
   // Remove the dialog from the DOM once we have answered it.

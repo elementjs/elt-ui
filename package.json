@@ -7,13 +7,16 @@
   "main": "./index.js",
   "typings": "./index.d.ts",
   "scripts": {
-    "build:js": "node scripts/genstyldts *.styl && tsc",
+    "build:js": "tsc",
     "build": "npm run build:js",
     "prepublish": "npm run build",
-    "watch": "concurrently -n tscc,styl -c red,blue 'tscc -w' \"watch -m '*.styl' node scripts/genstyldts *.styl\""
+    "watch": "tscc -w"
   },
   "dependencies": {
-    "reset.styl": "^0.1.1"
+    "csstips": "^0.2.2",
+    "csx": "^8.5.0",
+    "reset.styl": "^0.1.1",
+    "typestyle": "^1.4.2"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",

@@ -1,4 +1,8 @@
 import { Insertable } from 'elt';
+export declare const css: {
+    holder: string;
+    toast: string;
+};
 /**
  * FIXME: there should be a queue instead of brutally dismissing everything.
  */

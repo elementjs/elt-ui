@@ -14,6 +14,71 @@ var elt_1 = require("elt");
 var flex_1 = require("./flex");
 var animate_1 = require("./animate");
 var button_1 = require("./button");
+// import * as css from './dialog.styl'
+var typestyle_1 = require("typestyle");
+var csstips_1 = require("csstips");
+var CSS;
+(function (CSS) {
+    CSS.stacked = 'em-stacked';
+    CSS.enter = 'em-enter';
+    CSS.leave = 'em-leave';
+    CSS.root = typestyle_1.style({
+        '-webkit-transform-style': 'preserve-3d',
+        '-webkit-backface-visibility': 'hidden',
+        transform: "translateZ(0)",
+        transformOrigin: "50% 0",
+        margin: "24px 24px",
+        backgroundColor: "white"
+    });
+    CSS.overlay = typestyle_1.style({
+        overflow: 'hidden',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100vh',
+        width: '100vw',
+        transform: 'translateZ(0)',
+        backgroundColor: "rgba(0, 0, 0, 0.75)",
+        $nest: (_a = {},
+            _a["&." + CSS.enter] = {
+                animation: animate_1.animations.fadeIn + " 0.2s both ease-in",
+                $nest: (_b = {},
+                    _b["& ." + CSS.root] = {
+                        animation: animate_1.animations.topEnter + " 0.2s both ease-in"
+                    },
+                    _b)
+            },
+            _a["&." + CSS.leave] = {
+                animation: animate_1.animations.fadeOut + " 0.2s both ease-out",
+                $nest: (_c = {},
+                    _c["& ." + CSS.root] = {
+                        animation: animate_1.animations.topLeave + " 0.2s both ease-out"
+                    },
+                    _c)
+            },
+            _a)
+    });
+    CSS.buttonbar = typestyle_1.style(csstips_1.horizontal, csstips_1.endJustified);
+    typestyle_1.cssRule("." + CSS.buttonbar + "." + CSS.stacked, csstips_1.vertical, csstips_1.centerJustified);
+    CSS.content = typestyle_1.style({
+        padding: '0 24px',
+        paddingBottom: '24px',
+        color: 'var(--em-text-color)',
+        $nest: {
+            '&:first-child': {
+                paddingTop: '24px'
+            },
+            '> *:last-child': {
+                marginBottom: 0
+            }
+        }
+    });
+    CSS.title = typestyle_1.style({
+        margin: 0,
+        padding: 0
+    });
+    var _a, _b, _c;
+})(CSS || (CSS = {}));
 var DialogCtrl = /** @class */ (function (_super) {
     __extends(DialogCtrl, _super);
     function DialogCtrl() {
@@ -34,20 +99,23 @@ var DialogCtrl = /** @class */ (function (_super) {
 }(elt_1.Mixin));
 exports.DialogCtrl = DialogCtrl;
 function Overlay(attrs, children) {
-    return E(flex_1.Column, { align: 'center', justify: 'center', class: 'em-dialog-overlay' }, children);
+    return E(flex_1.Column, { align: 'center', justify: 'center', class: CSS.overlay }, children);
 }
 exports.Overlay = Overlay;
-function Title(attrs, children) { return E("h3", { class: 'em-dialog-title' }, children); }
+function Title(attrs, children) { return E("h3", { class: CSS.title }, children); }
 exports.Title = Title;
-function Content(attrs, children) { return E("div", { class: 'em-dialog-content' }, children); }
+function Content(attrs, children) { return E("div", { class: CSS.content }, children); }
 exports.Content = Content;
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
 function Buttonbar(attrs, children) {
-    return E("div", { class: ['em-dialog-buttonbar', { stacked: attrs.stacked }] }, children);
+    return E("div", { class: [CSS.buttonbar, (_a = {}, _a[CSS.stacked] = attrs.stacked, _a)] }, children);
+    var _a;
 }
 exports.Buttonbar = Buttonbar;
-function Root(attrs, children) { return E(flex_1.Column, { class: 'em-dialog-root' }, children); }
+function Root(attrs, children) {
+    return E(flex_1.Column, { class: CSS.root }, children);
+}
 exports.Root = Root;
 /**
  * A function that returns a promise and that allows us to show a nice dialog.
@@ -56,7 +124,7 @@ function dialog(opts, cbk) {
     var dlg = new DialogCtrl();
     var contents = cbk(dlg);
     function bye(res) {
-        return animate_1.animateClass(dialog_holder, 'animation-leave').then(function () {
+        return animate_1.animateClass(dialog_holder, CSS.leave).then(function () {
             dialog_holder.remove();
             return res;
         });
@@ -79,7 +147,7 @@ function dialog(opts, cbk) {
         ] },
         E(Root, { class: opts.class ? opts.class : '' }, contents));
     if (!opts.noanimate) {
-        animate_1.animateClass(dialog_holder, 'animation-enter');
+        animate_1.animateClass(dialog_holder, CSS.enter);
     }
     // Remove the dialog from the DOM once we have answered it.
     var parent = opts.parent || document.body;

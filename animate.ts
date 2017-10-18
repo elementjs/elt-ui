@@ -19,6 +19,42 @@
 // 	});
 // }
 
+
+import {keyframes} from 'typestyle'
+
+export const animations = {
+
+	fadeIn: keyframes({
+		'0%': {opacity: 0},
+		'100%': {opacity: 1}
+	}),
+
+	fadeOut: keyframes({
+		'100%': {opacity: 0}
+	}),
+
+	slideFromRight: keyframes({
+		'0%': {transform: `translateX(-100%) translateZ(0)`},
+		'100%': {transform: `translateX(0) translateZ(0)`}
+	}),
+
+	slideToRight: keyframes({
+		'0%': {transform: `translateX(-100%) translateZ(0)`}
+	}),
+
+	topEnter: keyframes({
+		'0%': {transform: `translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)`},
+		'100%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`}
+	}),
+
+	topLeave: keyframes({
+		'0%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`},
+		'100%': {transform: `translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)`}
+	})
+
+}
+
+
 export function transition() {
 
 }

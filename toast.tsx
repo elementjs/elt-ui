@@ -1,9 +1,33 @@
 
 import {Insertable} from 'elt'
-import {animate} from './animate'
+import {animate, animations} from './animate'
 
-import * as cssanim from './animations.styl'
-import * as css from './toast.styl'
+import {style} from 'typestyle'
+import {flex, centerJustified} from 'csstips'
+
+export const css = {
+	holder: style(
+		flex,
+		centerJustified,
+		{
+			position: 'fixed',
+			bottom: 0,
+			left: 0,
+			width: '100%',
+	}),
+
+	toast: style({
+		padding: '14px 24px',
+		fontSize: '14px',
+		background: 'alpha(#323232, 0.87)',
+		borderRadius: '2px 2px 0 0',
+		color: 'white',
+		cursor: 'pointer'
+	})
+}
+
+
+// import * as css from './toast.styl'
 
 /**
  * FIXME: there should be a queue instead of brutally dismissing everything.
@@ -21,7 +45,7 @@ export class Toaster {
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, `${cssanim.fadeOut} 0.2s ease-out both`).then(node =>
+		animate(node, `${animations.fadeOut} 0.2s ease-out both`).then(node =>
 			node.remove()
 		)
 	}
@@ -43,7 +67,7 @@ export class Toaster {
 		let toast = (msg instanceof Node ? msg
 			: <div class={css.toast}>{msg}</div>) as HTMLElement
 
-		animate(toast, `${cssanim.fadeIn} 0.2s ease-in both`)
+		animate(toast, `${animations.fadeIn} 0.2s ease-in both`)
 		this._holder.appendChild(toast)
 
 		this._cancel = setTimeout(() => this.kill(toast), 3000)

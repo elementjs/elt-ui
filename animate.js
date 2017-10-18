@@ -19,6 +19,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // 		}
 // 	});
 // }
+var typestyle_1 = require("typestyle");
+exports.animations = {
+    fadeIn: typestyle_1.keyframes({
+        '0%': { opacity: 0 },
+        '100%': { opacity: 1 }
+    }),
+    fadeOut: typestyle_1.keyframes({
+        '100%': { opacity: 0 }
+    }),
+    slideFromRight: typestyle_1.keyframes({
+        '0%': { transform: "translateX(-100%) translateZ(0)" },
+        '100%': { transform: "translateX(0) translateZ(0)" }
+    }),
+    slideToRight: typestyle_1.keyframes({
+        '0%': { transform: "translateX(-100%) translateZ(0)" }
+    }),
+    topEnter: typestyle_1.keyframes({
+        '0%': { transform: "translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)" },
+        '100%': { transform: "translate3d(0, 0, 0) scale3d(1, 1, 1)" }
+    }),
+    topLeave: typestyle_1.keyframes({
+        '0%': { transform: "translate3d(0, 0, 0) scale3d(1, 1, 1)" },
+        '100%': { transform: "translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)" }
+    })
+};
 function transition() {
 }
 exports.transition = transition;
