@@ -4,8 +4,22 @@ import {
 	e,
 } from 'elt'
 
+import {style} from 'typestyle'
+import * as t from 'csstips'
 
-import * as css from './flex.styl'
+export namespace CSS {
+
+	export const wrap = style(t.wrap)
+	export const horizontal = style(t.horizontal)
+	export const vertical = style(t.vertical)
+
+	export const around = style(t.aroundJustified)
+	export const between = style(t.betweenJustified)
+	export const start = style(t.startJustified)
+	export const end = style(t.endJustified)
+
+
+}
 
 
 function _(elt: HTMLElement, prop: string, value: string) {
@@ -27,7 +41,7 @@ function _parse_attributes(el: HTMLElement, at: FlexAttributes) {
 
 	var cls = el.classList
 
-	if (at.wrap != null) cls.add(css.flexWrap)
+	if (at.wrap != null) cls.add(CSS.wrap)
 	if (at.direction != null) {
 		if (!at.reverse)
 			_(el, 'flexDirection', at.direction)
@@ -65,14 +79,14 @@ export interface FlexAttributes extends Attrs {
 }
 
 export function Row(at: FlexAttributes, ch: DocumentFragment): Element {
-	let node = e('div', {class: css.flex}, ch)
+	let node = e('div', {class: CSS.horizontal}, ch)
 	_parse_attributes(node, at)
 	return node
 }
 
 export function Column(at: FlexAttributes, ch: DocumentFragment): Element {
 	at.direction = 'column'
-	let node = e('div', {class: css.flex}, ch)
+	let node = e('div', {class: CSS.vertical}, ch)
 	_parse_attributes(node, at)
 	return node
 }
