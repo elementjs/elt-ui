@@ -1,4 +1,3 @@
-import './typography.styl';
 import * as dialog from './dialog';
 export { dialog };
 export { default as toast } from './toast';
@@ -16,3 +15,4 @@ export { Card } from './card';
 export { Nav, NavHeader, NavSubheader, NavDivider, NavItem, NavBody, NavFooter } from './nav';
 export { animate } from './animate';
 export { inkable, inkClickDelay } from './ink';
+import './typography';

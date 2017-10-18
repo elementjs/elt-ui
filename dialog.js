@@ -17,6 +17,9 @@ var button_1 = require("./button");
 // import * as css from './dialog.styl'
 var typestyle_1 = require("typestyle");
 var csstips_1 = require("csstips");
+/**
+ * Our CSS Declarations.
+ */
 var CSS;
 (function (CSS) {
     CSS.stacked = 'em-stacked';
@@ -78,7 +81,7 @@ var CSS;
         padding: 0
     });
     var _a, _b, _c;
-})(CSS || (CSS = {}));
+})(CSS = exports.CSS || (exports.CSS = {}));
 var DialogCtrl = /** @class */ (function (_super) {
     __extends(DialogCtrl, _super);
     function DialogCtrl() {

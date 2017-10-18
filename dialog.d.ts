@@ -1,4 +1,17 @@
 import { Attrs, ArrayOrSingle, ClassDefinition, Mixin, MaybeObservable } from 'elt';
+/**
+ * Our CSS Declarations.
+ */
+export declare namespace CSS {
+    const stacked = "em-stacked";
+    const enter = "em-enter";
+    const leave = "em-leave";
+    const root: string;
+    const overlay: string;
+    const buttonbar: string;
+    const content: string;
+    const title: string;
+}
 export declare class DialogCtrl<T> extends Mixin {
     promise: Promise<T>;
     _resolve: (v: T) => any;

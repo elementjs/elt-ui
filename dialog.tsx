@@ -21,7 +21,11 @@ import {Button} from './button';
 import {style, cssRule} from 'typestyle'
 import {vertical, endJustified, horizontal, centerJustified} from 'csstips'
 
-namespace CSS {
+
+/**
+ * Our CSS Declarations.
+ */
+export namespace CSS {
 
   export const stacked = 'em-stacked'
   export const enter = 'em-enter'

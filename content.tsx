@@ -1,10 +1,16 @@
 
 import {Child, ChildAttributes} from './flex'
 
+import {style} from 'typestyle'
 
-import * as css from './content.styl'
+export namespace CSS {
+  export const content = style({
+    padding: '16px'
+  })
+}
+
 
 export function Content(attrs: ChildAttributes, children: DocumentFragment): Element {
   var {$$children, ...a} = attrs
-  return <Child {...a} class={css.content}>{children}</Child>;
+  return <Child {...a} class={CSS.content}>{children}</Child>;
 }

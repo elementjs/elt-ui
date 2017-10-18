@@ -18,10 +18,16 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var flex_1 = require("./flex");
-var css = require("./content.styl");
+var typestyle_1 = require("typestyle");
+var CSS;
+(function (CSS) {
+    CSS.content = typestyle_1.style({
+        padding: '16px'
+    });
+})(CSS = exports.CSS || (exports.CSS = {}));
 function Content(attrs, children) {
     var $$children = attrs.$$children, a = __rest(attrs, ["$$children"]);
-    return E(flex_1.Child, __assign({}, a, { class: css.content }), children);
+    return E(flex_1.Child, __assign({}, a, { class: CSS.content }), children);
 }
 exports.Content = Content;
 //# sourceMappingURL=content.js.map
