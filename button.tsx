@@ -60,13 +60,14 @@ export namespace CSS {
   export const buttonIcon = style({
     $nest: {
       '&:before': {
-        fontSize: '24px'
+        fontSize: '24px',
+        color: `var(--em-color-primary)`,
       }
     }
   })
 
   export const raised = style({
-    color: 'var(--em-color-inverse, white)',
+    color: 'var(--em-color-text-inverted, white)',
     backgroundColor: 'var(--em-color-primary)',
     boxShadow: `3px 3px 5px rgba(0, 0, 0, 0.54)`
   })

@@ -6,10 +6,16 @@ export namespace CSS {
     boxSizing: 'border-box'
   })
 
+  cssRule('html', {
+    '--em-color-text-inverted': `rgba(255, 255, 255, 0.84)`,
+    '--em-color-text': `rgba(0, 0, 0, 0.84)`
+  })
+
   cssRule('html, body', {
     color: `rgba(0, 0, 0, 0.87)`,
     fontSize: '14px'
   })
+
   cssRule('body, p, button, textarea, select, option', {
     fontFamily: `'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif`,
   })

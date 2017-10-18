@@ -19,3 +19,17 @@ export {Nav, NavHeader, NavSubheader, NavDivider, NavItem, NavBody, NavFooter} f
 export {animate} from './animate'
 export {inkable, inkClickDelay} from './ink'
 import './typography'
+
+
+declare module 'typestyle/lib/types' {
+  interface CSSProperties {
+
+    '--em-color-primary'?: string
+    '--em-color-text-inverted'?: string
+    '--em-color-text'?: string
+
+    '--em-color-primary-save'?: string
+    '--em-color-text-save'?: string
+    '--em-color-text-inverted-save'?: string
+  }
+}
