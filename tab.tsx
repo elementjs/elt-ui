@@ -17,9 +17,39 @@ import {
 	FlexAttributes
 } from './flex'
 
+import {style} from 'typestyle'
 
-import * as css from './tab.styl'
+export namespace CSS {
 
+	export const bar = style({
+		backgroundColor: `var(--em-color-background)`,
+		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
+		height: '48px'
+	})
+
+	export const active = 'em-tab-active'
+
+	export const title = style({
+		color: `var(--em-color-primary)`,
+		userSelect: 'none',
+		textTransform: 'uppercase',
+		textAlign: 'center',
+		fontWeight: 'bold',
+		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
+		height: '48px',
+		lineHeight: '48px',
+		fontSize: '14px',
+		maxWidth: '264px',
+		minWidth: '160px',
+		cursor: 'pointer',
+		transition: `border-bottom-color linear 0.2s`,
+
+		$nest: {[`&.${active}`]: {borderBottom: `2px solid var(--em-color-primary)`}}
+	})
+
+	export const content = style({backgroundColor: 'var(--em-color-background)'})
+
+}
 
 export class TabContainer extends Component {
 
@@ -31,7 +61,7 @@ export class TabContainer extends Component {
 	render(children: DocumentFragment): Element {
 		var {$$children, ...attrs} = this.attrs
 		return <Column {...attrs}>
-			<Row justify='center' class={css.bar}>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
+			<Row justify='center' class={CSS.bar}>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
 			{children}
 		</Column>
 
@@ -66,7 +96,7 @@ export class Tab extends Component {
 			throw new Error('Tab must be inside a TabContainer')
 
 		this.container.o_titles.push(<div
-			class={[css.title, {active: this.o_is_active}]}
+			class={[CSS.title, {[CSS.active]: this.o_is_active}]}
 			$$={[
 				click(ev => this.activate()),
 				inkable()
@@ -94,7 +124,7 @@ export class Tab extends Component {
 
 		return <Column
 			absoluteGrow='1'
-			class={css.content}
+			class={CSS.content}
 			style={ {display: this.o_is_active.tf(act => act ? 'flex' : 'none')} }>
 			{children}
 		</Column>

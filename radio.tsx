@@ -13,8 +13,8 @@ import {Row} from './flex'
 import {Icon} from './icon'
 
 import {inkable} from './ink'
+import {CSS} from './checkbox'
 
-import * as css from './checkbox.styl'
 
 var CHECKED = 'dot-circle'
 var UNCHECKED = 'circle-o'
@@ -47,18 +47,18 @@ export class Radio<T> extends Component {
   render(children: DocumentFragment): Element {
 
     let classes = {
-      [css.on]: this.model.equals(this.value),
-      [css.off]: this.model.differs(this.value),
-      [css.disabled]: this.disabled
+      [CSS.on]: this.model.equals(this.value),
+      [CSS.off]: this.model.differs(this.value),
+      [CSS.disabled]: this.disabled
     };
 
-    return <label class={css.label} $$={[inkable(), click(e => this.setValue())]}>
+    return <label class={CSS.label} $$={[inkable(), click(e => this.setValue())]}>
         <Row align='center'>
           <Icon
-            class={[css.icon, classes]}
+            class={[CSS.icon, classes]}
             name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
           />
-          <span class={[css.content, classes]}>{children}</span>
+          <span class={[CSS.content, classes]}>{children}</span>
         </Row>
       </label>;
 

@@ -13,8 +13,44 @@ import {Icon} from './icon'
 
 import {inkable} from './ink'
 
+import {style} from 'typestyle'
 
-import * as css from './checkbox.styl'
+export namespace CSS {
+  export const on = 'em--checkbox-on'
+  export const off = 'em--checkbox-off'
+  export const disabled = 'em--disabled'
+
+  export const label = style({
+    position: 'relative',
+    cursor: 'pointer',
+    userSelect: 'none',
+    display: 'inline-block',
+    minHeight: '36px',
+    padding: '8px',
+    '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)'
+  })
+
+  export const content = style({
+    verticalAlign: 'middle',
+    $nest: {
+      [`&.${off}`]: {color: `rgba(0, 0, 0, 0.74)`},
+      [`&.${disabled}`]: {color: `rgba(0, 0, 0, 0.26)`}
+    }
+  })
+
+  export const icon = style({
+    marginRight: '8px',
+    verticalAlign: 'middle',
+    transition: 'color linear 0.3s',
+
+    $nest: {
+      [`&:before`]: {fontSize: '18px'},
+      [`&.${off}`]: {color: `rgba(0, 0, 0, 0.74)`},
+      [`&.${disabled}`]: {color: `rgba(0, 0, 0, 0.26)`},
+      [`&.${on}`]: {color: `var(--em-color-primary)`}
+    }
+  })
+}
 
 
 var OFF = 'square-o'
@@ -49,15 +85,15 @@ export class Checkbox extends Component {
     }
 
     let classes = {
-      [css.on]: this.o_model,
-      [css.off]: this.o_model.isFalse(),
-      [css.disabled]: this.o_disabled
+      [CSS.on]: this.o_model,
+      [CSS.off]: this.o_model.isFalse(),
+      [CSS.disabled]: this.o_disabled
     }
 
-    return <label class={css.label} $$={[inkable(), click(e => this.toggle())]}>
+    return <label class={CSS.label} $$={[inkable(), click(e => this.toggle())]}>
         <Row align='center'>
-          <Icon class={[css.icon, classes]} name={this.o_model.tf(getIcon)}/>
-          <span class={[css.content, classes]}>{children}</span>
+          <Icon class={[CSS.icon, classes]} name={this.o_model.tf(getIcon)}/>
+          <span class={[CSS.content, classes]}>{children}</span>
         </Row>
       </label>;
 
