@@ -16,30 +16,34 @@ import {inker} from './ink'
 
 
 import {style, cssRule} from 'typestyle'
+import * as s from './styling'
 
 export namespace CSS {
 
-  export const button = style({
-    // This style applies to a button, that we want to completely reset.
-    border: 0,
-    margin: 0,
-    background: 'none',
-    position: 'relative',
-    display: 'inline-block',
-    padding: '8px', // this is to allow more space for touch events.
-    outline: 0,
-    '-webkit-tap-highlight-color': `rgba(0,0,0,0)`
-  })
+  export const button = style(
+    s.values.NoSpuriousBorders,
+    {
+      // This style applies to a button, that we want to completely reset.
+      border: 0,
+      margin: 0,
+      background: 'none',
+      position: 'relative',
+      display: 'inline-block',
+      padding: '8px', // this is to allow more space for touch events.
+    }
+  )
 
-  export const baseButton = style({
-    '-webkit-tap-highlight-color': `rgba(0,0,0,0)`,
-    verticalAlign: 'middle',
-    color: `var(--em-color-primary)`,
-    display: 'inline-block',
-    textAlign: 'center',
-    cursor: 'pointer',
-    position: 'relative' // needed for inker.
-  })
+  export const baseButton = style(
+    s.values.NoSpuriousBorders,
+    {
+      verticalAlign: 'middle',
+      color: s.colors.Primary,
+      display: 'inline-block',
+      textAlign: 'center',
+      cursor: 'pointer',
+      position: 'relative' // needed for inker.
+    }
+  )
 
   export const buttonContent = style({
     minWidth: '64px',
@@ -57,47 +61,43 @@ export namespace CSS {
     userSelect: 'none'
   })
 
-  export const buttonIcon = style({
-    $nest: {
-      '&:before': {
-        fontSize: '24px',
-        color: `var(--em-color-primary)`,
-      }
-    }
-  })
+  export const buttonIcon = style(
+    s.before({
+      fontSize: '24px',
+      color: s.colors.Primary
+  }))
 
-  export const raised = style({
-    color: 'var(--em-color-text-inverted, white)',
-    backgroundColor: 'var(--em-color-primary)',
-    boxShadow: `3px 3px 5px rgba(0, 0, 0, 0.54)`
+  export const raised = style(
+    s.values.BoxShadow,
+    {
+      color: s.colors.Contrast,
+      backgroundColor: s.colors.Primary
+    }
+  )
+
+  export const bordered = style({
+    border: `1px solid`,
+    borderColor: s.colors.Primary
   })
 
   export const disabled = style({
-    color: `var(--em-color-disabled)`,
+    color: s.colors.FgVeryLight,
     boxShadow: 'none'
   })
 
-  export const iconButton = style({
-    $nest: {
-      ['&:before']: {
-        fontSize: '24px'
-      }
-    }
-  })
-
+  export const iconButton = style(
+    s.before({fontSize: '24px'})
+  )
 
   cssRule(`.${button} + .${button}`, {
     marginLeft: 0,
     marginTop: 0
   })
 
-  export const buttonBar = style({
-    $nest: {
-      [`& > .${button}`]: {
-        paddingBottom: 0
-      }
-    }
-  })
+
+  export const buttonBar = style(
+    s.nest(`& > .${button}`, {paddingBottom: 0})
+  )
 
   export const hasButtonBar = style({
     paddingBottom: 0
@@ -130,6 +130,7 @@ export class ButtonBar extends Component {
 
 
 export interface ButtonAttrs extends Attrs {
+  bordered?: MaybeObservable<boolean>
   disabled?: MaybeObservable<boolean>
   raised?: MaybeObservable<boolean>
   click?: Listener<MouseEvent>
@@ -159,7 +160,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
         class={[
           CSS.baseButton,
           CSS.buttonIcon,
-          {[CSS.disabled]: attrs.disabled, [CSS.raised]: attrs.raised}
+          {[CSS.disabled]: attrs.disabled, [CSS.raised]: attrs.raised, [CSS.bordered]: attrs.bordered}
         ]}
         name={o_name}
       />
@@ -168,7 +169,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
         class={[
           CSS.baseButton,
           CSS.buttonContent,
-          {[CSS.disabled]: attrs.disabled, [CSS.raised]: attrs.raised}
+          {[CSS.disabled]: attrs.disabled, [CSS.raised]: attrs.raised, [CSS.bordered]: attrs.bordered}
         ]}
       >
         {children}

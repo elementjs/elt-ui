@@ -14,11 +14,12 @@ import {Icon} from './icon'
 import {inkable} from './ink'
 
 import {style} from 'typestyle'
+import * as s from './styling'
 
 export namespace CSS {
-  export const on = 'em--checkbox-on'
-  export const off = 'em--checkbox-off'
-  export const disabled = 'em--disabled'
+  export const on = s.empty('on')
+  export const off = s.empty('off')
+  export const disabled = s.empty('disabled')
 
   export const label = style({
     position: 'relative',
@@ -27,29 +28,26 @@ export namespace CSS {
     display: 'inline-block',
     minHeight: '36px',
     padding: '8px',
-    '-webkit-tap-highlight-color': 'rgba(0, 0, 0, 0)'
+    '-webkit-tap-highlight-color': s.colors.Invisible
   })
 
-  export const content = style({
-    verticalAlign: 'middle',
-    $nest: {
-      [`&.${off}`]: {color: `rgba(0, 0, 0, 0.74)`},
-      [`&.${disabled}`]: {color: `rgba(0, 0, 0, 0.26)`}
-    }
-  })
+  export const content = style(
+    { verticalAlign: 'middle' },
+    s.and(off, {color: `rgba(0, 0, 0, 0.74)`}),
+    s.and(disabled, {color: `rgba(0, 0, 0, 0.26)`})
+  )
 
-  export const icon = style({
-    marginRight: '8px',
-    verticalAlign: 'middle',
-    transition: 'color linear 0.3s',
-
-    $nest: {
-      [`&:before`]: {fontSize: '18px'},
-      [`&.${off}`]: {color: `rgba(0, 0, 0, 0.74)`},
-      [`&.${disabled}`]: {color: `rgba(0, 0, 0, 0.26)`},
-      [`&.${on}`]: {color: `var(--em-color-primary)`}
-    }
-  })
+  export const icon = style(
+    {
+      marginRight: '8px',
+      verticalAlign: 'middle',
+      transition: 'color linear 0.3s',
+    },
+    s.and(off, {color: `rgba(0, 0, 0, 0.74)`}),
+    s.and(disabled, {color: `rgba(0, 0, 0, 0.26)`}),
+    s.and(on, {color: s.colors.Primary}),
+    s.before({fontSize: '18px'})
+  )
 }
 
 

@@ -2,6 +2,7 @@
 import {e, click, Mixin} from 'elt'
 
 import {keyframes, style} from 'typestyle'
+import * as s from './styling'
 
 export namespace CSS {
 
@@ -19,7 +20,7 @@ export namespace CSS {
 	export const ink = style({
 		display: 'block',
 		position: 'absolute',
-		backgroundColor: 'var(--em-color-primary)',
+		backgroundColor: s.colors.Primary,
 		opacity: 0.4,
 		borderRadius: '100%',
 		transform: 'scale(0)',
@@ -42,7 +43,7 @@ export namespace CSS {
 		position: 'absolute',
 		pointerEvents: 'none',
 
-		backgroundColor: 'var(--em-color-primary)',
+		backgroundColor: s.colors.Primary,
 		$nest: {[`&.${animate}`]: {animation: `${containerRippleAnim} 0.45s both ease-out`}}
 
 	})

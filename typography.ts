@@ -1,4 +1,5 @@
 import {cssRule} from 'typestyle'
+import * as s from './styling'
 
 export namespace CSS {
 
@@ -7,12 +8,14 @@ export namespace CSS {
   })
 
   cssRule('html', {
-    '--em-color-text-inverted': `rgba(255, 255, 255, 0.84)`,
-    '--em-color-text': `rgba(0, 0, 0, 0.84)`
+    '--em-color-primary': '63, 81, 181',
+    '--em-color-contrast': '255, 255, 255',
+    '--em-color-fg': `0, 0, 0`,
+    '--em-color-bg': `255, 255, 255`
   })
 
   cssRule('html, body', {
-    color: `rgba(0, 0, 0, 0.87)`,
+    color: s.colors.Fg,
     fontSize: '14px'
   })
 
