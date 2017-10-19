@@ -17,93 +17,6 @@ import {inker} from './ink'
 
 import * as s from './styling'
 
-export namespace CSS {
-
-  export const button = s.style('button',
-    s.values.NoSpuriousBorders,
-    {
-      // This style applies to a button, that we want to completely reset.
-      border: 0,
-      margin: 0,
-      background: 'none',
-      position: 'relative',
-      display: 'inline-block',
-      padding: '8px', // this is to allow more space for touch events.
-    }
-  )
-
-  export const baseButton = s.style('base-button',
-    s.values.NoSpuriousBorders,
-    {
-      verticalAlign: 'middle',
-      color: s.colors.Primary,
-      display: 'inline-block',
-      textAlign: 'center',
-      cursor: 'pointer',
-      position: 'relative' // needed for inker.
-    }
-  )
-
-  export const buttonContent = s.style('button-content', {
-    minWidth: '64px',
-    textTransform: 'uppercase',
-    fontWeight: 500,
-
-    // Should probably have a mixin for that
-    // as it should be some global configuration option.
-    borderRadius: '2px',
-    borderStyle: 'none',
-
-    padding: `0 6px`,
-    lineHeight: '36px',
-    height: '36px',
-    userSelect: 'none'
-  })
-
-  export const buttonIcon = s.style('button-icon',
-    s.before({
-      fontSize: '24px',
-      color: s.colors.Primary
-  }))
-
-  export const raised = s.style('raised',
-    s.values.BoxShadow,
-    {
-      color: s.colors.Contrast,
-      backgroundColor: s.colors.Primary
-    }
-  )
-
-  export const bordered = s.style('bordered', {
-    border: `1px solid`,
-    borderColor: s.colors.Primary
-  })
-
-  export const disabled = s.style('disabled', {
-    color: s.colors.FgVeryLight,
-    boxShadow: 'none'
-  })
-
-  export const iconButton = s.style('icon-button',
-    s.before({fontSize: '24px'})
-  )
-
-  s.rule(`.${button} + .${button}`, {
-    marginLeft: 0,
-    marginTop: 0
-  })
-
-
-  export const buttonBar = s.style('button-bar',
-    s.child(button, {paddingBottom: 0})
-  )
-
-  export const hasButtonBar = s.style('has-button-bar', {
-    paddingBottom: 0
-  })
-
-}
-
 
 export interface ButtonBarAttrs extends Attrs {
   stacked?: boolean
@@ -139,13 +52,13 @@ export interface ButtonAttrs extends Attrs {
 
 export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element {
 
-  function doClick(this: Node, event: MouseEvent) {
+  function doClick(this: Node, event: MouseEvent, node: Node) {
     let click = o.get(attrs.click)
     if (!o.get(attrs.disabled)) {
       // in this context, this is the Node.
-      inker(event.target as Node, event)
-      click && click.call(this, event)
-      // this.element.blur() // to prevent focus lingering.
+      var n = event.target as Node
+      inker(n === node ? n.firstChild! : n, event)
+      click && click.call(this, event, node)
     }
   }
 
@@ -178,3 +91,92 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   </button>
 
 }
+
+
+export namespace CSS {
+
+    export const button = s.style('button',
+      s.values.NoSpuriousBorders,
+      {
+        // This style applies to a button, that we want to completely reset.
+        border: 0,
+        margin: 0,
+        background: 'none',
+        position: 'relative',
+        display: 'inline-block',
+        padding: '8px', // this is to allow more space for touch events.
+      }
+    )
+
+    export const baseButton = s.style('base-button',
+      s.values.NoSpuriousBorders,
+      {
+        verticalAlign: 'middle',
+        color: s.colors.Primary,
+        display: 'inline-block',
+        textAlign: 'center',
+        cursor: 'pointer',
+        position: 'relative' // needed for inker.
+      }
+    )
+
+    export const buttonContent = s.style('button-content', {
+      minWidth: '64px',
+      textTransform: 'uppercase',
+      fontWeight: 500,
+
+      // Should probably have a mixin for that
+      // as it should be some global configuration option.
+      borderRadius: '2px',
+      borderStyle: 'none',
+
+      padding: `0 6px`,
+      lineHeight: '36px',
+      height: '36px',
+      userSelect: 'none'
+    })
+
+    export const buttonIcon = s.style('button-icon',
+      s.before({
+        fontSize: '24px',
+        color: s.colors.Primary
+    }))
+
+    export const raised = s.style('raised',
+      s.values.BoxShadow,
+      {
+        color: s.colors.Contrast,
+        backgroundColor: s.colors.Primary
+      }
+    )
+
+    export const bordered = s.style('bordered', {
+      border: `1px solid`,
+      borderColor: s.colors.Primary
+    })
+
+    export const disabled = s.style('disabled', {
+      color: s.colors.FgVeryLight,
+      boxShadow: 'none'
+    })
+
+    export const iconButton = s.style('icon-button',
+      s.before({fontSize: '24px'})
+    )
+
+    s.rule(`.${button} + .${button}`, {
+      marginLeft: 0,
+      marginTop: 0
+    })
+
+
+    export const buttonBar = s.style('button-bar',
+      s.child(button, {paddingBottom: 0})
+    )
+
+    export const hasButtonBar = s.style('has-button-bar', {
+      paddingBottom: 0
+    })
+
+  }
+
