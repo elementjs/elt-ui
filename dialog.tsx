@@ -15,12 +15,9 @@ import {
 import {Column} from './flex'
 import {animateClass, animations} from './animate'
 import {Button} from './button';
+import {Row} from './flex'
 
-// import * as css from './dialog.styl'
-
-import {style, cssRule} from 'typestyle'
-import {vertical, endJustified, horizontal, centerJustified} from 'csstips'
-
+import * as s from './styling'
 
 /**
  * Our CSS Declarations.
@@ -31,7 +28,7 @@ export namespace CSS {
   export const enter = 'em-enter'
   export const leave = 'em-leave'
 
-  export const root = style({
+  export const root = s.style('root', {
     '-webkit-transform-style': 'preserve-3d',
     '-webkit-backface-visibility': 'hidden',
     transform: `translateZ(0)`,
@@ -40,7 +37,7 @@ export namespace CSS {
     backgroundColor: `white`
   })
 
-  export const overlay = style({
+  export const overlay = s.style('overlay', {
     overflow: 'hidden',
     position: 'absolute',
     top: 0,
@@ -71,19 +68,7 @@ export namespace CSS {
     }
   })
 
-  export const buttonbar = style(
-    horizontal,
-    endJustified
-  )
-
-  cssRule(`.${buttonbar}.${stacked}`,
-    vertical,
-    centerJustified
-  )
-
-
-
-  export const content = style({
+  export const content = s.style('content', {
     padding: '0 24px',
     paddingBottom: '24px',
     color: 'var(--em-text-color)',
@@ -97,7 +82,7 @@ export namespace CSS {
     }
   })
 
-  export const title = style({
+  export const title = s.style('title', {
     margin: 0,
     padding: 0
   })
@@ -145,7 +130,7 @@ export interface ButtonbarAttributes extends Attrs {
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
 export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment): Element {
-  return <div class={[CSS.buttonbar, {[CSS.stacked]: attrs.stacked}]}>{children}</div>
+  return <Row justify='end'>{children}</Row>
 }
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {

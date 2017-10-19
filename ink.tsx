@@ -1,52 +1,51 @@
 
 import {e, click, Mixin} from 'elt'
 
-import {keyframes, style} from 'typestyle'
 import * as s from './styling'
 
 export namespace CSS {
 
-	export const rippleAnim = keyframes({
+	export const rippleAnim = s.keyframes('ripple', {
 		'100%': { transform: `scale(4)` }
 	})
 
-	export const containerRippleAnim = keyframes({
+	export const containerRippleAnim = s.keyframes('container-ripple', {
 		'50%': {opacity: 0.2},
 		'100%': {opacity: 0}
 	})
 
-	export const animate = 'em-ink-animate'
+	export const animate = s.style('em-ink-animate')
 
-	export const ink = style({
-		display: 'block',
-		position: 'absolute',
-		backgroundColor: s.colors.Primary,
-		opacity: 0.4,
-		borderRadius: '100%',
-		transform: 'scale(0)',
-		pointerEvents: 'none',
-		marginTop: '-25px',
-		marginLeft: '-25px',
-		width: '50px',
-		height: '50px',
+	export const ink = s.style('ink', {
+			display: 'block',
+			position: 'absolute',
+			backgroundColor: s.colors.Primary,
+			opacity: 0.4,
+			borderRadius: '100%',
+			transform: 'scale(0)',
+			pointerEvents: 'none',
+			marginTop: '-25px',
+			marginLeft: '-25px',
+			width: '50px',
+			height: '50px',
+		},
+		s.and(animate, {animation: `${rippleAnim} 0.45s both ease-out`})
+	)
 
-		$nest: {[`&.${animate}`]: {animation: `${rippleAnim} 0.45s both ease-out`}}
-	})
+	export const container = s.style('container', {
+			display: 'block',
+			width: '100%',
+			height: '100%',
+			top: 0,
+			left: 0,
+			overflow: 'hidden',
+			position: 'absolute',
+			pointerEvents: 'none',
 
-	export const container = style({
-		display: 'block',
-		width: '100%',
-		height: '100%',
-		top: 0,
-		left: 0,
-		overflow: 'hidden',
-		position: 'absolute',
-		pointerEvents: 'none',
-
-		backgroundColor: s.colors.Primary,
-		$nest: {[`&.${animate}`]: {animation: `${containerRippleAnim} 0.45s both ease-out`}}
-
-	})
+			backgroundColor: s.colors.Primary,
+		},
+		s.and(animate, {animation: `${containerRippleAnim} 0.45s both ease-out`})
+	)
 
 }
 

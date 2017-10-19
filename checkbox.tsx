@@ -13,15 +13,14 @@ import {Icon} from './icon'
 
 import {inkable} from './ink'
 
-import {style} from 'typestyle'
 import * as s from './styling'
 
 export namespace CSS {
-  export const on = s.empty('on')
-  export const off = s.empty('off')
-  export const disabled = s.empty('disabled')
+  export const on = s.style('on')
+  export const off = s.style('off')
+  export const disabled = s.style('disabled')
 
-  export const label = style({
+  export const label = s.style('label', {
     position: 'relative',
     cursor: 'pointer',
     userSelect: 'none',
@@ -31,13 +30,13 @@ export namespace CSS {
     '-webkit-tap-highlight-color': s.colors.Invisible
   })
 
-  export const content = style(
+  export const content = s.style('content',
     { verticalAlign: 'middle' },
     s.and(off, {color: `rgba(0, 0, 0, 0.74)`}),
     s.and(disabled, {color: `rgba(0, 0, 0, 0.26)`})
   )
 
-  export const icon = style(
+  export const icon = s.style('icon',
     {
       marginRight: '8px',
       verticalAlign: 'middle',

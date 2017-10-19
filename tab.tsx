@@ -17,25 +17,25 @@ import {
 	FlexAttributes
 } from './flex'
 
-import {style} from 'typestyle'
+import * as s from './styling'
 
 export namespace CSS {
 
-	export const bar = style({
+	export const bar = s.style('bar', {
 		backgroundColor: `var(--em-color-background)`,
 		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
 		height: '48px'
 	})
 
-	export const active = 'em-tab-active'
+	export const active = s.style('active')
 
-	export const title = style({
-		color: `var(--em-color-primary)`,
+	export const title = s.style('title', {
+		color: s.colors.Primary,
 		userSelect: 'none',
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		fontWeight: 'bold',
-		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
+		borderBottom: `1px solid ${s.colors.FgFaint}`,
 		height: '48px',
 		lineHeight: '48px',
 		fontSize: '14px',
@@ -47,7 +47,7 @@ export namespace CSS {
 		$nest: {[`&.${active}`]: {borderBottom: `2px solid var(--em-color-primary)`}}
 	})
 
-	export const content = style({backgroundColor: 'var(--em-color-background)'})
+	export const content = s.style('content', {backgroundColor: s.colors.Bg})
 
 }
 

@@ -1,22 +1,20 @@
 
 import {Insertable} from 'elt'
 import {animate, animations} from './animate'
+import {Row} from './flex'
 
-import {style} from 'typestyle'
-import {flex, centerJustified} from 'csstips'
+import * as s from './styling'
 
-export const css = {
-	holder: style(
-		flex,
-		centerJustified,
+export namespace CSS {
+	export const holder = s.style('toast-holder',
 		{
 			position: 'fixed',
 			bottom: 0,
 			left: 0,
 			width: '100%',
-	}),
+	})
 
-	toast: style({
+	export const toast = s.style('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
 		background: 'alpha(#323232, 0.87)',
@@ -24,7 +22,9 @@ export const css = {
 		color: 'white',
 		cursor: 'pointer'
 	})
+
 }
+
 
 
 // import * as css from './toast.styl'
@@ -41,7 +41,7 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={css.holder}/>
+		this._holder = <Row justify='center' class={CSS.holder}/>
 	}
 
 	kill(node: HTMLElement) {
@@ -65,7 +65,7 @@ export class Toaster {
 			document.body.appendChild(this._holder)
 
 		let toast = (msg instanceof Node ? msg
-			: <div class={css.toast}>{msg}</div>) as HTMLElement
+			: <div class={CSS.toast}>{msg}</div>) as HTMLElement
 
 		animate(toast, `${animations.fadeIn} 0.2s ease-in both`)
 		this._holder.appendChild(toast)

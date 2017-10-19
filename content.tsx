@@ -1,10 +1,10 @@
 
 import {Child, ChildAttributes} from './flex'
 
-import {style} from 'typestyle'
+import * as s from './styling'
 
 export namespace CSS {
-  export const content = style({
+  export const content = s.style('content', {
     padding: '16px'
   })
 }

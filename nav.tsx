@@ -8,16 +8,15 @@ import {
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
-import {Column} from './flex'
+import {Column, Row} from './flex'
 
 
 import {animateClass, animations} from './animate'
-import {style} from 'typestyle'
-import * as t from 'csstips'
+import * as s from './styling'
 
 export namespace CSS {
 
-	export const overlay = style({
+	export const overlay = s.style('overlay', {
 		position: 'fixed',
 		top: 0,
 		left: 0,
@@ -27,25 +26,26 @@ export namespace CSS {
 		transform: `translateZ(0)`
 	})
 
-	export const drawer = style({
-		position: 'fixed',
-		fontSize: '14px',
-		transform: `translateZ(0)`,
-		top: 0,
-		left: 0,
-		height: '100vh',
-		width: '250px',
-		boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
-		backgroundColor: 'white'
-	})
+	export const drawer = s.style('drawer',
+		{
+			position: 'fixed',
+			fontSize: '14px',
+			transform: `translateZ(0)`,
+			top: 0,
+			left: 0,
+			height: '100vh',
+			width: '250px',
+			boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
+			backgroundColor: s.colors.Bg
+		})
 
-	export const item = style(t.horizontal, t.center, {
+	export const item = s.style('item', {
 		position: 'relative',
 		height: '48px',
 		fontWeight: 'bold'
 	})
 
-	export const itemIcon = style({
+	export const itemIcon = s.style('item-icon', {
 		paddingLeft: '16px',
 		width: '72px',
 		color: `rgba(0, 0, 0, 0.65)`,
@@ -53,39 +53,31 @@ export namespace CSS {
 		$nest: {'&:before': {fontSize: '24px'}}
 	})
 
-	export const divider = style({
+	export const divider = s.style('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid rgba(0, 0, 0, 0.07)`,
+		borderBottom: `1px solid ${s.colors.FgFaintest}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})
 
-	export const body = style(t.vertical, {
-		flexGrow: 1
-	})
-
-	export const header = style({
+	export const header = s.style('header', {
 		paddingTop: '16px',
 		paddingLeft: '16px'
 	})
 
-	export const subheader = style({paddingLeft: '16px'})
-	export const footer = style({textAlign: 'center', paddingBottom: '16px'})
+	export const subheader = s.style('subheader', {paddingLeft: '16px'})
+	export const footer = s.style('footer', {textAlign: 'center', paddingBottom: '16px'})
 
-	export const leave = style({
-		$nest: {
-			[`& > .${overlay}`]: { animation: `${animations.fadeOut} 0.2s ease-out` },
-			[`& > .${drawer}`]: { animation: `${animations.slideToLeft} 0.2s ease-out` }
-		}
-	})
+	export const leave = s.style('leave',
+		s.child(overlay, { animation: `${animations.fadeOut} 0.2s ease-out` }),
+		s.child(drawer, { animation: `${animations.slideToLeft} 0.2s ease-out` })
+	)
 
-	export const enter = style({
-		$nest: {
-			[`& > .${overlay}`]: { animation: `${animations.fadeIn} 0.2s ease-in` },
-			[`& > .${drawer}`]: { animation: `${animations.slideFromLeft} 0.2s ease-in` }
-		}
-	})
+	export const enter = s.style('enter',
+		s.child(overlay, { animation: `${animations.fadeIn} 0.2s ease-in` }),
+		s.child(drawer, { animation: `${animations.slideFromLeft} 0.2s ease-in` })
+	)
 
 }
 
@@ -148,7 +140,7 @@ export interface NavItemAttributes extends Attrs {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
-	let res = <div class={CSS.item} $$={[inkClickDelay(function (e) {
+	let res = <Row class={CSS.item} $$={[inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			// XXX should we log an error here if c was null ?
@@ -157,13 +149,13 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 	})]}>
 		<Icon class={CSS.itemIcon} name={a.icon}/>
 		{ch}
-	</div>
+	</Row>
 
 	return res
 }
 
 export function NavBody(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={CSS.body}>{ch}</div>
+	return <Column absoluteGrow='1'>{ch}</Column>
 }
 
 export function NavFooter(a: Attrs, ch: DocumentFragment): Element {

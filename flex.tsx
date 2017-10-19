@@ -4,19 +4,19 @@ import {
 	e,
 } from 'elt'
 
-import {style} from 'typestyle'
+import * as s from './styling'
 import * as t from 'csstips'
 
 export namespace CSS {
 
-	export const wrap = style(t.wrap)
-	export const horizontal = style(t.horizontal)
-	export const vertical = style(t.vertical)
+	export const wrap = s.style('wrap', t.wrap)
+	export const horizontal = s.style('horizontal', t.horizontal)
+	export const vertical = s.style('vertical', t.vertical)
 
-	export const around = style(t.aroundJustified)
-	export const between = style(t.betweenJustified)
-	export const start = style(t.startJustified)
-	export const end = style(t.endJustified)
+	export const around = s.style('around', t.aroundJustified)
+	export const between = s.style('between', t.betweenJustified)
+	export const start = s.style('start', t.startJustified)
+	export const end = s.style('end', t.endJustified)
 
 
 }

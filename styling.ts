@@ -1,5 +1,5 @@
 
-import {style, types} from 'typestyle'
+import {style as _style, types, cssRule, keyframes as _keyframes} from 'typestyle'
 
 declare module 'typestyle/lib/types' {
   interface CSSProperties {
@@ -70,8 +70,13 @@ function _merge<T extends Object>(objs: T[]): T {
 }
 
 export function nest(spec: string, ...props: Props[]): Props {
-  return {$nest: {[spec]: _merge(props)}} as Props
+  return {$nest: {['&' + spec]: _merge(props)}} as Props
 }
+
+export function child(spec: string, ...props: Props[]): Props {
+  return nest('& > ' + spec, ...props)
+}
+
 
 export function and(cls: string, ...props: Props[]): Props {
   const res = {$nest: {[`&.${cls}`]: _merge(props)}} as Props
@@ -89,6 +94,15 @@ export const focus = mknest(':focus')
 export const hover = mknest(':hover')
 export const before = mknest(':before')
 
-export function empty(name: string) {
-  return style({$debugName: name})
+export function style(name: string, ...props: Props[]) {
+  return _style({$debugName: name}, ...props)
+}
+
+export function rule(sel: string, ...props: Props[]) {
+  return cssRule(sel, ...props)
+}
+
+export function keyframes(name: string, frames: types.KeyFrames) {
+  frames.$debugName = name
+  return _keyframes(frames)
 }

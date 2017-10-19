@@ -15,12 +15,11 @@ import {Row} from './flex'
 import {inker} from './ink'
 
 
-import {style, cssRule} from 'typestyle'
 import * as s from './styling'
 
 export namespace CSS {
 
-  export const button = style(
+  export const button = s.style('button',
     s.values.NoSpuriousBorders,
     {
       // This style applies to a button, that we want to completely reset.
@@ -33,7 +32,7 @@ export namespace CSS {
     }
   )
 
-  export const baseButton = style(
+  export const baseButton = s.style('base-button',
     s.values.NoSpuriousBorders,
     {
       verticalAlign: 'middle',
@@ -45,7 +44,7 @@ export namespace CSS {
     }
   )
 
-  export const buttonContent = style({
+  export const buttonContent = s.style('button-content', {
     minWidth: '64px',
     textTransform: 'uppercase',
     fontWeight: 500,
@@ -61,13 +60,13 @@ export namespace CSS {
     userSelect: 'none'
   })
 
-  export const buttonIcon = style(
+  export const buttonIcon = s.style('button-icon',
     s.before({
       fontSize: '24px',
       color: s.colors.Primary
   }))
 
-  export const raised = style(
+  export const raised = s.style('raised',
     s.values.BoxShadow,
     {
       color: s.colors.Contrast,
@@ -75,31 +74,31 @@ export namespace CSS {
     }
   )
 
-  export const bordered = style({
+  export const bordered = s.style('bordered', {
     border: `1px solid`,
     borderColor: s.colors.Primary
   })
 
-  export const disabled = style({
+  export const disabled = s.style('disabled', {
     color: s.colors.FgVeryLight,
     boxShadow: 'none'
   })
 
-  export const iconButton = style(
+  export const iconButton = s.style('icon-button',
     s.before({fontSize: '24px'})
   )
 
-  cssRule(`.${button} + .${button}`, {
+  s.rule(`.${button} + .${button}`, {
     marginLeft: 0,
     marginTop: 0
   })
 
 
-  export const buttonBar = style(
-    s.nest(`& > .${button}`, {paddingBottom: 0})
+  export const buttonBar = s.style('button-bar',
+    s.child(button, {paddingBottom: 0})
   )
 
-  export const hasButtonBar = style({
+  export const hasButtonBar = s.style('has-button-bar', {
     paddingBottom: 0
   })
 
