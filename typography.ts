@@ -16,7 +16,7 @@ export namespace CSS {
 
   cssRule('html, body', {
     color: s.colors.Fg,
-    fontSize: '14px'
+    fontSize: '16px'
   })
 
   cssRule('body, p, button, textarea, select, option', {
