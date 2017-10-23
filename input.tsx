@@ -152,7 +152,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
   }]}>
       {input}
       {data.label ?
-          <label for={id}>{data.label}</label>
+          <label class={CSS.label} for={id}>{data.label}</label>
       : null}
       {DisplayIf(data.error, error => <div class={CSS.inputError}>{error}</div>)}
     </div>;
