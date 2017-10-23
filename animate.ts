@@ -1,31 +1,33 @@
-import {keyframes} from 'typestyle'
+
+import * as s from './styling'
 
 export const animations = {
 
-	fadeIn: keyframes({
+	fadeIn: s.keyframes('fade-in', {
 		'0%': {opacity: 0},
 		'100%': {opacity: 1}
 	}),
 
-	fadeOut: keyframes({
+	fadeOut: s.keyframes('fade-out', {
 		'100%': {opacity: 0}
 	}),
 
-	slideFromLeft: keyframes({
+	slideFromLeft: s.keyframes('slide-from-left', {
 		'0%': {transform: `translateX(-100%) translateZ(0)`},
 		'100%': {transform: `translateX(0) translateZ(0)`}
 	}),
 
-	slideToLeft: keyframes({
-		'0%': {transform: `translateX(-100%) translateZ(0)`}
+	slideToLeft: s.keyframes('slide-to-left', {
+		'0%': {transform: `translateX(0) translateZ(0)`},
+		'100%': {transform: `translateX(-100%) translateZ(0)`}
 	}),
 
-	topEnter: keyframes({
+	topEnter: s.keyframes('top-enter', {
 		'0%': {transform: `translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)`},
 		'100%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`}
 	}),
 
-	topLeave: keyframes({
+	topLeave: s.keyframes('top-leave', {
 		'0%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`},
 		'100%': {transform: `translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)`}
 	})
@@ -71,12 +73,12 @@ export function animateClass(node: HTMLElement, cls: string) {
 			if (anim_start_count == anim_end_count) {
 				START_EVENTS.forEach(name => node.removeEventListener(name, fnstart))
 				END_EVENTS.forEach(name => node.removeEventListener(name, fnend))
-				// setTimeout(() => node.classList.remove(cls), 100)
 				resolve()
 			}
 		}
 
 		let fnstart = function () {
+			console.log(arguments)
 			anim_start_count += 1
 		}
 
@@ -90,6 +92,7 @@ export function animateClass(node: HTMLElement, cls: string) {
 		// this delay nothing started, we call the end function.
 		setTimeout(() => {
 			if (anim_start_count === 0) {
+				console.warn('no animations were started, executing end function anyway.')
 				anim_end_count -= 1
 				fnend()
 			}

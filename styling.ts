@@ -57,6 +57,12 @@ export namespace values {
     'outline': 0
   } as Props
 
+  export const NoNativeAppearance = {
+    '-webkit-appearance': 'none',
+    '-moz-appearance': 'none',
+    appearance: 'none'
+  } as Props
+
 }
 
 function _merge<T extends Object>(objs: T[]): T {
@@ -93,6 +99,7 @@ export const firstChild = mknest(':first-child')
 export const focus = mknest(':focus')
 export const hover = mknest(':hover')
 export const before = mknest(':before')
+export const after = mknest(':after')
 
 export function style(name: string, ...props: Props[]) {
   return _style({$debugName: name}, ...props)

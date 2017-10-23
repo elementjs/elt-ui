@@ -85,8 +85,8 @@ export class Select<T> extends Component {
 			decorators.push(on('change', ev => fn(model.get(), ev)))
 		}
 
-		return <label class='em-select-label'>
-			<select class='em-select' $$={decorators}>
+		return <label class={CSS.label}>
+			<select class={CSS.select} $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={model.equals(opt)}>
@@ -99,3 +99,37 @@ export class Select<T> extends Component {
 
 }
 
+import * as s from './styling'
+
+export namespace CSS {
+	export const select = s.style('select',
+		s.values.NoSpuriousBorders,
+		s.values.NoNativeAppearance,
+		{
+			padding: '0 8px',
+			height: '32px',
+			margin: 0,
+			border: `1px solid ${s.colors.FgFaint}`,
+			borderRadius: '2px',
+			background: 'white',
+			color: s.colors.FgLighter,
+			display: 'inline-block',
+			cursor: 'pointer'
+		}
+	)
+
+	export const label = s.style('label',
+		{position: 'relative'},
+		s.after({
+			content: "'\\f2f2'",
+			font: '14px "Material-Design-Iconic-Font", monospace',
+			color: s.colors.FgLighter,
+			right: '8px',
+			top: '2px',
+			padding: '0 0 2px',
+			position: 'absolute',
+			pointerEvents: 'none',
+			verticalAlign: 'middle'
+		})
+	)
+}

@@ -2,7 +2,8 @@
 import {
 	click,
 	Component,
-	Attrs
+	Attrs,
+	removeNode
 } from 'elt'
 
 import {inkClickDelay} from './ink'
@@ -69,14 +70,15 @@ export namespace CSS {
 	export const subheader = s.style('subheader', {paddingLeft: '16px'})
 	export const footer = s.style('footer', {textAlign: 'center', paddingBottom: '16px'})
 
-	export const leave = s.style('leave',
-		s.child(overlay, { animation: `${animations.fadeOut} 0.2s ease-out` }),
-		s.child(drawer, { animation: `${animations.slideToLeft} 0.2s ease-out` })
-	)
 
 	export const enter = s.style('enter',
-		s.child(overlay, { animation: `${animations.fadeIn} 0.2s ease-in` }),
-		s.child(drawer, { animation: `${animations.slideFromLeft} 0.2s ease-in` })
+	s.child('.' + overlay, { animation: `${animations.fadeIn} 0.2s ease-in` }),
+	s.child('.' + drawer, { animation: `${animations.slideFromLeft} 0.2s ease-in` })
+	)
+
+	export const leave = s.style('leave',
+		s.child('.' + overlay, { animation: `${animations.fadeOut} 0.2s ease-out` }),
+		s.child('.' + drawer, { animation: `${animations.slideToLeft} 0.2s ease-out` })
 	)
 
 }
@@ -91,8 +93,9 @@ export class Nav extends Component {
 	node: HTMLElement
 
 	detach() {
+		this.node.classList.remove(CSS.enter)
 		animateClass(this.node, CSS.leave).then(() => {
-			this.node.remove()
+			removeNode(this.node)
 		}).catch(e => {
 			console.error(e)
 		})
