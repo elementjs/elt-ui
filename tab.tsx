@@ -22,7 +22,7 @@ import * as s from './styling'
 export namespace CSS {
 
 	export const bar = s.style('bar', {
-		backgroundColor: `var(--em-color-background)`,
+		backgroundColor: s.colors.Bg,
 		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
 		height: '48px'
 	})
@@ -43,8 +43,9 @@ export namespace CSS {
 		minWidth: '160px',
 		cursor: 'pointer',
 		transition: `border-bottom-color linear 0.2s`,
+		position: 'relative',
 
-		$nest: {[`&.${active}`]: {borderBottom: `2px solid var(--em-color-primary)`}}
+		$nest: {[`&.${active}`]: {borderBottom: `2px solid ${s.colors.Primary}`}}
 	})
 
 	export const content = s.style('content', {backgroundColor: s.colors.Bg})
