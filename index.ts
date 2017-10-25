@@ -32,6 +32,8 @@ import {CSS as AnimateCSS} from './animate'
 import {CSS as BaseCSS} from './styling'
 import {CSS as TypoCSS} from './typography'
 
+export {FlexCSS as flex}
+
 export namespace CSS {
   export const flex = FlexCSS
   export const button = ButtonCSS
