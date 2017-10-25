@@ -9,6 +9,9 @@ import * as t from 'csstips'
 
 export namespace CSS {
 
+	export const flex = s.style('flex', {
+		display: ['-webkit-flex', 'flex'] as any
+	})
 	export const wrap = s.style('wrap', t.wrap)
 	export const horizontal = s.style('horizontal', t.horizontal)
 	export const vertical = s.style('vertical', t.vertical)
@@ -18,6 +21,9 @@ export namespace CSS {
 	export const start = s.style('start', t.startJustified)
 	export const end = s.style('end', t.endJustified)
 
+	export const alignSelfCenter = s.style('align-self-center', {
+		alignSelf: 'center'
+	})
 
 }
 
