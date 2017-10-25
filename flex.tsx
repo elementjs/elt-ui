@@ -1,8 +1,6 @@
 
-import {Attrs} from 'elt'
 
 import * as s from './styling'
-
 
 export namespace CSS {
 
@@ -58,15 +56,6 @@ export namespace CSS {
 	export const selfAlignCenter = s.style('self-align-center', {alignSelf: 'center'})
 	export const selfAlignBaseline = s.style('self-align-baseline', {alignSelf: 'baseline'})
 	export const selfAlignStretch = s.style('self-align-stretch', {alignSelf: 'stretch'})
-
-
 }
 
-
-export function Row(at: Attrs, ch: DocumentFragment): Element {
-	return <div class={CSS.row}>{ch}</div>
-}
-
-export function Column(at: Attrs, ch: DocumentFragment): Element {
-	return <div class={CSS.column}>{ch}</div>
-}
+export default CSS

@@ -1,7 +1,7 @@
 
 import {Attrs} from 'elt'
 
-import {CSS as flex} from './flex'
+import flex from './flex'
 
 import * as s from './styling'
 

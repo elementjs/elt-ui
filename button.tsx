@@ -10,7 +10,7 @@ import {
 } from 'elt'
 
 import {Icon} from './icon'
-import {Row} from './flex'
+import flex from './flex'
 
 import {inker} from './ink'
 
@@ -36,7 +36,7 @@ export class ButtonBar extends Component {
   }
 
   render(children: DocumentFragment): Element {
-    return <Row class={CSS.buttonBar}>{children}</Row>
+    return <div class={[CSS.buttonBar, flex.row]}>{children}</div>
   }
 }
 

@@ -9,7 +9,7 @@ import {
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
-import {CSS as flex} from './flex'
+import flex from './flex'
 
 
 import {animateClass, CSS as AnimCSS} from './animate'

@@ -12,10 +12,9 @@ import {
   removed,
 } from 'elt';
 
-import {Column} from './flex'
+import flex from './flex'
 import {animateClass, CSS as AnimateCSS} from './animate'
 import {Button} from './button';
-import {CSS as flex} from './flex'
 
 import * as s from './styling'
 
@@ -134,7 +133,7 @@ export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment
 }
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
-  return <Column class={CSS.root}>{children}</Column>
+  return <div class={[CSS.root, flex.column]}>{children}</div>
 }
 
 export interface DialogOptions {

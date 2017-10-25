@@ -1,6 +1,6 @@
 
 import {Attrs} from 'elt'
-import {Column} from './flex'
+import flex from './flex'
 
 
 import * as s from './styling'
@@ -25,5 +25,5 @@ export namespace CSS {
 
 export function Card(a: Attrs, children: DocumentFragment): Element {
 	var {$$children, class: kls, ...attrs} = a
-	return <Column class={CSS.frame} {...attrs}>{children}</Column>
+	return <div class={[CSS.frame, flex.column]} {...attrs}>{children}</div>
 }

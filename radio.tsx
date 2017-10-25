@@ -8,7 +8,7 @@ import {
   Component
 } from 'elt'
 
-import {CSS as flex} from './flex'
+import flex from './flex'
 
 import {Icon} from './icon'
 

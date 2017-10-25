@@ -1,7 +1,7 @@
 
 import {Insertable} from 'elt'
 import {animate, CSS as AnimCSS} from './animate'
-import {CSS as flex} from './flex'
+import flex from './flex'
 
 import * as s from './styling'
 
