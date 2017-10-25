@@ -33,7 +33,7 @@ export namespace CSS {
 
 export function Toolbar(attrs: Attrs, children: DocumentFragment): Element {
 
-  return <div class={[CSS.toolbar, flex.row, flex.alignItemsCenter]}>
+  return <div class={[CSS.toolbar, flex.row, flex.alignCenter]}>
       {children}
     </div>;
 

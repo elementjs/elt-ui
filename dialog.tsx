@@ -117,7 +117,7 @@ export class DialogCtrl<T> extends Mixin {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[CSS.overlay, flex.column, flex.alignItemsCenter, flex.justifyCenter]}>{children}</div>
+  return <div class={[CSS.overlay, flex.column, flex.alignCenter, flex.justifyCenter]}>{children}</div>
 }
 
 export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={CSS.title}>{children}</h3> }

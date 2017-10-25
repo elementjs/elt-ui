@@ -143,7 +143,7 @@ export interface NavItemAttributes extends Attrs {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
-	let res = <div class={[CSS.item, flex.row, flex.alignItemsCenter]} $$={[inkClickDelay(function (e) {
+	let res = <div class={[CSS.item, flex.row, flex.alignCenter]} $$={[inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			// XXX should we log an error here if c was null ?

@@ -53,7 +53,7 @@ export class Radio<T> extends Component {
     };
 
     return <label class={CSS.label} $$={[inkable(), click(e => this.setValue())]}>
-        <div class={[flex.row, flex.alignItemsCenter]}>
+        <div class={[flex.row, flex.alignCenter]}>
           <Icon
             class={[CSS.icon, classes]}
             name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
