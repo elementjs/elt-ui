@@ -3,7 +3,7 @@ import {Attrs} from 'elt'
 
 import flex from './flex'
 
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
 

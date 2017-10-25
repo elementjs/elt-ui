@@ -13,7 +13,7 @@ import flex from './flex'
 
 
 import {animateClass, CSS as AnimCSS} from './animate'
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
 

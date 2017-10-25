@@ -16,7 +16,7 @@ import flex from './flex'
 import {animateClass, CSS as AnimateCSS} from './animate'
 import {Button} from './button';
 
-import * as s from './styling'
+import s from './styling'
 
 /**
  * Our CSS Declarations.

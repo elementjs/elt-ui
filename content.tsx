@@ -1,6 +1,6 @@
 import {Attrs} from 'elt'
 
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
   export const content = s.style('content', {

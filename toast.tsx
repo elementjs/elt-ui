@@ -3,7 +3,7 @@ import {Insertable} from 'elt'
 import {animate, CSS as AnimCSS} from './animate'
 import flex from './flex'
 
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
 	export const holder = s.style('toast-holder',

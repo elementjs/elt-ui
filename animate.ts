@@ -61,7 +61,7 @@ export function animateClass(node: HTMLElement, cls: string) {
 }
 
 
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
 

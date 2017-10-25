@@ -15,7 +15,7 @@ import flex from './flex'
 import {inker} from './ink'
 
 
-import * as s from './styling'
+import s from './styling'
 
 
 export interface ButtonBarAttrs extends Attrs {

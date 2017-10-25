@@ -92,7 +92,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
 }
 
 
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
 

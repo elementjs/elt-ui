@@ -99,7 +99,7 @@ export class Select<T> extends Component {
 
 }
 
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
 	export const select = s.style('select',

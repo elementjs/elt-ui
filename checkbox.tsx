@@ -13,7 +13,7 @@ import {Icon} from './icon'
 
 import {inkable} from './ink'
 
-import * as s from './styling'
+import s from './styling'
 
 export namespace CSS {
   export const on = s.style('on')

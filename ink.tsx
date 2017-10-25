@@ -1,7 +1,7 @@
 
 import {click, Mixin} from 'elt'
 
-import * as s from './styling'
+import s from './styling'
 
 
 export function inker(node: Node, event: MouseEvent) {
