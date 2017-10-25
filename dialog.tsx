@@ -13,9 +13,9 @@ import {
 } from 'elt';
 
 import {Column} from './flex'
-import {animateClass, animations} from './animate'
+import {animateClass, CSS as AnimateCSS} from './animate'
 import {Button} from './button';
-import {Row} from './flex'
+import {CSS as flex} from './flex'
 
 import * as s from './styling'
 
@@ -50,18 +50,18 @@ export namespace CSS {
 
     $nest: {
       [`&.${enter}`]: {
-        animation: `${animations.fadeIn} 0.2s both ease-in`,
+        animation: `${AnimateCSS.fadeIn} 0.2s both ease-in`,
         $nest: {
           [`& .${root}`]: {
-            animation: `${animations.topEnter} 0.2s both ease-in`
+            animation: `${AnimateCSS.topEnter} 0.2s both ease-in`
           }
         }
       },
       [`&.${leave}`]: {
-        animation: `${animations.fadeOut} 0.2s both ease-out`,
+        animation: `${AnimateCSS.fadeOut} 0.2s both ease-out`,
         $nest: {
           [`& .${root}`]: {
-            animation: `${animations.topLeave} 0.2s both ease-out`
+            animation: `${AnimateCSS.topLeave} 0.2s both ease-out`
           }
         }
       }
@@ -117,7 +117,7 @@ export class DialogCtrl<T> extends Mixin {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <Column align='center' justify='center' class={CSS.overlay}>{children}</Column>
+  return <div class={[CSS.overlay, flex.column, flex.alignItemsCenter, flex.justifyCenter]}>{children}</div>
 }
 
 export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={CSS.title}>{children}</h3> }
@@ -130,7 +130,7 @@ export interface ButtonbarAttributes extends Attrs {
 // FIXME this node should watch the width of its children to be able
 // to switch to the vertical presentation for dialog buttons.
 export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment): Element {
-  return <Row justify='end'>{children}</Row>
+  return <div class={[flex.row, flex.justifyEnd]}>{children}</div>
 }
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {

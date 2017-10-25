@@ -1,44 +1,4 @@
 
-import * as s from './styling'
-
-export const animations = {
-
-	fadeIn: s.keyframes('fade-in', {
-		'0%': {opacity: 0},
-		'100%': {opacity: 1}
-	}),
-
-	fadeOut: s.keyframes('fade-out', {
-		'100%': {opacity: 0}
-	}),
-
-	slideFromLeft: s.keyframes('slide-from-left', {
-		'0%': {transform: `translateX(-100%) translateZ(0)`},
-		'100%': {transform: `translateX(0) translateZ(0)`}
-	}),
-
-	slideToLeft: s.keyframes('slide-to-left', {
-		'0%': {transform: `translateX(0) translateZ(0)`},
-		'100%': {transform: `translateX(-100%) translateZ(0)`}
-	}),
-
-	topEnter: s.keyframes('top-enter', {
-		'0%': {transform: `translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)`},
-		'100%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`}
-	}),
-
-	topLeave: s.keyframes('top-leave', {
-		'0%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`},
-		'100%': {transform: `translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)`}
-	})
-
-}
-
-
-export function transition() {
-
-}
-
 
 const END_EVENTS = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend']
 const START_EVENTS = ['webkitAnimationStart', 'mozAnimationStart', 'MSAnimationStart', 'oanimationstart', 'animationstart']
@@ -99,3 +59,40 @@ export function animateClass(node: HTMLElement, cls: string) {
 
 	})
 }
+
+
+import * as s from './styling'
+
+export namespace CSS {
+
+	export const fadeIn = s.keyframes('fade-in', {
+		'0%': {opacity: 0},
+		'100%': {opacity: 1}
+	})
+
+	export const fadeOut = s.keyframes('fade-out', {
+		'100%': {opacity: 0}
+	})
+
+	export const slideFromLeft = s.keyframes('slide-from-left', {
+		'0%': {transform: `translateX(-100%) translateZ(0)`},
+		'100%': {transform: `translateX(0) translateZ(0)`}
+	})
+
+	export const slideToLeft = s.keyframes('slide-to-left', {
+		'0%': {transform: `translateX(0) translateZ(0)`},
+		'100%': {transform: `translateX(-100%) translateZ(0)`}
+	})
+
+	export const topEnter = s.keyframes('top-enter', {
+		'0%': {transform: `translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)`},
+		'100%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`}
+	})
+
+	export const topLeave = s.keyframes('top-leave', {
+		'0%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`},
+		'100%': {transform: `translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)`}
+	})
+
+}
+

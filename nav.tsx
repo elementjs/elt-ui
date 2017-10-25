@@ -9,10 +9,10 @@ import {
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
-import {Column, Row} from './flex'
+import {CSS as flex} from './flex'
 
 
-import {animateClass, animations} from './animate'
+import {animateClass, CSS as AnimCSS} from './animate'
 import * as s from './styling'
 
 export namespace CSS {
@@ -72,13 +72,13 @@ export namespace CSS {
 
 
 	export const enter = s.style('enter',
-	s.child('.' + overlay, { animation: `${animations.fadeIn} 0.2s ease-in` }),
-	s.child('.' + drawer, { animation: `${animations.slideFromLeft} 0.2s ease-in` })
+	s.child('.' + overlay, { animation: `${AnimCSS.fadeIn} 0.2s ease-in` }),
+	s.child('.' + drawer, { animation: `${AnimCSS.slideFromLeft} 0.2s ease-in` })
 	)
 
 	export const leave = s.style('leave',
-		s.child('.' + overlay, { animation: `${animations.fadeOut} 0.2s ease-out` }),
-		s.child('.' + drawer, { animation: `${animations.slideToLeft} 0.2s ease-out` })
+		s.child('.' + overlay, { animation: `${AnimCSS.fadeOut} 0.2s ease-out` }),
+		s.child('.' + drawer, { animation: `${AnimCSS.slideToLeft} 0.2s ease-out` })
 	)
 
 }
@@ -117,9 +117,9 @@ export class Nav extends Component {
 				if (e.target === overlay)
 					this.detach()
 			})]}/>
-			<Column class={CSS.drawer}>
+			<div class={[CSS.drawer, flex.column]}>
 				{ch}
-			</Column>
+			</div>
 		</div>
 	}
 
@@ -143,7 +143,7 @@ export interface NavItemAttributes extends Attrs {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
-	let res = <Row class={CSS.item} align='center' $$={[inkClickDelay(function (e) {
+	let res = <div class={[CSS.item, flex.row, flex.alignItemsCenter]} $$={[inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			// XXX should we log an error here if c was null ?
@@ -152,13 +152,13 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 	})]}>
 		<Icon class={CSS.itemIcon} name={a.icon}/>
 		{ch}
-	</Row>
+	</div>
 
 	return res
 }
 
 export function NavBody(a: Attrs, ch: DocumentFragment): Element {
-	return <Column absoluteGrow='1'>{ch}</Column>
+	return <div class={[flex.column, flex.absoluteGrow]}>{ch}</div>
 }
 
 export function NavFooter(a: Attrs, ch: DocumentFragment): Element {

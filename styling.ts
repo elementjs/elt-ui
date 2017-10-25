@@ -16,6 +16,10 @@ declare module 'typestyle/lib/types' {
   }
 }
 
+export namespace CSS {
+  export const displayNone = style('display-none', {display: 'none'})
+}
+
 export type Props = types.NestedCSSProperties
 
 export const FontNormal = {fontSize: '14px'} as Props

@@ -11,11 +11,7 @@ import {
 
 import {inkable} from './ink'
 
-import {
-	Row,
-	Column,
-	FlexAttributes
-} from './flex'
+import {CSS as flex} from './flex'
 
 import * as s from './styling'
 
@@ -54,17 +50,15 @@ export namespace CSS {
 
 export class TabContainer extends Component {
 
-	attrs: FlexAttributes
 	o_content: Observable<Node|null> = o(null)
 	o_active_tab: Observable<Tab|null> = o(null)
 	o_titles: Observable<Node[]> = o([])
 
 	render(children: DocumentFragment): Element {
-		var {$$children, ...attrs} = this.attrs
-		return <Column {...attrs}>
-			<Row justify='center' class={CSS.bar}>{Repeat(this.o_titles, o_t => o_t.get())}</Row>
+		return <div class={flex.column}>
+			<div class={[CSS.bar, flex.row, flex.justifyCenter]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
-		</Column>
+		</div>
 
 	}
 
@@ -123,12 +117,15 @@ export class Tab extends Component {
 
 	render(children: DocumentFragment): Element {
 
-		return <Column
-			absoluteGrow='1'
-			class={CSS.content}
-			style={ {display: this.o_is_active.tf(act => act ? 'flex' : 'none')} }>
+		return <div
+			class={[
+				CSS.content,
+				this.o_is_active.tf(act => act ? flex.column : s.CSS.displayNone),
+				flex.absoluteGrow
+			]}
+		>
 			{children}
-		</Column>
+		</div>
 
 	}
 }

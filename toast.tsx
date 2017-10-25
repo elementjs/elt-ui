@@ -1,7 +1,7 @@
 
 import {Insertable} from 'elt'
-import {animate, animations} from './animate'
-import {Row} from './flex'
+import {animate, CSS as AnimCSS} from './animate'
+import {CSS as flex} from './flex'
 
 import * as s from './styling'
 
@@ -41,11 +41,11 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <Row justify='center' class={CSS.holder}/>
+		this._holder = <div class={[CSS.holder, flex.row, flex.justifyCenter]}/>
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, `${animations.fadeOut} 0.2s ease-out both`).then(node =>
+		animate(node, `${AnimCSS.fadeOut} 0.2s ease-out both`).then(node =>
 			node.remove()
 		)
 	}
@@ -67,7 +67,7 @@ export class Toaster {
 		let toast = (msg instanceof Node ? msg
 			: <div class={CSS.toast}>{msg}</div>) as HTMLElement
 
-		animate(toast, `${animations.fadeIn} 0.2s ease-in both`)
+		animate(toast, `${AnimCSS.fadeIn} 0.2s ease-in both`)
 		this._holder.appendChild(toast)
 
 		this._cancel = setTimeout(() => this.kill(toast), 3000)

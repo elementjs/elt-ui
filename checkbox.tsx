@@ -8,7 +8,7 @@ import {
   Component
 } from 'elt'
 
-import {Row} from './flex'
+import {CSS as flex} from './flex'
 import {Icon} from './icon'
 
 import {inkable} from './ink'
@@ -88,10 +88,10 @@ export class Checkbox extends Component {
     }
 
     return <label class={CSS.label} $$={[inkable(), click(e => this.toggle())]}>
-        <Row align='center'>
+        <div class={[flex.row, flex.alignItemsCenter]}>
           <Icon class={[CSS.icon, classes]} name={this.o_model.tf(getIcon)}/>
           <span class={[CSS.content, classes]}>{children}</span>
-        </Row>
+        </div>
       </label>;
 
   }

@@ -1,7 +1,7 @@
 
 import {Attrs} from 'elt'
 
-import {Row} from './flex'
+import {CSS as flex} from './flex'
 
 import * as s from './styling'
 
@@ -33,8 +33,8 @@ export namespace CSS {
 
 export function Toolbar(attrs: Attrs, children: DocumentFragment): Element {
 
-  return <Row class={CSS.toolbar} align='center'>
+  return <div class={[CSS.toolbar, flex.row, flex.alignItemsCenter]}>
       {children}
-    </Row>;
+    </div>;
 
 }

@@ -8,7 +8,7 @@ import {
   Component
 } from 'elt'
 
-import {Row} from './flex'
+import {CSS as flex} from './flex'
 
 import {Icon} from './icon'
 
@@ -53,13 +53,13 @@ export class Radio<T> extends Component {
     };
 
     return <label class={CSS.label} $$={[inkable(), click(e => this.setValue())]}>
-        <Row align='center'>
+        <div class={[flex.row, flex.alignItemsCenter]}>
           <Icon
             class={[CSS.icon, classes]}
             name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
           />
           <span class={[CSS.content, classes]}>{children}</span>
-        </Row>
+        </div>
       </label>;
 
   }
