@@ -78,7 +78,6 @@ export function animateClass(node: HTMLElement, cls: string) {
 		}
 
 		let fnstart = function () {
-			console.log(arguments)
 			anim_start_count += 1
 		}
 
