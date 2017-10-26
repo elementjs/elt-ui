@@ -17,6 +17,7 @@ export {Card} from './card'
 export {Nav, NavHeader, NavSubheader, NavDivider, NavItem, NavBody, NavFooter} from './nav'
 export {animate} from './animate'
 export {inkable, inkClickDelay} from './ink'
+export {Row, Column} from './flex'
 
 import {CSS as FlexCSS} from './flex'
 import {CSS as ButtonCSS} from './button'
