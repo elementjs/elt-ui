@@ -63,7 +63,7 @@ export function Row(attrs: Attrs, ch: DocumentFragment) {
 }
 
 export function Column(attrs: Attrs, ch: DocumentFragment) {
-	return <div class={CSS.row}>{ch}</div>
+	return <div class={CSS.column}>{ch}</div>
 }
 
 export default CSS

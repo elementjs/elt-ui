@@ -20,6 +20,8 @@ export type Props = types.NestedCSSProperties
 
 export namespace CSS {
 
+  export const fullWidth = style('full-width', {width: '100%'})
+  export const fullHeight = style('full-height', {height: '100%'})
   export const displayNone = style('display-none', {display: 'none'})
   export const FontNormal = {fontSize: '14px'} as Props
   export const FontBigger = {fontSize: '18px'} as Props
