@@ -94,6 +94,10 @@ export namespace CSS {
     return nest('& > ' + spec, ...props)
   }
 
+  export function descendant(spec: string, ...props: Props[]): Props {
+    return nest('& ' + spec, ...props)
+  }
+
 
   export function and(cls: string, ...props: Props[]): Props {
     const res = {$nest: {[`&.${cls}`]: _merge(props)}} as Props

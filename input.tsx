@@ -50,7 +50,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
     spellcheck: attrs.spellcheck,
     autocorrect: attrs.autocorrect,
     autocomplete: attrs.autocomplete,
-    tabindex: attrs.tabindex || -1
+    tabindex: attrs.tabindex
   }
 
   const o_focused: Observable<boolean> = o(false)

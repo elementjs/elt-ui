@@ -17,10 +17,24 @@ export namespace CSS {
 		flexGrow: 1,
 		flexBasis: 0
 	})
-
-	export const grow = s.style('grow', {
-		flexGrow: 1
+	export const absoluteGrow2 = s.style('absolute-grow2', {
+		flexGrow: 2,
+		flexBasis: 0
 	})
+	export const absoluteGrow3 = s.style('absolute-grow3', {
+		flexGrow: 3,
+		flexBasis: 0
+	})
+	export const absoluteGrow4 = s.style('absolute-grow4', {
+		flexGrow: 4,
+		flexBasis: 0
+	})
+
+	export const grow = s.style('grow', {flexGrow: 1})
+	export const grow2 = s.style('grow', {flexGrow: 2})
+	export const grow3 = s.style('grow', {flexGrow: 3})
+	export const grow4 = s.style('grow', {flexGrow: 4})
+	export const basis0 = s.style('basis', {flexBasis: 0})
 
 	export const row = s.style('flex-row', {flexDirection: 'row', display: 'flex'})
 	export const rowReverse = s.style('flex-row-reverse', {flexDirection: 'row-reverse', display: 'flex'})
@@ -30,6 +44,12 @@ export namespace CSS {
 	export const wrap = s.style('wrap', {flexWrap: 'wrap'})
 	export const wrapReverse = s.style('wrap-reverse', {flexWrap: 'wrap-reverse'})
 	export const wrapUnset = s.style('wrap-unset', {flexWrap: 'unset'})
+
+	export const center = s.style('flex-center', {
+		justifyContent: 'center',
+		alignItems: 'center',
+		alignContent: 'center'
+	})
 
 	export const justifyAround = s.style('justify-around', {justifyContent: 'space-around'})
 	export const justifyBetween = s.style('justify-between', {justifyContent: 'space-between'})
