@@ -24,6 +24,7 @@ export interface SelectAttributes<T> extends Attrs {
 	options: MaybeObservable<T[]>
 	labelfn?: LabelFn<T>
 	onchange?: ChangeFn<T>
+	placeholder?: MaybeObservable<string>
 }
 
 export class Select<T> extends Component {
@@ -106,12 +107,12 @@ export namespace CSS {
 		s.values.NoSpuriousBorders,
 		s.values.NoNativeAppearance,
 		{
-			padding: '0 8px',
+			padding: '0 16px 0 8px',
 			height: '32px',
 			margin: 0,
 			border: `1px solid ${s.colors.FgFaint}`,
 			borderRadius: '2px',
-			background: 'white',
+			background: s.colors.Bg,
 			color: s.colors.FgLighter,
 			display: 'inline-block',
 			cursor: 'pointer'
@@ -125,7 +126,7 @@ export namespace CSS {
 			font: '14px "Material-Design-Iconic-Font", monospace',
 			color: s.colors.FgLighter,
 			right: '8px',
-			top: '2px',
+			top: '9px',
 			padding: '0 0 2px',
 			position: 'absolute',
 			pointerEvents: 'none',

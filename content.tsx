@@ -4,7 +4,8 @@ import s from './styling'
 
 export namespace CSS {
   export const content = s.style('content', {
-    padding: '16px'
+    padding: '16px',
+    background: s.colors.Bg
   })
 }
 

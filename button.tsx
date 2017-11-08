@@ -145,7 +145,7 @@ export namespace CSS {
     export const raised = s.style('raised',
       s.values.BoxShadow,
       {
-        color: s.colors.Contrast,
+        color: s.colors.Bg,
         backgroundColor: s.colors.Primary
       }
     )

@@ -13,76 +13,6 @@ import flex from './flex'
 
 
 import {animateClass, CSS as AnimCSS} from './animate'
-import s from './styling'
-
-export namespace CSS {
-
-	export const overlay = s.style('overlay', {
-		position: 'fixed',
-		top: 0,
-		left: 0,
-		height: '100vh',
-		width: '100vw',
-		backgroundColor: `rgba(0, 0, 0, 0.24)`,
-		transform: `translateZ(0)`
-	})
-
-	export const drawer = s.style('drawer',
-		{
-			position: 'fixed',
-			fontSize: '14px',
-			transform: `translateZ(0)`,
-			top: 0,
-			left: 0,
-			height: '100vh',
-			width: '250px',
-			boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
-			backgroundColor: s.colors.Bg
-		})
-
-	export const item = s.style('item', {
-		position: 'relative',
-		height: '48px',
-		fontWeight: 'bold'
-	})
-
-	export const itemIcon = s.style('item-icon', {
-		paddingLeft: '16px',
-		width: '72px',
-		color: `rgba(0, 0, 0, 0.65)`,
-
-		$nest: {'&:before': {fontSize: '24px'}}
-	})
-
-	export const divider = s.style('divider', {
-		position: 'relative',
-		width: '100%',
-		borderBottom: `1px solid ${s.colors.FgFaintest}`,
-		marginTop: '4px',
-		marginBottom: '3px'
-	})
-
-	export const header = s.style('header', {
-		paddingTop: '16px',
-		paddingLeft: '16px'
-	})
-
-	export const subheader = s.style('subheader', {paddingLeft: '16px'})
-	export const footer = s.style('footer', {textAlign: 'center', paddingBottom: '16px'})
-
-
-	export const enter = s.style('enter',
-	s.child('.' + overlay, { animation: `${AnimCSS.fadeIn} 0.2s ease-in` }),
-	s.child('.' + drawer, { animation: `${AnimCSS.slideFromLeft} 0.2s ease-in` })
-	)
-
-	export const leave = s.style('leave',
-		s.child('.' + overlay, { animation: `${AnimCSS.fadeOut} 0.2s ease-out` }),
-		s.child('.' + drawer, { animation: `${AnimCSS.slideToLeft} 0.2s ease-out` })
-	)
-
-}
-
 
 export interface NavAttributes extends Attrs {
 
@@ -164,3 +94,75 @@ export function NavBody(a: Attrs, ch: DocumentFragment): Element {
 export function NavFooter(a: Attrs, ch: DocumentFragment): Element {
 	return <div class={CSS.footer}>{ch}</div>
 }
+
+
+import s from './styling'
+
+export namespace CSS {
+
+	export const overlay = s.style('overlay', {
+		position: 'fixed',
+		top: 0,
+		left: 0,
+		height: '100vh',
+		width: '100vw',
+		backgroundColor: `rgba(0, 0, 0, 0.24)`,
+		transform: `translateZ(0)`
+	})
+
+	export const drawer = s.style('drawer',
+		{
+			position: 'fixed',
+			fontSize: '14px',
+			transform: `translateZ(0)`,
+			top: 0,
+			left: 0,
+			height: '100vh',
+			width: '250px',
+			boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
+			backgroundColor: s.colors.Bg
+		})
+
+	export const item = s.style('item', {
+		position: 'relative',
+		height: '48px',
+		fontWeight: 'bold'
+	})
+
+	export const itemIcon = s.style('item-icon', {
+		paddingLeft: '16px',
+		width: '72px',
+		color: `rgba(0, 0, 0, 0.65)`,
+
+		$nest: {'&:before': {fontSize: '24px'}}
+	})
+
+	export const divider = s.style('divider', {
+		position: 'relative',
+		width: '100%',
+		borderBottom: `1px solid ${s.colors.FgFaintest}`,
+		marginTop: '4px',
+		marginBottom: '3px'
+	})
+
+	export const header = s.style('header', {
+		paddingTop: '16px',
+		paddingLeft: '16px'
+	})
+
+	export const subheader = s.style('subheader', {paddingLeft: '16px'})
+	export const footer = s.style('footer', {textAlign: 'center', paddingBottom: '16px'})
+
+
+	export const enter = s.style('enter',
+	s.child('.' + overlay, { animation: `${AnimCSS.fadeIn} 0.2s ease-in` }),
+	s.child('.' + drawer, { animation: `${AnimCSS.slideFromLeft} 0.2s ease-in` })
+	)
+
+	export const leave = s.style('leave',
+		s.child('.' + overlay, { animation: `${AnimCSS.fadeOut} 0.2s ease-out` }),
+		s.child('.' + drawer, { animation: `${AnimCSS.slideToLeft} 0.2s ease-out` })
+	)
+
+}
+

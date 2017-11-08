@@ -9,7 +9,6 @@ export namespace CSS {
 
   cssRule('html', {
     '--em-color-primary': '63, 81, 181',
-    '--em-color-contrast': '255, 255, 255',
     '--em-color-fg': `0, 0, 0`,
     '--em-color-bg': `255, 255, 255`
   })
