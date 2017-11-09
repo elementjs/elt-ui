@@ -143,7 +143,7 @@ export namespace CSS {
     }))
 
     export const raised = s.style('raised',
-      s.values.BoxShadow,
+      s.raised,
       {
         color: s.colors.Bg,
         backgroundColor: s.colors.Primary
@@ -156,7 +156,7 @@ export namespace CSS {
     })
 
     export const disabled = s.style('disabled', {
-      color: s.colors.FgVeryLight,
+      color: s.colors.Fg4,
       boxShadow: 'none'
     })
 

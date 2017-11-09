@@ -7,7 +7,7 @@ import s from './styling'
 
 export namespace CSS {
 	export const frame = s.style('card-frame',
-		s.values.BoxShadow,
+		s.raised,
 		{
 			borderRadius: '2px',
 			backgroundColor: s.colors.Bg,

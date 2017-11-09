@@ -140,7 +140,7 @@ export namespace CSS {
 	export const divider = s.style('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid ${s.colors.FgFaintest}`,
+		borderBottom: `1px solid ${s.colors.Fg6}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})

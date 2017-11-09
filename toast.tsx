@@ -17,7 +17,7 @@ export namespace CSS {
 	export const toast = s.style('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
-		background: s.colors.FgLight,
+		background: s.colors.Fg2,
 		borderRadius: '2px 2px 0 0',
 		color: s.colors.Bg,
 		cursor: 'pointer'

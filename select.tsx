@@ -110,10 +110,10 @@ export namespace CSS {
 			padding: '0 16px 0 8px',
 			height: '32px',
 			margin: 0,
-			border: `1px solid ${s.colors.FgFaint}`,
+			border: `1px solid ${s.colors.Fg5}`,
 			borderRadius: '2px',
 			background: s.colors.Bg,
-			color: s.colors.FgLighter,
+			color: s.colors.Fg3,
 			display: 'inline-block',
 			cursor: 'pointer'
 		}
@@ -123,8 +123,8 @@ export namespace CSS {
 		{position: 'relative'},
 		s.after({
 			content: "'\\f2f2'",
-			font: '14px "Material-Design-Iconic-Font", monospace',
-			color: s.colors.FgLighter,
+			fontFamily: '"Material-Design-Iconic-Font", monospace',
+			color: s.colors.Fg3,
 			right: '8px',
 			top: '9px',
 			padding: '0 0 2px',

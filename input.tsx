@@ -107,7 +107,7 @@ export namespace CSS {
 
     fontSize: '12px',
     pointerEvents: 'none',
-    color: s.colors.FgFaint,
+    color: s.colors.Fg6,
     transformOrigin: 'top left',
     transform: 'translateZ(0)',
     transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
@@ -126,7 +126,7 @@ export namespace CSS {
       paddingRight: '4px',
       paddingLeft: '4px',
       paddingBottom: '4px',
-      borderBottom: `1px solid ${s.colors.FgFaintest}`,
+      borderBottom: `1px solid ${s.colors.Fg6}`,
       width: '100%',
       transition: `border-bottom-color linear 0.3s`,
     },

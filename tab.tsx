@@ -31,7 +31,7 @@ export namespace CSS {
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		fontWeight: 'bold',
-		borderBottom: `1px solid ${s.colors.FgFaint}`,
+		borderBottom: `1px solid ${s.colors.Fg}`,
 		height: '48px',
 		lineHeight: '48px',
 		fontSize: '14px',
