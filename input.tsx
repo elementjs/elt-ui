@@ -122,7 +122,6 @@ export namespace CSS {
       height: '32px',
       border: 'none',
       top: '24px',
-      // padding-bottom: 1px
       paddingRight: '4px',
       paddingLeft: '4px',
       paddingBottom: '4px',
@@ -140,7 +139,7 @@ export namespace CSS {
 
   export const inputError = s.style('input-error', {
     position: 'absolute',
-    color: `var(--em-color-warn)`,
+    color: s.colors.Accent,
     fontSize: '10px',
     top: '48px'
   })
@@ -151,8 +150,8 @@ export namespace CSS {
     height: '64px',
 
     $nest: {
-      [`&.${error} > .${label}`]: {color: `var(--em-color-warn)`},
-      [`$.${error} > .${inputElement}`]: {borderBottomColor: `var(--em-color-warn)`},
+      [`&.${error} > .${label}`]: {color: s.colors.Accent},
+      [`$.${error} > .${inputElement}`]: {borderBottomColor: s.colors.Accent},
       [`&.${focused} > .${label}`]: {color: s.colors.Primary},
       [`&.${emptyUnfocused} > .${label}`]: {
         fontSize: `14px`,
