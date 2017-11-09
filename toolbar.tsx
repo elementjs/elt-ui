@@ -11,11 +11,12 @@ export namespace CSS {
       padding: `0 16px 0 0`,
       height: '64px',
     },
-    s.child('*', {
-      marginLeft: '16px',
-    }),
-    s.child('h3', {fontSize: '24px'}),
     s.colors.ReversePrimary
+  )
+
+  export const toolbarMain = s.style('toolbar-main',
+    s.child('h3', {fontSize: '24px'}),
+    s.child('*', {marginLeft: '16px'})
   )
 
 }
@@ -24,7 +25,7 @@ export namespace CSS {
 export function Toolbar(attrs: Attrs, children: DocumentFragment): Element {
 
   return <div class={[CSS.toolbar, flex.row, flex.alignCenter]}>
-      {children}
+      <div class={[CSS.toolbarMain, flex.row, flex.alignCenter, flex.absoluteGrow]}>{children}</div>
     </div>;
 
 }

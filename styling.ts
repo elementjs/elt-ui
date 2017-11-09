@@ -76,6 +76,25 @@ export namespace CSS {
     } as Props
   }
 
+
+  export namespace text {
+    export const bold = style('bold', {fontWeight: 'bold'})
+
+    export const small = style('small', {fontSize: '14px'})
+    export const smaller = style('smaller', {fontSize: '12px'})
+    export const verysmall = style('very-small', {fontSize: '10px'})
+
+    export const centered = style('text-center', {textAlign: 'center'})
+    export const right = style('text-right', {textAlign: 'right'})
+    export const justified = style('text-right', {textAlign: 'justify'})
+  }
+
+
+  export namespace background {
+
+  }
+
+
   export namespace values {
     // Standard Box Shadow
     export const BoxShadow = {
