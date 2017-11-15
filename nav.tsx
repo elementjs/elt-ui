@@ -155,13 +155,13 @@ export namespace CSS {
 
 
 	export const enter = s.style('enter',
-	s.child('.' + overlay, { animation: `${AnimCSS.fadeIn} 0.2s ease-in` }),
-	s.child('.' + drawer, { animation: `${AnimCSS.slideFromLeft} 0.2s ease-in` })
+	s.child('.' + overlay, { animation: `${AnimCSS.fadeIn} 0.2s ease-in forwards` }),
+	s.child('.' + drawer, { animation: `${AnimCSS.slideFromLeft} 0.2s ease-in forwards` })
 	)
 
 	export const leave = s.style('leave',
-		s.child('.' + overlay, { animation: `${AnimCSS.fadeOut} 0.2s ease-out` }),
-		s.child('.' + drawer, { animation: `${AnimCSS.slideToLeft} 0.2s ease-out` })
+		s.child('.' + overlay, { animation: `${AnimCSS.fadeOut} 0.2s ease-out forwards` }),
+		s.child('.' + drawer, { animation: `${AnimCSS.slideToLeft} 0.2s ease-out forwards` })
 	)
 
 }

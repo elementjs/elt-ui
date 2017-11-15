@@ -111,12 +111,17 @@ export namespace CSS {
 			height: '32px',
 			margin: 0,
 			border: `1px solid ${s.colors.Fg5}`,
+			borderColor: s.colors.Fg5,
 			borderRadius: '2px',
 			background: s.colors.Bg,
 			color: s.colors.Fg3,
 			display: 'inline-block',
 			cursor: 'pointer'
-		}
+		},
+		s.nest('&:-moz-focusring', {
+			color: s.colors.Invisible,
+			textShadow: `0 0 0 ${s.colors.Fg3}`
+		})
 	)
 
 	export const label = s.style('label',
