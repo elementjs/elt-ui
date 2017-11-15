@@ -104,8 +104,10 @@ export namespace CSS {
         background: 'none',
         position: 'relative',
         display: 'inline-block',
+        cursor: 'pointer',
         padding: '8px', // this is to allow more space for touch events.
-      }
+      },
+      s.nest('&::-moz-focus-inner', {border: 0})
     )
 
     export const baseButton = s.style('base-button',
