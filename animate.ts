@@ -65,6 +65,11 @@ import s from './styling'
 
 export namespace CSS {
 
+	export const deceleration = `cubic-bezier(0, 0, .2, 1)`
+	export const standard = `cubic-bezier(.4, 0, .2, 1)`
+	export const acceleration = `cubic-bezier(.4, 0, 1, 1)`
+	export const sharp = `cubic-bezier(.4, 0, .6, 1)`
+
 	export const fadeIn = s.keyframes('fade-in', {
 		'0%': {opacity: 0},
 		'100%': {opacity: 1}

@@ -16,80 +16,6 @@ import flex from './flex'
 import {animateClass, CSS as AnimateCSS} from './animate'
 import {Button} from './button';
 
-import s from './styling'
-
-/**
- * Our CSS Declarations.
- */
-export namespace CSS {
-
-  export const stacked = 'em-stacked'
-  export const enter = 'em-enter'
-  export const leave = 'em-leave'
-
-  export const root = s.style('root', {
-    '-webkit-transform-style': 'preserve-3d',
-    '-webkit-backface-visibility': 'hidden',
-    transform: `translateZ(0)`,
-    transformOrigin: `50% 0`,
-    margin: `24px 24px`,
-    backgroundColor: `white`
-  })
-
-  export const overlay = s.style('overlay', {
-    overflow: 'hidden',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100vh',
-    width: '100vw',
-
-    transform: 'translateZ(0)',
-    backgroundColor: `rgba(0, 0, 0, 0.75)`,
-
-    $nest: {
-      [`&.${enter}`]: {
-        animation: `${AnimateCSS.fadeIn} 0.2s both ease-in`,
-        $nest: {
-          [`& .${root}`]: {
-            animation: `${AnimateCSS.topEnter} 0.2s both ease-in`
-          }
-        }
-      },
-      [`&.${leave}`]: {
-        animation: `${AnimateCSS.fadeOut} 0.2s both ease-out`,
-        $nest: {
-          [`& .${root}`]: {
-            animation: `${AnimateCSS.topLeave} 0.2s both ease-out`
-          }
-        }
-      }
-    }
-  })
-
-  export const content = s.style('content', {
-    padding: '0 24px',
-    paddingBottom: '24px',
-    color: 'var(--em-text-color)',
-    $nest: {
-      '&:first-child': {
-        paddingTop: '24px'
-      },
-      '> *:last-child': {
-        marginBottom: 0
-      }
-    }
-  })
-
-  export const title = s.style('title', {
-    margin: 0,
-    padding: 0
-  })
-
-
-}
-
-
 export class DialogCtrl<T> extends Mixin {
   promise: Promise<T>
   _resolve: (v: T) => any
@@ -227,5 +153,79 @@ export function modal(opts: ModalOptions) {
       </Buttonbar>
     </F>
   );
+
+}
+
+
+import s from './styling'
+
+/**
+ * Our CSS Declarations.
+ */
+export namespace CSS {
+
+  export const stacked = s.style('stacked')
+  export const enter = s.style('enter')
+  export const leave = s.style('leave')
+
+  export const root = s.style('root', {
+    '-webkit-transform-style': 'preserve-3d',
+    '-webkit-backface-visibility': 'hidden',
+    transform: `translateZ(0)`,
+    transformOrigin: `50% 0`,
+    margin: `24px 24px`,
+    backgroundColor: `white`
+  })
+
+  export const overlay = s.style('overlay', {
+    overflow: 'hidden',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100vh',
+    width: '100vw',
+
+    transform: 'translateZ(0)',
+    backgroundColor: `rgba(0, 0, 0, 0.75)`,
+
+    $nest: {
+      [`&.${enter}`]: {
+        animation: `${AnimateCSS.fadeIn} 0.2s both ease-in`,
+        $nest: {
+          [`& .${root}`]: {
+            animation: `${AnimateCSS.topEnter} 0.2s both ease-in`
+          }
+        }
+      },
+      [`&.${leave}`]: {
+        animation: `${AnimateCSS.fadeOut} 0.2s both ease-out`,
+        $nest: {
+          [`& .${root}`]: {
+            animation: `${AnimateCSS.topLeave} 0.2s both ease-out`
+          }
+        }
+      }
+    }
+  })
+
+  export const content = s.style('content', {
+    padding: '0 24px',
+    paddingBottom: '24px',
+    color: 'var(--em-text-color)',
+    $nest: {
+      '&:first-child': {
+        paddingTop: '24px'
+      },
+      '> *:last-child': {
+        marginBottom: 0
+      }
+    }
+  })
+
+  export const title = s.style('title', {
+    margin: 0,
+    padding: 0
+  })
+
 
 }
