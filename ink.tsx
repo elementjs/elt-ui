@@ -2,7 +2,7 @@
 import {click, Mixin} from 'elt'
 
 import s from './styling'
-import {CSS as A} from './animate'
+import {CSS as A, animateClass} from './animate'
 
 export const ANIM_DURATION = 300
 
@@ -19,10 +19,20 @@ export function inker(node: Node, event: MouseEvent) {
 
 	node.appendChild(ink_container)
 
+	// Some CSS rules may mess up the container positioning, so we enforce them
+	// here
+	const st = ink_container.style
+	st.marginLeft = '0px'
+	st.paddingLeft = '0px'
+	st.left = '0px'
+	st.top = '0px'
+	st.position = 'absolute'
+	st.width = '100%'
+	st.height = '100%'
+
 	requestAnimationFrame(e => {
 		const bb = ink_container.getBoundingClientRect()
-		console.log(ink_container.parentElement!.getBoundingClientRect())
-		console.log(bb)
+
 		const x = clientX - bb.left
 		const y = clientY - bb.top
 		const mx = bb.width - x
@@ -41,15 +51,17 @@ export function inker(node: Node, event: MouseEvent) {
 
 		const size = `${Math.round(biggest * 2)}px`
 		const halved = `-${Math.round(biggest)}px`
-		inker.style.left = `${x}px`
-		inker.style.top = `${y}px`
-		inker.style.width = size
-		inker.style.height = size
-		inker.style.marginTop = halved
-		inker.style.marginLeft = halved
+		const it = inker.style
+		it.left = `${x}px`
+		it.top = `${y}px`
+		it.width = size
+		it.height = size
+		it.marginTop = halved
+		it.marginLeft = halved
 
-		inker.classList.add(CSS.animate)
-		setTimeout(() => ink_container.remove(), ANIM_DURATION + 100)
+		animateClass(ink_container, CSS.animate).then(() => {
+			ink_container.remove()
+		})
 	})
 }
 
@@ -76,10 +88,11 @@ export namespace CSS {
 
 		export const rippleOpacity = s.keyframes('ripple', {
 			'0%': { opacity: 0},
-			'10%': { opacity: 0.36 },
-			'75%': { opacity: 0.36},
+			'10%': { opacity: 0.26 },
+			'75%': { opacity: 0.26},
 			'100%': { opacity: 0 }
 		})
+
 		export const rippleSize = s.keyframes('size', {
 			'0%': {transform: `scale(0) translateZ(0)`},
 			'75%': {transform: `scale(1) translateZ(0)`},
@@ -92,7 +105,6 @@ export namespace CSS {
 				display: 'block',
 				position: 'absolute',
 				backgroundColor: s.colors.Primary,
-				opacity: 0,
 				borderRadius: '50%',
 				transform: 'scale(0)',
 				pointerEvents: 'none',
@@ -100,21 +112,25 @@ export namespace CSS {
 				marginLeft: '-25px',
 				width: '50px',
 				height: '50px',
-			},
-			s.and(animate, {animation: `${rippleOpacity} ${ANIM_DURATION}ms ${A.standard}, ${rippleSize} ${ANIM_DURATION}ms ${A.standard}`})
+			}
 		)
 
 		export const container = s.style('container', {
 				display: 'block',
 				width: '100%',
 				height: '100%',
-				top: 0,
-				left: 0,
+				top: '0px',
+				left: '0px',
+				opacity: 0,
+				backgroundColor: s.colors.Primary3,
 				overflow: 'hidden',
 				position: 'absolute',
 				pointerEvents: 'none',
-
 			},
+			s.and(animate,
+				{animation: `${rippleOpacity} ${ANIM_DURATION}ms ${A.standard}`},
+				s.child(`.${ink}`, {animation: `${rippleSize} ${ANIM_DURATION}ms ${A.standard}`})
+			)
 		)
 
 	}
