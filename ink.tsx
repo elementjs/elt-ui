@@ -21,12 +21,23 @@ export function inker(node: Node, event: MouseEvent) {
 
 	requestAnimationFrame(e => {
 		const bb = ink_container.getBoundingClientRect()
+		console.log(ink_container.parentElement!.getBoundingClientRect())
+		console.log(bb)
 		const x = clientX - bb.left
 		const y = clientY - bb.top
+		const mx = bb.width - x
+		const my = bb.height - y
 
 		// we want the biggest distance to an edge, as it will determine
-		// the size of our ink.
-		const biggest = Math.max(bb.width - x, bb.height - y, x, y) * 1.2
+		// the size of our inker.
+		const biggest = Math.sqrt(
+			Math.max(
+				x * x + y * y,
+				x * x + my * my,
+				mx * mx + y * y,
+				mx * mx + my * my
+			)
+		)
 
 		const size = `${Math.round(biggest * 2)}px`
 		const halved = `-${Math.round(biggest)}px`
@@ -63,11 +74,16 @@ export function inkClickDelay(fn: (ev: MouseEvent) => void) {
 
 export namespace CSS {
 
-		export const rippleAnim = s.keyframes('ripple', {
-			'0%': {transform: `scale(0) translateZ(0)`, opacity: 0},
+		export const rippleOpacity = s.keyframes('ripple', {
+			'0%': { opacity: 0},
 			'10%': { opacity: 0.36 },
-			'75%': {transform: `scale(1) translateZ(0)`, opacity: 0.36},
+			'75%': { opacity: 0.36},
 			'100%': { opacity: 0 }
+		})
+		export const rippleSize = s.keyframes('size', {
+			'0%': {transform: `scale(0) translateZ(0)`},
+			'75%': {transform: `scale(1) translateZ(0)`},
+			'100%': { transform: `scale(1) translateZ(0)` }
 		})
 
 		export const animate = s.style('em-ink-animate')
@@ -76,7 +92,7 @@ export namespace CSS {
 				display: 'block',
 				position: 'absolute',
 				backgroundColor: s.colors.Primary,
-				opacity: 0.4,
+				opacity: 0,
 				borderRadius: '50%',
 				transform: 'scale(0)',
 				pointerEvents: 'none',
@@ -85,7 +101,7 @@ export namespace CSS {
 				width: '50px',
 				height: '50px',
 			},
-			s.and(animate, {animation: `${rippleAnim} ${ANIM_DURATION}ms ${A.standard}`})
+			s.and(animate, {animation: `${rippleOpacity} ${ANIM_DURATION}ms ${A.standard}, ${rippleSize} ${ANIM_DURATION}ms ${A.standard}`})
 		)
 
 		export const container = s.style('container', {
