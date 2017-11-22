@@ -5,8 +5,8 @@ import {
 	Component,
 	Repeat,
 	o,
-	MaybeObservable,
-	Observable
+	Observable,
+	InsertableSingle
 } from 'elt'
 
 import {inkable} from './ink'
@@ -50,9 +50,9 @@ export namespace CSS {
 
 export class TabContainer extends Component {
 
-	o_content: Observable<Node|null> = o(null)
-	o_active_tab: Observable<Tab|null> = o(null)
-	o_titles: Observable<Node[]> = o([])
+	o_content: Observable<Node|null> = o(null as Node | null)
+	o_active_tab = o(null as Tab | null)
+	o_titles = o([] as Node[])
 
 	render(children: DocumentFragment): Element {
 		return <div class={flex.column}>
@@ -66,7 +66,7 @@ export class TabContainer extends Component {
 
 
 export interface TabAttributes extends Attrs {
-	title: MaybeObservable<string|number|Node>,
+	title: InsertableSingle,
 }
 
 

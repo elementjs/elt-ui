@@ -227,5 +227,4 @@ export namespace CSS {
     padding: 0
   })
 
-
 }
