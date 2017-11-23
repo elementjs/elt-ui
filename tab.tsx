@@ -13,40 +13,6 @@ import {inkable} from './ink'
 
 import flex from './flex'
 
-import s from './styling'
-
-export namespace CSS {
-
-	export const bar = s.style('bar', {
-		backgroundColor: s.colors.Bg,
-		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
-		height: '48px'
-	})
-
-	export const active = s.style('active')
-
-	export const title = s.style('title', {
-		color: s.colors.Primary,
-		userSelect: 'none',
-		textTransform: 'uppercase',
-		textAlign: 'center',
-		fontWeight: 'bold',
-		borderBottom: `1px solid ${s.colors.Fg}`,
-		height: '48px',
-		lineHeight: '48px',
-		fontSize: '14px',
-		maxWidth: '264px',
-		minWidth: '160px',
-		cursor: 'pointer',
-		transition: `border-bottom-color linear 0.2s`,
-		position: 'relative',
-
-		$nest: {[`&.${active}`]: {borderBottom: `2px solid ${s.colors.Primary}`}}
-	})
-
-	export const content = s.style('content', {backgroundColor: s.colors.Bg})
-
-}
 
 export class TabContainer extends Component {
 
@@ -91,11 +57,12 @@ export class Tab extends Component {
 			throw new Error('Tab must be inside a TabContainer')
 
 		this.container.o_titles.push(<div
-			class={[CSS.title, {[CSS.active]: this.o_is_active}]}
+			class={CSS.title}
 			$$={[
 				click(ev => this.activate()),
 				inkable()
 			]}>
+			<div class={[CSS.secondborder, {[CSS.active]: this.o_is_active}]}>&nbsp;</div>
 			{this.attrs.title}
 		</div>)
 
@@ -131,3 +98,48 @@ export class Tab extends Component {
 }
 
 
+import s from './styling'
+
+export namespace CSS {
+
+	export const bar = s.style('bar', {
+		backgroundColor: s.colors.Bg,
+		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
+		height: '48px'
+	})
+
+	export const title = s.style('title', {
+		color: s.colors.Primary,
+		userSelect: 'none',
+		textTransform: 'uppercase',
+		textAlign: 'center',
+		fontWeight: 'bold',
+		borderBottom: `1px solid ${s.colors.Primary}`,
+		height: '48px',
+		lineHeight: '48px',
+		fontSize: '14px',
+		maxWidth: '264px',
+		minWidth: '160px',
+		cursor: 'pointer',
+		transition: `border-bottom-color linear 0.2s`,
+		position: 'relative'
+	})
+
+	export const secondborder = s.style('second-border', {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		height: '100%',
+		width: 'calc(100% - 1px)',
+		transition: 'transform 0.2s linear',
+		transform: 'scaleX(0)',
+		borderBottom: `1px solid ${s.colors.Primary}`,
+	})
+
+	export const active = s.style('active', {
+		transform: 'scaleX(1)'
+	})
+
+	export const content = s.style('content', {backgroundColor: s.colors.Bg})
+
+}
