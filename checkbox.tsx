@@ -1,8 +1,9 @@
 
 import {
   o,
-  MaybeObservable,
-  Observable,
+  MRO,
+  O,
+  RO,
   click,
   Attrs,
   Component
@@ -12,6 +13,54 @@ import flex from './flex'
 import {Icon} from './icon'
 
 import {inkable} from './ink'
+
+
+var OFF = 'square-o'
+var ON = 'check-square'
+var INDETERMINATE = 'minus-square'
+
+export interface CheckboxAttributes extends Attrs {
+  model: O<boolean>
+  disabled?: MRO<boolean>
+}
+
+export class Checkbox extends Component {
+
+  attrs: CheckboxAttributes
+
+  o_model: O<boolean>
+  o_disabled: RO<boolean|undefined>
+
+  toggle() {
+    if (this.o_disabled.get()) return
+    this.o_model.toggle()
+  }
+
+  render(children: DocumentFragment): Element {
+    this.o_model = o(this.attrs.model)
+    this.o_disabled = o(this.attrs.disabled)
+
+    function getIcon(value: boolean) {
+      if (value === undefined) return INDETERMINATE
+      if (value) return ON
+      return OFF
+    }
+
+    let classes = {
+      [CSS.on]: this.o_model,
+      [CSS.off]: this.o_model.isFalse(),
+      [CSS.disabled]: this.o_disabled
+    }
+
+    return <label class={CSS.label} $$={[inkable(), click(e => this.toggle())]}>
+        <div class={[flex.row, flex.alignCenter]}>
+          <Icon class={[CSS.icon, classes]} name={this.o_model.tf(getIcon)}/>
+          <span class={[CSS.content, classes]}>{children}</span>
+        </div>
+      </label>;
+
+  }
+}
 
 import s from './styling'
 
@@ -47,52 +96,4 @@ export namespace CSS {
     s.and(on, {color: s.colors.Primary}),
     s.before({fontSize: '18px'})
   )
-}
-
-
-var OFF = 'square-o'
-var ON = 'check-square'
-var INDETERMINATE = 'minus-square'
-
-export interface CheckboxAttributes extends Attrs {
-  model: Observable<boolean>
-  disabled?: MaybeObservable<boolean>
-}
-
-export class Checkbox extends Component {
-
-  attrs: CheckboxAttributes
-
-  o_model: Observable<boolean>
-  o_disabled: Observable<boolean|undefined>
-
-  toggle() {
-    if (this.o_disabled.get()) return
-    this.o_model.toggle()
-  }
-
-  render(children: DocumentFragment): Element {
-    this.o_model = o(this.attrs.model)
-    this.o_disabled = o(this.attrs.disabled)
-
-    function getIcon(value: boolean) {
-      if (value === undefined) return INDETERMINATE
-      if (value) return ON
-      return OFF
-    }
-
-    let classes = {
-      [CSS.on]: this.o_model,
-      [CSS.off]: this.o_model.isFalse(),
-      [CSS.disabled]: this.o_disabled
-    }
-
-    return <label class={CSS.label} $$={[inkable(), click(e => this.toggle())]}>
-        <div class={[flex.row, flex.alignCenter]}>
-          <Icon class={[CSS.icon, classes]} name={this.o_model.tf(getIcon)}/>
-          <span class={[CSS.content, classes]}>{children}</span>
-        </div>
-      </label>;
-
-  }
 }

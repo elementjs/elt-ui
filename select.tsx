@@ -6,31 +6,32 @@ import {
 	Component,
 	o,
 	on,
-	MaybeObservable,
-	Observable,
+	MO,
+	O,
+	Renderable,
 	Repeat,
 	Display,
 	Mixin
 } from 'elt'
 
 
-export type LabelFn<T> = (opt: T) => MaybeObservable<string>
+export type LabelFn<T> = (opt: T) => Renderable
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 
 
 export interface SelectAttributes<T> extends Attrs {
-	model: Observable<T>
-	options: MaybeObservable<T[]>
+	model: O<T>
+	options: MO<T[]>
 	labelfn?: LabelFn<T>
 	onchange?: ChangeFn<T>
-	placeholder?: MaybeObservable<string>
+	placeholder?: MO<string>
 }
 
 export class Select<T> extends Component {
 
 	attrs: SelectAttributes<T>
-	protected selected: Observable<string> = o('-1')
+	protected selected: O<string> = o('-1')
 
 	/**
 	 * Setup the observation logic.
