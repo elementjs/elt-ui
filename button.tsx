@@ -4,7 +4,7 @@ import {
   Component,
   click,
   DisplayIf,
-  MaybeObservable,
+  MRO,
   Attrs,
   Listener
 } from 'elt'
@@ -42,11 +42,11 @@ export class ButtonBar extends Component {
 
 
 export interface ButtonAttrs extends Attrs {
-  bordered?: MaybeObservable<boolean>
-  disabled?: MaybeObservable<boolean>
-  raised?: MaybeObservable<boolean>
+  bordered?: MRO<boolean>
+  disabled?: MRO<boolean>
+  raised?: MRO<boolean>
   click?: Listener<MouseEvent>
-  icon?: MaybeObservable<string>
+  icon?: MRO<string>
 }
 
 
@@ -146,10 +146,7 @@ export namespace CSS {
 
     export const raised = s.style('raised',
       s.raised,
-      {
-        color: s.colors.Bg,
-        backgroundColor: s.colors.Primary
-      }
+      s.colors.ReversePrimary
     )
 
     export const bordered = s.style('bordered', {
