@@ -6,8 +6,8 @@ import {
 	Component,
 	o,
 	on,
-	MO,
-	O,
+	RO,
+	Observable,
 	Renderable,
 	Repeat,
 	Display,
@@ -21,17 +21,17 @@ export type ChangeFn<T> = (value: T, ev?: Event) => any
 
 
 export interface SelectAttributes<T> extends Attrs {
-	model: O<T>
-	options: MO<T[]>
+	model: Observable<T>
+	options: RO<T[]>
 	labelfn?: LabelFn<T>
 	onchange?: ChangeFn<T>
-	placeholder?: MO<string>
+	placeholder?: RO<string>
 }
 
 export class Select<T> extends Component {
 
 	attrs: SelectAttributes<T>
-	protected selected: O<string> = o('-1')
+	protected selected: Observable<string> = o('-1')
 
 	/**
 	 * Setup the observation logic.

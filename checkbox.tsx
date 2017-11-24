@@ -1,8 +1,7 @@
 
 import {
   o,
-  MRO,
-  O,
+  Observable,
   RO,
   click,
   Attrs,
@@ -20,19 +19,19 @@ var ON = 'check-square'
 var INDETERMINATE = 'minus-square'
 
 export interface CheckboxAttributes extends Attrs {
-  model: O<boolean>
-  disabled?: MRO<boolean>
+  model: Observable<boolean>
+  disabled?: RO<boolean>
 }
 
 export class Checkbox extends Component {
 
   attrs: CheckboxAttributes
 
-  o_model: O<boolean>
+  o_model: Observable<boolean>
   o_disabled: RO<boolean|undefined>
 
   toggle() {
-    if (this.o_disabled.get()) return
+    if (o.get(this.o_disabled)) return
     this.o_model.toggle()
   }
 

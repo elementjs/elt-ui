@@ -1,9 +1,9 @@
 
-import {o, e, MaybeReadonlyObservable, Attrs} from 'elt'
+import {o, e, RO, Attrs} from 'elt'
 
 
 export interface IconAttributes extends Attrs {
-  name: MaybeReadonlyObservable<string>
+  name: RO<string>
 }
 
 

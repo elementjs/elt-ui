@@ -4,7 +4,7 @@ import {
   bind,
   DisplayIf,
   Attrs,
-  MRO,
+  RO,
   Observable
 } from 'elt';
 
@@ -15,18 +15,18 @@ var id_gen = 0;
 
 export interface InputAttributes extends Attrs {
   model: Observable<string>
-  disabled?: MRO<boolean>
+  disabled?: RO<boolean>
   type?: string
   id?: string
-  label?: MRO<string>
-  placeholder?: MRO<string>
+  label?: RO<string>
+  placeholder?: RO<string>
   autocomplete?: 'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'
   autocapitalize?: 'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'
   autocorrect?: 'on' | 'off'
   spellcheck?: boolean
   autofocus?: boolean
-  error?: MRO<string>
-  tabindex?: MRO<number>
+  error?: RO<string>
+  tabindex?: RO<number>
 }
 
 export function Input(attrs: InputAttributes, content: DocumentFragment): Element {

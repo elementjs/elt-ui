@@ -7,7 +7,7 @@ import {
   Mixin,
   DisplayIf,
   Fragment as F,
-  MRO,
+  RO,
   inserted,
   removed,
 } from 'elt';
@@ -49,7 +49,7 @@ export function Title(attrs: Attrs, children: DocumentFragment): Element { retur
 export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={CSS.content}>{children}</div> }
 
 export interface ButtonbarAttributes extends Attrs {
-  stacked?: MRO<boolean>
+  stacked?: RO<boolean>
 }
 
 // FIXME this node should watch the width of its children to be able

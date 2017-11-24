@@ -4,7 +4,7 @@ import {
   Component,
   click,
   DisplayIf,
-  MRO,
+  RO,
   Attrs,
   Listener
 } from 'elt'
@@ -42,11 +42,11 @@ export class ButtonBar extends Component {
 
 
 export interface ButtonAttrs extends Attrs {
-  bordered?: MRO<boolean>
-  disabled?: MRO<boolean>
-  raised?: MRO<boolean>
+  bordered?: RO<boolean>
+  disabled?: RO<boolean>
+  raised?: RO<boolean>
   click?: Listener<MouseEvent>
-  icon?: MRO<string>
+  icon?: RO<string>
 }
 
 

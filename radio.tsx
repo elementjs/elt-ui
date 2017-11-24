@@ -4,7 +4,7 @@ import {
   click,
   Attrs,
   Observable,
-  MRO,
+  RO,
   Component
 } from 'elt'
 
@@ -22,7 +22,7 @@ var UNCHECKED = 'circle-o'
 export interface RadioAttributes<T> extends Attrs {
   model: Observable<T>
   value: T
-  disabled?: MRO<boolean>
+  disabled?: RO<boolean>
 }
 
 
@@ -30,7 +30,7 @@ export class Radio<T> extends Component {
 
   attrs: RadioAttributes<T>
 
-  disabled: Observable<boolean>
+  disabled: RO<boolean>
   value: T
   model: Observable<T>
 
