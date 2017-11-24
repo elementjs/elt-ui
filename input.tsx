@@ -4,6 +4,7 @@ import {
   bind,
   DisplayIf,
   Attrs,
+  O,
   RO,
   Observable
 } from 'elt';
@@ -14,7 +15,7 @@ import {
 var id_gen = 0;
 
 export interface InputAttributes extends Attrs {
-  model: Observable<string>
+  model: O<string>
   disabled?: RO<boolean>
   type?: RO<string>
   label?: RO<string>
@@ -33,7 +34,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
   let id = attrs.id || `input_${id_gen++}`;
 
   let {
-    model: o_model,
+    model,
     label,
     placeholder,
     error,
@@ -41,6 +42,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
     ...other_attrs
   } = attrs
 
+  const o_model = o(model)
   label = label || placeholder || ''
 
   const o_focused: Observable<boolean> = o(false)

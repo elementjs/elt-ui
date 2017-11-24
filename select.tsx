@@ -5,6 +5,7 @@ import {
 	bind,
 	Component,
 	o,
+	O,
 	on,
 	RO,
 	Observable,
@@ -21,7 +22,7 @@ export type ChangeFn<T> = (value: T, ev?: Event) => any
 
 
 export interface SelectAttributes<T> extends Attrs {
-	model: Observable<T>
+	model: O<T>
 	options: RO<T[]>
 	labelfn?: LabelFn<T>
 	onchange?: ChangeFn<T>
@@ -43,6 +44,7 @@ export class Select<T> extends Component {
 
 		let options = o(attrs.options)
 		let {model, labelfn, onchange} = attrs
+		const o_model = o(model)
 
 		// Used for typing, to avoid the undefined part.
 		var real_labelfn = (obj: any) => {
@@ -63,7 +65,7 @@ export class Select<T> extends Component {
 		this.observe(options, (opts) => {
 			if (touched()) return;
 
-			this.selected.set('' + opts.indexOf(model.get()));
+			this.selected.set('' + opts.indexOf(o_model.get()));
 
 		});
 
@@ -75,7 +77,7 @@ export class Select<T> extends Component {
 
 		this.observe(this.selected, (v) => {
 			if (touched()) return;
-			model.set(options.get()[parseInt(v)]);
+			o_model.set(options.get()[parseInt(v)]);
 		});
 
 		////////////////////////////////
@@ -84,14 +86,14 @@ export class Select<T> extends Component {
 
 		if (onchange) {
 			var fn = onchange // used this for typing matters.
-			decorators.push(on('change', ev => fn(model.get(), ev)))
+			decorators.push(on('change', ev => fn(o_model.get(), ev)))
 		}
 
 		return <label class={CSS.label}>
 			<select class={CSS.select} $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
-						selected={model.equals(opt)}>
+						selected={o_model.equals(opt)}>
 							{opt.tf(val => Display(real_labelfn(val)))}
 					</option>
 				)}

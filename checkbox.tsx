@@ -2,6 +2,7 @@
 import {
   o,
   Observable,
+  O,
   RO,
   click,
   Attrs,
@@ -19,7 +20,7 @@ var ON = 'check-square'
 var INDETERMINATE = 'minus-square'
 
 export interface CheckboxAttributes extends Attrs {
-  model: Observable<boolean>
+  model: O<boolean>
   disabled?: RO<boolean>
 }
 

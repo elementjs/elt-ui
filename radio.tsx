@@ -3,6 +3,7 @@ import {
   o,
   click,
   Attrs,
+  O,
   Observable,
   RO,
   Component
@@ -20,8 +21,8 @@ var CHECKED = 'dot-circle'
 var UNCHECKED = 'circle-o'
 
 export interface RadioAttributes<T> extends Attrs {
-  model: Observable<T>
-  value: T
+  model: O<T>
+  value: RO<T>
   disabled?: RO<boolean>
 }
 
@@ -31,7 +32,7 @@ export class Radio<T> extends Component {
   attrs: RadioAttributes<T>
 
   disabled: RO<boolean>
-  value: T
+  value: RO<T>
   model: Observable<T>
 
   init() {
@@ -41,7 +42,7 @@ export class Radio<T> extends Component {
   }
 
   setValue() {
-    this.model.set(this.value)
+    this.model.set(o.get(this.value))
   }
 
   render(children: DocumentFragment): Element {
