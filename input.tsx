@@ -16,52 +16,41 @@ var id_gen = 0;
 export interface InputAttributes extends Attrs {
   model: Observable<string>
   disabled?: RO<boolean>
-  type?: string
-  id?: string
+  type?: RO<string>
   label?: RO<string>
   placeholder?: RO<string>
-  autocomplete?: 'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'
-  autocapitalize?: 'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'
-  autocorrect?: 'on' | 'off'
-  spellcheck?: boolean
-  autofocus?: boolean
+  autocomplete?: RO<'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'>
+  autocapitalize?: RO<'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'>
+  autocorrect?: RO<'on' | 'off'>
+  spellcheck?: RO<boolean>
+  autofocus?: RO<boolean>
   error?: RO<string>
   tabindex?: RO<number>
 }
 
 export function Input(attrs: InputAttributes, content: DocumentFragment): Element {
 
-  // Used in validation ???
-  // this.valid = true;
-
   let id = attrs.id || `input_${id_gen++}`;
 
-  let data = {
-    model: o(attrs.model || ''), // model is necessarily an observable.
-    type: attrs.type || 'text',
-    label: attrs.label || attrs.placeholder || '', // we may not have a label, and we don't try to.
-    error: o(attrs.error),
-    disabled: o(attrs.disabled).tf(v => !!v)
-  };
+  let {
+    model: o_model,
+    label,
+    placeholder,
+    error,
+    type,
+    ...other_attrs
+  } = attrs
 
-  let other_attrs = {
-    autofocus: attrs.autofocus,
-    autocapitalize: attrs.autocapitalize,
-    spellcheck: attrs.spellcheck,
-    autocorrect: attrs.autocorrect,
-    autocomplete: attrs.autocomplete,
-    tabindex: attrs.tabindex
-  }
+  label = label || placeholder || ''
 
   const o_focused: Observable<boolean> = o(false)
 
   const input = <input
+    {...other_attrs}
     id={id}
     class={CSS.inputElement}
-    disabled={data.disabled}
-    type={data.type}
-    $$={[bind(data.model)]}
-    {...other_attrs}
+    type={type || 'text'}
+    $$={[bind(o_model)]}
   />
 
   input.addEventListener('blur', ev => {
@@ -72,7 +61,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
   })
 
   // const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
-  const o_unfocus_and_empty = o.merge({model: data.model, focus: o_focused})
+  const o_unfocus_and_empty = o.merge({model: o_model, focus: o_focused})
     .tf(value => {
       var res = !value.model && !value.focus
       return res
@@ -84,10 +73,10 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
     [CSS.error]: attrs.error
   }]}>
       {input}
-      {data.label ?
-          <label class={CSS.label} for={id}>{data.label}</label>
+      {label ?
+          <label class={CSS.label} for={id}>{label}</label>
       : null}
-      {DisplayIf(data.error, error => <div class={CSS.inputError}>{error}</div>)}
+      {DisplayIf(error, error => <div class={CSS.inputError}>{error}</div>)}
     </div>;
 }
 
