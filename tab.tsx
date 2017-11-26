@@ -6,7 +6,7 @@ import {
 	Repeat,
 	o,
 	Observable,
-	InsertableSingle
+	Insertable
 } from 'elt'
 
 import {inkable} from './ink'
@@ -32,7 +32,7 @@ export class TabContainer extends Component {
 
 
 export interface TabAttributes extends Attrs {
-	title: InsertableSingle,
+	title: Insertable,
 }
 
 

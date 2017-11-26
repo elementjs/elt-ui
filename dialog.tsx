@@ -1,7 +1,6 @@
 
 import {
   Attrs,
-  ArrayOrSingle,
   ClassDefinition,
   click,
   Mixin,
@@ -64,7 +63,7 @@ export function Root(attrs: Attrs, children: DocumentFragment): Element {
 
 export interface DialogOptions {
   parent?: Node
-  class?: ArrayOrSingle<ClassDefinition>
+  class?: ClassDefinition | ClassDefinition[]
   noanimate?: boolean
   clickOutsideToClose?: boolean
   noEscapeKey?: boolean
