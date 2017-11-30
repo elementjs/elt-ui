@@ -77,7 +77,9 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			// XXX should we log an error here if c was null ?
+
 			if (c) c.detach()
+			else console.warn('could not get Nav')
 		}
 	})]}>
 		<Icon class={CSS.itemIcon} name={a.icon}/>

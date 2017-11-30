@@ -28,9 +28,10 @@ export function animateClass(node: HTMLElement, cls: string) {
 	return new Promise((resolve, reject) => {
 
 		let fnend = function () {
+			// console.log('end', cls)
 			anim_end_count += 1
 			// Remove all the event listeners.
-			if (anim_start_count == anim_end_count) {
+			if (anim_start_count === anim_end_count) {
 				START_EVENTS.forEach(name => node.removeEventListener(name, fnstart))
 				END_EVENTS.forEach(name => node.removeEventListener(name, fnend))
 				resolve()
@@ -38,6 +39,9 @@ export function animateClass(node: HTMLElement, cls: string) {
 		}
 
 		let fnstart = function () {
+			// console.log(ev)
+			// console.log('start', cls)
+			// console.log(anim_start_count)
 			anim_start_count += 1
 		}
 
