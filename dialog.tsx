@@ -3,6 +3,7 @@ import {
   Attrs,
   ClassDefinition,
   click,
+  Renderable,
   Mixin,
   DisplayIf,
   Fragment as F,
@@ -123,10 +124,10 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
 
 export interface ModalOptions extends DialogOptions {
-  text: string
-  title: string
-  agree?: string
-  disagree?: string,
+  text: Renderable
+  title: Renderable
+  agree?: Renderable
+  disagree?: Renderable,
 }
 
 /**
@@ -140,7 +141,7 @@ export function modal(opts: ModalOptions) {
     <F>
       {opts.title ? <Title>{opts.title}</Title> : null}
       <Content>
-        {opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>)}
+        {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
       </Content>
       <Buttonbar>
         {DisplayIf(opts.disagree, disagree =>
