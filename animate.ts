@@ -45,7 +45,7 @@ export function animateClass(node: HTMLElement, cls: string) {
 			anims.delete(ev.animationName)
 
 			// We should be done once we reach here.
-			if (anims.size === 0) {
+			if (!ended && anims.size === 0) {
 				end()
 			}
 		}
