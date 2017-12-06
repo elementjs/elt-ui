@@ -137,7 +137,7 @@ export interface ModalOptions extends DialogOptions {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog(opts, (dlg) =>
+  return dialog<boolean>(opts, (dlg) =>
     <F>
       {opts.title ? <Title>{opts.title}</Title> : null}
       <Content>

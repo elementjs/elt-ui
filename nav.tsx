@@ -155,7 +155,6 @@ export namespace CSS {
 	export const subheader = s.style('subheader', {paddingLeft: '16px'})
 	export const footer = s.style('footer', {textAlign: 'center', paddingBottom: '16px'})
 
-
 	export const enter = s.style('enter',
 	s.child('.' + overlay, { animation: `${AnimCSS.fadeIn} 0.2s ease-in forwards` }),
 	s.child('.' + drawer, { animation: `${AnimCSS.slideFromLeft} 0.2s ease-in forwards` })

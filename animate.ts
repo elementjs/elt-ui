@@ -26,38 +26,43 @@ export function animateClass(node: HTMLElement, cls: string) {
 	node.classList.add(cls)
 
 	return new Promise((resolve, reject) => {
+		var ended = false
+		const anims = new Set<string>()
 
-		let fnend = function () {
-			// console.log('end', cls)
-			anim_end_count += 1
-			// Remove all the event listeners.
-			if (anim_start_count === anim_end_count) {
-				START_EVENTS.forEach(name => node.removeEventListener(name, fnstart))
-				END_EVENTS.forEach(name => node.removeEventListener(name, fnend))
-				resolve()
+		function end() {
+			ended = true
+			START_EVENTS.forEach(name => node.removeEventListener(name as any, fnstart))
+			END_EVENTS.forEach(name => node.removeEventListener(name as any, fnend))
+			resolve()
+		}
+
+		function fnend (ev: AnimationEvent) {
+			// We didn't see this animation get started here, so we just
+			// won't handle it.
+			if (!anims.has(ev.animationName))
+				return
+
+			anims.delete(ev.animationName)
+
+			// We should be done once we reach here.
+			if (anims.size === 0) {
+				end()
 			}
 		}
 
-		let fnstart = function () {
-			// console.log(ev)
-			// console.log('start', cls)
-			// console.log(anim_start_count)
-			anim_start_count += 1
+		function fnstart (ev: AnimationEvent) {
+			anims.add(ev.animationName)
 		}
 
-		let anim_start_count = 0
-		let anim_end_count = 0
-
-		START_EVENTS.forEach(name => node.addEventListener(name, fnstart))
-		END_EVENTS.forEach(name => node.addEventListener(name, fnend))
+		START_EVENTS.forEach(name => node.addEventListener(name as any, fnstart))
+		END_EVENTS.forEach(name => node.addEventListener(name as any, fnend))
 
 		// We leave 100 ms to the animations to potentially start. If during
 		// this delay nothing started, we call the end function.
 		setTimeout(() => {
-			if (anim_start_count === 0) {
+			if (!ended && anims.size === 0) {
 				console.warn('no animations were started, executing end function anyway.')
-				anim_end_count -= 1
-				fnend()
+				end()
 			}
 		}, 100)
 
