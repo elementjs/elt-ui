@@ -9,10 +9,22 @@ import {
   Observable
 } from 'elt';
 
-
+import {Button} from './button'
 
 
 var id_gen = 0;
+
+
+export interface SearchAttributes extends Attrs {
+  model: O<string>
+  placeholder?: RO<string|null|undefined>
+}
+
+export function Search({model, placeholder}: SearchAttributes) {
+  return <input placeholder={placeholder} class={[CSS.search]} $$={bind(o(model))}>
+      <Button class={CSS.searchBtn} icon='close'/>
+    </input>
+}
 
 export interface InputAttributes extends Attrs {
   model: O<string>
@@ -28,6 +40,7 @@ export interface InputAttributes extends Attrs {
   error?: RO<string>
   tabindex?: RO<number>
 }
+
 
 export function Input(attrs: InputAttributes, content: DocumentFragment): Element {
 
@@ -149,5 +162,25 @@ export namespace CSS {
         transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
       },
     }
+  })
+
+  export const search = s.style('search', {
+      borderRadius: '3px',
+      border: '1px solid',
+      position: 'relative',
+      borderColor: s.colors.Fg5,
+      color: s.colors.Fg,
+      backgroundColor: s.colors.Fg6,
+      fontSize: '0.8em',
+      padding: '8px 16px'
+    },
+    s.values.NoSpuriousBorders,
+    s.values.NoNativeAppearance,
+    s.nest('&::placeholder', {color: s.colors.Fg5})
+  )
+
+  export const searchBtn = s.style('search-btn', {
+    position: 'absolute',
+    right: 0
   })
 }
