@@ -6,9 +6,10 @@
         "declaration": true,
         "sourceMap": true,
         "strict": true,
+        "noStrictGenericChecks": true,
         "noUnusedLocals": true,
         "jsx": "react",
-	"jsxFactory": "E",
+        "jsxFactory": "E",
         "experimentalDecorators": true,
         "lib": ["es6", "dom"]
     },
