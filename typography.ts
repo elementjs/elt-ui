@@ -72,5 +72,17 @@ export namespace CSS {
     fontStyle: 'italic'
   })
 
+  cssRule('::-webkit-scrollbar', {
+    width: '8px'
+  })
+
+  cssRule('::-webkit-scrollbar-track', {
+    background: s.colors.Primary6
+  })
+
+  cssRule('::-webkit-scrollbar-thumb', {
+    background: s.colors.Primary5,
+    borderRadius: '3px'
+  })
 
 }
