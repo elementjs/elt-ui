@@ -59,6 +59,7 @@ export namespace CSS {
   }
 
   export const firstChild = mknest(':first-child')
+  export const lastChild = mknest(':last-child')
   export const focus = mknest(':focus')
   export const hover = mknest(':hover')
   export const before = mknest(':before')
@@ -218,6 +219,9 @@ export namespace CSS {
   export const padded = style('padded', {padding: '16px'})
   export const bold = style('bold', {fontWeight: 'bold'})
   export const raised = style('raised', {boxShadow: `0 2px 2px ${colors.Fg3}`})
+  export const cursorPointer = style('cursor-pointer', {cursor: 'pointer'})
+  export const relative = style('relative', {position: 'relative'})
+  export const absolute = style('absolute', {position: 'absolute'})
 
 }
 
