@@ -6,7 +6,8 @@ import {
 	Repeat,
 	o,
 	Observable,
-	Insertable
+	Insertable,
+	Fragment as F
 } from 'elt'
 
 import {inkable} from './ink'
@@ -84,6 +85,8 @@ export class Tab extends Component {
 
 	render(children: DocumentFragment): Element {
 
+		const frag = <F>{children}</F>
+
 		return <div
 			class={[
 				CSS.content,
@@ -91,7 +94,7 @@ export class Tab extends Component {
 				flex.absoluteGrow
 			]}
 		>
-			{children}
+			{this.o_is_active.tf(a => a ? frag : null)}
 		</div>
 
 	}
