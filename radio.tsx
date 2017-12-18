@@ -35,17 +35,15 @@ export class Radio<T> extends Component {
   value: RO<T>
   model: Observable<T>
 
-  init() {
-    this.disabled = o(this.attrs.disabled||false)
-    this.value = this.attrs.value
-    this.model = o(this.attrs.model)
-  }
-
   setValue() {
     this.model.set(o.get(this.value))
   }
 
   render(children: DocumentFragment): Element {
+
+    this.disabled = o(this.attrs.disabled||false)
+    this.value = this.attrs.value
+    this.model = o(this.attrs.model)
 
     let classes = {
       [CSS.on]: this.model.equals(this.value),
@@ -57,7 +55,7 @@ export class Radio<T> extends Component {
         <div class={[flex.row, flex.alignCenter]}>
           <Icon
             class={[CSS.icon, classes]}
-            name={this.model.tf(m => m === this.value ? CHECKED : UNCHECKED)}
+            name={o.merge({model: this.model, value: this.value}).tf(({model: m, value: v}) => m === v ? CHECKED : UNCHECKED)}
           />
           <span class={[CSS.content, classes]}>{children}</span>
         </div>

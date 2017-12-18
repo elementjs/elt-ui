@@ -125,7 +125,7 @@ export namespace CSS {
     export const buttonContent = s.style('button-content', {
       minWidth: '64px',
       textTransform: 'uppercase',
-      fontWeight: 500,
+      fontWeight: 'bold',
 
       // Should probably have a mixin for that
       // as it should be some global configuration option.
