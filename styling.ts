@@ -222,6 +222,7 @@ export namespace CSS {
   export const cursorPointer = style('cursor-pointer', {cursor: 'pointer'})
   export const relative = style('relative', {position: 'relative'})
   export const absolute = style('absolute', {position: 'absolute'})
+  export const noPointerEvent = style('no-pointer-events', {pointerEvents: 'none'})
 
 }
 
