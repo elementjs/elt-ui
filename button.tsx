@@ -67,7 +67,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
     disabled={o(attrs.disabled).tf(val => !!val)}
     $$={click(doClick)}
   >
-    {DisplayIf(attrs.icon || '',
+    {DisplayIf(o(attrs.icon),
       o_name => <Icon
         class={[
           CSS.baseButton,

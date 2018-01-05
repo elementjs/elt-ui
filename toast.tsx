@@ -57,7 +57,7 @@ export class Toaster {
 		if (this._current) {
 			clearTimeout(this._cancel);
 			this.kill(this._current)
-		}
+	}
 
 		// let promise: Promise<any> = this._current ? this._current.destroy() : Promise.resolve(true)
 
@@ -70,7 +70,7 @@ export class Toaster {
 		animate(toast, `${AnimCSS.fadeIn} 0.2s ease-in both`)
 		this._holder.appendChild(toast)
 
-		this._cancel = setTimeout(() => this.kill(toast), 3000)
+		this._cancel = window.setTimeout(() => this.kill(toast), 3000)
 		this._current = toast
 
 	}

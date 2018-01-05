@@ -91,7 +91,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
       {label ?
           <label class={CSS.label} for={id}>{label}</label>
       : null}
-      {DisplayIf(error, error => <div class={CSS.inputError}>{error}</div>)}
+      {DisplayIf(o(error), error => <div class={CSS.inputError}>{error}</div>)}
     </div>;
 }
 
