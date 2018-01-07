@@ -16,8 +16,8 @@ export namespace CSS {
 
   export const toolbarMain = s.style('toolbar-main',
     {fontSize: '24px'},
-    s.child('h3', {fontSize: '24px'}),
-    s.child('*', {marginLeft: '16px'})
+    s.child('*', {marginLeft: '16px'}),
+    s.child('h3', {fontSize: '24px', margin: '0 0 0 16px', padding: 0}),
   )
 
 }
