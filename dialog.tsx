@@ -7,15 +7,13 @@ import {
   Renderable,
   Mixin,
   DisplayIf,
-  Fragment as F,
-  RO,
   inserted,
   removed,
 } from 'elt';
 
 import flex from './flex'
 import {animateClass, CSS as AnimateCSS} from './animate'
-import {Button} from './button';
+import {Button, ButtonBar} from './button';
 
 export class DialogCtrl<T> extends Mixin {
   promise: Promise<T>
@@ -49,15 +47,6 @@ export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
 export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={CSS.title}>{children}</h3> }
 export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={CSS.content}>{children}</div> }
 
-export interface ButtonbarAttributes extends Attrs {
-  stacked?: RO<boolean>
-}
-
-// FIXME this node should watch the width of its children to be able
-// to switch to the vertical presentation for dialog buttons.
-export function Buttonbar(attrs: ButtonbarAttributes, children: DocumentFragment): Element {
-  return <div class={[flex.row, flex.justifyEnd]}>{children}</div>
-}
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
   return <div class={[CSS.root, flex.column]}>{children}</div>
@@ -139,20 +128,18 @@ export interface ModalOptions extends DialogOptions {
 export function modal(opts: ModalOptions) {
 
   return dialog<boolean>(opts, (dlg) =>
-    <F>
+    <Content>
       {opts.title ? <Title>{opts.title}</Title> : null}
-      <Content>
-        {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
-      </Content>
-      <Buttonbar>
+      {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
+      <ButtonBar>
         {DisplayIf(o(opts.disagree), disagree =>
           <Button click={() => dlg.resolve(false)}>{disagree}</Button>
         )}
         {DisplayIf(o(opts.agree), agree =>
           <Button click={() => dlg.resolve(true)}>{agree}</Button>
         )}
-      </Buttonbar>
-    </F>
+      </ButtonBar>
+    </Content>
   );
 
 }
@@ -224,7 +211,7 @@ export namespace CSS {
   })
 
   export const title = s.style('title', {
-    margin: 0,
+    margin: '0 0 0.625em 0',
     padding: 0
   })
 

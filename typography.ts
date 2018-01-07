@@ -23,41 +23,44 @@ export namespace CSS {
   })
 
   cssRule('h1', {
-    fontSize: '45px'
+    fontSize: '45px',
+    fontWeight: 'bold'
   })
 
   cssRule('h2', {
     fontSize: '34px',
-    fontWeight: 500,
+    fontWeight: 'bold',
     marginBottom: '32px'
   })
 
   cssRule('h3', {
     fontSize: '24px',
-    fontWeight: 500,
+    fontWeight: 'bold',
     marginBottom: '24px'
   })
 
   cssRule('h4', {
     fontSize: '18px',
-    fontWeight: 500,
+    fontWeight: 'bold',
     marginBottom: '18px'
   })
 
   cssRule('h5', {
     fontSize: '16px',
-    fontWeight: 500,
+    fontWeight: 'bold',
     marginBottom: '16px'
   })
 
   cssRule('h6', {
     fontSize: '14px',
-    fontWeight: 500,
+    fontWeight: 'bold',
     marginBottom: '14px'
   })
 
-  cssRule('h1, h2, h3, h4, h5, h6, p', {
-    textAlign: 'left'
+  cssRule('h1, h2, h3, h4, h5, h6, p, ul', {
+    textAlign: 'left',
+    marginTop: 0,
+    marginBottom: '0.625em'
   })
 
   cssRule('p, ul', {

@@ -36,7 +36,7 @@ export class ButtonBar extends Component {
   }
 
   render(children: DocumentFragment): Element {
-    return <div class={[CSS.buttonBar, flex.row]}>{children}</div>
+    return <div class={[CSS.buttonBar, flex.row, flex.justifyEnd]}>{children}</div>
   }
 }
 
@@ -107,7 +107,7 @@ export namespace CSS {
         cursor: 'pointer',
         padding: '8px', // this is to allow more space for touch events.
       },
-      s.nest('&::-moz-focus-inner', {border: 0})
+      s.nest('&::-moz-focus-inner', {border: 0}),
     )
 
     export const baseButton = s.style('base-button',
@@ -174,7 +174,7 @@ export namespace CSS {
     )
 
     export const hasButtonBar = s.style('has-button-bar', {
-      paddingBottom: 0
+      paddingBottom: '0 !important'
     })
 
   }
