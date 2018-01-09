@@ -18,6 +18,7 @@ export {Nav, NavHeader, NavSubheader, NavDivider, NavItem, NavBody, NavFooter} f
 export {animate} from './animate'
 export {inkable, inkClickDelay} from './ink'
 export {Row, Column} from './flex'
+export {Progress} from './progress'
 
 import {CSS as FlexCSS} from './flex'
 import {CSS as ButtonCSS} from './button'

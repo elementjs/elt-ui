@@ -112,6 +112,11 @@ export namespace CSS {
     export function setBg(value: string): Props { return {'--em-color-bg': toRGB(value)} }
 
     export const Accent = `rgba(var(--em-color-accent), 1)`
+    export const Accent2 = `rgba(var(--em-color-accent), 0.74)`
+    export const Accent3 = `rgba(var(--em-color-accent), 0.54)`
+    export const Accent4 = `rgba(var(--em-color-accent), 0.24)`
+    export const Accent5 = `rgba(var(--em-color-accent), 0.14)`
+    export const Accent6 = `rgba(var(--em-color-accent), 0.07)`
 
     export const Primary = `rgba(var(--em-color-primary), 1)`
     export const Primary2 = `rgba(var(--em-color-primary), 0.74)`
@@ -180,6 +185,19 @@ export namespace CSS {
     export const primary5 = style('text-primary5', {color: colors.Primary5})
     export const primary6 = style('text-primary6', {color: colors.Primary6})
 
+    export const bg = style('text-bg', {color: colors.Bg})
+    export const bg2 = style('text-bg2', {color: colors.Bg2})
+    export const bg3 = style('text-bg3', {color: colors.Bg3})
+    export const bg4 = style('text-bg4', {color: colors.Bg4})
+    export const bg5 = style('text-bg5', {color: colors.Bg5})
+    export const bg6 = style('text-bg6', {color: colors.Bg6})
+
+    export const accent = style('text-accent', {color: colors.Accent})
+    export const accent2 = style('text-accent2', {color: colors.Accent2})
+    export const accent3 = style('text-accent3', {color: colors.Accent3})
+    export const accent4 = style('text-accent4', {color: colors.Accent4})
+    export const accent5 = style('text-accent5', {color: colors.Accent5})
+    export const accent6 = style('text-accent6', {color: colors.Accent6})
   }
 
 
