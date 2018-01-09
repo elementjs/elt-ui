@@ -12,6 +12,7 @@ declare module 'typestyle/lib/types' {
     '--em-color-primary-save'?: string
     '--em-color-fg-save'?: string
     '--em-color-bg-save'?: string
+    '--em-color-accent-save'?: string
   }
 }
 
@@ -106,6 +107,7 @@ export namespace CSS {
     }
 
     export function setPrimary(value: string): Props { return {'--em-color-primary': toRGB(value)} }
+    export function setAccent(value: string): Props { return {'--em-color-accent': toRGB(value)} }
     export function setFg(value: string): Props { return {'--em-color-fg': toRGB(value)} }
     export function setBg(value: string): Props { return {'--em-color-bg': toRGB(value)} }
 
