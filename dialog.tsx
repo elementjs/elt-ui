@@ -9,6 +9,7 @@ import {
   DisplayIf,
   inserted,
   removed,
+  append_child_and_mount
 } from 'elt';
 
 import flex from './flex'
@@ -106,7 +107,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   let parent = opts.parent || document.body
 
-  parent.appendChild(dialog_holder)
+  append_child_and_mount(parent, dialog_holder)
 
   return dlg.promise.then(bye, (err) => bye(Promise.reject(err) as any))
 

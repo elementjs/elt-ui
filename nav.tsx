@@ -3,7 +3,7 @@ import {
 	click,
 	Component,
 	Attrs,
-	removeNode
+	remove_and_unmount
 } from 'elt'
 
 import {inkClickDelay} from './ink'
@@ -25,7 +25,7 @@ export class Nav extends Component {
 	detach() {
 		this.node.classList.remove(CSS.enter)
 		animateClass(this.node, CSS.leave).then(() => {
-			removeNode(this.node)
+			remove_and_unmount(this.node)
 		}).catch(e => {
 			console.error(e)
 		})

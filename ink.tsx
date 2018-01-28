@@ -1,5 +1,5 @@
 
-import {click, Mixin} from 'elt'
+import {click, Mixin, append_child_and_mount} from 'elt'
 
 import s from './styling'
 import {CSS as A, animateClass} from './animate'
@@ -17,7 +17,7 @@ export function inker(node: Node, event: MouseEvent) {
 		{inker}
 	</div> as HTMLDivElement
 
-	node.appendChild(ink_container)
+	append_child_and_mount(node, ink_container)
 
 	// Some CSS rules may mess up the container positioning, so we enforce them
 	// here

@@ -7,10 +7,10 @@
   "main": "./index.js",
   "typings": "./index.d.ts",
   "scripts": {
-    "build:js": "tsc",
+    "build:js": "wtsc",
     "build": "npm run build:js",
     "prepublish": "npm run build",
-    "watch": "tscc -w"
+    "watch": "wtsc -w"
   },
   "dependencies": {
     "csstips": "^0.2.2",

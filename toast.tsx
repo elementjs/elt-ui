@@ -1,5 +1,5 @@
 
-import {Insertable} from 'elt'
+import {Insertable, append_child_and_mount} from 'elt'
 import {animate, CSS as AnimCSS} from './animate'
 import flex from './flex'
 
@@ -61,14 +61,15 @@ export class Toaster {
 
 		// let promise: Promise<any> = this._current ? this._current.destroy() : Promise.resolve(true)
 
-		if (!this._holder.parentNode)
-			document.body.appendChild(this._holder)
+		if (!this._holder.parentNode) {
+			append_child_and_mount(document.body, this._holder)
+		}
 
 		let toast = (msg instanceof Node ? msg
 			: <div class={CSS.toast}>{msg}</div>) as HTMLElement
 
 		animate(toast, `${AnimCSS.fadeIn} 0.2s ease-in both`)
-		this._holder.appendChild(toast)
+		append_child_and_mount(this._holder, toast)
 
 		this._cancel = window.setTimeout(() => this.kill(toast), 3000)
 		this._current = toast
