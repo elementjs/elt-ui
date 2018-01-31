@@ -1,5 +1,5 @@
 
-import {click, Mixin, append_child_and_mount} from 'elt'
+import {click, Mixin, append_child_and_mount, remove_and_unmount} from 'elt'
 
 import s from './styling'
 import {CSS as A, animateClass} from './animate'
@@ -60,7 +60,7 @@ export function inker(node: Node, event: MouseEvent) {
 		it.marginLeft = halved
 
 		animateClass(ink_container, CSS.animate).then(() => {
-			ink_container.remove()
+			remove_and_unmount(ink_container)
 		})
 	})
 }

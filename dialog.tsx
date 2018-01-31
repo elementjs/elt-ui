@@ -9,7 +9,8 @@ import {
   DisplayIf,
   inserted,
   removed,
-  append_child_and_mount
+  append_child_and_mount,
+  remove_and_unmount
 } from 'elt';
 
 import flex from './flex'
@@ -76,7 +77,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
   function bye(res: T) {
     return animateClass(dialog_holder, CSS.leave).then(() => {
-      dialog_holder.remove()
+      remove_and_unmount(dialog_holder)
       return res
     })
   }

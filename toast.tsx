@@ -1,5 +1,5 @@
 
-import {Insertable, append_child_and_mount} from 'elt'
+import {Insertable, append_child_and_mount, remove_and_unmount} from 'elt'
 import {animate, CSS as AnimCSS} from './animate'
 import flex from './flex'
 
@@ -46,7 +46,7 @@ export class Toaster {
 
 	kill(node: HTMLElement) {
 		animate(node, `${AnimCSS.fadeOut} 0.2s ease-out both`).then(node =>
-			node.remove()
+			remove_and_unmount(node)
 		)
 	}
 
