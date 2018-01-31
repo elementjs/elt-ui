@@ -7,15 +7,16 @@ import s from './styling'
 
 export namespace CSS {
 
-  export const toolbar = s.style('toolbar', {
-      padding: `0 16px 0 0`,
-      height: '64px',
-    },
+  export const toolbar = s.style('toolbar',
     s.colors.ReversePrimary
   )
 
   export const toolbarMain = s.style('toolbar-main',
-    {fontSize: '24px'},
+    {
+      fontSize: '24px',
+      padding: `0 16px 0 0`,
+      height: '64px',
+    },
     s.child('*', {marginLeft: '16px'}),
     s.child('h3', {fontSize: '24px', margin: '0 0 0 16px', padding: 0}),
   )
