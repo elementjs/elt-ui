@@ -23,9 +23,7 @@ export interface ButtonBarAttrs extends Attrs {
 }
 
 
-export class ButtonBar extends Component {
-
-  attrs!: ButtonBarAttrs
+export class ButtonBar extends Component<ButtonBarAttrs> {
 
   inserted(node: Element, parent: Element) {
     parent.classList.add(CSS.hasButtonBar)

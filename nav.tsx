@@ -18,9 +18,7 @@ export interface NavAttributes extends Attrs {
 
 }
 
-export class Nav extends Component {
-
-	node!: HTMLElement
+export class Nav extends Component<Attrs, HTMLElement> {
 
 	detach() {
 		this.node.classList.remove(CSS.enter)
@@ -32,15 +30,10 @@ export class Nav extends Component {
 	}
 
 	inserted(node: HTMLElement) {
-		this.node = node
 		animateClass(node, CSS.enter)
 	}
 
-	removed() {
-		this.node = null!
-	}
-
-	render(ch: DocumentFragment): Element {
+	render(ch: DocumentFragment): HTMLElement {
 
 		return <div>
 			<div class={CSS.overlay} $$={[click((e, overlay) => {
@@ -50,7 +43,7 @@ export class Nav extends Component {
 			<div class={[CSS.drawer, flex.column]}>
 				{ch}
 			</div>
-		</div>
+		</div> as HTMLElement
 	}
 
 }

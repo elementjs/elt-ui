@@ -24,12 +24,10 @@ export interface CheckboxAttributes extends Attrs {
   disabled?: RO<boolean>
 }
 
-export class Checkbox extends Component {
+export class Checkbox extends Component<CheckboxAttributes> {
 
-  attrs!: CheckboxAttributes
-
-  o_model!: Observable<boolean>
-  o_disabled: RO<boolean|undefined>
+  o_model: Observable<boolean> = o(this.attrs.model)
+  o_disabled: RO<boolean|undefined> = o(this.attrs.disabled)
 
   toggle() {
     if (o.get(this.o_disabled)) return
@@ -37,8 +35,6 @@ export class Checkbox extends Component {
   }
 
   render(children: DocumentFragment): Element {
-    this.o_model = o(this.attrs.model)
-    this.o_disabled = o(this.attrs.disabled)
 
     function getIcon(value: boolean) {
       if (value === undefined) return INDETERMINATE

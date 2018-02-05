@@ -41,9 +41,7 @@ export interface TabAttributes extends Attrs {
  * FIXME missing is_active logic, since I don't know how to dynamically
  * watch the parent container observable.
  */
-export class Tab extends Component {
-
-	attrs!: TabAttributes
+export class Tab extends Component<TabAttributes> {
 
 	container: TabContainer | null = null
 	children: Node[] = []

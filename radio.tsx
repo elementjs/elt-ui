@@ -27,23 +27,17 @@ export interface RadioAttributes<T> extends Attrs {
 }
 
 
-export class Radio<T> extends Component {
+export class Radio<T> extends Component<RadioAttributes<T>> {
 
-  attrs!: RadioAttributes<T>
-
-  disabled!: RO<boolean>
-  value!: RO<T>
-  model!: Observable<T>
+  disabled: RO<boolean> = o(this.attrs.disabled||false)
+  value: RO<T> = this.attrs.value
+  model: Observable<T> = o(this.attrs.model)
 
   setValue() {
     this.model.set(o.get(this.value))
   }
 
   render(children: DocumentFragment): Element {
-
-    this.disabled = o(this.attrs.disabled||false)
-    this.value = this.attrs.value
-    this.model = o(this.attrs.model)
 
     let classes = {
       [CSS.on]: this.model.equals(this.value),

@@ -29,9 +29,8 @@ export interface SelectAttributes<T> extends Attrs {
 	placeholder?: RO<string>
 }
 
-export class Select<T> extends Component {
+export class Select<T> extends Component<SelectAttributes<T>> {
 
-	attrs!: SelectAttributes<T>
 	protected selected: Observable<string> = o('-1')
 
 	/**
