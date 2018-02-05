@@ -6,7 +6,6 @@
         "declaration": true,
         "sourceMap": true,
         "strict": true,
-        "noStrictGenericChecks": true,
         "noUnusedLocals": true,
         "jsx": "react",
         "jsxFactory": "E",
