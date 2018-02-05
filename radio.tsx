@@ -29,11 +29,11 @@ export interface RadioAttributes<T> extends Attrs {
 
 export class Radio<T> extends Component {
 
-  attrs: RadioAttributes<T>
+  attrs!: RadioAttributes<T>
 
-  disabled: RO<boolean>
-  value: RO<T>
-  model: Observable<T>
+  disabled!: RO<boolean>
+  value!: RO<T>
+  model!: Observable<T>
 
   setValue() {
     this.model.set(o.get(this.value))

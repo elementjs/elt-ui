@@ -43,9 +43,9 @@ export interface TabAttributes extends Attrs {
  */
 export class Tab extends Component {
 
-	attrs: TabAttributes
+	attrs!: TabAttributes
 
-	container: TabContainer|null
+	container: TabContainer | null = null
 	children: Node[] = []
 	o_is_active = o(false)
 

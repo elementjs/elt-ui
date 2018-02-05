@@ -19,8 +19,8 @@ import {Button, ButtonBar} from './button';
 
 export class DialogCtrl<T> extends Mixin {
   promise: Promise<T>
-  _resolve: (v: T) => any
-  _reject: (...a: Array<any>) => any
+  _resolve: (v: T) => any = () => null
+  _reject: (...a: Array<any>) => any = () => null
 
 
   constructor() {

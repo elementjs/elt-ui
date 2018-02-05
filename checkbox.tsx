@@ -26,9 +26,9 @@ export interface CheckboxAttributes extends Attrs {
 
 export class Checkbox extends Component {
 
-  attrs: CheckboxAttributes
+  attrs!: CheckboxAttributes
 
-  o_model: Observable<boolean>
+  o_model!: Observable<boolean>
   o_disabled: RO<boolean|undefined>
 
   toggle() {

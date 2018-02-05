@@ -36,8 +36,8 @@ export class Toaster {
 
 	_mounted: boolean
 	_holder: Node
-	_current: HTMLElement
-	_cancel: number
+	_current: HTMLElement | null = null
+	_cancel: number = -1
 
 	constructor() {
 		this._mounted = false

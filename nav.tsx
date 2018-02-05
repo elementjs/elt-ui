@@ -20,7 +20,7 @@ export interface NavAttributes extends Attrs {
 
 export class Nav extends Component {
 
-	node: HTMLElement
+	node!: HTMLElement
 
 	detach() {
 		this.node.classList.remove(CSS.enter)

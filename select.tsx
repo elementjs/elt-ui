@@ -31,7 +31,7 @@ export interface SelectAttributes<T> extends Attrs {
 
 export class Select<T> extends Component {
 
-	attrs: SelectAttributes<T>
+	attrs!: SelectAttributes<T>
 	protected selected: Observable<string> = o('-1')
 
 	/**
