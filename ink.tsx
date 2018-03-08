@@ -24,7 +24,7 @@ export function inker(node: Node, event: MouseEvent) {
 
 	// Some CSS rules may mess up the container positioning, so we enforce them
 	// here
-	const size = 128
+	const ink_size = 64
 	const st = ink_container.style
 	st.marginLeft = '0px'
 	st.paddingLeft = '0px'
@@ -36,11 +36,11 @@ export function inker(node: Node, event: MouseEvent) {
 		st.height = '100%'
 	} else {
 		st.backgroundColor = 'rgba(0, 0, 0, 0)'
-		st.left = `${event.clientX - size / 2}px`
-		st.top = `${event.clientY - size / 2}px`
+		st.left = `${event.clientX - ink_size / 2}px`
+		st.top = `${event.clientY - ink_size / 2}px`
 		st.position = 'fixed'
-		st.width = `${size}px`
-		st.height = `${size}px`
+		st.width = `${ink_size}px`
+		st.height = `${ink_size}px`
 	}
 
 	requestAnimationFrame(e => {
@@ -62,7 +62,7 @@ export function inker(node: Node, event: MouseEvent) {
 			)
 		) :
 			// Alternatively, if we're not in relative mode, we will keep
-			128 / 2
+			ink_size / 2
 
 		const size = `${Math.round(biggest * 2)}px`
 		const halved = `-${Math.round(biggest)}px`
