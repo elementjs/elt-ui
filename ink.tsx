@@ -12,23 +12,36 @@ export function inker(node: Node, event: MouseEvent) {
 	var clientX = event.pageX
 	var clientY = event.pageY
 
+	const position = (window.getComputedStyle((node as HTMLElement)).position)
+	const is_relative = position === 'relative' || position === 'absolute'
+
 	const inker = <div class={CSS.ink}/> as HTMLDivElement
 	const ink_container = <div class={CSS.container}>
 		{inker}
 	</div> as HTMLDivElement
 
-	append_child_and_mount(node, ink_container)
+	append_child_and_mount(is_relative ? node : document.body, ink_container)
 
 	// Some CSS rules may mess up the container positioning, so we enforce them
 	// here
+	const size = 128
 	const st = ink_container.style
 	st.marginLeft = '0px'
 	st.paddingLeft = '0px'
-	st.left = '0px'
-	st.top = '0px'
-	st.position = 'absolute'
-	st.width = '100%'
-	st.height = '100%'
+	if (is_relative) {
+		st.left = '0px'
+		st.top = '0px'
+		st.position = 'absolute'
+		st.width = '100%'
+		st.height = '100%'
+	} else {
+		st.backgroundColor = 'rgba(0, 0, 0, 0)'
+		st.left = `${event.clientX - size / 2}px`
+		st.top = `${event.clientY - size / 2}px`
+		st.position = 'fixed'
+		st.width = `${size}px`
+		st.height = `${size}px`
+	}
 
 	requestAnimationFrame(e => {
 		const bb = ink_container.getBoundingClientRect()
@@ -40,14 +53,16 @@ export function inker(node: Node, event: MouseEvent) {
 
 		// we want the biggest distance to an edge, as it will determine
 		// the size of our inker.
-		const biggest = Math.sqrt(
+		const biggest = is_relative ? Math.sqrt(
 			Math.max(
 				x * x + y * y,
 				x * x + my * my,
 				mx * mx + y * y,
 				mx * mx + my * my
 			)
-		)
+		) :
+			// Alternatively, if we're not in relative mode, we will keep
+			128 / 2
 
 		const size = `${Math.round(biggest * 2)}px`
 		const halved = `-${Math.round(biggest)}px`
