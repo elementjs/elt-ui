@@ -163,6 +163,10 @@ export namespace CSS {
   export namespace text {
     export const bold = style('bold', {fontWeight: 'bold'})
 
+    export const big = style('small', {fontSize: '18px'})
+    export const bigger = style('small', {fontSize: '22px'})
+    export const very_big = style('small', {fontSize: '28px'})
+
     export const small = style('small', {fontSize: '14px'})
     export const smaller = style('smaller', {fontSize: '12px'})
     export const verysmall = style('very-small', {fontSize: '10px'})
