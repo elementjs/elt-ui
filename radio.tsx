@@ -9,12 +9,12 @@ import {
   Component
 } from 'elt'
 
-import flex from './flex'
+import {css as flex} from './flex'
+import {css} from './checkbox'
 
 import {Icon} from './icon'
 
 import {inkable} from './ink'
-import {CSS} from './checkbox'
 
 
 var CHECKED = 'dot-circle'
@@ -40,18 +40,18 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
   render(children: DocumentFragment): Element {
 
     let classes = {
-      [CSS.on]: this.model.equals(this.value),
-      [CSS.off]: this.model.differs(this.value),
-      [CSS.disabled]: this.disabled
+      [css.on]: this.model.equals(this.value),
+      [css.off]: this.model.differs(this.value),
+      [css.disabled]: this.disabled
     };
 
-    return <label class={CSS.label} $$={[inkable(), click(e => this.setValue())]}>
-        <div class={[flex.row, flex.alignCenter]}>
+    return <label class={css.label} $$={[inkable(), click(e => this.setValue())]}>
+        <div class={[flex.row, flex.align_center]}>
           <Icon
-            class={[CSS.icon, classes]}
+            class={[css.icon, classes]}
             name={o.merge({model: this.model, value: this.value}).tf(({model: m, value: v}) => m === v ? CHECKED : UNCHECKED)}
           />
-          <span class={[CSS.content, classes]}>{children}</span>
+          <span class={[css.content, classes]}>{children}</span>
         </div>
       </label>;
 

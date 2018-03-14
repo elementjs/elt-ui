@@ -13,8 +13,8 @@ import {
   remove_and_unmount
 } from 'elt';
 
-import flex from './flex'
-import {animateClass, CSS as AnimateCSS} from './animate'
+import {css as flex} from './flex'
+import {animateClass, css as AnimateCSS} from './animate'
 import {Button, ButtonBar} from './button';
 
 export class DialogCtrl<T> extends Mixin {
@@ -43,15 +43,15 @@ export class DialogCtrl<T> extends Mixin {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[CSS.overlay, flex.column, flex.alignCenter, flex.justifyCenter]}>{children}</div>
+  return <div class={[css.overlay, flex.column, flex.align_center, flex.justify_center]}>{children}</div>
 }
 
-export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={CSS.title}>{children}</h3> }
-export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={CSS.content}>{children}</div> }
+export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={css.title}>{children}</h3> }
+export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={css.content}>{children}</div> }
 
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[CSS.root, flex.column]}>{children}</div>
+  return <div class={[css.root, flex.column]}>{children}</div>
 }
 
 export interface DialogOptions {
@@ -76,7 +76,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   let contents = cbk(dlg)
 
   function bye(res: T) {
-    return animateClass(dialog_holder, CSS.leave).then(() => {
+    return animateClass(dialog_holder, css.leave).then(() => {
       remove_and_unmount(dialog_holder)
       return res
     })
@@ -101,7 +101,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   </Overlay> as HTMLElement
 
   if (!opts.noanimate) {
-    animateClass(dialog_holder, CSS.enter)
+    animateClass(dialog_holder, css.enter)
   }
 
   // Remove the dialog from the DOM once we have answered it.
@@ -147,18 +147,18 @@ export function modal(opts: ModalOptions) {
 }
 
 
-import s from './styling'
+import {cls, s} from 'osun'
 
 /**
  * Our CSS Declarations.
  */
-export namespace CSS {
+export namespace css {
 
-  export const stacked = s.style('stacked')
-  export const enter = s.style('enter')
-  export const leave = s.style('leave')
+  export const stacked = cls('stacked')
+  export const enter = cls('enter')
+  export const leave = cls('leave')
 
-  export const root = s.style('root', {
+  export const root = cls('root', {
     '-webkit-transform-style': 'preserve-3d',
     '-webkit-backface-visibility': 'hidden',
     transform: `translateZ(0)`,
@@ -167,7 +167,7 @@ export namespace CSS {
     backgroundColor: `white`
   })
 
-  export const overlay = s.style('overlay', {
+  export const overlay = cls('overlay', {
     overflow: 'hidden',
     position: 'absolute',
     top: 0,
@@ -177,42 +177,40 @@ export namespace CSS {
 
     transform: 'translateZ(0)',
     backgroundColor: `rgba(0, 0, 0, 0.75)`,
-
-    $nest: {
-      [`&.${enter}`]: {
-        animation: `${AnimateCSS.fadeIn} 0.2s both ease-in`,
-        $nest: {
-          [`& .${root}`]: {
-            animation: `${AnimateCSS.topEnter} 0.2s both ease-in`
-          }
-        }
-      },
-      [`&.${leave}`]: {
-        animation: `${AnimateCSS.fadeOut} 0.2s both ease-out`,
-        $nest: {
-          [`& .${root}`]: {
-            animation: `${AnimateCSS.topLeave} 0.2s both ease-out`
-          }
-        }
-      }
-    }
   })
 
-  export const content = s.style('content', {
+  s(overlay).and(enter, {
+    animation: `${AnimateCSS.fade_in} 0.2s both ease-in`
+  })
+
+  s(root).childOf(s(overlay).and(enter), {
+    animation: `${AnimateCSS.top_enter} 0.2s both ease-in`
+  })
+
+  s(overlay).and(leave, {
+    animation: `${AnimateCSS.fade_out} 0.2s both ease-in`
+  })
+
+  s(root).childOf(s(overlay).and(leave), {
+    animation: `${AnimateCSS.top_leave} 0.2s both ease-in`
+  })
+
+
+  export const content = cls('content', {
     padding: '0 24px',
     paddingBottom: '24px',
     color: 'var(--em-text-color)',
-    $nest: {
-      '&:first-child': {
-        paddingTop: '24px'
-      },
-      '> *:last-child': {
-        marginBottom: 0
-      }
-    }
   })
 
-  export const title = s.style('title', {
+  s(content).append(':first-child', {
+    paddingTop: '24px'
+  })
+
+  s`*:last-child`.childOf(content, {
+    marginBottom: 0
+  })
+
+  export const title = cls('title', {
     margin: '0 0 0.625em 0',
     padding: 0
   })

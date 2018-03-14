@@ -13,10 +13,7 @@
     "watch": "wtsc -w"
   },
   "dependencies": {
-    "csstips": "^0.2.2",
-    "csx": "^8.5.0",
-    "reset.styl": "^0.1.1",
-    "typestyle": "^1.4.2"
+    "osun": "0.1.2"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",

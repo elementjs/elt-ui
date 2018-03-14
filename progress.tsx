@@ -12,11 +12,11 @@ export function Progress({error, mode, progress}: ProgressAttrs) {
   const o_progress = o(progress || 0)
   const o_error = o(error)
   return <div
-    class={[s.background.primary5, CSS.holder, {[CSS.error]: o_error}]}
+    class={[base.background.primary5, CSS.holder, {[CSS.error]: o_error}]}
     style={{opacity: o_progress.tf(v => v > 0 && v < 100 ? '1' : '0')}}
   >
       {DisplayIf(o_mode.equals('determinate'), () => <div class={[
-        s.background.primary2,
+        base.background.primary2,
         CSS.determinate
         ]}
         style={{width: o_progress.tf(v => `${v}%`)}}
@@ -27,16 +27,17 @@ export function Progress({error, mode, progress}: ProgressAttrs) {
     </div>
 }
 
-import s from './styling'
+import {cls} from 'osun'
+import {css as base} from './styling'
 export namespace CSS {
 
-  export const hidden = s.style('hidden', {display: 'none'})
+  export const hidden = cls('hidden', {display: 'none'})
 
-  export const error = s.style('error', {
+  export const error = cls('error', {
     '--em-color-primary': 'var(--em-color-accent)'
   })
 
-  export const holder = s.style('progress-holder', {
+  export const holder = cls('progress-holder', {
     position: 'absolute',
     transition: 'background-color linear 300ms, opacity linear 500ms',
     pointerEvents: 'none',
@@ -46,17 +47,9 @@ export namespace CSS {
     padding: '0 !important'
   })
 
-  export const determinate = s.style('progress-determinate', {
+  export const determinate = cls('progress-determinate', {
     height: '8px',
     transition: `width linear 100ms, background-color linear 300ms`,
-  })
-
-  export const primary = s.style('progress-primary', {
-
-  })
-
-  export const secondary = s.style('progress-secondary', {
-
   })
 
 }

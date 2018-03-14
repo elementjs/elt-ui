@@ -9,10 +9,10 @@ import {
 import {inkClickDelay} from './ink'
 
 import {Icon} from './icon'
-import flex from './flex'
+import {css as flex} from './flex'
 
 
-import {animateClass, CSS as AnimCSS} from './animate'
+import {animateClass, css as AnimCSS} from './animate'
 
 export interface NavAttributes extends Attrs {
 
@@ -21,8 +21,8 @@ export interface NavAttributes extends Attrs {
 export class Nav extends Component<Attrs, HTMLElement> {
 
 	detach() {
-		this.node.classList.remove(CSS.enter)
-		animateClass(this.node, CSS.leave).then(() => {
+		this.node.classList.remove(css.enter)
+		animateClass(this.node, css.leave).then(() => {
 			remove_and_unmount(this.node)
 		}).catch(e => {
 			console.error(e)
@@ -30,17 +30,17 @@ export class Nav extends Component<Attrs, HTMLElement> {
 	}
 
 	inserted(node: HTMLElement) {
-		animateClass(node, CSS.enter)
+		animateClass(node, css.enter)
 	}
 
 	render(ch: DocumentFragment): HTMLElement {
 
 		return <div>
-			<div class={CSS.overlay} $$={[click((e, overlay) => {
+			<div class={css.overlay} $$={[click((e, overlay) => {
 				if (e.target === overlay)
 					this.detach()
 			})]}/>
-			<div class={[CSS.drawer, flex.column]}>
+			<div class={[css.drawer, flex.column]}>
 				{ch}
 			</div>
 		</div> as HTMLElement
@@ -49,15 +49,15 @@ export class Nav extends Component<Attrs, HTMLElement> {
 }
 
 export function NavHeader(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={CSS.header}>{ch}</div>
+	return <div class={css.header}>{ch}</div>
 }
 
 export function NavSubheader(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={CSS.subheader}>{ch}</div>
+	return <div class={css.subheader}>{ch}</div>
 }
 
 export function NavDivider(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={CSS.divider}/>
+	return <div class={css.divider}/>
 }
 
 export interface NavItemAttributes extends Attrs {
@@ -66,7 +66,7 @@ export interface NavItemAttributes extends Attrs {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
-	let res = <div class={[CSS.item, flex.row, flex.alignCenter]} $$={[inkClickDelay(function (e) {
+	let res = <div class={[css.item, flex.row, flex.align_center]} $$={[inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			// XXX should we log an error here if c was null ?
@@ -75,7 +75,7 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 			else console.warn('could not get Nav')
 		}
 	})]}>
-		<Icon class={CSS.itemIcon} name={a.icon}/>
+		<Icon class={css.itemIcon} name={a.icon}/>
 		{ch}
 	</div>
 
@@ -87,15 +87,16 @@ export function NavBody(a: Attrs, ch: DocumentFragment): Element {
 }
 
 export function NavFooter(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={CSS.footer}>{ch}</div>
+	return <div class={css.footer}>{ch}</div>
 }
 
 
-import s from './styling'
+import {css as base} from './styling'
+import {cls, s, combine} from 'osun'
 
-export namespace CSS {
+export namespace css {
 
-	export const overlay = s.style('overlay', {
+	export const overlay = cls('overlay', {
 		position: 'fixed',
 		top: 0,
 		left: 0,
@@ -105,7 +106,7 @@ export namespace CSS {
 		transform: `translateZ(0)`
 	})
 
-	export const drawer = s.style('drawer',
+	export const drawer = cls('drawer',
 		{
 			position: 'fixed',
 			fontSize: '14px',
@@ -115,48 +116,59 @@ export namespace CSS {
 			height: '100vh',
 			width: '250px',
 			boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
-			backgroundColor: s.colors.Bg
+			backgroundColor: base.colors.BG
 		})
 
-	export const item = s.style('item', {
+	export const item = cls('item', {
 		position: 'relative',
 		height: '48px',
 		fontWeight: 'bold'
 	})
 
-	export const itemIcon = s.style('item-icon', {
+	export const itemIcon = cls('item-icon', {
 		paddingLeft: '16px',
 		width: '72px',
 		color: `rgba(0, 0, 0, 0.65)`,
-
-		$nest: {'&:before': {fontSize: '24px'}}
 	})
 
-	export const divider = s.style('divider', {
+	s(itemIcon).append(`:before`, {
+		fontSize: '24px'
+	})
+
+	export const divider = cls('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid ${s.colors.Fg6}`,
+		borderBottom: `1px solid ${base.colors.FG6}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})
 
-	export const header = s.style('header', {
+	export const header = cls('header', {
 		paddingTop: '16px',
 		paddingLeft: '16px'
 	})
 
-	export const subheader = s.style('subheader', {paddingLeft: '16px'})
-	export const footer = s.style('footer', {textAlign: 'center', paddingBottom: '16px'})
+	export const subheader = cls('subheader', {paddingLeft: '16px'})
+	export const footer = cls('footer', {textAlign: 'center', paddingBottom: '16px'})
 
-	export const enter = s.style('enter',
-	s.child('.' + overlay, { animation: `${AnimCSS.fadeIn} 0.2s ease-in forwards` }),
-	s.child('.' + drawer, { animation: `${AnimCSS.slideFromLeft} 0.2s ease-in forwards` })
-	)
+	export const enter = cls('enter')
 
-	export const leave = s.style('leave',
-		s.child('.' + overlay, { animation: `${AnimCSS.fadeOut} 0.2s ease-out forwards` }),
-		s.child('.' + drawer, { animation: `${AnimCSS.slideToLeft} 0.2s ease-out forwards` })
-	)
+	combine(s => s.childOf(enter), () => {
+		s(overlay, {
+			animation: `${AnimCSS.fade_in} 0.2s ease-in forwards`,
+		})
+
+		s(drawer, {
+			animation: `${AnimCSS.slide_from_left} 0.2s ease-in forwards`
+		})
+	})
+
+	export const leave = cls('leave')
+
+	combine(s => s.childOf(leave), () => {
+		s(overlay, { animation: `${AnimCSS.fade_out} 0.2s ease-out forwards` })
+		s(drawer, { animation: `${AnimCSS.slide_to_left} 0.2s ease-out forwards` })
+	})
 
 }
 

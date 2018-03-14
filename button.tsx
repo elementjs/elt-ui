@@ -10,12 +10,9 @@ import {
 } from 'elt'
 
 import {Icon} from './icon'
-import flex from './flex'
+import {css as flex} from './flex'
 
 import {inker} from './ink'
-
-
-import s from './styling'
 
 
 export interface ButtonBarAttrs extends Attrs {
@@ -26,15 +23,15 @@ export interface ButtonBarAttrs extends Attrs {
 export class ButtonBar extends Component<ButtonBarAttrs> {
 
   inserted(node: Element, parent: Element) {
-    parent.classList.add(CSS.hasButtonBar)
+    parent.classList.add(css.has_button_bar)
   }
 
   removed(node: Element, parent: Element) {
-    parent.classList.remove(CSS.hasButtonBar)
+    parent.classList.remove(css.has_button_bar)
   }
 
   render(children: DocumentFragment): Element {
-    return <div class={[CSS.buttonBar, flex.row, flex.justifyEnd]}>{children}</div>
+    return <div class={[css.button_bar, flex.row, flex.justify_end]}>{children}</div>
   }
 }
 
@@ -61,25 +58,25 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   }
 
   return <button
-    class={CSS.button}
+    class={css.button}
     disabled={o(attrs.disabled).tf(val => !!val)}
     $$={click(doClick)}
   >
     {DisplayIf(o(attrs.icon),
       o_name => <Icon
         class={[
-          CSS.baseButton,
-          CSS.buttonIcon,
-          {[CSS.disabled]: attrs.disabled, [CSS.raised]: attrs.raised, [CSS.bordered]: attrs.bordered}
+          css.base_button,
+          css.button_icon,
+          {[css.disabled]: attrs.disabled, [css.raised]: attrs.raised, [css.bordered]: attrs.bordered}
         ]}
         name={o_name}
       />
     ,
       () => <span
         class={[
-          CSS.baseButton,
-          CSS.buttonContent,
-          {[CSS.disabled]: attrs.disabled, [CSS.raised]: attrs.raised, [CSS.bordered]: attrs.bordered}
+          css.base_button,
+          css.button_content,
+          {[css.disabled]: attrs.disabled, [css.raised]: attrs.raised, [css.bordered]: attrs.bordered}
         ]}
       >
         {children}
@@ -91,10 +88,13 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
 }
 
 
-export namespace CSS {
+import {css as base} from './styling'
+import {cls, s} from 'osun'
 
-    export const button = s.style('button',
-      s.values.NoSpuriousBorders,
+export namespace css {
+
+    export const button = cls('button',
+      base.no_spurious_borders,
       {
         // This style applies to a button, that we want to completely reset.
         border: 0,
@@ -105,14 +105,15 @@ export namespace CSS {
         cursor: 'pointer',
         padding: '8px', // this is to allow more space for touch events.
       },
-      s.nest('&::-moz-focus-inner', {border: 0}),
     )
 
-    export const baseButton = s.style('base-button',
-      s.values.NoSpuriousBorders,
+    s(button).append(`::-moz-focus-inner`, {border: 0})
+
+    export const base_button = cls('base-button',
+      base.no_spurious_borders,
       {
         verticalAlign: 'middle',
-        color: s.colors.Primary,
+        color: base.colors.PRIMARY,
         display: 'inline-block',
         textAlign: 'center',
         cursor: 'pointer',
@@ -120,7 +121,7 @@ export namespace CSS {
       }
     )
 
-    export const buttonContent = s.style('button-content', {
+    export const button_content = cls('button-content', {
       minWidth: '64px',
       textTransform: 'uppercase',
       fontWeight: 'bold',
@@ -136,42 +137,40 @@ export namespace CSS {
       userSelect: 'none'
     })
 
-    export const buttonIcon = s.style('button-icon',
-      s.before({
-        fontSize: '24px',
-        color: s.colors.Primary
-    }))
+    export const button_icon = cls('button-icon')
 
-    export const raised = s.style('raised',
-      s.raised,
-      s.colors.ReversePrimary
-    )
-
-    export const bordered = s.style('bordered', {
-      border: `1px solid`,
-      borderColor: s.colors.Primary
+    s(button_icon).append(`::before`, {
+      fontSize: '24px',
+      color: base.colors.PRIMARY
     })
 
-    export const disabled = s.style('disabled', {
-      color: s.colors.Fg4,
+    export const raised = cls('raised',
+      base.raised,
+      base.colors.reverse_primary
+    )
+
+    export const bordered = cls('bordered', {
+      border: `1px solid`,
+      borderColor: base.colors.PRIMARY
+    })
+
+    export const disabled = cls('disabled', {
+      color: base.colors.FG4,
       boxShadow: 'none'
     })
 
-    export const iconButton = s.style('icon-button',
-      s.before({fontSize: '24px'})
-    )
+    export const icon_button = cls('icon-button')
+    s(icon_button).append('::before', {fontSize: '24px'})
 
-    s.rule(`.${button} + .${button}`, {
+    s(button).after(s(button), {
       marginLeft: 0,
       marginTop: 0
     })
 
+    export const button_bar = cls('button-bar')
+    s(button).childOf(button_bar, {paddingBottom: 0})
 
-    export const buttonBar = s.style('button-bar',
-      s.child(button, {paddingBottom: 0})
-    )
-
-    export const hasButtonBar = s.style('has-button-bar', {
+    export const has_button_bar = cls('has-button-bar', {
       paddingBottom: '0 !important'
     })
 

@@ -21,8 +21,8 @@ export interface SearchAttributes extends Attrs {
 }
 
 export function Search({model, placeholder}: SearchAttributes) {
-  return <input placeholder={placeholder} class={[CSS.search]} $$={bind(o(model))}>
-      <Button class={CSS.searchBtn} icon='close'/>
+  return <input placeholder={placeholder} class={[css.search]} $$={bind(o(model))}>
+      <Button class={css.search_btn} icon='close'/>
     </input>
 }
 
@@ -63,7 +63,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
   const input = <input
     {...other_attrs}
     id={id}
-    class={CSS.inputElement}
+    class={css.input_element}
     type={type || 'text'}
     $$={[bind(o_model)]}
   />
@@ -82,43 +82,44 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
       return res
     })
 
-  return <div class={[CSS.container, {
-    [CSS.focused]: o_focused,
-    [CSS.emptyUnfocused]: o_unfocus_and_empty,
-    [CSS.error]: attrs.error
+  return <div class={[css.container, {
+    [css.focused]: o_focused,
+    [css.empty_unfocused]: o_unfocus_and_empty,
+    [css.error]: attrs.error
   }]}>
       {input}
       {label ?
-          <label class={CSS.label} for={id}>{label}</label>
+          <label class={css.label} for={id}>{label}</label>
       : null}
-      {DisplayIf(o(error), error => <div class={CSS.inputError}>{error}</div>)}
+      {DisplayIf(o(error), error => <div class={css.input_error}>{error}</div>)}
     </div>;
 }
 
 
-import s from './styling'
+import {css as base} from './styling'
+import {cls, s, combine} from 'osun'
 
-export namespace CSS {
+export namespace css {
 
-  export const error = s.style('error')
-  export const focused = s.style('focused')
-  export const emptyUnfocused = s.style('unfocused')
+  export const error = cls('error')
+  export const focused = cls('focused')
+  export const empty_unfocused = cls('unfocused')
 
-  export const label = s.style('label', {
+  export const label = cls('label', {
     position: 'absolute',
     top: '12px',
     left: '4px',
 
     fontSize: '12px',
     pointerEvents: 'none',
-    color: s.colors.Fg6,
+    color: base.colors.FG6,
     transformOrigin: 'top left',
     transform: 'translateZ(0)',
     transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
   })
 
-  export const inputElement = s.style('input-elt',
-    s.values.NoSpuriousBorders,
+  export const input_element = cls('input-elt',
+    base.no_spurious_borders,
     {
       position: 'relative',
       borderRadius: 0,
@@ -129,57 +130,69 @@ export namespace CSS {
       paddingRight: '4px',
       paddingLeft: '4px',
       paddingBottom: '4px',
-      borderBottom: `1px solid ${s.colors.Fg6}`,
+      borderBottom: `1px solid ${base.colors.FG6}`,
       width: '100%',
       transition: `border-bottom-color linear 0.3s`,
-    },
-    s.nest('[type="time"]', {
-      '-webkit-appearance': 'none',
-      minWidth: '15px',
-      minHeight: '48px'
-    }),
-    s.focus({paddingBottom: '3px', borderBottom: `2px solid ${s.colors.Primary}`})
+    }
   )
 
-  export const inputError = s.style('input-error', {
+  s(input_element).append(`[type="time"]`, {
+    '-webkit-appearance': 'none',
+    minWidth: '15px',
+    minHeight: '48px'
+  })
+
+  s(input_element).append(`:focus`, {
+    paddingBottom: '3px', borderBottom: `2px solid ${base.colors.PRIMARY}`
+  })
+
+  export const input_error = cls('input-error', {
     position: 'absolute',
-    color: s.colors.Accent,
+    color: base.colors.ACCENT,
     fontSize: '10px',
     top: '48px'
   })
 
-  export const container = s.style('container', {
+  export const container = cls('container', {
     display: 'inline-block',
     position: 'relative',
     height: '64px',
-
-    $nest: {
-      [`&.${error} > .${label}`]: {color: s.colors.Accent},
-      [`$.${error} > .${inputElement}`]: {borderBottomColor: s.colors.Accent},
-      [`&.${focused} > .${label}`]: {color: s.colors.Primary},
-      [`&.${emptyUnfocused} > .${label}`]: {
-        fontSize: `14px`,
-        transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
-      },
-    }
   })
 
-  export const search = s.style('search', {
+  // Styling labels that are children of different container combinations
+  // The label is always the one being styled here
+  combine(_ => s(label).childOf(_.and(container)), () => {
+    s(error, { color: base.colors.ACCENT })
+    s(focused, { color: base.colors.PRIMARY })
+    s(empty_unfocused, {
+      fontSize: `14px`,
+      transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
+    })
+  })
+
+  s(input_element).childOf(s(container).and(error), {
+    borderBottomColor: base.colors.ACCENT
+  })
+
+  export const search = cls('search', {
       borderRadius: '3px',
       border: '1px solid',
       position: 'relative',
-      borderColor: s.colors.Fg5,
-      color: s.colors.Fg,
-      backgroundColor: s.colors.Fg6,
+      borderColor: base.colors.FG5,
+      color: base.colors.FG,
+      backgroundColor: base.colors.FG6,
       fontSize: '0.8em',
       padding: '8px 16px'
     },
-    s.values.NoSpuriousBorders,
-    s.values.NoNativeAppearance,
-    s.nest('&::placeholder', {color: s.colors.Fg5})
+    base.no_spurious_borders,
+    base.no_native_appearance,
   )
 
-  export const searchBtn = s.style('search-btn', {
+  s(search).append(`::placeholder`, {
+    color: base.colors.FG5
+  })
+
+  export const search_btn = cls('search-btn', {
     position: 'absolute',
     right: 0
   })

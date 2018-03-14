@@ -1,29 +1,31 @@
 
 import {Attrs} from 'elt'
-import flex from './flex'
+import {css as flex} from './flex'
+import {cls, s} from 'osun'
 
+import {css as base} from './styling'
 
-import s from './styling'
-
-export namespace CSS {
-	export const frame = s.style('card-frame',
-		s.raised,
+export namespace css {
+	export const frame = cls('card-frame',
+		base.raised,
 		{
 			borderRadius: '2px',
-			backgroundColor: s.colors.Bg,
+			backgroundColor: base.colors.BG,
 		},
-		s.child('h3', {
-			fontSize: '16px',
-			padding: '16px',
-			margin: 0,
-			textAlign: 'center',
-			backgroundColor: s.colors.Primary,
-			color: 'white'
-		})
+
 	)
+
+	s`h3`.childOf(frame, {
+		fontSize: '16px',
+		padding: '16px',
+		margin: 0,
+		textAlign: 'center',
+		backgroundColor: base.colors.PRIMARY,
+		color: 'white'
+	})
 }
 
 export function Card(a: Attrs, children: DocumentFragment): Element {
 	var {$$children, class: kls, ...attrs} = a
-	return <div class={[CSS.frame, flex.column]} {...attrs}>{children}</div>
+	return <div class={[css.frame, flex.column]} {...attrs}>{children}</div>
 }

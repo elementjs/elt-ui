@@ -9,7 +9,7 @@ import {
   Component
 } from 'elt'
 
-import flex from './flex'
+import {css as flex} from './flex'
 import {Icon} from './icon'
 
 import {inkable} from './ink'
@@ -43,53 +43,54 @@ export class Checkbox extends Component<CheckboxAttributes> {
     }
 
     let classes = {
-      [CSS.on]: this.o_model,
-      [CSS.off]: this.o_model.isFalse(),
-      [CSS.disabled]: this.o_disabled
+      [css.on]: this.o_model,
+      [css.off]: this.o_model.isFalse(),
+      [css.disabled]: this.o_disabled
     }
 
-    return <label class={CSS.label} $$={[inkable(), click(e => this.toggle())]}>
-        <div class={[flex.row, flex.alignCenter]}>
-          <Icon class={[CSS.icon, classes]} name={this.o_model.tf(getIcon)}/>
-          <span class={[CSS.content, classes]}>{children}</span>
+    return <label class={css.label} $$={[inkable(), click(e => this.toggle())]}>
+        <div class={[flex.row, flex.align_center]}>
+          <Icon class={[css.icon, classes]} name={this.o_model.tf(getIcon)}/>
+          <span class={[css.content, classes]}>{children}</span>
         </div>
       </label>;
 
   }
 }
 
-import s from './styling'
+import { css as base } from './styling'
+import { cls, s } from 'osun'
 
-export namespace CSS {
-  export const on = s.style('on')
-  export const off = s.style('off')
-  export const disabled = s.style('disabled')
+export namespace css {
+  export const on = cls('on')
+  export const off = cls('off')
+  export const disabled = cls('disabled')
 
-  export const label = s.style('label', {
+  export const label = cls('label', {
     position: 'relative',
     cursor: 'pointer',
     userSelect: 'none',
     display: 'inline-block',
     minHeight: '36px',
     padding: '8px',
-    '-webkit-tap-highlight-color': s.colors.Invisible
+    '-webkit-tap-highlight-color': base.colors.TRANSPARENT
   })
 
-  export const content = s.style('content',
-    { verticalAlign: 'middle' },
-    s.and(off, {color: `rgba(0, 0, 0, 0.74)`}),
-    s.and(disabled, {color: `rgba(0, 0, 0, 0.26)`})
-  )
+  export const content = cls('content', { verticalAlign: 'middle' })
 
-  export const icon = s.style('icon',
+  s(content).and(off, {color: `rgba(0, 0, 0, 0.74)`})
+  s(content).and(disabled, {color: `rgba(0, 0, 0, 0.26)`})
+
+  export const icon = cls('icon',
     {
       marginRight: '8px',
       verticalAlign: 'middle',
       transition: 'color linear 0.3s',
     },
-    s.and(off, {color: `rgba(0, 0, 0, 0.74)`}),
-    s.and(disabled, {color: `rgba(0, 0, 0, 0.26)`}),
-    s.and(on, {color: s.colors.Primary}),
-    s.before({fontSize: '18px'})
   )
+
+  s(icon).and(off, {color: `rgba(0, 0, 0, 0.74)`}),
+  s(icon).and(disabled, {color: `rgba(0, 0, 0, 0.26)`}),
+  s(icon).and(on, {color: base.colors.PRIMARY}),
+  s(icon).append('::before', {fontSize: '18px'})
 }

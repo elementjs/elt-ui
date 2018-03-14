@@ -70,40 +70,40 @@ export function animateClass(node: HTMLElement, cls: string) {
 }
 
 
-import s from './styling'
+import { keyframes } from 'osun'
 
-export namespace CSS {
+export namespace css {
 
 	export const deceleration = `cubic-bezier(0, 0, .2, 1)`
 	export const standard = `cubic-bezier(.4, 0, .2, 1)`
 	export const acceleration = `cubic-bezier(.4, 0, 1, 1)`
 	export const sharp = `cubic-bezier(.4, 0, .6, 1)`
 
-	export const fadeIn = s.keyframes('fade-in', {
+	export const fade_in = keyframes('fade-in', {
 		'0%': {opacity: 0},
 		'100%': {opacity: 1}
 	})
 
-	export const fadeOut = s.keyframes('fade-out', {
+	export const fade_out = keyframes('fade-out', {
 		'100%': {opacity: 0}
 	})
 
-	export const slideFromLeft = s.keyframes('slide-from-left', {
+	export const slide_from_left = keyframes('slide-from-left', {
 		'0%': {transform: `translateX(-100%) translateZ(0)`},
 		'100%': {transform: `translateX(0) translateZ(0)`}
 	})
 
-	export const slideToLeft = s.keyframes('slide-to-left', {
+	export const slide_to_left = keyframes('slide-to-left', {
 		'0%': {transform: `translateX(0) translateZ(0)`},
 		'100%': {transform: `translateX(-100%) translateZ(0)`}
 	})
 
-	export const topEnter = s.keyframes('top-enter', {
+	export const top_enter = keyframes('top-enter', {
 		'0%': {transform: `translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)`},
 		'100%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`}
 	})
 
-	export const topLeave = s.keyframes('top-leave', {
+	export const top_leave = keyframes('top-leave', {
 		'0%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`},
 		'100%': {transform: `translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)`}
 	})

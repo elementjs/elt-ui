@@ -88,8 +88,8 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			decorators.push(on('change', ev => fn(o_model.get(), ev)))
 		}
 
-		return <label class={CSS.label}>
-			<select class={CSS.select} $$={decorators}>
+		return <label class={css.label}>
+			<select class={css.select} $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={o_model.equals(opt)}>
@@ -102,42 +102,43 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 
 }
 
-import s from './styling'
+import {css as base} from './styling'
+import {cls, s} from 'osun'
 
-export namespace CSS {
-	export const select = s.style('select',
-		s.values.NoSpuriousBorders,
-		s.values.NoNativeAppearance,
+export namespace css {
+	export const select = cls('select',
+		base.no_spurious_borders,
+		base.no_native_appearance,
 		{
 			padding: '0 16px 0 8px',
 			height: '32px',
 			margin: 0,
-			border: `1px solid ${s.colors.Fg5}`,
-			borderColor: s.colors.Fg5,
+			border: `1px solid ${base.colors.FG5}`,
+			borderColor: base.colors.FG5,
 			borderRadius: '2px',
-			background: s.colors.Bg,
-			color: s.colors.Fg3,
+			background: base.colors.BG,
+			color: base.colors.FG3,
 			display: 'inline-block',
 			cursor: 'pointer'
 		},
-		s.nest('&:-moz-focusring', {
-			color: s.colors.Invisible,
-			textShadow: `0 0 0 ${s.colors.Fg3}`
-		})
 	)
 
-	export const label = s.style('label',
-		{position: 'relative'},
-		s.after({
-			content: "'\\f2f2'",
-			fontFamily: '"Material-Design-Iconic-Font", monospace',
-			color: s.colors.Fg3,
-			right: '8px',
-			top: '9px',
-			padding: '0 0 2px',
-			position: 'absolute',
-			pointerEvents: 'none',
-			verticalAlign: 'middle'
-		})
-	)
+	s(select).append(`:-moz-focusring`).define({
+		color: base.colors.TRANSPARENT,
+		textShadow: `0 0 0 ${base.colors.FG3}`
+	})
+
+	export const label = cls('label', {position: 'relative'})
+
+	s(label).append('::after').define({
+		content: "'\\f2f2'",
+		fontFamily: '"Material-Design-Iconic-Font", monospace',
+		color: base.colors.FG3,
+		right: '8px',
+		top: '9px',
+		padding: '0 0 2px',
+		position: 'absolute',
+		pointerEvents: 'none',
+		verticalAlign: 'middle'
+	})
 }

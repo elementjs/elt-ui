@@ -1,12 +1,13 @@
 
 import {Insertable, append_child_and_mount, remove_and_unmount} from 'elt'
-import {animate, CSS as AnimCSS} from './animate'
-import flex from './flex'
+import {animate, css as AnimCSS} from './animate'
+import {css as flex} from './flex'
 
-import s from './styling'
+import {cls} from 'osun'
+import {css as base} from './styling'
 
-export namespace CSS {
-	export const holder = s.style('toast-holder',
+export namespace css {
+	export const holder = cls('toast-holder',
 		{
 			position: 'fixed',
 			bottom: 0,
@@ -14,12 +15,12 @@ export namespace CSS {
 			width: '100%',
 	})
 
-	export const toast = s.style('toast', {
+	export const toast = cls('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
-		background: s.colors.Fg2,
+		background: base.colors.FG2,
 		borderRadius: '2px 2px 0 0',
-		color: s.colors.Bg,
+		color: base.colors.BG,
 		cursor: 'pointer'
 	})
 
@@ -41,11 +42,11 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={[CSS.holder, flex.row, flex.justifyCenter]}/>
+		this._holder = <div class={[css.holder, flex.row, flex.justify_center]}/>
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, `${AnimCSS.fadeOut} 0.2s ease-out both`).then(node =>
+		animate(node, `${AnimCSS.fade_out} 0.2s ease-out both`).then(node =>
 			remove_and_unmount(node)
 		)
 	}
@@ -66,9 +67,9 @@ export class Toaster {
 		}
 
 		let toast = (msg instanceof Node ? msg
-			: <div class={CSS.toast}>{msg}</div>) as HTMLElement
+			: <div class={css.toast}>{msg}</div>) as HTMLElement
 
-		animate(toast, `${AnimCSS.fadeIn} 0.2s ease-in both`)
+		animate(toast, `${AnimCSS.fade_in} 0.2s ease-in both`)
 		append_child_and_mount(this._holder, toast)
 
 		this._cancel = window.setTimeout(() => this.kill(toast), 3000)

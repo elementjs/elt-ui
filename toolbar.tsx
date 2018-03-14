@@ -1,33 +1,37 @@
 
 import {Attrs} from 'elt'
 
-import flex from './flex'
+import {cls, s} from 'osun'
+import {css as flex} from './flex'
+import {css as base} from './styling'
 
-import s from './styling'
+export namespace css {
 
-export namespace CSS {
-
-  export const toolbar = s.style('toolbar',
-    s.colors.ReversePrimary
+  export const toolbar = cls('toolbar',
+    base.colors.reverse_primary
   )
 
-  export const toolbarMain = s.style('toolbar-main',
+  export const toolbar_main = cls('toolbar-main',
     {
       fontSize: '24px',
       padding: `0 16px 0 0`,
       height: '64px',
     },
-    s.child('*', {marginLeft: '16px'}),
-    s.child('h3', {fontSize: '24px', margin: '0 0 0 16px', padding: 0}),
   )
+
+  s`*`.childOf(toolbar_main, {
+    marginLeft: '16px'
+  })
+
+  s`h3`.childOf(toolbar_main, {fontSize: '24px', margin: '0 0 0 16px', padding: 0})
 
 }
 
 
 export function Toolbar(attrs: Attrs, children: DocumentFragment): Element {
 
-  return <div class={[CSS.toolbar, flex.row, flex.alignCenter]}>
-      <div class={[CSS.toolbarMain, flex.row, flex.alignCenter, flex.absoluteGrow]}>{children}</div>
+  return <div class={[css.toolbar, flex.row, flex.align_center]}>
+      <div class={[css.toolbar_main, flex.row, flex.align_center, flex.absoluteGrow]}>{children}</div>
     </div>;
 
 }

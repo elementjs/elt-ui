@@ -12,7 +12,7 @@ import {
 
 import {inkable} from './ink'
 
-import flex from './flex'
+import {css as flex} from './flex'
 
 
 export class TabContainer extends Component {
@@ -23,7 +23,7 @@ export class TabContainer extends Component {
 
 	render(children: DocumentFragment): Element {
 		return <div class={flex.column}>
-			<div class={[CSS.bar, flex.row, flex.justifyCenter]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
+			<div class={[css.bar, flex.row, flex.justify_center]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
 		</div>
 
@@ -56,12 +56,12 @@ export class Tab extends Component<TabAttributes> {
 			throw new Error('Tab must be inside a TabContainer')
 
 		this.container.o_titles.push(<div
-			class={CSS.title}
+			class={css.title}
 			$$={[
 				click(ev => this.activate()),
 				inkable()
 			]}>
-			<div class={[CSS.secondborder, {[CSS.active]: this.o_is_active}]}>&nbsp;</div>
+			<div class={[css.secondborder, {[css.active]: this.o_is_active}]}>&nbsp;</div>
 			{this.attrs.title}
 		</div>)
 
@@ -87,8 +87,8 @@ export class Tab extends Component<TabAttributes> {
 
 		return <div
 			class={[
-				CSS.content,
-				this.o_is_active.tf(act => act ? flex.column : s.displayNone),
+				css.content,
+				this.o_is_active.tf(act => act ? flex.column : base.display_none),
 				flex.absoluteGrow
 			]}
 		>
@@ -99,23 +99,24 @@ export class Tab extends Component<TabAttributes> {
 }
 
 
-import s from './styling'
+import {cls} from 'osun'
+import {css as base} from './styling'
 
-export namespace CSS {
+export namespace css {
 
-	export const bar = s.style('bar', {
-		backgroundColor: s.colors.Bg,
+	export const bar = cls('bar', {
+		backgroundColor: base.colors.BG,
 		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
 		height: '48px'
 	})
 
-	export const title = s.style('title', {
-		color: s.colors.Primary,
+	export const title = cls('title', {
+		color: base.colors.PRIMARY,
 		userSelect: 'none',
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		fontWeight: 'bold',
-		borderBottom: `1px solid ${s.colors.Primary}`,
+		borderBottom: `1px solid ${base.colors.PRIMARY}`,
 		height: '48px',
 		lineHeight: '48px',
 		fontSize: '14px',
@@ -126,7 +127,7 @@ export namespace CSS {
 		position: 'relative'
 	})
 
-	export const secondborder = s.style('second-border', {
+	export const secondborder = cls('second-border', {
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -134,13 +135,13 @@ export namespace CSS {
 		width: 'calc(100% - 1px)',
 		transition: 'transform 0.2s linear',
 		transform: 'scaleX(0)',
-		borderBottom: `1px solid ${s.colors.Primary}`,
+		borderBottom: `1px solid ${base.colors.PRIMARY}`,
 	})
 
-	export const active = s.style('active', {
+	export const active = cls('active', {
 		transform: 'scaleX(1)'
 	})
 
-	export const content = s.style('content', {backgroundColor: s.colors.Bg})
+	export const content = cls('content', {backgroundColor: base.colors.BG})
 
 }

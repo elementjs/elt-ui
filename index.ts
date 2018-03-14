@@ -20,34 +20,20 @@ export {inkable, inkClickDelay} from './ink'
 export {Row, Column} from './flex'
 export {Progress} from './progress'
 
-import {CSS as FlexCSS} from './flex'
-import {CSS as ButtonCSS} from './button'
-import {CSS as CheckboxCSS} from './checkbox'
-import {CSS as InputCSS} from './input'
-import {CSS as ToolbarCSS} from './toolbar'
-import {CSS as SelectCSS} from './select'
-import {CSS as TabCSS} from './tab'
-import {CSS as CardCSS} from './card'
-import {CSS as NavCSS} from './nav'
-import {CSS as InkCSS} from './ink'
-import {CSS as AnimateCSS} from './animate'
-import {CSS as BaseCSS} from './styling'
-import {CSS as TypoCSS} from './typography'
+import {css as FlexCSS} from './flex'
+import {css as ButtonCSS} from './button'
+import {css as CheckboxCSS} from './checkbox'
+import {css as InputCSS} from './input'
+import {css as ToolbarCSS} from './toolbar'
+import {css as SelectCSS} from './select'
+import {css as TabCSS} from './tab'
+import {css as CardCSS} from './card'
+import {css as NavCSS} from './nav'
+import {css as InkCSS} from './ink'
+import {css as AnimateCSS} from './animate'
+import {css as BaseCSS} from './styling'
+import {css as TypoCSS} from './typography'
 
-export {FlexCSS as flex}
 
-export namespace CSS {
-  export const flex = FlexCSS
-  export const button = ButtonCSS
-  export const checkbox = CheckboxCSS
-  export const input = InputCSS
-  export const toolbar = ToolbarCSS
-  export const select = SelectCSS
-  export const card = CardCSS
-  export const tab = TabCSS
-  export const nav = NavCSS
-  export const ink = InkCSS
-  export const base = BaseCSS
-  export const animations = AnimateCSS
-  export const typography = TypoCSS
-}
+export const css: typeof ButtonCSS & typeof CheckboxCSS & typeof InputCSS & typeof ToolbarCSS & typeof SelectCSS & typeof CardCSS & typeof TabCSS & typeof NavCSS & typeof InkCSS & typeof AnimateCSS & typeof TypoCSS & typeof FlexCSS & typeof BaseCSS =
+  Object.assign({}, ButtonCSS, CheckboxCSS, InputCSS, ToolbarCSS, SelectCSS, CardCSS, TabCSS, NavCSS, InkCSS, AnimateCSS, TypoCSS, FlexCSS, BaseCSS)
