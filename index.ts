@@ -37,3 +37,5 @@ import {css as TypoCSS} from './typography'
 
 export const css: typeof ButtonCSS & typeof CheckboxCSS & typeof InputCSS & typeof ToolbarCSS & typeof SelectCSS & typeof CardCSS & typeof TabCSS & typeof NavCSS & typeof InkCSS & typeof AnimateCSS & typeof TypoCSS & typeof FlexCSS & typeof BaseCSS =
   Object.assign({}, ButtonCSS, CheckboxCSS, InputCSS, ToolbarCSS, SelectCSS, CardCSS, TabCSS, NavCSS, InkCSS, AnimateCSS, TypoCSS, FlexCSS, BaseCSS)
+
+export * from 'osun'
