@@ -89,7 +89,7 @@ export class Tab extends Component<TabAttributes> {
 			class={[
 				css.content,
 				this.o_is_active.tf(act => act ? flex.column : base.display_none),
-				flex.absoluteGrow
+				flex.absolute_grow
 			]}
 		>
 			{this.o_is_active.tf(a => a ? frag : null)}

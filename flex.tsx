@@ -13,19 +13,19 @@ export namespace css {
 	 * flex parent regardless of its size. Useful in combination with overflow,
 	 * so that the child will not push the parent's boundaries.
 	 */
-	export const absoluteGrow = cls('absolute-grow', {
+	export const absolute_grow = cls('absolute-grow', {
 		flexGrow: 1,
 		flexBasis: 0
 	})
-	export const absoluteGrow2 = cls('absolute-grow2', {
+	export const absolute_grow2 = cls('absolute-grow2', {
 		flexGrow: 2,
 		flexBasis: 0
 	})
-	export const absoluteGrow3 = cls('absolute-grow3', {
+	export const absolute_grow3 = cls('absolute-grow3', {
 		flexGrow: 3,
 		flexBasis: 0
 	})
-	export const absoluteGrow4 = cls('absolute-grow4', {
+	export const absolute_grow4 = cls('absolute-grow4', {
 		flexGrow: 4,
 		flexBasis: 0
 	})

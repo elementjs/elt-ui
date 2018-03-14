@@ -31,7 +31,7 @@ export namespace css {
 export function Toolbar(attrs: Attrs, children: DocumentFragment): Element {
 
   return <div class={[css.toolbar, flex.row, flex.align_center]}>
-      <div class={[css.toolbar_main, flex.row, flex.align_center, flex.absoluteGrow]}>{children}</div>
+      <div class={[css.toolbar_main, flex.row, flex.align_center, flex.absolute_grow]}>{children}</div>
     </div>;
 
 }

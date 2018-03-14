@@ -83,7 +83,7 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 }
 
 export function NavBody(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={[flex.column, flex.absoluteGrow]}>{ch}</div>
+	return <div class={[flex.column, flex.absolute_grow]}>{ch}</div>
 }
 
 export function NavFooter(a: Attrs, ch: DocumentFragment): Element {
