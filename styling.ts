@@ -88,8 +88,8 @@ export namespace css {
     export const bold = cls('bold', {fontWeight: 'bold'})
 
     export const big = cls('small', {fontSize: '18px'})
-    export const bigger = cls('small', {fontSize: '22px'})
-    export const very_big = cls('small', {fontSize: '28px'})
+    export const bigger = cls('bigger', {fontSize: '22px'})
+    export const very_big = cls('very_big', {fontSize: '28px'})
 
     export const small = cls('small', {fontSize: '14px'})
     export const smaller = cls('smaller', {fontSize: '12px'})
