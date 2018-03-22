@@ -58,7 +58,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   }
 
   return <button
-    class={css.button}
+    class={[css.button, {[base.colors.reverse_primary]: attrs.raised}]}
     disabled={o(attrs.disabled).tf(val => !!val)}
     $$={click(doClick)}
   >
@@ -67,7 +67,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
         class={[
           css.base_button,
           css.button_icon,
-          {[css.disabled]: attrs.disabled, [css.raised]: attrs.raised, [css.bordered]: attrs.bordered}
+          {[css.disabled]: attrs.disabled, [base.raised]: attrs.raised, [css.bordered]: attrs.bordered}
         ]}
         name={o_name}
       />
@@ -76,7 +76,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
         class={[
           css.base_button,
           css.button_content,
-          {[css.disabled]: attrs.disabled, [css.raised]: attrs.raised, [css.bordered]: attrs.bordered}
+          {[css.disabled]: attrs.disabled, [base.raised]: attrs.raised, [css.bordered]: attrs.bordered}
         ]}
       >
         {children}
@@ -114,6 +114,7 @@ export namespace css {
       {
         verticalAlign: 'middle',
         color: base.colors.PRIMARY,
+        background: base.colors.BG,
         display: 'inline-block',
         textAlign: 'center',
         cursor: 'pointer',
@@ -143,11 +144,6 @@ export namespace css {
       fontSize: '24px',
       color: base.colors.PRIMARY
     })
-
-    export const raised = cls('raised',
-      base.raised,
-      base.colors.reverse_primary
-    )
 
     export const bordered = cls('bordered', {
       border: `1px solid`,
