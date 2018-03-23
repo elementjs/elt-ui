@@ -61,7 +61,8 @@ export namespace css {
       fontWeight: 'bold',
     })
 
-    s(`p, ul`, {
+    s(`p`, {
+      lineHeight: '20px'
     })
 
     s(`b`, {
