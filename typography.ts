@@ -23,63 +23,61 @@ export namespace css {
 
   combine(s => s.childOf(typographic_zone), () => {
 
-    // cssRule('body, p, button, textarea, select, option', {
-    s`body, p, button, textarea, select, option`
-    .define({
-      fontFamily: `'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif`,
+    s(`*`, {
+      marginTop: '24px'
     })
 
-    s`h1`.define({
-      fontSize: '45px',
+    s(`:first-child`, {
+      marginTop: 0
+    })
+
+    s(`h1`, {
+      fontSize: 'xx-large',
       fontWeight: 'bold'
     })
 
-    s`h2`.define({
-      fontSize: '34px',
+    s(`h2`, {
+      fontSize: 'x-large',
       fontWeight: 'bold',
-      marginBottom: '32px'
     })
 
-    s`h3`.define({
-      fontSize: '24px',
+    s(`h3`, {
+      fontSize: 'large',
       fontWeight: 'bold',
-      marginBottom: '24px'
     })
 
-    s`h4`.define({
-      fontSize: '18px',
+    s(`h4`, {
+      fontSize: 'normal',
       fontWeight: 'bold',
-      marginBottom: '18px'
     })
 
-    s`h5`.define({
-      fontSize: '16px',
+    s(`h5`, {
+      fontSize: 'normal',
       fontWeight: 'bold',
-      marginBottom: '16px'
     })
 
-    s`h6`.define({
-      fontSize: '14px',
+    s(`h6`, {
+      fontSize: 'small',
       fontWeight: 'bold',
-      marginBottom: '14px'
     })
 
-    s`h1, h2, h3, h4, h5, h6, p, ul`.define({
-      textAlign: 'left',
-      marginTop: 0,
-      marginBottom: '0.625em'
+    s(`p, ul`, {
     })
 
-    s`p, ul`.define({
-      marginBottom: '16px'
-    })
-
-    s`b`.define({
+    s(`b`, {
       fontWeight: 'bold'
     })
 
-    s`em`.define({
+    s(`em`, {
       fontStyle: 'italic'
+    })
+
+    s(`blockquote`, {
+      color: base.colors.FG2,
+      paddingLeft: '12px',
+      borderLeftWidth: '4px',
+      borderLeftStyle: 'solid',
+      borderLeftColor: base.colors.PRIMARY3
     })
   })
 

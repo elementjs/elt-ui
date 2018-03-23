@@ -103,7 +103,7 @@ export namespace css {
         position: 'relative',
         display: 'inline-block',
         cursor: 'pointer',
-        padding: '8px', // this is to allow more space for touch events.
+        // padding: '8px', // this is to allow more space for touch events.
       },
     )
 

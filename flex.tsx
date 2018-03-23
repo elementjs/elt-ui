@@ -1,6 +1,6 @@
 
 import {Attrs} from 'elt'
-import {cls} from 'osun'
+import {cls, all} from 'osun'
 
 export namespace css {
 
@@ -76,6 +76,15 @@ export namespace css {
 	export const self_align_center = cls('self-align-center', {alignSelf: 'center'})
 	export const self_align_baseline = cls('self-align-baseline', {alignSelf: 'baseline'})
 	export const self_align_stretch = cls('self-align-stretch', {alignSelf: 'stretch'})
+
+	export const spaced_inside8 = cls('spaced_inside8', {
+		marginBottom: `-8px`,
+		marginLeft: `-8px`
+	})
+	all.childOf(spaced_inside8, {
+		marginBottom: '8px',
+		marginLeft: '8px'
+	})
 }
 
 export function Row(attrs: Attrs, ch: DocumentFragment) {
