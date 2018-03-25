@@ -1,6 +1,6 @@
 
 import {Attrs} from 'elt'
-import {cls, all} from 'osun'
+import {cls, all, s} from 'osun'
 
 export namespace css {
 
@@ -84,6 +84,26 @@ export namespace css {
 	all.childOf(spaced_inside8, {
 		marginBottom: '8px',
 		marginLeft: '8px'
+	})
+	export const spaced_inside16 = cls('spaced_inside16', {
+		marginBottom: `-16px`,
+		marginLeft: `-16px`
+	})
+	all.childOf(spaced_inside16, {
+		marginBottom: '16px',
+		marginLeft: '16px'
+	})
+	export const spaced_inside24 = cls('spaced_inside24', {
+		marginBottom: `-24px`,
+		marginLeft: `-24px`
+	})
+	all.childOf(spaced_inside24, {
+		marginBottom: '24px',
+		marginLeft: '24px'
+	})
+	s(spaced_inside8).or(spaced_inside16).or(spaced_inside24).append(':empty', {
+		marginBottom: 0,
+		marginLeft: 0
 	})
 }
 
