@@ -31,6 +31,13 @@ export namespace css {
       marginTop: 0
     })
 
+    const titles = s(`h1, h2, h3, h4, h5, h6`, {
+      marginTop: '48px'
+    })
+    titles.after(titles, {
+      marginTop: '24px'
+    })
+
     s(`h1`, {
       fontSize: 'xx-large',
       fontWeight: 'bold'
