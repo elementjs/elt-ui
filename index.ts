@@ -1,5 +1,4 @@
 
-
 import * as dialog from './dialog'
 export {dialog}
 export {default as toast} from './toast'
@@ -19,8 +18,5 @@ export {animate} from './animate'
 export {inkable, inkClickDelay} from './ink'
 export {Row, Column, Flex} from './flex'
 export {Progress} from './progress'
-
-// import * as os from 'osun'
-
-// export const css: typeof ButtonCSS & typeof CheckboxCSS & typeof InputCSS & typeof ToolbarCSS & typeof SelectCSS & typeof CardCSS & typeof TabCSS & typeof NavCSS & typeof InkCSS & typeof AnimateCSS & typeof TypoCSS & typeof FlexCSS & typeof BaseCSS & typeof os =
-  // Object.assign({}, ButtonCSS, CheckboxCSS, InputCSS, ToolbarCSS, SelectCSS, CardCSS, TabCSS, NavCSS, InkCSS, AnimateCSS, TypoCSS, FlexCSS, BaseCSS, os)
+export {Css} from './styling'
+export {TypographicZone} from './typography'

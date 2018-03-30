@@ -1,12 +1,12 @@
 import {Attrs} from 'elt'
 import {cls, rule, combine, s} from 'osun'
-import {css as base} from './styling'
+import {Css} from './styling'
 
 export function TypographicZone(a: Attrs, ch: DocumentFragment) {
-  return <div>{ch}</div>
+  return <div class={TypographicZone.container}>{ch}</div>
 }
 
-export namespace css {
+export namespace TypographicZone {
 
   rule('*', {
     boxSizing: 'border-box'
@@ -20,13 +20,13 @@ export namespace css {
   })
 
   rule('html, body', {
-    color: base.colors.FG,
+    color: Css.colors.FG,
     fontSize: '16px'
   })
 
-  export const typographic_zone = cls('textzone')
+  export const container = cls('textzone')
 
-  combine(s => s.childOf(typographic_zone), () => {
+  combine(s => s.childOf(container), () => {
 
     s(`*`, {
       marginTop: '24px'
@@ -86,11 +86,11 @@ export namespace css {
     })
 
     s(`blockquote`, {
-      color: base.colors.FG2,
+      color: Css.colors.FG2,
       paddingLeft: '12px',
       borderLeftWidth: '4px',
       borderLeftStyle: 'solid',
-      borderLeftColor: base.colors.PRIMARY3
+      borderLeftColor: Css.colors.PRIMARY3
     })
   })
 
@@ -100,11 +100,11 @@ export namespace css {
   })
 
   rule('::-webkit-scrollbar-track', {
-    background: base.colors.PRIMARY6
+    background: Css.colors.PRIMARY6
   })
 
   rule('::-webkit-scrollbar-thumb', {
-    background: base.colors.PRIMARY5,
+    background: Css.colors.PRIMARY5,
     borderRadius: '3px'
   })
 

@@ -1,7 +1,8 @@
 
-import {cls, s, raw} from 'osun'
+import * as osun from 'osun'
 
-raw(`
+// Reset !
+osun.raw(`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -66,8 +67,20 @@ declare module 'osun/lib/types' {
   }
 }
 
+const _cls = osun.cls
+export function Css(name: string, ...props_or_classes: (osun.CSSProperties | string)[]): string {
+  return _cls(name, ...props_or_classes)
+}
+
 
 export namespace Css {
+
+  export const selector = osun.s
+  export const s = osun.s
+  export const keyframes = osun.keyframes
+  export const rule = osun.rule
+  export const combine = osun.combine
+  export const all = osun.all
 
   export namespace colors {
 
@@ -116,7 +129,7 @@ export namespace Css {
 
     export const TRANSPARENT = `rgba(0, 0, 0, 0)`
 
-    export const reverse_primary = cls('reverse_primary', {
+    export const reverse_primary = _cls('reverse_primary', {
       backgroundColor: PRIMARY,
       color: BG,
 
@@ -126,7 +139,7 @@ export namespace Css {
       '--em-color-bg-save': 'var(--em-color-bg)'
     })
 
-    s`*`.childOf(reverse_primary).define({
+    selector`*`.childOf(reverse_primary).define({
       '--em-color-fg': `var(--em-color-bg-save)`,
       '--em-color-primary': 'var(--em-color-bg-save)',
       '--em-color-bg': 'var(--em-color-primary-save)'
@@ -135,88 +148,88 @@ export namespace Css {
 
 
   export namespace text {
-    export const bold = cls('bold', {fontWeight: 'bold'})
+    export const bold = _cls('bold', {fontWeight: 'bold'})
 
-    export const big = cls('small', {fontSize: '18px'})
-    export const bigger = cls('bigger', {fontSize: '22px'})
-    export const very_big = cls('very_big', {fontSize: '28px'})
+    export const big = _cls('small', {fontSize: '18px'})
+    export const bigger = _cls('bigger', {fontSize: '22px'})
+    export const very_big = _cls('very_big', {fontSize: '28px'})
 
-    export const small = cls('small', {fontSize: '14px'})
-    export const smaller = cls('smaller', {fontSize: '12px'})
-    export const verysmall = cls('very-small', {fontSize: '10px'})
+    export const small = _cls('small', {fontSize: '14px'})
+    export const smaller = _cls('smaller', {fontSize: '12px'})
+    export const verysmall = _cls('very-small', {fontSize: '10px'})
 
-    export const centered = cls('text-center', {textAlign: 'center'})
-    export const right = cls('text-right', {textAlign: 'right'})
-    export const justified = cls('text-right', {textAlign: 'justify'})
+    export const centered = _cls('text-center', {textAlign: 'center'})
+    export const right = _cls('text-right', {textAlign: 'right'})
+    export const justified = _cls('text-right', {textAlign: 'justify'})
 
-    export const fg = cls('text-fg', {color: colors.FG})
-    export const fg2 = cls('text-fg2', {color: colors.FG2})
-    export const fg3 = cls('text-fg3', {color: colors.FG3})
-    export const fg4 = cls('text-fg4', {color: colors.FG4})
-    export const fg5 = cls('text-fg5', {color: colors.FG5})
-    export const fg6 = cls('text-fg6', {color: colors.FG6})
+    export const fg = _cls('text-fg', {color: colors.FG})
+    export const fg2 = _cls('text-fg2', {color: colors.FG2})
+    export const fg3 = _cls('text-fg3', {color: colors.FG3})
+    export const fg4 = _cls('text-fg4', {color: colors.FG4})
+    export const fg5 = _cls('text-fg5', {color: colors.FG5})
+    export const fg6 = _cls('text-fg6', {color: colors.FG6})
 
-    export const primary = cls('text-primary', {color: colors.PRIMARY})
-    export const primary2 = cls('text-primary2', {color: colors.PRIMARY2})
-    export const primary3 = cls('text-primary3', {color: colors.PRIMARY3})
-    export const primary4 = cls('text-primary4', {color: colors.PRIMARY4})
-    export const primary5 = cls('text-primary5', {color: colors.PRIMARY5})
-    export const primary6 = cls('text-primary6', {color: colors.PRIMARY6})
+    export const primary = _cls('text-primary', {color: colors.PRIMARY})
+    export const primary2 = _cls('text-primary2', {color: colors.PRIMARY2})
+    export const primary3 = _cls('text-primary3', {color: colors.PRIMARY3})
+    export const primary4 = _cls('text-primary4', {color: colors.PRIMARY4})
+    export const primary5 = _cls('text-primary5', {color: colors.PRIMARY5})
+    export const primary6 = _cls('text-primary6', {color: colors.PRIMARY6})
 
-    export const bg = cls('text-bg', {color: colors.BG})
-    export const bg2 = cls('text-bg2', {color: colors.BG2})
-    export const bg3 = cls('text-bg3', {color: colors.BG3})
-    export const bg4 = cls('text-bg4', {color: colors.BG4})
-    export const bg5 = cls('text-bg5', {color: colors.BG5})
-    export const bg6 = cls('text-bg6', {color: colors.BG6})
+    export const bg = _cls('text-bg', {color: colors.BG})
+    export const bg2 = _cls('text-bg2', {color: colors.BG2})
+    export const bg3 = _cls('text-bg3', {color: colors.BG3})
+    export const bg4 = _cls('text-bg4', {color: colors.BG4})
+    export const bg5 = _cls('text-bg5', {color: colors.BG5})
+    export const bg6 = _cls('text-bg6', {color: colors.BG6})
 
-    export const accent = cls('text-accent', {color: colors.ACCENT})
-    export const accent2 = cls('text-accent2', {color: colors.ACCENT2})
-    export const accent3 = cls('text-accent3', {color: colors.ACCENT3})
-    export const accent4 = cls('text-accent4', {color: colors.ACCENT4})
-    export const accent5 = cls('text-accent5', {color: colors.ACCENT5})
-    export const accent6 = cls('text-accent6', {color: colors.ACCENT6})
+    export const accent = _cls('text-accent', {color: colors.ACCENT})
+    export const accent2 = _cls('text-accent2', {color: colors.ACCENT2})
+    export const accent3 = _cls('text-accent3', {color: colors.ACCENT3})
+    export const accent4 = _cls('text-accent4', {color: colors.ACCENT4})
+    export const accent5 = _cls('text-accent5', {color: colors.ACCENT5})
+    export const accent6 = _cls('text-accent6', {color: colors.ACCENT6})
   }
 
 
   export namespace background {
-    export const primary = cls('bg-primary', {backgroundColor: colors.PRIMARY})
-    export const primary2 = cls('bg-primary2', {backgroundColor: colors.PRIMARY2})
-    export const primary3 = cls('bg-primary3', {backgroundColor: colors.PRIMARY3})
-    export const primary4 = cls('bg-primary4', {backgroundColor: colors.PRIMARY4})
-    export const primary5 = cls('bg-primary5', {backgroundColor: colors.PRIMARY5})
-    export const primary6 = cls('bg-primary6', {backgroundColor: colors.PRIMARY6})
+    export const primary = _cls('bg-primary', {backgroundColor: colors.PRIMARY})
+    export const primary2 = _cls('bg-primary2', {backgroundColor: colors.PRIMARY2})
+    export const primary3 = _cls('bg-primary3', {backgroundColor: colors.PRIMARY3})
+    export const primary4 = _cls('bg-primary4', {backgroundColor: colors.PRIMARY4})
+    export const primary5 = _cls('bg-primary5', {backgroundColor: colors.PRIMARY5})
+    export const primary6 = _cls('bg-primary6', {backgroundColor: colors.PRIMARY6})
   }
 
 
-  export const no_spurious_borders = cls('no-spurious-borders', {
+  export const no_spurious_borders = _cls('no-spurious-borders', {
     '-webkit-tap-highlight-color': colors.TRANSPARENT,
     'outline': 0
   })
 
-  export const no_native_appearance = cls('no-native-appearance', {
+  export const no_native_appearance = _cls('no-native-appearance', {
     '-webkit-appearance': 'none',
     '-moz-appearance': 'none',
     appearance: 'none'
   })
 
-  export const full_width = cls('full-width', {width: '100%'})
-  export const full_height = cls('full-height', {height: '100%'})
-  export const full_screen = cls('fullscreen', {
+  export const full_width = _cls('full-width', {width: '100%'})
+  export const full_height = _cls('full-height', {height: '100%'})
+  export const full_screen = _cls('fullscreen', {
     width: '100%', height: '100%', position: 'fixed',
     left: 0,
     top: 0,
     transformOrigin: '50% 50%'
   })
-  export const display_none = cls('display-none', {display: 'none'})
+  export const display_none = _cls('display-none', {display: 'none'})
 
-  export const padded = cls('padded', {padding: '16px'})
-  export const bold = cls('bold', {fontWeight: 'bold'})
-  export const raised = cls('raised', {boxShadow: `0 2px 2px ${colors.FG3}`})
-  export const cursor_pointer = cls('cursor-pointer', {cursor: 'pointer'})
-  export const relative = cls('relative', {position: 'relative'})
-  export const absolute = cls('absolute', {position: 'absolute'})
-  export const no_pointer_events = cls('no-pointer-events', {pointerEvents: 'none'})
+  export const padded = _cls('padded', {padding: '16px'})
+  export const bold = _cls('bold', {fontWeight: 'bold'})
+  export const raised = _cls('raised', {boxShadow: `0 2px 2px ${colors.FG3}`})
+  export const cursor_pointer = _cls('cursor-pointer', {cursor: 'pointer'})
+  export const relative = _cls('relative', {position: 'relative'})
+  export const absolute = _cls('absolute', {position: 'absolute'})
+  export const no_pointer_events = _cls('no-pointer-events', {pointerEvents: 'none'})
 
 }
 
