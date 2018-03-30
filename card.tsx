@@ -1,8 +1,6 @@
 
 import {Attrs} from 'elt'
 import {Flex} from './flex'
-import {cls, s} from 'osun'
-
 import {Css} from './styling'
 
 export function Card(a: Attrs, children: DocumentFragment): Element {
@@ -11,7 +9,7 @@ export function Card(a: Attrs, children: DocumentFragment): Element {
 }
 
 export namespace Card {
-	export const frame = cls('card-frame',
+	export const frame = Css('card-frame',
 		Css.raised,
 		{
 			borderRadius: '2px',
@@ -20,7 +18,7 @@ export namespace Card {
 
 	)
 
-	s`h3`.childOf(frame, {
+	Css.s`h3`.childOf(frame, {
 		fontSize: '16px',
 		padding: '16px',
 		margin: 0,

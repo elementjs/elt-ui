@@ -9,9 +9,9 @@ import {
   Listener
 } from 'elt'
 
+import {Css} from './styling'
 import {Icon} from './icon'
 import {Flex} from './flex'
-
 import {inker} from './ink'
 
 
@@ -67,12 +67,10 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
 }
 
 
-import {Css} from './styling'
-import {cls, s} from 'osun'
-
 export namespace Button {
+  const s = Css.s
 
-  export const button = cls('button',
+  export const button = Css('button',
     Css.no_spurious_borders,
     {
       // This style applies to a button, that we want to completely reset.
@@ -88,7 +86,7 @@ export namespace Button {
 
   s(button).append(`::-moz-focus-inner`, {border: 0})
 
-  export const base_button = cls('base-button',
+  export const base_button = Css('base-button',
     Css.no_spurious_borders,
     {
       verticalAlign: 'middle',
@@ -101,7 +99,7 @@ export namespace Button {
     }
   )
 
-  export const button_content = cls('button-content', {
+  export const button_content = Css('button-content', {
     minWidth: '64px',
     textTransform: 'uppercase',
     fontWeight: 'bold',
@@ -117,24 +115,24 @@ export namespace Button {
     userSelect: 'none'
   })
 
-  export const button_icon = cls('button-icon')
+  export const button_icon = Css('button-icon')
 
   s(button_icon).append(`::before`, {
     fontSize: '24px',
     color: Css.colors.PRIMARY
   })
 
-  export const bordered = cls('bordered', {
+  export const bordered = Css('bordered', {
     border: `1px solid`,
     borderColor: Css.colors.PRIMARY
   })
 
-  export const disabled = cls('disabled', {
+  export const disabled = Css('disabled', {
     color: Css.colors.FG4,
     boxShadow: 'none'
   })
 
-  export const icon_button = cls('icon-button')
+  export const icon_button = Css('icon-button')
   s(icon_button).append('::before', {fontSize: '24px'})
 
   s(button).after(s(button), {
@@ -166,10 +164,10 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
 }
 
 export namespace ButtonBar {
-  export const button_bar = cls('button-bar')
-  s(Button.button).childOf(button_bar, {paddingBottom: 0})
+  export const button_bar = Css('button-bar')
+  Css.s(Button.button).childOf(button_bar, {paddingBottom: 0})
 
-  export const has_button_bar = cls('has-button-bar', {
+  export const has_button_bar = Css('has-button-bar', {
     paddingBottom: '0 !important'
   })
 

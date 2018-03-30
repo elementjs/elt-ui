@@ -1,4 +1,5 @@
 
+import { Css } from './styling'
 
 const END_EVENTS = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend']
 const START_EVENTS = ['webkitAnimationStart', 'mozAnimationStart', 'MSAnimationStart', 'oanimationstart', 'animationstart']
@@ -52,9 +53,9 @@ export function animate(node: HTMLElement, cls: string) {
 }
 
 
-import { keyframes } from 'osun'
-
 export namespace animate {
+
+	const keyframes = Css.keyframes
 
 	export const FN_DECELERATION = `cubic-bezier(0, 0, .2, 1)`
 	export const FN_STANDARD = `cubic-bezier(.4, 0, .2, 1)`
@@ -66,7 +67,7 @@ export namespace animate {
 		'100%': {opacity: 1}
 	})
 
-	export const fade_out = keyframes('fade-out', {
+	export const FADE_OUT = keyframes('fade-out', {
 		'100%': {opacity: 0}
 	})
 
@@ -75,7 +76,7 @@ export namespace animate {
 		'100%': {transform: `translateX(0) translateZ(0)`}
 	})
 
-	export const slide_to_left = keyframes('slide-to-left', {
+	export const SLIDE_TO_LEFT = keyframes('slide-to-left', {
 		'0%': {transform: `translateX(0) translateZ(0)`},
 		'100%': {transform: `translateX(-100%) translateZ(0)`}
 	})

@@ -103,10 +103,10 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 }
 
 import {Css} from './styling'
-import {cls, s} from 'osun'
 
 export namespace Select {
-	export const select = cls('select',
+	const s = Css.s
+	export const select = Css('select',
 		Css.no_spurious_borders,
 		Css.no_native_appearance,
 		{
@@ -128,7 +128,7 @@ export namespace Select {
 		textShadow: `0 0 0 ${Css.colors.FG3}`
 	})
 
-	export const label = cls('label', {position: 'relative'})
+	export const label = Css('label', {position: 'relative'})
 
 	s(label).append('::after').define({
 		content: "'\\f2f2'",

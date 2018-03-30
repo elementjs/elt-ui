@@ -59,14 +59,14 @@ export class Checkbox extends Component<CheckboxAttributes> {
 }
 
 import { Css } from './styling'
-import { cls, s } from 'osun'
 
 export namespace Checkbox {
-  export const on = cls('on')
-  export const off = cls('off')
-  export const disabled = cls('disabled')
+  const s = Css.s
+  export const on = Css('on')
+  export const off = Css('off')
+  export const disabled = Css('disabled')
 
-  export const label = cls('label', {
+  export const label = Css('label', {
     position: 'relative',
     cursor: 'pointer',
     userSelect: 'none',
@@ -76,12 +76,12 @@ export namespace Checkbox {
     '-webkit-tap-highlight-color': Css.colors.TRANSPARENT
   })
 
-  export const content = cls('content', { verticalAlign: 'middle' })
+  export const content = Css('content', { verticalAlign: 'middle' })
 
   s(content).and(off, {color: `rgba(0, 0, 0, 0.74)`})
   s(content).and(disabled, {color: `rgba(0, 0, 0, 0.26)`})
 
-  export const icon = cls('icon',
+  export const icon = Css('icon',
     {
       marginRight: '8px',
       verticalAlign: 'middle',

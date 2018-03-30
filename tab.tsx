@@ -10,9 +10,10 @@ import {
 	Fragment as F
 } from 'elt'
 
-import {inkable} from './ink'
+import { inkable } from './ink'
 
-import {Flex} from './flex'
+import { Flex } from './flex'
+import { Css } from './styling'
 
 
 export class TabContainer extends Component {
@@ -32,7 +33,7 @@ export class TabContainer extends Component {
 }
 
 export namespace TabContainer {
-	export const bar = cls('bar', {
+	export const bar = Css('bar', {
 		backgroundColor: Css.colors.BG,
 		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
 		height: '48px'
@@ -107,12 +108,9 @@ export class Tab extends Component<TabAttributes> {
 }
 
 
-import {cls} from 'osun'
-import {Css} from './styling'
-
 export namespace Tab {
 
-	export const title = cls('title', {
+	export const title = Css('title', {
 		color: Css.colors.PRIMARY,
 		userSelect: 'none',
 		textTransform: 'uppercase',
@@ -129,7 +127,7 @@ export namespace Tab {
 		position: 'relative'
 	})
 
-	export const secondborder = cls('second-border', {
+	export const secondborder = Css('second-border', {
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -140,10 +138,10 @@ export namespace Tab {
 		borderBottom: `1px solid ${Css.colors.PRIMARY}`,
 	})
 
-	export const active = cls('active', {
+	export const active = Css('active', {
 		transform: 'scaleX(1)'
 	})
 
-	export const content = cls('content', {backgroundColor: Css.colors.BG})
+	export const content = Css('content', {backgroundColor: Css.colors.BG})
 
 }

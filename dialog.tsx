@@ -13,6 +13,7 @@ import {
   remove_and_unmount
 } from 'elt';
 
+import {Css} from './styling'
 import {Flex} from './flex'
 import {animate} from './animate'
 import {Button, ButtonBar} from './button';
@@ -147,18 +148,16 @@ export function modal(opts: ModalOptions) {
 }
 
 
-import {cls, s} from 'osun'
-
 /**
  * Our CSS Declarations.
  */
 export namespace dialog {
 
-  export const stacked = cls('stacked')
-  export const enter = cls('enter')
-  export const leave = cls('leave')
+  export const stacked = Css('stacked')
+  export const enter = Css('enter')
+  export const leave = Css('leave')
 
-  export const root = cls('root', {
+  export const root = Css('root', {
     '-webkit-transform-style': 'preserve-3d',
     '-webkit-backface-visibility': 'hidden',
     transform: `translateZ(0)`,
@@ -167,7 +166,7 @@ export namespace dialog {
     backgroundColor: `white`
   })
 
-  export const overlay = cls('overlay', {
+  export const overlay = Css('overlay', {
     overflow: 'hidden',
     position: 'absolute',
     top: 0,
@@ -179,38 +178,38 @@ export namespace dialog {
     backgroundColor: `rgba(0, 0, 0, 0.75)`,
   })
 
-  s(overlay).and(enter, {
+  Css.s(overlay).and(enter, {
     animation: `${animate.fade_in} 0.2s both ease-in`
   })
 
-  s(root).childOf(s(overlay).and(enter), {
+  Css.s(root).childOf(Css.s(overlay).and(enter), {
     animation: `${animate.top_enter} 0.2s both ease-in`
   })
 
-  s(overlay).and(leave, {
-    animation: `${animate.fade_out} 0.2s both ease-in`
+  Css.s(overlay).and(leave, {
+    animation: `${animate.FADE_OUT} 0.2s both ease-in`
   })
 
-  s(root).childOf(s(overlay).and(leave), {
+  Css.s(root).childOf(Css.s(overlay).and(leave), {
     animation: `${animate.top_leave} 0.2s both ease-in`
   })
 
 
-  export const content = cls('content', {
+  export const content = Css('content', {
     padding: '0 24px',
     paddingBottom: '24px',
     color: 'var(--em-text-color)',
   })
 
-  s(content).append(':first-child', {
+  Css.s(content).append(':first-child', {
     paddingTop: '24px'
   })
 
-  s`*:last-child`.childOf(content, {
+  Css.s`*:last-child`.childOf(content, {
     marginBottom: 0
   })
 
-  export const title = cls('title', {
+  export const title = Css('title', {
     margin: '0 0 0.625em 0',
     padding: 0
   })

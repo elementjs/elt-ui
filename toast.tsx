@@ -3,7 +3,6 @@ import {Insertable, append_child_and_mount, remove_and_unmount} from 'elt'
 import {animate} from './animate'
 import {Flex} from './flex'
 
-import {cls} from 'osun'
 import {Css} from './styling'
 
 
@@ -25,7 +24,7 @@ export class Toaster {
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, animate.fade_out).then(node =>
+		animate(node, animate.FADE_OUT).then(node =>
 			remove_and_unmount(node)
 		)
 	}
@@ -61,7 +60,7 @@ export class Toaster {
 
 export namespace Toaster {
 
-	export const holder = cls('toast-holder',
+	export const holder = Css('toast-holder',
 		{
 			position: 'fixed',
 			bottom: 0,
@@ -69,7 +68,7 @@ export namespace Toaster {
 			width: '100%',
 	})
 
-	export const toast = cls('toast', {
+	export const toast = Css('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
 		background: Css.colors.FG2,

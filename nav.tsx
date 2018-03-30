@@ -12,8 +12,7 @@ import {Icon} from './icon'
 import {Flex} from './flex'
 
 import {animate} from './animate'
-import {Css as base} from './styling'
-import {cls, s, combine} from 'osun'
+import {Css} from './styling'
 
 
 export interface NavAttributes extends Attrs {
@@ -52,7 +51,7 @@ export class Nav extends Component<Attrs, HTMLElement> {
 
 export namespace Nav {
 
-	export const overlay = cls('overlay', {
+	export const overlay = Css('overlay', {
 		position: 'fixed',
 		top: 0,
 		left: 0,
@@ -62,7 +61,7 @@ export namespace Nav {
 		transform: `translateZ(0)`
 	})
 
-	export const drawer = cls('drawer', {
+	export const drawer = Css('drawer', {
 		position: 'fixed',
 		fontSize: '14px',
 		transform: `translateZ(0)`,
@@ -71,26 +70,26 @@ export namespace Nav {
 		height: '100vh',
 		width: '250px',
 		boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
-		backgroundColor: base.colors.BG
+		backgroundColor: Css.colors.BG
 	})
 
-	export const enter = cls('enter')
+	export const enter = Css('enter')
 
-	combine(s => s.childOf(enter), () => {
-		s(overlay, {
+	Css.combine(s => s.childOf(enter), () => {
+		Css.s(overlay, {
 			animation: `${animate.fade_in} 0.2s ease-in forwards`,
 		})
 
-		s(drawer, {
+		Css.s(drawer, {
 			animation: `${animate.slide_from_left} 0.2s ease-in forwards`
 		})
 	})
 
-	export const leave = cls('leave')
+	export const leave = Css('leave')
 
-	combine(s => s.childOf(leave), () => {
-		s(overlay, { animation: `${animate.fade_out} 0.2s ease-out forwards` })
-		s(drawer, { animation: `${animate.slide_to_left} 0.2s ease-out forwards` })
+	Css.combine(s => s.childOf(leave), () => {
+		Css.s(overlay, { animation: `${animate.FADE_OUT} 0.2s ease-out forwards` })
+		Css.s(drawer, { animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards` })
 	})
 
 
@@ -101,7 +100,7 @@ export function NavHeader(a: Attrs, ch: DocumentFragment): Element {
 }
 
 export namespace NavHeader {
-	export const header = cls('header', {
+	export const header = Css('header', {
 		paddingTop: '16px',
 		paddingLeft: '16px'
 	})
@@ -114,7 +113,7 @@ export function NavSubheader(a: Attrs, ch: DocumentFragment): Element {
 }
 
 export namespace NavSubheader {
-	export const subheader = cls('subheader', {paddingLeft: '16px'})
+	export const subheader = Css('subheader', {paddingLeft: '16px'})
 }
 
 export function NavDivider(a: Attrs, ch: DocumentFragment): Element {
@@ -122,10 +121,10 @@ export function NavDivider(a: Attrs, ch: DocumentFragment): Element {
 }
 
 export namespace NavDivider {
-	export const divider = cls('divider', {
+	export const divider = Css('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid ${base.colors.FG6}`,
+		borderBottom: `1px solid ${Css.colors.FG6}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})
@@ -155,19 +154,19 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 
 export namespace NavItem {
 
-	export const item = cls('item', {
+	export const item = Css('item', {
 		position: 'relative',
 		height: '48px',
 		fontWeight: 'bold'
 	})
 
-	export const itemIcon = cls('item-icon', {
+	export const itemIcon = Css('item-icon', {
 		paddingLeft: '16px',
 		width: '72px',
 		color: `rgba(0, 0, 0, 0.65)`,
 	})
 
-	s(itemIcon).append(`:before`, {
+	Css.s(itemIcon).append(`:before`, {
 		fontSize: '24px'
 	})
 
@@ -184,6 +183,6 @@ export function NavFooter(a: Attrs, ch: DocumentFragment): Element {
 
 export namespace NavFooter {
 
-	export const footer = cls('footer', {textAlign: 'center', paddingBottom: '16px'})
+	export const footer = Css('footer', {textAlign: 'center', paddingBottom: '16px'})
 
 }
