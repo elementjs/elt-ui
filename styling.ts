@@ -67,7 +67,7 @@ declare module 'osun/lib/types' {
 }
 
 
-export namespace css {
+export namespace Css {
 
   export namespace colors {
 
@@ -220,4 +220,4 @@ export namespace css {
 
 }
 
-export default css
+export default Css

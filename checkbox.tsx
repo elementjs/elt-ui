@@ -9,7 +9,7 @@ import {
   Component
 } from 'elt'
 
-import {css as flex} from './flex'
+import {Flex} from './flex'
 import {Icon} from './icon'
 
 import {inkable} from './ink'
@@ -43,25 +43,25 @@ export class Checkbox extends Component<CheckboxAttributes> {
     }
 
     let classes = {
-      [css.on]: this.o_model,
-      [css.off]: this.o_model.isFalse(),
-      [css.disabled]: this.o_disabled
+      [Checkbox.on]: this.o_model,
+      [Checkbox.off]: this.o_model.isFalse(),
+      [Checkbox.disabled]: this.o_disabled
     }
 
-    return <label class={css.label} $$={[inkable(), click(e => this.toggle())]}>
-        <div class={[flex.row, flex.align_center]}>
-          <Icon class={[css.icon, classes]} name={this.o_model.tf(getIcon)}/>
-          <span class={[css.content, classes]}>{children}</span>
-        </div>
+    return <label class={Checkbox.label} $$={[inkable(), click(e => this.toggle())]}>
+        <Flex row class={[Flex.align_center]}>
+          <Icon class={[Checkbox.icon, classes]} name={this.o_model.tf(getIcon)}/>
+          <span class={[Checkbox.content, classes]}>{children}</span>
+        </Flex>
       </label>;
 
   }
 }
 
-import { css as base } from './styling'
+import { Css } from './styling'
 import { cls, s } from 'osun'
 
-export namespace css {
+export namespace Checkbox {
   export const on = cls('on')
   export const off = cls('off')
   export const disabled = cls('disabled')
@@ -73,7 +73,7 @@ export namespace css {
     display: 'inline-block',
     minHeight: '36px',
     padding: '8px',
-    '-webkit-tap-highlight-color': base.colors.TRANSPARENT
+    '-webkit-tap-highlight-color': Css.colors.TRANSPARENT
   })
 
   export const content = cls('content', { verticalAlign: 'middle' })
@@ -91,6 +91,6 @@ export namespace css {
 
   s(icon).and(off, {color: `rgba(0, 0, 0, 0.74)`}),
   s(icon).and(disabled, {color: `rgba(0, 0, 0, 0.26)`}),
-  s(icon).and(on, {color: base.colors.PRIMARY}),
+  s(icon).and(on, {color: Css.colors.PRIMARY}),
   s(icon).append('::before', {fontSize: '18px'})
 }

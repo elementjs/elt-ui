@@ -4,28 +4,10 @@ const END_EVENTS = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', '
 const START_EVENTS = ['webkitAnimationStart', 'mozAnimationStart', 'MSAnimationStart', 'oanimationstart', 'animationstart']
 
 
-export function animate(node: HTMLElement, anim: string): Promise<HTMLElement> {
-
-	return new Promise((resolve, reject) => {
-
-		node.style.animation = anim
-		let events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend']
-
-		function bye() {
-			events.forEach(name => node.removeEventListener(name, bye))
-			resolve(node)
-		}
-		events.forEach(name => node.addEventListener(name, bye))
-
-	})
-
-}
-
-
-export function animateClass(node: HTMLElement, cls: string) {
+export function animate(node: HTMLElement, cls: string) {
 	node.classList.add(cls)
 
-	return new Promise((resolve, reject) => {
+	return new Promise<HTMLElement>((resolve, reject) => {
 		var ended = false
 		const anims = new Set<string>()
 
@@ -33,7 +15,7 @@ export function animateClass(node: HTMLElement, cls: string) {
 			ended = true
 			START_EVENTS.forEach(name => node.removeEventListener(name as any, fnstart))
 			END_EVENTS.forEach(name => node.removeEventListener(name as any, fnend))
-			resolve()
+			resolve(node)
 		}
 
 		function fnend (ev: AnimationEvent) {
@@ -72,12 +54,12 @@ export function animateClass(node: HTMLElement, cls: string) {
 
 import { keyframes } from 'osun'
 
-export namespace css {
+export namespace animate {
 
-	export const deceleration = `cubic-bezier(0, 0, .2, 1)`
-	export const standard = `cubic-bezier(.4, 0, .2, 1)`
-	export const acceleration = `cubic-bezier(.4, 0, 1, 1)`
-	export const sharp = `cubic-bezier(.4, 0, .6, 1)`
+	export const FN_DECELERATION = `cubic-bezier(0, 0, .2, 1)`
+	export const FN_STANDARD = `cubic-bezier(.4, 0, .2, 1)`
+	export const FN_ACCELERATION = `cubic-bezier(.4, 0, 1, 1)`
+	export const FN_SHARP = `cubic-bezier(.4, 0, .6, 1)`
 
 	export const fade_in = keyframes('fade-in', {
 		'0%': {opacity: 0},

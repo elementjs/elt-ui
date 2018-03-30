@@ -1,7 +1,7 @@
 
 import {click, Mixin, append_child_and_mount, remove_and_unmount} from 'elt'
 
-import {css as A, animateClass} from './animate'
+import {animate} from './animate'
 
 export const ANIM_DURATION = 300
 
@@ -73,7 +73,7 @@ export function inker(node: Node, event: MouseEvent) {
 		it.marginTop = halved
 		it.marginLeft = halved
 
-		animateClass(ink_container, css.animate).then(() => {
+		animate(ink_container, css.ink_animate).then(() => {
 			remove_and_unmount(ink_container)
 		})
 	})
@@ -98,7 +98,7 @@ export function inkClickDelay(fn: (ev: MouseEvent) => void) {
 }
 
 
-import {css as base} from './styling'
+import {Css} from './styling'
 import {keyframes, cls, s} from 'osun'
 
 export namespace css {
@@ -116,12 +116,12 @@ export namespace css {
 			'100%': { transform: `scale(1) translateZ(0)` }
 		})
 
-		export const animate = cls('em-ink-animate')
+		export const ink_animate = cls('em-ink-animate')
 
 		export const ink = cls('ink', {
 				display: 'block',
 				position: 'absolute',
-				backgroundColor: base.colors.PRIMARY,
+				backgroundColor: Css.colors.PRIMARY,
 				borderRadius: '50%',
 				transform: 'scale(0)',
 				pointerEvents: 'none',
@@ -139,19 +139,19 @@ export namespace css {
 				top: '0px',
 				left: '0px',
 				opacity: 0,
-				backgroundColor: base.colors.PRIMARY3,
+				backgroundColor: Css.colors.PRIMARY3,
 				overflow: 'hidden',
 				position: 'absolute',
 				pointerEvents: 'none',
 			}
 		)
 
-		s(container).and(animate, {
-			animation: `${rippleOpacity} ${ANIM_DURATION}ms ${A.standard}`
+		s(container).and(ink_animate, {
+			animation: `${rippleOpacity} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
-		s(ink).childOf(s(container).and(animate), {
-			animation: `${rippleSize} ${ANIM_DURATION}ms ${A.standard}`
+		s(ink).childOf(s(container).and(ink_animate), {
+			animation: `${rippleSize} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
 	}

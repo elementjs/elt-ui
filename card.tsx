@@ -1,16 +1,21 @@
 
 import {Attrs} from 'elt'
-import {css as flex} from './flex'
+import {Flex} from './flex'
 import {cls, s} from 'osun'
 
-import {css as base} from './styling'
+import {Css} from './styling'
 
-export namespace css {
+export function Card(a: Attrs, children: DocumentFragment): Element {
+	var {$$children, class: kls, ...attrs} = a
+	return <div class={[Card.frame, Flex.column]} {...attrs}>{children}</div>
+}
+
+export namespace Card {
 	export const frame = cls('card-frame',
-		base.raised,
+		Css.raised,
 		{
 			borderRadius: '2px',
-			backgroundColor: base.colors.BG,
+			backgroundColor: Css.colors.BG,
 		},
 
 	)
@@ -20,12 +25,7 @@ export namespace css {
 		padding: '16px',
 		margin: 0,
 		textAlign: 'center',
-		backgroundColor: base.colors.PRIMARY,
+		backgroundColor: Css.colors.PRIMARY,
 		color: 'white'
 	})
-}
-
-export function Card(a: Attrs, children: DocumentFragment): Element {
-	var {$$children, class: kls, ...attrs} = a
-	return <div class={[css.frame, flex.column]} {...attrs}>{children}</div>
 }

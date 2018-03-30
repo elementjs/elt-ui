@@ -12,11 +12,11 @@ export function Progress({error, mode, progress}: ProgressAttrs) {
   const o_progress = o(progress || 0)
   const o_error = o(error)
   return <div
-    class={[base.background.primary5, CSS.holder, {[CSS.error]: o_error}]}
+    class={[Css.background.primary5, CSS.holder, {[CSS.error]: o_error}]}
     style={{opacity: o_progress.tf(v => v > 0 && v < 100 ? '1' : '0')}}
   >
       {DisplayIf(o_mode.equals('determinate'), () => <div class={[
-        base.background.primary2,
+        Css.background.primary2,
         CSS.determinate
         ]}
         style={{width: o_progress.tf(v => `${v}%`)}}
@@ -28,7 +28,8 @@ export function Progress({error, mode, progress}: ProgressAttrs) {
 }
 
 import {cls} from 'osun'
-import {css as base} from './styling'
+import {Css} from './styling'
+
 export namespace CSS {
 
   export const hidden = cls('hidden', {display: 'none'})

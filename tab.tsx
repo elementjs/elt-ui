@@ -12,7 +12,7 @@ import {
 
 import {inkable} from './ink'
 
-import {css as flex} from './flex'
+import {Flex} from './flex'
 
 
 export class TabContainer extends Component {
@@ -22,13 +22,21 @@ export class TabContainer extends Component {
 	o_titles = o([] as Node[])
 
 	render(children: DocumentFragment): Element {
-		return <div class={flex.column}>
-			<div class={[css.bar, flex.row, flex.justify_center]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
+		return <div class={Flex.column}>
+			<div class={[TabContainer.bar, Flex.row, Flex.justify_center]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
 		</div>
 
 	}
 
+}
+
+export namespace TabContainer {
+	export const bar = cls('bar', {
+		backgroundColor: Css.colors.BG,
+		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
+		height: '48px'
+	})
 }
 
 
@@ -56,12 +64,12 @@ export class Tab extends Component<TabAttributes> {
 			throw new Error('Tab must be inside a TabContainer')
 
 		this.container.o_titles.push(<div
-			class={css.title}
+			class={Tab.title}
 			$$={[
 				click(ev => this.activate()),
 				inkable()
 			]}>
-			<div class={[css.secondborder, {[css.active]: this.o_is_active}]}>&nbsp;</div>
+			<div class={[Tab.secondborder, {[Tab.active]: this.o_is_active}]}>&nbsp;</div>
 			{this.attrs.title}
 		</div>)
 
@@ -87,9 +95,9 @@ export class Tab extends Component<TabAttributes> {
 
 		return <div
 			class={[
-				css.content,
-				this.o_is_active.tf(act => act ? flex.column : base.display_none),
-				flex.absolute_grow
+				Tab.content,
+				this.o_is_active.tf(act => act ? Flex.column : Css.display_none),
+				Flex.absolute_grow
 			]}
 		>
 			{this.o_is_active.tf(a => a ? frag : null)}
@@ -100,23 +108,17 @@ export class Tab extends Component<TabAttributes> {
 
 
 import {cls} from 'osun'
-import {css as base} from './styling'
+import {Css} from './styling'
 
-export namespace css {
-
-	export const bar = cls('bar', {
-		backgroundColor: base.colors.BG,
-		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
-		height: '48px'
-	})
+export namespace Tab {
 
 	export const title = cls('title', {
-		color: base.colors.PRIMARY,
+		color: Css.colors.PRIMARY,
 		userSelect: 'none',
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		fontWeight: 'bold',
-		borderBottom: `1px solid ${base.colors.PRIMARY}`,
+		borderBottom: `1px solid ${Css.colors.PRIMARY}`,
 		height: '48px',
 		lineHeight: '48px',
 		fontSize: '14px',
@@ -135,13 +137,13 @@ export namespace css {
 		width: 'calc(100% - 1px)',
 		transition: 'transform 0.2s linear',
 		transform: 'scaleX(0)',
-		borderBottom: `1px solid ${base.colors.PRIMARY}`,
+		borderBottom: `1px solid ${Css.colors.PRIMARY}`,
 	})
 
 	export const active = cls('active', {
 		transform: 'scaleX(1)'
 	})
 
-	export const content = cls('content', {backgroundColor: base.colors.BG})
+	export const content = cls('content', {backgroundColor: Css.colors.BG})
 
 }

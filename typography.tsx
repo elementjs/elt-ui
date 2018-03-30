@@ -1,5 +1,10 @@
+import {Attrs} from 'elt'
 import {cls, rule, combine, s} from 'osun'
 import {css as base} from './styling'
+
+export function TypographicZone(a: Attrs, ch: DocumentFragment) {
+  return <div>{ch}</div>
+}
 
 export namespace css {
 

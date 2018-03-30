@@ -1,31 +1,10 @@
 
 import {Insertable, append_child_and_mount, remove_and_unmount} from 'elt'
-import {animate, css as AnimCSS} from './animate'
-import {css as flex} from './flex'
+import {animate} from './animate'
+import {Flex} from './flex'
 
 import {cls} from 'osun'
-import {css as base} from './styling'
-
-export namespace css {
-	export const holder = cls('toast-holder',
-		{
-			position: 'fixed',
-			bottom: 0,
-			left: 0,
-			width: '100%',
-	})
-
-	export const toast = cls('toast', {
-		padding: '14px 24px',
-		fontSize: '14px',
-		background: base.colors.FG2,
-		borderRadius: '2px 2px 0 0',
-		color: base.colors.BG,
-		cursor: 'pointer'
-	})
-
-}
-
+import {Css} from './styling'
 
 
 // import * as css from './toast.styl'
@@ -42,11 +21,11 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={[css.holder, flex.row, flex.justify_center]}/>
+		this._holder = <div class={[Toaster.holder, Flex.row, Flex.justify_center]}/>
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, `${AnimCSS.fade_out} 0.2s ease-out both`).then(node =>
+		animate(node, animate.fade_out).then(node =>
 			remove_and_unmount(node)
 		)
 	}
@@ -67,9 +46,9 @@ export class Toaster {
 		}
 
 		let toast = (msg instanceof Node ? msg
-			: <div class={css.toast}>{msg}</div>) as HTMLElement
+			: <div class={Toaster.toast}>{msg}</div>) as HTMLElement
 
-		animate(toast, `${AnimCSS.fade_in} 0.2s ease-in both`)
+		animate(toast, animate.fade_in)
 		append_child_and_mount(this._holder, toast)
 
 		this._cancel = window.setTimeout(() => this.kill(toast), 3000)
@@ -78,5 +57,28 @@ export class Toaster {
 	}
 
 }
+
+
+export namespace Toaster {
+
+	export const holder = cls('toast-holder',
+		{
+			position: 'fixed',
+			bottom: 0,
+			left: 0,
+			width: '100%',
+	})
+
+	export const toast = cls('toast', {
+		padding: '14px 24px',
+		fontSize: '14px',
+		background: Css.colors.FG2,
+		borderRadius: '2px 2px 0 0',
+		color: Css.colors.BG,
+		cursor: 'pointer'
+	})
+
+}
+
 
 export default new Toaster;

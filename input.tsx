@@ -96,7 +96,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
 }
 
 
-import {css as base} from './styling'
+import {Css} from './styling'
 import {cls, s, combine} from 'osun'
 
 export namespace css {
@@ -112,14 +112,14 @@ export namespace css {
 
     fontSize: '12px',
     pointerEvents: 'none',
-    color: base.colors.FG6,
+    color: Css.colors.FG6,
     transformOrigin: 'top left',
     transform: 'translateZ(0)',
     transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
   })
 
   export const input_element = cls('input-elt',
-    base.no_spurious_borders,
+    Css.no_spurious_borders,
     {
       position: 'relative',
       borderRadius: 0,
@@ -130,7 +130,7 @@ export namespace css {
       paddingRight: '4px',
       paddingLeft: '4px',
       paddingBottom: '4px',
-      borderBottom: `1px solid ${base.colors.FG6}`,
+      borderBottom: `1px solid ${Css.colors.FG6}`,
       width: '100%',
       transition: `border-bottom-color linear 0.3s`,
     }
@@ -143,12 +143,12 @@ export namespace css {
   })
 
   s(input_element).append(`:focus`, {
-    paddingBottom: '3px', borderBottom: `2px solid ${base.colors.PRIMARY}`
+    paddingBottom: '3px', borderBottom: `2px solid ${Css.colors.PRIMARY}`
   })
 
   export const input_error = cls('input-error', {
     position: 'absolute',
-    color: base.colors.ACCENT,
+    color: Css.colors.ACCENT,
     fontSize: '10px',
     top: '48px'
   })
@@ -162,8 +162,8 @@ export namespace css {
   // Styling labels that are children of different container combinations
   // The label is always the one being styled here
   combine(_ => s(label).childOf(_.and(container)), () => {
-    s(error, { color: base.colors.ACCENT })
-    s(focused, { color: base.colors.PRIMARY })
+    s(error, { color: Css.colors.ACCENT })
+    s(focused, { color: Css.colors.PRIMARY })
     s(empty_unfocused, {
       fontSize: `14px`,
       transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
@@ -171,25 +171,25 @@ export namespace css {
   })
 
   s(input_element).childOf(s(container).and(error), {
-    borderBottomColor: base.colors.ACCENT
+    borderBottomColor: Css.colors.ACCENT
   })
 
   export const search = cls('search', {
       borderRadius: '3px',
       border: '1px solid',
       position: 'relative',
-      borderColor: base.colors.FG5,
-      color: base.colors.FG,
-      backgroundColor: base.colors.FG6,
+      borderColor: Css.colors.FG5,
+      color: Css.colors.FG,
+      backgroundColor: Css.colors.FG6,
       fontSize: '0.8em',
       padding: '8px 16px'
     },
-    base.no_spurious_borders,
-    base.no_native_appearance,
+    Css.no_spurious_borders,
+    Css.no_native_appearance,
   )
 
   s(search).append(`::placeholder`, {
-    color: base.colors.FG5
+    color: Css.colors.FG5
   })
 
   export const search_btn = cls('search-btn', {

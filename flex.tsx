@@ -1,8 +1,20 @@
 
-import {Attrs} from 'elt'
+import {Attrs, RO} from 'elt'
 import {cls, all, s} from 'osun'
 
-export namespace css {
+export interface FlexAttrs extends Attrs {
+	row?: RO<boolean>
+	column?: RO<boolean>
+}
+
+export function Flex({row, column}: FlexAttrs, ch: DocumentFragment) {
+	return <div class={[Flex.flex, {
+		[Flex.row]: row,
+		[Flex.column]: column
+	}]}/>
+}
+
+export namespace Flex {
 
 	export const flex = cls('flex', {
 		display: 'flex'
@@ -81,26 +93,32 @@ export namespace css {
 		marginBottom: `-8px`,
 		marginLeft: `-8px`
 	})
+
 	all.childOf(spaced_inside8, {
 		marginBottom: '8px',
 		marginLeft: '8px'
 	})
+
 	export const spaced_inside16 = cls('spaced_inside16', {
 		marginBottom: `-16px`,
 		marginLeft: `-16px`
 	})
+
 	all.childOf(spaced_inside16, {
 		marginBottom: '16px',
 		marginLeft: '16px'
 	})
+
 	export const spaced_inside24 = cls('spaced_inside24', {
 		marginBottom: `-24px`,
 		marginLeft: `-24px`
 	})
+
 	all.childOf(spaced_inside24, {
 		marginBottom: '24px',
 		marginLeft: '24px'
 	})
+
 	s(spaced_inside8).or(spaced_inside16).or(spaced_inside24).append(':empty', {
 		marginBottom: 0,
 		marginLeft: 0
@@ -108,9 +126,9 @@ export namespace css {
 }
 
 export function Row(attrs: Attrs, ch: DocumentFragment) {
-	return <div class={css.row}>{ch}</div>
+	return <div class={Flex.row}>{ch}</div>
 }
 
 export function Column(attrs: Attrs, ch: DocumentFragment) {
-	return <div class={css.column}>{ch}</div>
+	return <div class={Flex.column}>{ch}</div>
 }

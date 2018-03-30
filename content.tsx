@@ -1,17 +1,16 @@
 import {Attrs} from 'elt'
 
-import {css as base} from './styling'
+import {Css} from './styling'
 import {cls} from 'osun'
 
-export namespace css {
-  export const content = cls('content', {
+export function Content(attrs: Attrs, children: DocumentFragment): Element {
+  return <div class={Content.container}>{children}</div>;
+}
+
+export namespace Content {
+  export const container = cls('content', {
     padding: '16px',
-    background: base.colors.BG
+    background: Css.colors.BG
   })
 }
 
-
-export function Content(attrs: Attrs, children: DocumentFragment): Element {
-  var {$$children, ...a} = attrs
-  return <div {...a} class={css.content}>{children}</div>;
-}

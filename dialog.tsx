@@ -13,8 +13,8 @@ import {
   remove_and_unmount
 } from 'elt';
 
-import {css as flex} from './flex'
-import {animateClass, css as AnimateCSS} from './animate'
+import {Flex} from './flex'
+import {animate} from './animate'
 import {Button, ButtonBar} from './button';
 
 export class DialogCtrl<T> extends Mixin {
@@ -43,15 +43,15 @@ export class DialogCtrl<T> extends Mixin {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[css.overlay, flex.column, flex.align_center, flex.justify_center]}>{children}</div>
+  return <div class={[dialog.overlay, Flex.column, Flex.align_center, Flex.justify_center]}>{children}</div>
 }
 
-export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={css.title}>{children}</h3> }
-export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={css.content}>{children}</div> }
+export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={dialog.title}>{children}</h3> }
+export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={dialog.content}>{children}</div> }
 
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[css.root, flex.column]}>{children}</div>
+  return <div class={[dialog.root, Flex.column]}>{children}</div>
 }
 
 export interface DialogOptions {
@@ -76,7 +76,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   let contents = cbk(dlg)
 
   function bye(res: T) {
-    return animateClass(dialog_holder, css.leave).then(() => {
+    return animate(dialog_holder, dialog.leave).then(() => {
       remove_and_unmount(dialog_holder)
       return res
     })
@@ -101,7 +101,7 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
   </Overlay> as HTMLElement
 
   if (!opts.noanimate) {
-    animateClass(dialog_holder, css.enter)
+    animate(dialog_holder, dialog.enter)
   }
 
   // Remove the dialog from the DOM once we have answered it.
@@ -152,7 +152,7 @@ import {cls, s} from 'osun'
 /**
  * Our CSS Declarations.
  */
-export namespace css {
+export namespace dialog {
 
   export const stacked = cls('stacked')
   export const enter = cls('enter')
@@ -180,19 +180,19 @@ export namespace css {
   })
 
   s(overlay).and(enter, {
-    animation: `${AnimateCSS.fade_in} 0.2s both ease-in`
+    animation: `${animate.fade_in} 0.2s both ease-in`
   })
 
   s(root).childOf(s(overlay).and(enter), {
-    animation: `${AnimateCSS.top_enter} 0.2s both ease-in`
+    animation: `${animate.top_enter} 0.2s both ease-in`
   })
 
   s(overlay).and(leave, {
-    animation: `${AnimateCSS.fade_out} 0.2s both ease-in`
+    animation: `${animate.fade_out} 0.2s both ease-in`
   })
 
   s(root).childOf(s(overlay).and(leave), {
-    animation: `${AnimateCSS.top_leave} 0.2s both ease-in`
+    animation: `${animate.top_leave} 0.2s both ease-in`
   })
 
 
