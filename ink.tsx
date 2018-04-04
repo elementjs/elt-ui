@@ -1,8 +1,9 @@
 
 import {click, Mixin, append_child_and_mount, remove_and_unmount} from 'elt'
 
-import {animate} from './animate'
-import {Css} from './styling'
+import { animate } from './animate'
+import { Styling } from './styling'
+import { keyframes, cls, s } from 'osun'
 
 export const ANIM_DURATION = 300
 
@@ -101,25 +102,25 @@ export function inkClickDelay(fn: (ev: MouseEvent) => void) {
 
 export namespace inker {
 
-		export const rippleOpacity = Css.keyframes('ripple', {
+		export const rippleOpacity = keyframes('ripple', {
 			'0%': { opacity: 0},
 			'10%': { opacity: 0.26 },
 			'75%': { opacity: 0.26},
 			'100%': { opacity: 0 }
 		})
 
-		export const rippleSize = Css.keyframes('size', {
+		export const rippleSize = keyframes('size', {
 			'0%': {transform: `scale(0) translateZ(0)`},
 			'75%': {transform: `scale(1) translateZ(0)`},
 			'100%': { transform: `scale(1) translateZ(0)` }
 		})
 
-		export const ink_animate = Css('em-ink-animate')
+		export const ink_animate = cls('em-ink-animate')
 
-		export const ink = Css('ink', {
+		export const ink = cls('ink', {
 				display: 'block',
 				position: 'absolute',
-				backgroundColor: Css.colors.PRIMARY,
+				backgroundColor: Styling.colors.PRIMARY,
 				borderRadius: '50%',
 				transform: 'scale(0)',
 				pointerEvents: 'none',
@@ -130,25 +131,25 @@ export namespace inker {
 			}
 		)
 
-		export const container = Css('container', {
+		export const container = cls('container', {
 				display: 'block',
 				width: '100%',
 				height: '100%',
 				top: '0px',
 				left: '0px',
 				opacity: 0,
-				backgroundColor: Css.colors.PRIMARY3,
+				backgroundColor: Styling.colors.PRIMARY3,
 				overflow: 'hidden',
 				position: 'absolute',
 				pointerEvents: 'none',
 			}
 		)
 
-		Css.s(container).and(ink_animate, {
+		s(container).and(ink_animate, {
 			animation: `${rippleOpacity} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
-		Css.s(ink).childOf(Css.s(container).and(ink_animate), {
+		s(ink).childOf(s(container).and(ink_animate), {
 			animation: `${rippleSize} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 

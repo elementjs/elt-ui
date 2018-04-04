@@ -9,7 +9,8 @@ import {
   Listener
 } from 'elt'
 
-import {Css} from './styling'
+import { Styling } from './styling'
+import { cls, s } from 'osun'
 import {Icon} from './icon'
 import {Flex} from './flex'
 import {inker} from './ink'
@@ -37,7 +38,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   }
 
   return <button
-    class={[Button.button, {[Css.colors.reverse_primary]: attrs.raised}]}
+    class={[Button.button, {[Styling.colors.reverse_primary]: attrs.raised}]}
     disabled={o(attrs.disabled).tf(val => !!val)}
     $$={click(doClick)}
   >
@@ -46,7 +47,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
         class={[
           Button.base_button,
           Button.button_icon,
-          {[Button.disabled]: attrs.disabled, [Css.raised]: attrs.raised, [Button.bordered]: attrs.bordered}
+          {[Button.disabled]: attrs.disabled, [Styling.raised]: attrs.raised, [Button.bordered]: attrs.bordered}
         ]}
         name={o_name}
       />
@@ -55,7 +56,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
         class={[
           Button.base_button,
           Button.button_content,
-          {[Button.disabled]: attrs.disabled, [Css.raised]: attrs.raised, [Button.bordered]: attrs.bordered}
+          {[Button.disabled]: attrs.disabled, [Styling.raised]: attrs.raised, [Button.bordered]: attrs.bordered}
         ]}
       >
         {children}
@@ -68,10 +69,9 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
 
 
 export namespace Button {
-  const s = Css.s
 
-  export const button = Css('button',
-    Css.no_spurious_borders,
+  export const button = cls('button',
+    Styling.no_spurious_borders,
     {
       // This style applies to a button, that we want to completely reset.
       border: 0,
@@ -86,12 +86,12 @@ export namespace Button {
 
   s(button).append(`::-moz-focus-inner`, {border: 0})
 
-  export const base_button = Css('base-button',
-    Css.no_spurious_borders,
+  export const base_button = cls('base-button',
+    Styling.no_spurious_borders,
     {
       verticalAlign: 'middle',
-      color: Css.colors.PRIMARY,
-      background: Css.colors.BG,
+      color: Styling.colors.PRIMARY,
+      background: Styling.colors.BG,
       display: 'inline-block',
       textAlign: 'center',
       cursor: 'pointer',
@@ -99,7 +99,7 @@ export namespace Button {
     }
   )
 
-  export const button_content = Css('button-content', {
+  export const button_content = cls('button-content', {
     minWidth: '64px',
     textTransform: 'uppercase',
     fontWeight: 'bold',
@@ -115,24 +115,24 @@ export namespace Button {
     userSelect: 'none'
   })
 
-  export const button_icon = Css('button-icon')
+  export const button_icon = cls('button-icon')
 
   s(button_icon).append(`::before`, {
     fontSize: '24px',
-    color: Css.colors.PRIMARY
+    color: Styling.colors.PRIMARY
   })
 
-  export const bordered = Css('bordered', {
+  export const bordered = cls('bordered', {
     border: `1px solid`,
-    borderColor: Css.colors.PRIMARY
+    borderColor: Styling.colors.PRIMARY
   })
 
-  export const disabled = Css('disabled', {
-    color: Css.colors.FG4,
+  export const disabled = cls('disabled', {
+    color: Styling.colors.FG4,
     boxShadow: 'none'
   })
 
-  export const icon_button = Css('icon-button')
+  export const icon_button = cls('icon-button')
   s(icon_button).append('::before', {fontSize: '24px'})
 
   s(button).after(s(button), {
@@ -164,10 +164,10 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
 }
 
 export namespace ButtonBar {
-  export const button_bar = Css('button-bar')
-  Css.s(Button.button).childOf(button_bar, {paddingBottom: 0})
+  export const button_bar = cls('button-bar')
+  s(Button.button).childOf(button_bar, {paddingBottom: 0})
 
-  export const has_button_bar = Css('has-button-bar', {
+  export const has_button_bar = cls('has-button-bar', {
     paddingBottom: '0 !important'
   })
 

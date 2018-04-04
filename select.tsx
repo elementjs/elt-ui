@@ -102,38 +102,39 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 
 }
 
-import {Css} from './styling'
+import { Styling } from './styling'
+import { cls, s } from 'osun'
 
 export namespace Select {
-	const s = Css.s
-	export const select = Css('select',
-		Css.no_spurious_borders,
-		Css.no_native_appearance,
+
+	export const select = cls('select',
+		Styling.no_spurious_borders,
+		Styling.no_native_appearance,
 		{
 			padding: '0 16px 0 8px',
 			height: '32px',
 			margin: 0,
-			border: `1px solid ${Css.colors.FG5}`,
-			borderColor: Css.colors.FG5,
+			border: `1px solid ${Styling.colors.FG5}`,
+			borderColor: Styling.colors.FG5,
 			borderRadius: '2px',
-			background: Css.colors.BG,
-			color: Css.colors.FG3,
+			background: Styling.colors.BG,
+			color: Styling.colors.FG3,
 			display: 'inline-block',
 			cursor: 'pointer'
 		},
 	)
 
 	s(select).append(`:-moz-focusring`).define({
-		color: Css.colors.TRANSPARENT,
-		textShadow: `0 0 0 ${Css.colors.FG3}`
+		color: Styling.colors.TRANSPARENT,
+		textShadow: `0 0 0 ${Styling.colors.FG3}`
 	})
 
-	export const label = Css('label', {position: 'relative'})
+	export const label = cls('label', {position: 'relative'})
 
 	s(label).append('::after').define({
 		content: "'\\f2f2'",
 		fontFamily: '"Material-Design-Iconic-Font", monospace',
-		color: Css.colors.FG3,
+		color: Styling.colors.FG3,
 		right: '8px',
 		top: '9px',
 		padding: '0 0 2px',

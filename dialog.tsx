@@ -13,10 +13,10 @@ import {
   remove_and_unmount
 } from 'elt';
 
-import {Css} from './styling'
-import {Flex} from './flex'
-import {animate} from './animate'
-import {Button, ButtonBar} from './button';
+import { Flex } from './flex'
+import { animate } from './animate'
+import { Button, ButtonBar } from './button';
+import { cls, s } from 'osun'
 
 export class DialogCtrl<T> extends Mixin {
   promise: Promise<T>
@@ -153,11 +153,11 @@ export function modal(opts: ModalOptions) {
  */
 export namespace dialog {
 
-  export const stacked = Css('stacked')
-  export const enter = Css('enter')
-  export const leave = Css('leave')
+  export const stacked = cls('stacked')
+  export const enter = cls('enter')
+  export const leave = cls('leave')
 
-  export const root = Css('root', {
+  export const root = cls('root', {
     '-webkit-transform-style': 'preserve-3d',
     '-webkit-backface-visibility': 'hidden',
     transform: `translateZ(0)`,
@@ -166,7 +166,7 @@ export namespace dialog {
     backgroundColor: `white`
   })
 
-  export const overlay = Css('overlay', {
+  export const overlay = cls('overlay', {
     overflow: 'hidden',
     position: 'absolute',
     top: 0,
@@ -178,38 +178,38 @@ export namespace dialog {
     backgroundColor: `rgba(0, 0, 0, 0.75)`,
   })
 
-  Css.s(overlay).and(enter, {
+  s(overlay).and(enter, {
     animation: `${animate.fade_in} 0.2s both ease-in`
   })
 
-  Css.s(root).childOf(Css.s(overlay).and(enter), {
+  s(root).childOf(s(overlay).and(enter), {
     animation: `${animate.top_enter} 0.2s both ease-in`
   })
 
-  Css.s(overlay).and(leave, {
+  s(overlay).and(leave, {
     animation: `${animate.FADE_OUT} 0.2s both ease-in`
   })
 
-  Css.s(root).childOf(Css.s(overlay).and(leave), {
+  s(root).childOf(s(overlay).and(leave), {
     animation: `${animate.top_leave} 0.2s both ease-in`
   })
 
 
-  export const content = Css('content', {
+  export const content = cls('content', {
     padding: '0 24px',
     paddingBottom: '24px',
     color: 'var(--em-text-color)',
   })
 
-  Css.s(content).append(':first-child', {
+  s(content).append(':first-child', {
     paddingTop: '24px'
   })
 
-  Css.s`*:last-child`.childOf(content, {
+  s`*:last-child`.childOf(content, {
     marginBottom: 0
   })
 
-  export const title = Css('title', {
+  export const title = cls('title', {
     margin: '0 0 0.625em 0',
     padding: 0
   })

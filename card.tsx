@@ -1,7 +1,8 @@
 
 import {Attrs} from 'elt'
-import {Flex} from './flex'
-import {Css} from './styling'
+import { Flex } from './flex'
+import { Styling } from './styling'
+import { cls, s } from 'osun'
 
 export function Card(a: Attrs, children: DocumentFragment): Element {
 	var {$$children, class: kls, ...attrs} = a
@@ -9,21 +10,21 @@ export function Card(a: Attrs, children: DocumentFragment): Element {
 }
 
 export namespace Card {
-	export const frame = Css('card-frame',
-		Css.raised,
+	export const frame = cls('card-frame',
+		Styling.raised,
 		{
 			borderRadius: '2px',
-			backgroundColor: Css.colors.BG,
+			backgroundColor: Styling.colors.BG,
 		},
 
 	)
 
-	Css.s`h3`.childOf(frame, {
+	s`h3`.childOf(frame, {
 		fontSize: '16px',
 		padding: '16px',
 		margin: 0,
 		textAlign: 'center',
-		backgroundColor: Css.colors.PRIMARY,
+		backgroundColor: Styling.colors.PRIMARY,
 		color: 'white'
 	})
 }

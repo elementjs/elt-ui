@@ -67,21 +67,39 @@ declare module 'osun/lib/types' {
   }
 }
 
-const _cls = osun.cls
-export function Css(name: string, ...props_or_classes: (osun.CSSProperties | string)[]): string {
-  return _cls(name, ...props_or_classes)
-}
+osun.rule('*', {
+  boxSizing: 'border-box'
+})
+
+osun.rule('html', {
+  '--em-color-primary': '63, 81, 181',
+  '--em-color-fg': `0, 0, 0`,
+  '--em-color-bg': `255, 255, 255`,
+  '--em-color-accent': `244, 67, 54`,
+})
+
+osun.rule('html, body', {
+  color: Styling.colors.FG,
+  fontSize: '16px'
+})
+
+osun.rule('::-webkit-scrollbar', {
+  width: '8px'
+})
+
+osun.rule('::-webkit-scrollbar-track', {
+  background: Styling.colors.PRIMARY6
+})
+
+osun.rule('::-webkit-scrollbar-thumb', {
+  background: Styling.colors.PRIMARY5,
+  borderRadius: '3px'
+})
 
 
-export namespace Css {
+export namespace Styling {
 
-  export const selector = osun.s
-  export const s = osun.s
-  export const keyframes = osun.keyframes
-  export const rule = osun.rule
-  export const combine = osun.combine
-  export const all = osun.all
-
+  const _cls = osun.cls
   export namespace colors {
 
     export function toRGB(str: string): string {
@@ -139,7 +157,7 @@ export namespace Css {
       '--em-color-bg-save': 'var(--em-color-bg)'
     })
 
-    selector`*`.childOf(reverse_primary).define({
+    osun.selector`*`.childOf(reverse_primary).define({
       '--em-color-fg': `var(--em-color-bg-save)`,
       '--em-color-primary': 'var(--em-color-bg-save)',
       '--em-color-bg': 'var(--em-color-primary-save)'
@@ -233,4 +251,4 @@ export namespace Css {
 
 }
 
-export default Css
+export default Styling

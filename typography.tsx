@@ -1,5 +1,6 @@
-import {Attrs} from 'elt'
-import {Css} from './styling'
+import { Attrs } from 'elt'
+import { Styling } from './styling'
+import { cls, s } from 'osun'
 
 export function TypographicZone(a: Attrs, ch: DocumentFragment) {
   return <div class={TypographicZone.container}>{ch}</div>
@@ -7,26 +8,9 @@ export function TypographicZone(a: Attrs, ch: DocumentFragment) {
 
 export namespace TypographicZone {
 
-  Css.rule('*', {
-    boxSizing: 'border-box'
-  })
+  export const container = cls('textzone')
 
-  Css.rule('html', {
-    '--em-color-primary': '63, 81, 181',
-    '--em-color-fg': `0, 0, 0`,
-    '--em-color-bg': `255, 255, 255`,
-    '--em-color-accent': `244, 67, 54`,
-  })
-
-  Css.rule('html, body', {
-    color: Css.colors.FG,
-    fontSize: '16px'
-  })
-
-  export const container = Css('textzone')
-
-  const s = Css.s
-  Css.combine(s => s.childOf(container), () => {
+  s(container).children(() => {
 
     s(`*`, {
       marginTop: '24px'
@@ -86,26 +70,12 @@ export namespace TypographicZone {
     })
 
     s(`blockquote`, {
-      color: Css.colors.FG2,
+      color: Styling.colors.FG2,
       paddingLeft: '12px',
       borderLeftWidth: '4px',
       borderLeftStyle: 'solid',
-      borderLeftColor: Css.colors.PRIMARY3
+      borderLeftColor: Styling.colors.PRIMARY3
     })
-  })
-
-
-  Css.rule('::-webkit-scrollbar', {
-    width: '8px'
-  })
-
-  Css.rule('::-webkit-scrollbar-track', {
-    background: Css.colors.PRIMARY6
-  })
-
-  Css.rule('::-webkit-scrollbar-thumb', {
-    background: Css.colors.PRIMARY5,
-    borderRadius: '3px'
   })
 
 }

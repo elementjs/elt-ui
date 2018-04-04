@@ -13,7 +13,8 @@ import {
 import { inkable } from './ink'
 
 import { Flex } from './flex'
-import { Css } from './styling'
+import { Styling } from './styling'
+import { cls } from 'osun'
 
 
 export class TabContainer extends Component {
@@ -33,8 +34,8 @@ export class TabContainer extends Component {
 }
 
 export namespace TabContainer {
-	export const bar = Css('bar', {
-		backgroundColor: Css.colors.BG,
+	export const bar = cls('bar', {
+		backgroundColor: Styling.colors.BG,
 		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
 		height: '48px'
 	})
@@ -97,7 +98,7 @@ export class Tab extends Component<TabAttributes> {
 		return <div
 			class={[
 				Tab.content,
-				this.o_is_active.tf(act => act ? Flex.column : Css.display_none),
+				this.o_is_active.tf(act => act ? Flex.column : Styling.display_none),
 				Flex.absolute_grow
 			]}
 		>
@@ -110,13 +111,13 @@ export class Tab extends Component<TabAttributes> {
 
 export namespace Tab {
 
-	export const title = Css('title', {
-		color: Css.colors.PRIMARY,
+	export const title = cls('title', {
+		color: Styling.colors.PRIMARY,
 		userSelect: 'none',
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		fontWeight: 'bold',
-		borderBottom: `1px solid ${Css.colors.PRIMARY}`,
+		borderBottom: `1px solid ${Styling.colors.PRIMARY}`,
 		height: '48px',
 		lineHeight: '48px',
 		fontSize: '14px',
@@ -127,7 +128,7 @@ export namespace Tab {
 		position: 'relative'
 	})
 
-	export const secondborder = Css('second-border', {
+	export const secondborder = cls('second-border', {
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -135,13 +136,13 @@ export namespace Tab {
 		width: 'calc(100% - 1px)',
 		transition: 'transform 0.2s linear',
 		transform: 'scaleX(0)',
-		borderBottom: `1px solid ${Css.colors.PRIMARY}`,
+		borderBottom: `1px solid ${Styling.colors.PRIMARY}`,
 	})
 
-	export const active = Css('active', {
+	export const active = cls('active', {
 		transform: 'scaleX(1)'
 	})
 
-	export const content = Css('content', {backgroundColor: Css.colors.BG})
+	export const content = cls('content', {backgroundColor: Styling.colors.BG})
 
 }

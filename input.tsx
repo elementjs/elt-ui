@@ -9,8 +9,9 @@ import {
   Observable
 } from 'elt';
 
-import {Button} from './button'
-
+import { Button } from './button'
+import { Styling } from './styling'
+import { cls, s, combine } from 'osun'
 
 var id_gen = 0;
 
@@ -28,25 +29,25 @@ export function Search({model, placeholder}: SearchAttributes) {
 
 export namespace Search {
 
-  export const element = Css('search', {
+  export const element = cls('search', {
       borderRadius: '3px',
       border: '1px solid',
       position: 'relative',
-      borderColor: Css.colors.FG5,
-      color: Css.colors.FG,
-      backgroundColor: Css.colors.FG6,
+      borderColor: Styling.colors.FG5,
+      color: Styling.colors.FG,
+      backgroundColor: Styling.colors.FG6,
       fontSize: '0.8em',
       padding: '8px 16px'
     },
-    Css.no_spurious_borders,
-    Css.no_native_appearance,
+    Styling.no_spurious_borders,
+    Styling.no_native_appearance,
   )
 
-  Css.s(element).append(`::placeholder`, {
-    color: Css.colors.FG5
+  s(element).append(`::placeholder`, {
+    color: Styling.colors.FG5
   })
 
-  export const button = Css('search-btn', {
+  export const button = cls('search-btn', {
     position: 'absolute',
     right: 0
   })
@@ -122,30 +123,27 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
 }
 
 
-import {Css} from './styling'
-
-
 export namespace Input {
 
-  export const error = Css('error')
-  export const focused = Css('focused')
-  export const empty_unfocused = Css('unfocused')
+  export const error = cls('error')
+  export const focused = cls('focused')
+  export const empty_unfocused = cls('unfocused')
 
-  export const label = Css('label', {
+  export const label = cls('label', {
     position: 'absolute',
     top: '12px',
     left: '4px',
 
     fontSize: '12px',
     pointerEvents: 'none',
-    color: Css.colors.FG6,
+    color: Styling.colors.FG6,
     transformOrigin: 'top left',
     transform: 'translateZ(0)',
     transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
   })
 
-  export const element = Css('input-elt',
-    Css.no_spurious_borders,
+  export const element = cls('input-elt',
+    Styling.no_spurious_borders,
     {
       position: 'relative',
       borderRadius: 0,
@@ -156,30 +154,30 @@ export namespace Input {
       paddingRight: '4px',
       paddingLeft: '4px',
       paddingBottom: '4px',
-      borderBottom: `1px solid ${Css.colors.FG6}`,
+      borderBottom: `1px solid ${Styling.colors.FG6}`,
       width: '100%',
       transition: `border-bottom-color linear 0.3s`,
     }
   )
 
-  Css.s(element).append(`[type="time"]`, {
+  s(element).append(`[type="time"]`, {
     '-webkit-appearance': 'none',
     minWidth: '15px',
     minHeight: '48px'
   })
 
-  Css.s(element).append(`:focus`, {
-    paddingBottom: '3px', borderBottom: `2px solid ${Css.colors.PRIMARY}`
+  s(element).append(`:focus`, {
+    paddingBottom: '3px', borderBottom: `2px solid ${Styling.colors.PRIMARY}`
   })
 
-  export const input_error = Css('input-error', {
+  export const input_error = cls('input-error', {
     position: 'absolute',
-    color: Css.colors.ACCENT,
+    color: Styling.colors.ACCENT,
     fontSize: '10px',
     top: '48px'
   })
 
-  export const container = Css('container', {
+  export const container = cls('container', {
     display: 'inline-block',
     position: 'relative',
     height: '64px',
@@ -187,16 +185,16 @@ export namespace Input {
 
   // Styling labels that are children of different container combinations
   // The label is always the one being styled here
-  Css.combine(_ => Css.s(label).childOf(_.and(container)), () => {
-    Css.s(error, { color: Css.colors.ACCENT })
-    Css.s(focused, { color: Css.colors.PRIMARY })
-    Css.s(empty_unfocused, {
+  combine(_ => s(label).childOf(_.and(container)), () => {
+    s(error, { color: Styling.colors.ACCENT })
+    s(focused, { color: Styling.colors.PRIMARY })
+    s(empty_unfocused, {
       fontSize: `14px`,
       transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
     })
   })
 
-  Css.s(element).childOf(Css.s(container).and(error), {
-    borderBottomColor: Css.colors.ACCENT
+  s(element).childOf(s(container).and(error), {
+    borderBottomColor: Styling.colors.ACCENT
   })
 }

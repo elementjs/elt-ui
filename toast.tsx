@@ -1,9 +1,10 @@
 
-import {Insertable, append_child_and_mount, remove_and_unmount} from 'elt'
-import {animate} from './animate'
-import {Flex} from './flex'
+import { Insertable, append_child_and_mount, remove_and_unmount } from 'elt'
+import { animate } from './animate'
+import { Flex } from './flex'
 
-import {Css} from './styling'
+import { Styling } from './styling'
+import { cls } from 'osun'
 
 
 // import * as css from './toast.styl'
@@ -60,7 +61,7 @@ export class Toaster {
 
 export namespace Toaster {
 
-	export const holder = Css('toast-holder',
+	export const holder = cls('toast-holder',
 		{
 			position: 'fixed',
 			bottom: 0,
@@ -68,12 +69,12 @@ export namespace Toaster {
 			width: '100%',
 	})
 
-	export const toast = Css('toast', {
+	export const toast = cls('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
-		background: Css.colors.FG2,
+		background: Styling.colors.FG2,
 		borderRadius: '2px 2px 0 0',
-		color: Css.colors.BG,
+		color: Styling.colors.BG,
 		cursor: 'pointer'
 	})
 

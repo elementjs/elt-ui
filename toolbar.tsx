@@ -1,8 +1,9 @@
 
-import {Attrs} from 'elt'
+import { Attrs } from 'elt'
 
-import {Flex} from './flex'
-import {Css} from './styling'
+import { Flex } from './flex'
+import { Styling } from './styling'
+import { cls, s } from 'osun'
 
 export function Toolbar(attrs: Attrs, children: DocumentFragment): Element {
 
@@ -14,13 +15,12 @@ export function Toolbar(attrs: Attrs, children: DocumentFragment): Element {
 
 
 export namespace Toolbar {
-  const s = Css.s
 
-  export const container = Css('toolbar',
-    Css.colors.reverse_primary
+  export const container = cls('toolbar',
+    Styling.colors.reverse_primary
   )
 
-  export const toolbar_main = Css('toolbar-main',
+  export const toolbar_main = cls('toolbar-main',
     {
       fontSize: '24px',
       padding: `0 16px 0 0`,

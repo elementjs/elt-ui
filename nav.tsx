@@ -6,13 +6,14 @@ import {
 	remove_and_unmount
 } from 'elt'
 
-import {inkClickDelay} from './ink'
+import { inkClickDelay } from './ink'
 
-import {Icon} from './icon'
-import {Flex} from './flex'
+import { Icon } from './icon'
+import { Flex } from './flex'
 
-import {animate} from './animate'
-import {Css} from './styling'
+import { animate } from './animate'
+import { Styling } from './styling'
+import { cls, s, combine } from 'osun'
 
 
 export interface NavAttributes extends Attrs {
@@ -51,7 +52,7 @@ export class Nav extends Component<Attrs, HTMLElement> {
 
 export namespace Nav {
 
-	export const overlay = Css('overlay', {
+	export const overlay = cls('overlay', {
 		position: 'fixed',
 		top: 0,
 		left: 0,
@@ -61,7 +62,7 @@ export namespace Nav {
 		transform: `translateZ(0)`
 	})
 
-	export const drawer = Css('drawer', {
+	export const drawer = cls('drawer', {
 		position: 'fixed',
 		fontSize: '14px',
 		transform: `translateZ(0)`,
@@ -70,28 +71,27 @@ export namespace Nav {
 		height: '100vh',
 		width: '250px',
 		boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
-		backgroundColor: Css.colors.BG
+		backgroundColor: Styling.colors.BG
 	})
 
-	export const enter = Css('enter')
+	export const enter = cls('enter')
 
-	Css.combine(s => s.childOf(enter), () => {
-		Css.s(overlay, {
+	combine(s => s.childOf(enter), () => {
+		s(overlay, {
 			animation: `${animate.fade_in} 0.2s ease-in forwards`,
 		})
 
-		Css.s(drawer, {
+		s(drawer, {
 			animation: `${animate.slide_from_left} 0.2s ease-in forwards`
 		})
 	})
 
-	export const leave = Css('leave')
+	export const leave = cls('leave')
 
-	Css.combine(s => s.childOf(leave), () => {
-		Css.s(overlay, { animation: `${animate.FADE_OUT} 0.2s ease-out forwards` })
-		Css.s(drawer, { animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards` })
+	s(leave).children(() => {
+		s(overlay, { animation: `${animate.FADE_OUT} 0.2s ease-out forwards` })
+		s(drawer, { animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards` })
 	})
-
 
 }
 
@@ -100,7 +100,7 @@ export function NavHeader(a: Attrs, ch: DocumentFragment): Element {
 }
 
 export namespace NavHeader {
-	export const header = Css('header', {
+	export const header = cls('header', {
 		paddingTop: '16px',
 		paddingLeft: '16px'
 	})
@@ -113,7 +113,7 @@ export function NavSubheader(a: Attrs, ch: DocumentFragment): Element {
 }
 
 export namespace NavSubheader {
-	export const subheader = Css('subheader', {paddingLeft: '16px'})
+	export const subheader = cls('subheader', {paddingLeft: '16px'})
 }
 
 export function NavDivider(a: Attrs, ch: DocumentFragment): Element {
@@ -121,10 +121,10 @@ export function NavDivider(a: Attrs, ch: DocumentFragment): Element {
 }
 
 export namespace NavDivider {
-	export const divider = Css('divider', {
+	export const divider = cls('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid ${Css.colors.FG6}`,
+		borderBottom: `1px solid ${Styling.colors.FG6}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})
@@ -154,19 +154,19 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 
 export namespace NavItem {
 
-	export const item = Css('item', {
+	export const item = cls('item', {
 		position: 'relative',
 		height: '48px',
 		fontWeight: 'bold'
 	})
 
-	export const itemIcon = Css('item-icon', {
+	export const itemIcon = cls('item-icon', {
 		paddingLeft: '16px',
 		width: '72px',
 		color: `rgba(0, 0, 0, 0.65)`,
 	})
 
-	Css.s(itemIcon).append(`:before`, {
+	s(itemIcon).append(`:before`, {
 		fontSize: '24px'
 	})
 
@@ -183,6 +183,6 @@ export function NavFooter(a: Attrs, ch: DocumentFragment): Element {
 
 export namespace NavFooter {
 
-	export const footer = Css('footer', {textAlign: 'center', paddingBottom: '16px'})
+	export const footer = cls('footer', {textAlign: 'center', paddingBottom: '16px'})
 
 }

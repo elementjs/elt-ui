@@ -1,5 +1,5 @@
 
-import { Css } from './styling'
+import { keyframes } from 'osun'
 
 const END_EVENTS = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend']
 const START_EVENTS = ['webkitAnimationStart', 'mozAnimationStart', 'MSAnimationStart', 'oanimationstart', 'animationstart']
@@ -54,8 +54,6 @@ export function animate(node: HTMLElement, cls: string) {
 
 
 export namespace animate {
-
-	const keyframes = Css.keyframes
 
 	export const FN_DECELERATION = `cubic-bezier(0, 0, .2, 1)`
 	export const FN_STANDARD = `cubic-bezier(.4, 0, .2, 1)`

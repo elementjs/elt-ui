@@ -58,30 +58,31 @@ export class Checkbox extends Component<CheckboxAttributes> {
   }
 }
 
-import { Css } from './styling'
+import { cls, s } from 'osun'
+import { Styling } from './styling'
 
 export namespace Checkbox {
-  const s = Css.s
-  export const on = Css('on')
-  export const off = Css('off')
-  export const disabled = Css('disabled')
 
-  export const label = Css('label', {
+  export const on = cls('on')
+  export const off = cls('off')
+  export const disabled = cls('disabled')
+
+  export const label = cls('label', {
     position: 'relative',
     cursor: 'pointer',
     userSelect: 'none',
     display: 'inline-block',
     minHeight: '36px',
     padding: '8px',
-    '-webkit-tap-highlight-color': Css.colors.TRANSPARENT
+    '-webkit-tap-highlight-color': Styling.colors.TRANSPARENT
   })
 
-  export const content = Css('content', { verticalAlign: 'middle' })
+  export const content = cls('content', { verticalAlign: 'middle' })
 
   s(content).and(off, {color: `rgba(0, 0, 0, 0.74)`})
   s(content).and(disabled, {color: `rgba(0, 0, 0, 0.26)`})
 
-  export const icon = Css('icon',
+  export const icon = cls('icon',
     {
       marginRight: '8px',
       verticalAlign: 'middle',
@@ -91,6 +92,6 @@ export namespace Checkbox {
 
   s(icon).and(off, {color: `rgba(0, 0, 0, 0.74)`}),
   s(icon).and(disabled, {color: `rgba(0, 0, 0, 0.26)`}),
-  s(icon).and(on, {color: Css.colors.PRIMARY}),
+  s(icon).and(on, {color: Styling.colors.PRIMARY}),
   s(icon).append('::before', {fontSize: '18px'})
 }

@@ -13,7 +13,7 @@
     "watch": "wtsc -w"
   },
   "dependencies": {
-    "osun": "0.1.5"
+    "osun": "0.2.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
