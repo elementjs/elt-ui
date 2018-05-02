@@ -1,101 +1,6 @@
 
 import * as osun from 'osun'
 
-// Reset !
-osun.raw(`
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center, button, input,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-main, menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, main, menu, nav, section {
-	display: block;
-}
-/* HTML5 hidden-attribute fix for newer browsers */
-*[hidden] {
-    display: none;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-`)
-
-declare module 'osun/lib/types' {
-  interface CSSProperties {
-
-    '--em-color-primary'?: string
-    '--em-color-fg'?: string
-    '--em-color-bg'?: string
-    '--em-color-accent'?: string
-
-    '--em-color-primary-save'?: string
-    '--em-color-fg-save'?: string
-    '--em-color-bg-save'?: string
-    '--em-color-accent-save'?: string
-  }
-}
-
-osun.rule('*', {
-  boxSizing: 'border-box'
-})
-
-osun.rule('html', {
-  '--em-color-primary': '63, 81, 181',
-  '--em-color-fg': `0, 0, 0`,
-  '--em-color-bg': `255, 255, 255`,
-  '--em-color-accent': `244, 67, 54`,
-})
-
-osun.rule('html, body', {
-  color: Styling.colors.FG,
-  fontSize: '16px'
-})
-
-osun.rule('::-webkit-scrollbar', {
-  width: '8px'
-})
-
-osun.rule('::-webkit-scrollbar-track', {
-  background: Styling.colors.PRIMARY6
-})
-
-osun.rule('::-webkit-scrollbar-thumb', {
-  background: Styling.colors.PRIMARY5,
-  borderRadius: '3px'
-})
-
 
 export namespace Styling {
 
@@ -250,5 +155,102 @@ export namespace Styling {
   export const no_pointer_events = _cls('no-pointer-events', {pointerEvents: 'none'})
 
 }
+
+// Reset !
+osun.raw(`
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, button, input,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+	display: block;
+}
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+    display: none;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+`)
+
+declare module 'osun/lib/types' {
+  interface CSSProperties {
+
+    '--em-color-primary'?: string
+    '--em-color-fg'?: string
+    '--em-color-bg'?: string
+    '--em-color-accent'?: string
+
+    '--em-color-primary-save'?: string
+    '--em-color-fg-save'?: string
+    '--em-color-bg-save'?: string
+    '--em-color-accent-save'?: string
+  }
+}
+
+osun.rule('*', {
+  boxSizing: 'border-box'
+})
+
+osun.rule('html', {
+  '--em-color-primary': '63, 81, 181',
+  '--em-color-fg': `0, 0, 0`,
+  '--em-color-bg': `255, 255, 255`,
+  '--em-color-accent': `244, 67, 54`,
+})
+
+osun.rule('html, body', {
+  color: Styling.colors.FG,
+  fontSize: '16px'
+})
+
+osun.rule('::-webkit-scrollbar', {
+  width: '8px'
+})
+
+osun.rule('::-webkit-scrollbar-track', {
+  background: Styling.colors.PRIMARY6
+})
+
+osun.rule('::-webkit-scrollbar-thumb', {
+  background: Styling.colors.PRIMARY5,
+  borderRadius: '3px'
+})
+
+
 
 export default Styling
