@@ -165,7 +165,7 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
 
 export namespace ButtonBar {
   export const button_bar = cls('button-bar')
-  s(Button.button).childOf(button_bar, {paddingBottom: 0})
+  s(Button.button).childOf(button_bar, {padding: '0 16px',})
 
   export const has_button_bar = cls('has-button-bar', {
     paddingBottom: '0 !important'

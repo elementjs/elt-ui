@@ -48,6 +48,7 @@ export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
 }
 
 export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={dialog.title}>{children}</h3> }
+
 export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={dialog.content}>{children}</div> }
 
 
@@ -130,20 +131,20 @@ export interface ModalOptions extends DialogOptions {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) =>
+  return dialog<boolean>(opts, (dlg) => <>
+    {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
-      {opts.title ? <Title>{opts.title}</Title> : null}
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
-      <ButtonBar>
-        {DisplayIf(o(opts.disagree), disagree =>
-          <Button click={() => dlg.resolve(false)}>{disagree}</Button>
-        )}
-        {DisplayIf(o(opts.agree), agree =>
-          <Button click={() => dlg.resolve(true)}>{agree}</Button>
-        )}
-      </ButtonBar>
     </Content>
-  );
+    <ButtonBar>
+      {DisplayIf(o(opts.disagree), disagree =>
+        <Button click={() => dlg.resolve(false)}>{disagree}</Button>
+      )}
+      {DisplayIf(o(opts.agree), agree =>
+        <Button click={() => dlg.resolve(true)}>{agree}</Button>
+      )}
+    </ButtonBar>
+  </>);
 
 }
 
@@ -210,7 +211,9 @@ export namespace dialog {
   })
 
   export const title = cls('title', {
-    margin: '0 0 0.625em 0',
+    margin: '16px 24px',
+    fontSize: '1.25em',
+    fontWeight: 'bold',
     padding: 0
   })
 

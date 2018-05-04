@@ -8,7 +8,7 @@
         "strict": true,
         "noUnusedLocals": true,
         "jsx": "react",
-        "jsxFactory": "E",
+        "reactNamespace": "E",
         "experimentalDecorators": true,
         "lib": ["es6", "dom"]
     },
