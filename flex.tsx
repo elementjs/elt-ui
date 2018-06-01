@@ -11,7 +11,7 @@ export function Flex({row, column}: FlexAttrs, ch: DocumentFragment) {
 	return <div class={[Flex.flex, {
 		[Flex.row]: row,
 		[Flex.column]: column
-	}]}/>
+	}]}>{ch}</div>
 }
 
 export namespace Flex {
