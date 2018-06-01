@@ -35,7 +35,7 @@ export namespace Progress {
   export const hidden = cls('hidden', {display: 'none'})
 
   export const error = cls('error', {
-    '--em-color-primary': 'var(--em-color-accent)'
+    '--eltui-color-primary': 'var(--eltui-color-accent)'
   })
 
   export const holder = cls('progress-holder', {

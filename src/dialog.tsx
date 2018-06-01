@@ -199,7 +199,7 @@ export namespace dialog {
   export const content = cls('content', {
     padding: '0 24px',
     paddingBottom: '24px',
-    color: 'var(--em-text-color)',
+    color: 'var(--eltui-text-color)',
   })
 
   s(content).append(':first-child', {

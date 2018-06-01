@@ -17,38 +17,38 @@ export namespace Styling {
       return `${R}, ${G}, ${B}`
     }
 
-    export function SetPrimary(value: string) { return {'--em-color-primary': toRGB(value)} }
-    export function SetAccent(value: string) { return {'--em-color-accent': toRGB(value)} }
-    export function SetFg(value: string) { return {'--em-color-fg': toRGB(value)} }
-    export function SetBg(value: string) { return {'--em-color-bg': toRGB(value)} }
+    export function SetPrimary(value: string) { return {'--eltui-color-primary': toRGB(value)} }
+    export function SetAccent(value: string) { return {'--eltui-color-accent': toRGB(value)} }
+    export function SetFg(value: string) { return {'--eltui-color-fg': toRGB(value)} }
+    export function SetBg(value: string) { return {'--eltui-color-bg': toRGB(value)} }
 
-    export const ACCENT = `rgba(var(--em-color-accent), 1)`
-    export const ACCENT2 = `rgba(var(--em-color-accent), 0.74)`
-    export const ACCENT3 = `rgba(var(--em-color-accent), 0.54)`
-    export const ACCENT4 = `rgba(var(--em-color-accent), 0.24)`
-    export const ACCENT5 = `rgba(var(--em-color-accent), 0.14)`
-    export const ACCENT6 = `rgba(var(--em-color-accent), 0.07)`
+    export const ACCENT = `rgba(var(--eltui-color-accent), 1)`
+    export const ACCENT2 = `rgba(var(--eltui-color-accent), 0.74)`
+    export const ACCENT3 = `rgba(var(--eltui-color-accent), 0.54)`
+    export const ACCENT4 = `rgba(var(--eltui-color-accent), 0.24)`
+    export const ACCENT5 = `rgba(var(--eltui-color-accent), 0.14)`
+    export const ACCENT6 = `rgba(var(--eltui-color-accent), 0.07)`
 
-    export const PRIMARY = `rgba(var(--em-color-primary), 1)`
-    export const PRIMARY2 = `rgba(var(--em-color-primary), 0.74)`
-    export const PRIMARY3 = `rgba(var(--em-color-primary), 0.54)`
-    export const PRIMARY4 = `rgba(var(--em-color-primary), 0.24)`
-    export const PRIMARY5 = `rgba(var(--em-color-primary), 0.14)`
-    export const PRIMARY6 = `rgba(var(--em-color-primary), 0.07)`
+    export const PRIMARY = `rgba(var(--eltui-color-primary), 1)`
+    export const PRIMARY2 = `rgba(var(--eltui-color-primary), 0.74)`
+    export const PRIMARY3 = `rgba(var(--eltui-color-primary), 0.54)`
+    export const PRIMARY4 = `rgba(var(--eltui-color-primary), 0.24)`
+    export const PRIMARY5 = `rgba(var(--eltui-color-primary), 0.14)`
+    export const PRIMARY6 = `rgba(var(--eltui-color-primary), 0.07)`
 
-    export const BG = `rgba(var(--em-color-bg), 1)`
-    export const BG2 = `rgba(var(--em-color-bg), 0.74)`
-    export const BG3 = `rgba(var(--em-color-bg), 0.54)`
-    export const BG4 = `rgba(var(--em-color-bg), 0.24)`
-    export const BG5 = `rgba(var(--em-color-bg), 0.14)`
-    export const BG6 = `rgba(var(--em-color-bg), 0.07)`
+    export const BG = `rgba(var(--eltui-color-bg), 1)`
+    export const BG2 = `rgba(var(--eltui-color-bg), 0.74)`
+    export const BG3 = `rgba(var(--eltui-color-bg), 0.54)`
+    export const BG4 = `rgba(var(--eltui-color-bg), 0.24)`
+    export const BG5 = `rgba(var(--eltui-color-bg), 0.14)`
+    export const BG6 = `rgba(var(--eltui-color-bg), 0.07)`
 
-    export const FG = `rgba(var(--em-color-fg), 1)`
-    export const FG2 = `rgba(var(--em-color-fg), 0.74)`
-    export const FG3 = `rgba(var(--em-color-fg), 0.54)`
-    export const FG4 = `rgba(var(--em-color-fg), 0.24)`
-    export const FG5 = `rgba(var(--em-color-fg), 0.14)`
-    export const FG6 = `rgba(var(--em-color-fg), 0.07)`
+    export const FG = `rgba(var(--eltui-color-fg), 1)`
+    export const FG2 = `rgba(var(--eltui-color-fg), 0.74)`
+    export const FG3 = `rgba(var(--eltui-color-fg), 0.54)`
+    export const FG4 = `rgba(var(--eltui-color-fg), 0.24)`
+    export const FG5 = `rgba(var(--eltui-color-fg), 0.14)`
+    export const FG6 = `rgba(var(--eltui-color-fg), 0.07)`
 
     export const TRANSPARENT = `rgba(0, 0, 0, 0)`
 
@@ -57,15 +57,15 @@ export namespace Styling {
       color: BG,
 
       // Doing a little trick to swap out primary and contrast
-      '--em-color-primary-save': 'var(--em-color-primary)',
-      '--em-color-fg-save': 'var(--em-color-fg)',
-      '--em-color-bg-save': 'var(--em-color-bg)'
+      '--eltui-color-primary-save': 'var(--eltui-color-primary)',
+      '--eltui-color-fg-save': 'var(--eltui-color-fg)',
+      '--eltui-color-bg-save': 'var(--eltui-color-bg)'
     })
 
     osun.selector`*`.childOf(reverse_primary).define({
-      '--em-color-fg': `var(--em-color-bg-save)`,
-      '--em-color-primary': 'var(--em-color-bg-save)',
-      '--em-color-bg': 'var(--em-color-primary-save)'
+      '--eltui-color-fg': `var(--eltui-color-bg-save)`,
+      '--eltui-color-primary': 'var(--eltui-color-bg-save)',
+      '--eltui-color-bg': 'var(--eltui-color-primary-save)'
     })
   }
 
@@ -210,15 +210,15 @@ table {
 declare module 'osun/lib/types' {
   interface CSSProperties {
 
-    '--em-color-primary'?: string
-    '--em-color-fg'?: string
-    '--em-color-bg'?: string
-    '--em-color-accent'?: string
+    '--eltui-color-primary'?: string
+    '--eltui-color-fg'?: string
+    '--eltui-color-bg'?: string
+    '--eltui-color-accent'?: string
 
-    '--em-color-primary-save'?: string
-    '--em-color-fg-save'?: string
-    '--em-color-bg-save'?: string
-    '--em-color-accent-save'?: string
+    '--eltui-color-primary-save'?: string
+    '--eltui-color-fg-save'?: string
+    '--eltui-color-bg-save'?: string
+    '--eltui-color-accent-save'?: string
   }
 }
 
@@ -227,10 +227,10 @@ osun.rule('*', {
 })
 
 osun.rule('html', {
-  '--em-color-primary': '63, 81, 181',
-  '--em-color-fg': `0, 0, 0`,
-  '--em-color-bg': `255, 255, 255`,
-  '--em-color-accent': `244, 67, 54`,
+  '--eltui-color-primary': '63, 81, 181',
+  '--eltui-color-fg': `0, 0, 0`,
+  '--eltui-color-bg': `255, 255, 255`,
+  '--eltui-color-accent': `244, 67, 54`,
 })
 
 osun.rule('html, body', {
