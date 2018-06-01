@@ -4,8 +4,8 @@
   "repository": "https://github.com/domicjs/elt-material",
   "description": "some description",
   "license": "MIT",
-  "main": "./index.js",
-  "typings": "./index.d.ts",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
     "build:js": "wtsc",
     "build": "npm run build:js",
