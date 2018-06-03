@@ -12,6 +12,7 @@ import {
 import { Button } from './button'
 import { Styling } from './styling'
 import { cls, s, combine } from 'osun'
+import FaClose from './icons/window-close'
 
 var id_gen = 0;
 
@@ -23,7 +24,7 @@ export interface SearchAttributes extends Attrs {
 
 export function Search({model, placeholder}: SearchAttributes) {
   return <input placeholder={placeholder} class={[Search.element]} $$={bind(o(model))}>
-      <Button class={Search.button} icon='close'/>
+      <Button class={Search.button} icon><FaClose/></Button>
     </input>
 }
 

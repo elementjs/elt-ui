@@ -8,12 +8,12 @@ import {
 
 import { inkClickDelay } from './ink'
 
-import { Icon } from './icon'
 import { Flex } from './flex'
 
 import { animate } from './animate'
 import { Styling } from './styling'
 import { cls, s, combine } from 'osun'
+import FaBars from './icons/bars'
 
 
 export interface NavAttributes extends Attrs {
@@ -145,7 +145,7 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 			else console.warn('could not get Nav')
 		}
 	})]}>
-		<Icon class={NavItem.itemIcon} name={a.icon}/>
+		<FaBars class={NavItem.itemIcon}/>
 		{ch}
 	</div>
 

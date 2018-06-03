@@ -91,7 +91,9 @@ export namespace Flex {
 
 	export const spaced_inside8 = cls('spaced_inside8', {
 		marginBottom: `-8px`,
-		marginLeft: `-8px`
+		marginLeft: `-8px`,
+		width: `calc(100% + 8px) !important`,
+		height: `calc(100% + 8px) !important`
 	})
 
 	all.childOf(spaced_inside8, {

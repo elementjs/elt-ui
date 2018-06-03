@@ -4,21 +4,20 @@ import {
   click,
   Attrs,
   O,
-  Observable,
   RO,
-  Component
+  Component,
+  ReadonlyObservable,
+  Observable
 } from 'elt'
 
 import {Flex} from './flex'
 import {Checkbox} from './checkbox'
 
-import {Icon} from './icon'
-
+import FaCircle from './icons/circle-regular'
+import FaDotCircle from './icons/dot-circle-regular'
+import { Styling } from './styling'
 import {inkable} from './ink'
 
-
-var CHECKED = 'dot-circle'
-var UNCHECKED = 'circle-o'
 
 export interface RadioAttributes<T> extends Attrs {
   model: O<T>
@@ -29,9 +28,11 @@ export interface RadioAttributes<T> extends Attrs {
 
 export class Radio<T> extends Component<RadioAttributes<T>> {
 
-  disabled: RO<boolean> = o(this.attrs.disabled||false)
+  disabled: ReadonlyObservable<boolean> = o(this.attrs.disabled||false)
   value: RO<T> = this.attrs.value
   model: Observable<T> = o(this.attrs.model)
+
+  o_checked = o.merge({model: this.model, value: this.value}).tf(({model: m, value: v}) => m === v)
 
   setValue() {
     this.model.set(o.get(this.value))
@@ -45,12 +46,12 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
       [Checkbox.disabled]: this.disabled
     };
 
-    return <label class={Checkbox.label} $$={[inkable(), click(e => this.setValue())]}>
+    return <label class={[Styling.control, Checkbox.label]} $$={[inkable(), click(e => this.setValue())]}>
         <div class={[Flex.row, Flex.align_center]}>
-          <Icon
-            class={[Checkbox.icon, classes]}
-            name={o.merge({model: this.model, value: this.value}).tf(({model: m, value: v}) => m === v ? CHECKED : UNCHECKED)}
-          />
+          {this.o_checked.tf(v => v ?
+            <FaDotCircle class={[Checkbox.icon, classes]}/> :
+            <FaCircle class={[Checkbox.icon, classes]}/>
+          )}
           <span class={[Checkbox.content, classes]}>{children}</span>
         </div>
       </label>;

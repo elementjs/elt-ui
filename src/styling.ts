@@ -147,6 +147,14 @@ export namespace Styling {
   export const display_none = _cls('display-none', {display: 'none'})
 
   export const padded = _cls('padded', {padding: '16px'})
+  export const control = _cls('control', {
+    padding: '8px',
+    fontSize: '16px',
+    display: 'inline-block',
+    '-webkit-tap-highlight-color': Styling.colors.TRANSPARENT,
+    position: 'relative', // needed for inking.
+    // background: colors.PRIMARY6
+  })
   export const bold = _cls('bold', {fontWeight: 'bold'})
   export const raised = _cls('raised', {boxShadow: `0 2px 2px ${colors.FG3}`})
   export const cursor_pointer = _cls('cursor-pointer', {cursor: 'pointer'})

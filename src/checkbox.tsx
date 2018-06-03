@@ -10,14 +10,12 @@ import {
 } from 'elt'
 
 import {Flex} from './flex'
-import {Icon} from './icon'
 
+import FaSquareRegular from './icons/square-regular'
+import FaMinusSquare from './icons/minus-square'
+import FaCheckSquareRegular from './icons/check-square-regular'
 import {inkable} from './ink'
 
-
-var OFF = 'square-o'
-var ON = 'check-square'
-var INDETERMINATE = 'minus-square'
 
 export interface CheckboxAttributes extends Attrs {
   model: O<boolean>
@@ -37,9 +35,9 @@ export class Checkbox extends Component<CheckboxAttributes> {
   render(children: DocumentFragment): Element {
 
     function getIcon(value: boolean) {
-      if (value === undefined) return INDETERMINATE
-      if (value) return ON
-      return OFF
+      if (value === undefined) return <FaMinusSquare class={[Checkbox.icon, classes]}/>
+      if (value) return <FaCheckSquareRegular class={[Checkbox.icon, classes]}/>
+      return <FaSquareRegular class={[Checkbox.icon, classes]}/>
     }
 
     let classes = {
@@ -48,9 +46,9 @@ export class Checkbox extends Component<CheckboxAttributes> {
       [Checkbox.disabled]: this.o_disabled
     }
 
-    return <label class={Checkbox.label} $$={[inkable(), click(e => this.toggle())]}>
+    return <label class={[Checkbox.label, Styling.control]} $$={[inkable(), click(e => this.toggle())]}>
         <Flex row class={[Flex.align_center]}>
-          <Icon class={[Checkbox.icon, classes]} name={this.o_model.tf(getIcon)}/>
+          {this.o_model.tf(getIcon)}
           <span class={[Checkbox.content, classes]}>{children}</span>
         </Flex>
       </label>;
@@ -71,27 +69,23 @@ export namespace Checkbox {
     position: 'relative',
     cursor: 'pointer',
     userSelect: 'none',
-    display: 'inline-block',
-    minHeight: '36px',
-    padding: '8px',
-    '-webkit-tap-highlight-color': Styling.colors.TRANSPARENT
   })
 
   export const content = cls('content', { verticalAlign: 'middle' })
 
-  s(content).and(off, {color: `rgba(0, 0, 0, 0.74)`})
-  s(content).and(disabled, {color: `rgba(0, 0, 0, 0.26)`})
+  s(content).and(off, {fill: `rgba(0, 0, 0, 0.74)`})
+  s(content).and(disabled, {fill: `rgba(0, 0, 0, 0.26)`})
 
   export const icon = cls('icon',
     {
       marginRight: '8px',
-      verticalAlign: 'middle',
       transition: 'color linear 0.3s',
+      '--eltui-color-fg': 'var(--eltui-color-primary)'
     },
   )
 
-  s(icon).and(off, {color: `rgba(0, 0, 0, 0.74)`}),
-  s(icon).and(disabled, {color: `rgba(0, 0, 0, 0.26)`}),
-  s(icon).and(on, {color: Styling.colors.PRIMARY}),
+  s(icon).and(off, {fill: `rgba(0, 0, 0, 0.74)`}),
+  s(icon).and(disabled, {fill: `rgba(0, 0, 0, 0.26)`}),
+  s(icon).and(on, {fill: Styling.colors.PRIMARY}),
   s(icon).append('::before', {fontSize: '18px'})
 }
