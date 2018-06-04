@@ -22,6 +22,28 @@ export namespace Styling {
     export function SetFg(value: string) { return {'--eltui-color-fg': toRGB(value)} }
     export function SetBg(value: string) { return {'--eltui-color-bg': toRGB(value)} }
 
+    export function SetReversePrimary(value: string) { return {'--eltui-color-reverse-primary': toRGB(value)} }
+    export function SetReverseAccent(value: string) { return {'--eltui-color-reverse-accent': toRGB(value)} }
+    export function SetReverseFg(value: string) { return {'--eltui-color-reverse-fg': toRGB(value)} }
+    export function SetReverseBg(value: string) { return {'--eltui-color-reverse-bg': toRGB(value)} }
+
+    export function SimpleTheme(
+      primary: string,
+      accent: string = '#f44336',
+      fg: string = '#3c3c3b',
+      bg: string = '#ffffff') {
+        return {
+          '--eltui-color-primary': toRGB(primary),
+          '--eltui-color-accent': toRGB(accent),
+          '--eltui-color-fg': toRGB(fg),
+          '--eltui-color-bg': toRGB(bg),
+          '--eltui-color-reverse-primary': toRGB(bg),
+          '--eltui-color-reverse-accent': toRGB(accent),
+          '--eltui-color-reverse-fg': toRGB(bg),
+          '--eltui-color-reverse-bg': toRGB(primary)
+        } as osun.CSSProperties
+    }
+
     export const ACCENT = `rgba(var(--eltui-color-accent), 1)`
     export const ACCENT2 = `rgba(var(--eltui-color-accent), 0.74)`
     export const ACCENT3 = `rgba(var(--eltui-color-accent), 0.54)`
@@ -53,19 +75,11 @@ export namespace Styling {
     export const TRANSPARENT = `rgba(0, 0, 0, 0)`
 
     export const reverse_primary = _cls('reverse_primary', {
-      backgroundColor: PRIMARY,
-      color: BG,
-
       // Doing a little trick to swap out primary and contrast
-      '--eltui-color-primary-save': 'var(--eltui-color-primary)',
-      '--eltui-color-fg-save': 'var(--eltui-color-fg)',
-      '--eltui-color-bg-save': 'var(--eltui-color-bg)'
-    })
-
-    osun.selector`*`.childOf(reverse_primary).define({
-      '--eltui-color-fg': `var(--eltui-color-bg-save)`,
-      '--eltui-color-primary': 'var(--eltui-color-bg-save)',
-      '--eltui-color-bg': 'var(--eltui-color-primary-save)'
+      '--eltui-color-primary': 'var(--eltui-color-reverse-primary)',
+      '--eltui-color-fg': 'var(--eltui-color-reverse-fg)',
+      '--eltui-color-bg': 'var(--eltui-color-reverse-bg)',
+      '--eltui-color-accent': 'var(--eltui-color-reverse-accent)'
     })
   }
 
@@ -153,7 +167,7 @@ export namespace Styling {
     display: 'inline-block',
     '-webkit-tap-highlight-color': Styling.colors.TRANSPARENT,
     position: 'relative', // needed for inking.
-    // background: colors.PRIMARY6
+    background: colors.BG
   })
   export const bold = _cls('bold', {fontWeight: 'bold'})
   export const raised = _cls('raised', {boxShadow: `0 2px 2px ${colors.FG3}`})
@@ -222,11 +236,10 @@ declare module 'osun/lib/types' {
     '--eltui-color-fg'?: string
     '--eltui-color-bg'?: string
     '--eltui-color-accent'?: string
-
-    '--eltui-color-primary-save'?: string
-    '--eltui-color-fg-save'?: string
-    '--eltui-color-bg-save'?: string
-    '--eltui-color-accent-save'?: string
+    '--eltui-color-reverse-fg'?: string
+    '--eltui-color-reverse-bg'?: string
+    '--eltui-color-reverse-accent'?: string
+    '--eltui-color-reverse-primary'?: string
   }
 }
 

@@ -17,7 +17,7 @@ import {inker} from './ink'
 export interface ButtonAttrs extends Attrs {
   bordered?: RO<boolean>
   disabled?: RO<boolean>
-  raised?: RO<boolean>
+  reversed?: RO<boolean>
   click?: Listener<MouseEvent>
   icon?: RO<boolean>
 }
@@ -40,9 +40,8 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
       Button.button,
       Styling.control,
       {
-        [Styling.colors.reverse_primary]: attrs.raised,
+        [Styling.colors.reverse_primary]: attrs.reversed,
         [Button.disabled]: attrs.disabled,
-        [Button.raised]: attrs.raised,
       }
     ]}
     disabled={o(attrs.disabled).tf(val => !!val)}
@@ -72,11 +71,6 @@ export namespace Button {
       '--eltui-color-fg': 'var(--eltui-color-primary)'
     },
   )
-
-  export const raised = cls('raised', {
-    '--eltui-color-fg': 'var(--eltui-color-bg) !important',
-    '--eltui-color-bg': 'var(--eltui-color-primary)'
-  })
 
   s(button).append(`::-moz-focus-inner`, {border: 0})
 
