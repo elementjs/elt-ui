@@ -13,7 +13,8 @@ export namespace Fa {
   })
 
   s`path`.in(icon, {
-    fill: Styling.colors.FG
+    fill: Styling.colors.FG,
+    stroke: Styling.colors.FG
   })
 
 }

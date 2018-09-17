@@ -17,7 +17,10 @@ export namespace Styling {
       return `${R}, ${G}, ${B}`
     }
 
-    export function SetPrimary(value: string) { return {'--eltui-color-primary': toRGB(value)} }
+    export function SetPrimary(value: string) { return {
+      '--eltui-color-primary': toRGB(value),
+      '--eltui-color-reverse-bg': toRGB(value)
+    } }
     export function SetAccent(value: string) { return {'--eltui-color-accent': toRGB(value)} }
     export function SetFg(value: string) { return {'--eltui-color-fg': toRGB(value)} }
     export function SetBg(value: string) { return {'--eltui-color-bg': toRGB(value)} }
@@ -79,7 +82,9 @@ export namespace Styling {
       '--eltui-color-primary': 'var(--eltui-color-reverse-primary)',
       '--eltui-color-fg': 'var(--eltui-color-reverse-fg)',
       '--eltui-color-bg': 'var(--eltui-color-reverse-bg)',
-      '--eltui-color-accent': 'var(--eltui-color-reverse-accent)'
+      '--eltui-color-accent': 'var(--eltui-color-reverse-accent)',
+      backgroundColor: BG,
+      color: FG
     })
   }
 
