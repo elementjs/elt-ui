@@ -3,7 +3,9 @@ import {
 	click,
 	Component,
 	Attrs,
-	remove_and_unmount
+	remove_and_unmount,
+	o,
+	RO
 } from 'elt'
 
 import { inkClickDelay } from './ink'
@@ -13,7 +15,6 @@ import { Flex } from './flex'
 import { animate } from './animate'
 import { Styling } from './styling'
 import { cls, s, combine } from 'osun'
-import FaBars from './icons/bars'
 
 
 export interface NavAttributes extends Attrs {
@@ -131,7 +132,7 @@ export namespace NavDivider {
 }
 
 export interface NavItemAttributes extends Attrs {
-	icon: string
+	icon: RO<(a: Attrs) => Element>
 	click?: (ev: MouseEvent) => any
 }
 
@@ -145,7 +146,7 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 			else console.warn('could not get Nav')
 		}
 	})]}>
-		<FaBars class={NavItem.itemIcon}/>
+		{o(a.icon).tf(I => <I class={NavItem.item_icon}/>)}
 		{ch}
 	</div>
 
@@ -160,14 +161,10 @@ export namespace NavItem {
 		fontWeight: 'bold'
 	})
 
-	export const itemIcon = cls('item-icon', {
-		paddingLeft: '16px',
-		width: '72px',
+	export const item_icon = cls('item-icon', {
+		width: '64px',
+		fontSize: '20px',
 		color: `rgba(0, 0, 0, 0.65)`,
-	})
-
-	s(itemIcon).append(`:before`, {
-		fontSize: '24px'
 	})
 
 }
