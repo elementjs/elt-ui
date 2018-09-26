@@ -43,7 +43,7 @@ export namespace TabContainer {
 
 
 export interface TabAttributes extends Attrs {
-	title: Insertable,
+	text: Insertable,
 }
 
 
@@ -72,7 +72,7 @@ export class Tab extends Component<TabAttributes> {
 				inkable()
 			]}>
 			<div class={[Tab.secondborder, {[Tab.active]: this.o_is_active}]}>&nbsp;</div>
-			{this.attrs.title}
+			{this.attrs.text}
 		</div>)
 
 		this.observe(this.container.o_active_tab, tab => {
