@@ -95,6 +95,8 @@ export namespace Styling {
     export const big = _cls('small', {fontSize: '18px'})
     export const bigger = _cls('bigger', {fontSize: '22px'})
     export const very_big = _cls('very_big', {fontSize: '28px'})
+    export const huge = _cls('huge', {fontSize: '48px'})
+    export const very_huge = _cls('very-huge', {fontSize: '64px'})
 
     export const small = _cls('small', {fontSize: '14px'})
     export const smaller = _cls('smaller', {fontSize: '12px'})
