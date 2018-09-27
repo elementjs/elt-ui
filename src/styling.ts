@@ -261,7 +261,7 @@ osun.rule('html', {
   '--eltui-color-accent': `244, 67, 54`,
 })
 
-osun.rule('html, body, input, textarea, select, button', {
+osun.rule('html, body', {
   color: Styling.colors.FG,
   fontSize: '16px'
 })
