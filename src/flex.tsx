@@ -7,35 +7,43 @@ export interface FlexAttrs extends Attrs {
 	column?: RO<boolean>
 	spacing?: RO<string|number>
 	align?: RO<string>
+	justify?: RO<string>
 	'absolute-grow'?: RO<string>
 }
 
 var _spacing: {[sp: string]: string} = {}
+/**
+ * Get or create a class for creating spacing between elements inside
+ * a flex container.
+ */
+function get_spacing_class(s: string | number | undefined | null) {
+	if (!s) return ''
+	const cache = _spacing[s]
+	if (cache) return cache
+	// create the needed class
+	const spaced_inside_container = cls(`spaced-inside-${s}`, {
+		marginBottom: `-${s}px`,
+		marginLeft: `-${s}px`
+	})
 
-export function Flex({row, column, spacing, align, 'absolute-grow': ag}: FlexAttrs, ch: DocumentFragment) {
+	all.childOf(spaced_inside_container, {
+		marginBottom: `${s}px`,
+		marginLeft: `${s}px`
+	})
+	_spacing[s] = spaced_inside_container
+	return spaced_inside_container
+}
+
+
+export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag}: FlexAttrs, ch: DocumentFragment) {
 	const o_spacing = o(spacing)
 	return <div style={{flexGrow: o(ag)}}>
 		<div style={{
 			alignItems: o(align).tf(a => a || 'normal'),
+			justifyContent: o(justify).tf(j => j || 'inherit')
 		}} class={[
 			Flex.flex,
-			o_spacing.tf(s => {
-				if (!s) return ''
-				const cache = _spacing[s]
-				if (cache) return cache
-				// create the needed class
-				const spaced_inside_container = cls(`spaced-inside-${s}`, {
-					marginBottom: `-${s}px`,
-					marginLeft: `-${s}px`
-				})
-
-				all.childOf(spaced_inside_container, {
-					marginBottom: `${s}px`,
-					marginLeft: `${s}px`
-				})
-				_spacing[s] = spaced_inside_container
-				return spaced_inside_container
-			}),
+			o_spacing.tf(get_spacing_class),
 			{
 				[Flex.row]: row,
 				[Flex.column]: column
