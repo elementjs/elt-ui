@@ -1,17 +1,46 @@
 
-import { Attrs, RO } from 'elt'
+import { Attrs, RO, o } from 'elt'
 import { cls, all, s } from 'osun'
 
 export interface FlexAttrs extends Attrs {
 	row?: RO<boolean>
 	column?: RO<boolean>
+	spacing?: RO<string|number>
+	align?: RO<string>
+	'absolute-grow'?: RO<string>
 }
 
-export function Flex({row, column}: FlexAttrs, ch: DocumentFragment) {
-	return <div class={[Flex.flex, {
-		[Flex.row]: row,
-		[Flex.column]: column
-	}]}>{ch}</div>
+var _spacing: {[sp: string]: string} = {}
+
+export function Flex({row, column, spacing, align, 'absolute-grow': ag}: FlexAttrs, ch: DocumentFragment) {
+	const o_spacing = o(spacing)
+	return <div style={{flexGrow: o(ag)}}>
+		<div style={{
+			alignItems: o(align).tf(a => a || 'normal'),
+		}} class={[
+			Flex.flex,
+			o_spacing.tf(s => {
+				if (!s) return ''
+				const cache = _spacing[s]
+				if (cache) return cache
+				// create the needed class
+				const spaced_inside_container = cls(`spaced-inside-${s}`, {
+					marginBottom: `-${s}px`,
+					marginLeft: `-${s}px`
+				})
+
+				all.childOf(spaced_inside_container, {
+					marginBottom: `${s}px`,
+					marginLeft: `${s}px`
+				})
+				_spacing[s] = spaced_inside_container
+				return spaced_inside_container
+			}),
+			{
+				[Flex.row]: row,
+				[Flex.column]: column
+			}]}>{ch}</div>
+	</div>
 }
 
 export namespace Flex {
