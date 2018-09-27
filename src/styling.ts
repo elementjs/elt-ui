@@ -266,6 +266,10 @@ osun.rule('html, body', {
   fontSize: '16px'
 })
 
+osun.rule('button, input, select, textarea', {
+  fontSize: 'inherit'
+})
+
 osun.rule('::-webkit-scrollbar', {
   width: '8px'
 })
