@@ -7,7 +7,9 @@ export interface FlexAttrs extends Attrs {
 	column?: RO<boolean>
 	spacing?: RO<string|number>
 	align?: RO<string>
-	justify?: RO<string>
+	justify?: RO<'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' |
+	'safe center' | 'safe flex-start' | 'safe flex-end' | 'safe space-between' | 'safe space-around' | 'safe space-evenly' | 'safe stretch' |
+	'unsafe center' | 'unsafe flex-start' | 'unsafe flex-end' | 'unsafe space-between' | 'unsafe space-around' | 'unsafe space-evenly' | 'unsafe stretch' | 'inherit' | 'initial' | 'unset'>
 	'absolute-grow'?: RO<string>
 }
 
