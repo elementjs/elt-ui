@@ -96,8 +96,8 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
     }),
     dlg,
     // Handle the escape key.
-    inserted(node => node.ownerDocument.addEventListener('keyup', handleEscape)),
-    removed(node => node.ownerDocument.removeEventListener('keyup', handleEscape))
+    inserted(node => node.ownerDocument!.addEventListener('keyup', handleEscape)),
+    removed(node => node.ownerDocument!.removeEventListener('keyup', handleEscape))
   ]}>
     <Root class={opts.class ? opts.class : ''}>{contents}</Root>
   </Overlay> as HTMLElement
