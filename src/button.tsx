@@ -3,7 +3,6 @@ import {
   o,
   Component,
   click,
-  RO,
   Attrs,
   Listener
 } from 'elt'
@@ -15,11 +14,11 @@ import {inker} from './ink'
 
 
 export interface ButtonAttrs extends Attrs {
-  bordered?: RO<boolean>
-  disabled?: RO<boolean>
-  reversed?: RO<boolean>
+  bordered?: o.RO<boolean>
+  disabled?: o.RO<boolean>
+  reversed?: o.RO<boolean>
   click?: Listener<MouseEvent>
-  icon?: RO<boolean>
+  icon?: o.RO<boolean>
 }
 
 

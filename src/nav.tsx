@@ -5,7 +5,6 @@ import {
 	Attrs,
 	remove_and_unmount,
 	o,
-	RO
 } from 'elt'
 
 import { inkClickDelay } from './ink'
@@ -132,7 +131,7 @@ export namespace NavDivider {
 }
 
 export interface NavItemAttributes extends Attrs {
-	icon: RO<(a: Attrs) => Element>
+	icon: o.RO<(a: Attrs) => Element>
 	click?: (ev: MouseEvent) => any
 }
 

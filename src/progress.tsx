@@ -1,11 +1,11 @@
-import { Attrs, RO, o, DisplayIf } from 'elt'
+import { Attrs, o, DisplayIf } from 'elt'
 import { Styling } from './styling'
 import { cls } from 'osun'
 
 export interface ProgressAttrs extends Attrs {
-  mode?: RO<'determinate' | 'indeterminate' | 'query' | 'buffer' | 'off'>
-  progress?: RO<number>
-  error?: RO<boolean>
+  mode?: o.RO<'determinate' | 'indeterminate' | 'query' | 'buffer' | 'off'>
+  progress?: o.RO<number>
+  error?: o.RO<boolean>
 }
 
 

@@ -5,7 +5,6 @@ import {
 	Component,
 	Repeat,
 	o,
-	Observable,
 	Insertable,
 	Fragment as F
 } from 'elt'
@@ -19,7 +18,7 @@ import { cls } from 'osun'
 
 export class TabContainer extends Component {
 
-	o_content: Observable<Node|null> = o(null as Node | null)
+	o_content: o.Observable<Node|null> = o(null as Node | null)
 	o_active_tab = o(null as Tab | null)
 	o_titles = o([] as Node[])
 

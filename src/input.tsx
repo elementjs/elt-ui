@@ -3,11 +3,8 @@ import {
   o,
   bind,
   DisplayIf,
-  Attrs,
-  O,
-  RO,
-  Observable
-} from 'elt';
+  Attrs
+} from 'elt'
 
 import { Button } from './button'
 import { Styling } from './styling'
@@ -18,8 +15,8 @@ var id_gen = 0;
 
 
 export interface SearchAttributes extends Attrs {
-  model: O<string>
-  placeholder?: RO<string|null|undefined>
+  model: o.O<string>
+  placeholder?: o.RO<string|null|undefined>
 }
 
 export function Search({model, placeholder}: SearchAttributes) {
@@ -55,18 +52,18 @@ export namespace Search {
 }
 
 export interface InputAttributes extends Attrs {
-  model: O<string>
-  disabled?: RO<boolean>
-  type?: RO<string>
-  label?: RO<string>
-  placeholder?: RO<string>
-  autocomplete?: RO<'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'>
-  autocapitalize?: RO<'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'>
-  autocorrect?: RO<'on' | 'off'>
-  spellcheck?: RO<boolean>
-  autofocus?: RO<boolean>
-  error?: RO<string>
-  tabindex?: RO<number>
+  model: o.O<string>
+  disabled?: o.RO<boolean>
+  type?: o.RO<string>
+  label?: o.RO<string>
+  placeholder?: o.RO<string>
+  autocomplete?: o.RO<'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'>
+  autocapitalize?: o.RO<'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'>
+  autocorrect?: o.RO<'on' | 'off'>
+  spellcheck?: o.RO<boolean>
+  autofocus?: o.RO<boolean>
+  error?: o.RO<string>
+  tabindex?: o.RO<number>
 }
 
 
@@ -86,7 +83,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
   const o_model = o(model)
   label = label || placeholder || ''
 
-  const o_focused: Observable<boolean> = o(false)
+  const o_focused: o.Observable<boolean> = o(false)
 
   const input = <input
     {...other_attrs}

@@ -1,9 +1,6 @@
 
 import {
   o,
-  Observable,
-  O,
-  RO,
   click,
   Attrs,
   Component
@@ -18,14 +15,14 @@ import {inkable} from './ink'
 
 
 export interface CheckboxAttributes extends Attrs {
-  model: O<boolean>
-  disabled?: RO<boolean>
+  model: o.O<boolean>
+  disabled?: o.RO<boolean>
 }
 
 export class Checkbox extends Component<CheckboxAttributes> {
 
-  o_model: Observable<boolean> = o(this.attrs.model)
-  o_disabled: RO<boolean|undefined> = o(this.attrs.disabled)
+  o_model: o.Observable<boolean> = o(this.attrs.model)
+  o_disabled: o.RO<boolean|undefined> = o(this.attrs.disabled)
 
   toggle() {
     if (o.get(this.o_disabled)) return

@@ -3,11 +3,7 @@ import {
   o,
   click,
   Attrs,
-  O,
-  RO,
   Component,
-  ReadonlyObservable,
-  Observable
 } from 'elt'
 
 import {Flex} from './flex'
@@ -20,17 +16,17 @@ import {inkable} from './ink'
 
 
 export interface RadioAttributes<T> extends Attrs {
-  model: O<T>
-  value: RO<T>
-  disabled?: RO<boolean>
+  model: o.O<T>
+  value: o.RO<T>
+  disabled?: o.RO<boolean>
 }
 
 
 export class Radio<T> extends Component<RadioAttributes<T>> {
 
-  disabled: ReadonlyObservable<boolean> = o(this.attrs.disabled||false)
-  value: RO<T> = this.attrs.value
-  model: Observable<T> = o(this.attrs.model)
+  disabled: o.ReadonlyObservable<boolean> = o(this.attrs.disabled||false)
+  value: o.RO<T> = this.attrs.value
+  model: o.Observable<T> = o(this.attrs.model)
 
   o_checked = o.merge({model: this.model, value: this.value}).tf(({model: m, value: v}) => m === v)
 

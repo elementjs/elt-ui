@@ -1,16 +1,16 @@
 
-import { Attrs, RO, o } from 'elt'
+import { Attrs, o } from 'elt'
 import { cls, all, s } from 'osun'
 
 export interface FlexAttrs extends Attrs {
-	row?: RO<boolean>
-	column?: RO<boolean>
-	spacing?: RO<string|number>
-	align?: RO<string>
-	justify?: RO<'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' |
+	row?: o.RO<boolean>
+	column?: o.RO<boolean>
+	spacing?: o.RO<string|number>
+	align?: o.RO<string>
+	justify?: o.RO<'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' |
 	'safe center' | 'safe flex-start' | 'safe flex-end' | 'safe space-between' | 'safe space-around' | 'safe space-evenly' | 'safe stretch' |
 	'unsafe center' | 'unsafe flex-start' | 'unsafe flex-end' | 'unsafe space-between' | 'unsafe space-around' | 'unsafe space-evenly' | 'unsafe stretch' | 'inherit' | 'initial' | 'unset'>
-	'absolute-grow'?: RO<string>
+	'absolute-grow'?: o.RO<string>
 }
 
 var _spacing: {[sp: string]: string} = {}
