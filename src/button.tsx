@@ -72,21 +72,8 @@ export namespace Button {
   )
 
   s(button).append(`::-moz-focus-inner`, {border: 0})
-
-  export const button_content = cls('button-content', {
-
-    // Should probably have a mixin for that
-    // as it should be some global configuration option.
-    borderRadius: '2px',
-    borderStyle: 'none',
-    userSelect: 'none'
-  })
-
-  export const button_icon = cls('button-icon')
-
-  s(button_icon).append(`::before`, {
-    fontSize: '24px',
-    // color: Styling.colors.PRIMARY
+  s(button).children(() => {
+    s(`*`, {pointerEvents: 'none'})
   })
 
   export const bordered = cls('bordered', {
@@ -98,9 +85,6 @@ export namespace Button {
     color: Styling.colors.FG4,
     boxShadow: 'none'
   })
-
-  export const icon_button = cls('icon-button')
-  s(icon_button).append('::before', {fontSize: '24px'})
 
 }
 
