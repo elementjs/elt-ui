@@ -16,6 +16,7 @@
     "osun": "0.2.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
     "concurrently": "^3.5.0",
     "watch-js": "0.0.7"
   }
