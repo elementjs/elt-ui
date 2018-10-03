@@ -157,7 +157,8 @@ export namespace NavItem {
 	export const item = cls('item', {
 		position: 'relative',
 		height: '48px',
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		cursor: 'pointer',
 	})
 
 	export const item_icon = cls('item-icon', {

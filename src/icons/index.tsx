@@ -1,5 +1,4 @@
 
-import { Styling } from '../styling'
 import { cls, s } from 'osun'
 
 export namespace Fa {
@@ -13,8 +12,8 @@ export namespace Fa {
   })
 
   s`path`.in(icon, {
-    fill: Styling.colors.FG,
-    stroke: Styling.colors.FG
+    fill: 'currentcolor',
+    stroke: 'currentcolor'
   })
 
 }
