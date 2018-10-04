@@ -5,6 +5,7 @@ import * as osun from 'osun'
 export namespace Styling {
 
   const _cls = osun.cls
+
   export namespace colors {
 
     export function toRGB(str: string): string {
@@ -143,8 +144,22 @@ export namespace Styling {
     export const primary4 = _cls('bg-primary4', {backgroundColor: colors.PRIMARY4})
     export const primary5 = _cls('bg-primary5', {backgroundColor: colors.PRIMARY5})
     export const primary6 = _cls('bg-primary6', {backgroundColor: colors.PRIMARY6})
+
+    export const bg = _cls('bg-bg', {backgroundColor: colors.BG})
+    export const bg2 = _cls('bg-bg2', {backgroundColor: colors.BG2})
+    export const bg3 = _cls('bg-bg3', {backgroundColor: colors.BG3})
+    export const bg4 = _cls('bg-bg4', {backgroundColor: colors.BG4})
+    export const bg5 = _cls('bg-bg5', {backgroundColor: colors.BG5})
+    export const bg6 = _cls('bg-bg6', {backgroundColor: colors.BG6})
   }
 
+  export function Border(color: string, opts: {width?: string, style?: string} = {}) {
+    return {
+      borderColor: color,
+      borderWidth: opts.width || '1px',
+      borderStyle: opts.style || 'solid'
+    } as osun.CSSProperties
+  }
 
   export const no_spurious_borders = _cls('no-spurious-borders', {
     '-webkit-tap-highlight-color': colors.TRANSPARENT,

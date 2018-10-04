@@ -24,12 +24,12 @@ function get_spacing_class(s: string | number | undefined | null) {
 	if (cache) return cache
 	// create the needed class
 	const spaced_inside_container = cls(`spaced-inside-${s}`, {
-		marginBottom: `-${s}px`,
+		marginTop: `-${s}px`,
 		marginLeft: `-${s}px`
 	})
 
 	all.childOf(spaced_inside_container, {
-		marginBottom: `${s}px`,
+		marginTop: `${s}px`,
 		marginLeft: `${s}px`
 	})
 	_spacing[s] = spaced_inside_container
@@ -42,7 +42,8 @@ export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag}
 	return <div style={{flexGrow: o(ag)}}>
 		<div style={{
 			alignItems: o(align).tf(a => a || 'normal'),
-			justifyContent: o(justify).tf(j => j || 'inherit')
+			justifyContent: o(justify).tf(j => j || 'inherit'),
+			minHeight: '100%'
 		}} class={[
 			Flex.flex,
 			o_spacing.tf(get_spacing_class),
