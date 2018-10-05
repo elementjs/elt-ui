@@ -5,7 +5,6 @@ export {default as toast} from './toast'
 
 export {Button, ButtonBar, ButtonAttrs, ButtonBarAttrs} from './button'
 export {Checkbox, CheckboxAttributes} from './checkbox'
-export * from './icons'
 export {Input, InputAttributes, Search, SearchAttributes} from './input'
 export {Radio, RadioAttributes} from './radio'
 export {Toolbar} from './toolbar'

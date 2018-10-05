@@ -9,8 +9,8 @@ import {
 import {Flex} from './flex'
 import {Checkbox} from './checkbox'
 
-import FaCircle from './icons/circle-regular'
-import FaDotCircle from './icons/dot-circle-regular'
+import FaCircle from 'elt-fa/circle-regular'
+import FaDotCircle from 'elt-fa/dot-circle-regular'
 import { Styling } from './styling'
 import {inkable} from './ink'
 

@@ -9,7 +9,7 @@ import {
 import { Button } from './button'
 import { Styling } from './styling'
 import { cls, s, combine } from 'osun'
-import FaClose from './icons/window-close'
+import FaClose from 'elt-fa/window-close'
 
 var id_gen = 0;
 

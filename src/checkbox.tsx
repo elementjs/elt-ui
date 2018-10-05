@@ -8,9 +8,9 @@ import {
 
 import {Flex} from './flex'
 
-import FaSquareRegular from './icons/square-regular'
-import FaMinusSquare from './icons/minus-square'
-import FaCheckSquareRegular from './icons/check-square-regular'
+import FaSquareRegular from 'elt-fa/square-regular'
+import FaMinusSquare from 'elt-fa/minus-square'
+import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {inkable} from './ink'
 
 
