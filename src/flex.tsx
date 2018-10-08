@@ -1,5 +1,5 @@
 
-import { Attrs, o } from 'elt'
+import { Attrs, o, ClassDefinition, StyleDefinition } from 'elt'
 import { cls, all, s } from 'osun'
 
 export interface FlexAttrs extends Attrs {
@@ -7,6 +7,8 @@ export interface FlexAttrs extends Attrs {
 	column?: o.RO<boolean>
 	spacing?: o.RO<string|number>
 	align?: o.RO<string>
+	'inner-class'?: o.RO<ClassDefinition>
+	'inner-style'?: StyleDefinition
 	justify?: o.RO<'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' |
 	'safe center' | 'safe flex-start' | 'safe flex-end' | 'safe space-between' | 'safe space-around' | 'safe space-evenly' | 'safe stretch' |
 	'unsafe center' | 'unsafe flex-start' | 'unsafe flex-end' | 'unsafe space-between' | 'unsafe space-around' | 'unsafe space-evenly' | 'unsafe stretch' | 'inherit' | 'initial' | 'unset'>
@@ -37,14 +39,15 @@ function get_spacing_class(s: string | number | undefined | null) {
 }
 
 
-export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag}: FlexAttrs, ch: DocumentFragment) {
+export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag, 'inner-class': incls, 'inner-style': instyl}: FlexAttrs, ch: DocumentFragment) {
 	const o_spacing = o(spacing)
 	return <div style={{flexGrow: o(ag)}}>
-		<div style={{
+		<div style={Object.assign({
 			alignItems: o(align).tf(a => a || 'normal'),
 			justifyContent: o(justify).tf(j => j || 'inherit'),
 			minHeight: '100%'
-		}} class={[
+		}, instyl || {})} class={[
+			incls,
 			Flex.flex,
 			o_spacing.tf(get_spacing_class),
 			{
