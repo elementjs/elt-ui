@@ -41,6 +41,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
       {
         [Styling.colors.reverse_primary]: attrs.reversed,
         [Button.disabled]: attrs.disabled,
+        [Button.icon_button]: attrs.icon
       }
     ]}
     disabled={o(attrs.disabled).tf(val => !!val)}
@@ -70,6 +71,11 @@ export namespace Button {
       '--eltui-color-fg': 'var(--eltui-color-primary)'
     },
   )
+
+  export const icon_button = cls('icon-button', {
+    minWidth: '0',
+    fontSize: '1.2em'
+  })
 
   s(button).append(`::-moz-focus-inner`, {border: 0})
   s(button).children(() => {
@@ -105,13 +111,13 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
   }
 
   render(children: DocumentFragment): Element {
-    return <div class={[ButtonBar.button_bar, Flex.row, Flex.justify_end]}>{children}</div>
+    return <div class={[ButtonBar.button_bar, Flex.row, Flex.justify_center]}>{children}</div>
   }
 }
 
 export namespace ButtonBar {
   export const button_bar = cls('button-bar')
-  s(Button.button).childOf(button_bar, {padding: '0 16px',})
+  // s(Button.button).childOf(button_bar, {padding: '0 16px',})
 
   export const has_button_bar = cls('has-button-bar', {
     paddingBottom: '0 !important'

@@ -38,6 +38,11 @@ function get_spacing_class(s: string | number | undefined | null) {
 	return spaced_inside_container
 }
 
+// Create a few by default so that flexes don't blink too much.
+get_spacing_class(8)
+get_spacing_class(16)
+get_spacing_class(32)
+get_spacing_class(64)
 
 export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag, 'inner-class': incls, 'inner-style': instyl}: FlexAttrs, ch: DocumentFragment) {
 	const o_spacing = o(spacing)
