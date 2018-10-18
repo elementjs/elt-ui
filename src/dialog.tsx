@@ -118,10 +118,10 @@ export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T
 
 
 export interface ModalOptions extends DialogOptions {
-  text: Renderable
-  title: Renderable
-  agree?: Renderable
-  disagree?: Renderable,
+  text: o.RO<Renderable>
+  title: o.RO<Renderable>
+  agree?: o.RO<Renderable>
+  disagree?: o.RO<Renderable>,
 }
 
 /**
