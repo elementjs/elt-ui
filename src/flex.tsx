@@ -45,16 +45,15 @@ get_spacing_class(32)
 get_spacing_class(64)
 
 export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag, 'inner-class': incls, 'inner-style': instyl}: FlexAttrs, ch: DocumentFragment) {
-	const o_spacing = o(spacing)
-	return <div style={{flexGrow: o(ag)}}>
+	return <div style={{flexGrow: ag}}>
 		<div style={Object.assign({
-			alignItems: o(align).tf(a => a || 'normal'),
-			justifyContent: o(justify).tf(j => j || 'inherit'),
+			alignItems: o.tf(align, a => a || 'normal'),
+			justifyContent: o.tf(justify, j => j || 'inherit'),
 			minHeight: '100%'
 		}, instyl || {})} class={[
 			incls,
 			Flex.flex,
-			o_spacing.tf(get_spacing_class),
+			o.tf(spacing, get_spacing_class),
 			{
 				[Flex.row]: row,
 				[Flex.column]: column

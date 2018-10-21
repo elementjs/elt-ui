@@ -145,7 +145,7 @@ export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
 			else console.warn('could not get Nav')
 		}
 	})]}>
-		{o(a.icon).tf(I => <I class={NavItem.item_icon}/>)}
+		{o.tf(a.icon, I => <I class={NavItem.item_icon}/>)}
 		{ch}
 	</div>
 

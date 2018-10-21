@@ -44,7 +44,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
         [Button.icon_button]: attrs.icon
       }
     ]}
-    disabled={o(attrs.disabled).tf(val => !!val)}
+    disabled={o.tf(attrs.disabled, val => !!val)}
     $$={click(doClick)}
   >
     {children}
