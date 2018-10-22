@@ -13,6 +13,7 @@ export interface FlexAttrs extends Attrs {
 	'safe center' | 'safe flex-start' | 'safe flex-end' | 'safe space-between' | 'safe space-around' | 'safe space-evenly' | 'safe stretch' |
 	'unsafe center' | 'unsafe flex-start' | 'unsafe flex-end' | 'unsafe space-between' | 'unsafe space-around' | 'unsafe space-evenly' | 'unsafe stretch' | 'inherit' | 'initial' | 'unset'>
 	'absolute-grow'?: o.RO<string>
+	wrap?: o.RO<'nowrap' | 'wrap' | 'wrap-reverse' | 'inherit' | 'initial' | 'unset' | boolean>
 }
 
 var _spacing: {[sp: string]: string} = {}
@@ -44,12 +45,16 @@ get_spacing_class(16)
 get_spacing_class(32)
 get_spacing_class(64)
 
-export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag, 'inner-class': incls, 'inner-style': instyl}: FlexAttrs, ch: DocumentFragment) {
+export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag, 'inner-class': incls, 'inner-style': instyl, wrap}: FlexAttrs, ch: DocumentFragment) {
 	return <div style={{flexGrow: ag}}>
 		<div style={Object.assign({
 			alignItems: o.tf(align, a => a || 'normal'),
 			justifyContent: o.tf(justify, j => j || 'inherit'),
-			minHeight: '100%'
+			minHeight: '100%',
+			flexWrap: o.tf(wrap, w => w === undefined ? w
+				: w === false ? 'no-wrap'
+				: w === true ? 'wrap'
+				: w)
 		}, instyl || {})} class={[
 			incls,
 			Flex.flex,
