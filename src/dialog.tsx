@@ -5,12 +5,12 @@ import {
   click,
   o,
   Renderable,
-  Mixin,
   DisplayIf,
   inserted,
   removed,
   append_child_and_mount,
-  remove_and_unmount
+  remove_and_unmount,
+  Component
 } from 'elt';
 
 import { Flex } from './flex'
@@ -18,27 +18,87 @@ import { animate } from './animate'
 import { Button, ButtonBar } from './button';
 import { cls, s } from 'osun'
 
-export class DialogCtrl<T> extends Mixin {
-  promise: Promise<T>
-  _resolve: (v: T) => any = () => null
-  _reject: (...a: Array<any>) => any = () => null
+
+export type DialogBuilder<T> = (dlc: Dialog<T>) => Node
+
+export interface DialogCommon {
+  noanimate?: boolean
+  clickOutsideToClose?: boolean
+  noEscapeKey?: boolean
+  animationEnter?: string
+  animationLeave?: string
+  closeIntercept?: () => Promise<boolean>
+}
 
 
-  constructor() {
-    super()
+export interface DialogOptions extends DialogCommon {
+  parent?: Node
+  class?: ClassDefinition | ClassDefinition[]
+}
 
-    this.promise = new Promise((resolve, reject) => {
-      this._resolve = resolve;
-      this._reject = reject;
-    });
+
+export interface DialogAttrs<T> extends Attrs, DialogCommon {
+  builder: DialogBuilder<T>
+  animationEnter: string
+  animationLeave: string
+}
+
+
+
+export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
+
+  _resolve: (v: T) => any = undefined!
+  _reject: (...a: Array<any>) => any = undefined!
+
+  promise: Promise<T> = new Promise((resolve, reject) => {
+    this._resolve = resolve;
+    this._reject = reject;
+  })
+
+  async tryclose(): Promise<boolean> {
+    if (this.attrs.closeIntercept && !(await this.attrs.closeIntercept()))
+      // Do nothing if closing was prevented.
+      return false
+    await animate(this.node, this.attrs.animationLeave)
+    remove_and_unmount(this.node)
+    return true
   }
 
-  resolve(value: T) {
-    this._resolve(value);
+  async resolve(value: T) {
+    if (this.tryclose())
+      this._resolve(value);
   }
 
-  reject(value: any) {
-    this._reject(value);
+  async reject(value: any) {
+    if (this.tryclose())
+      this._reject(value);
+  }
+
+  handleEscape(ev: KeyboardEvent) {
+    if (this.attrs.noEscapeKey) return
+    if (ev.keyCode === 27)
+      this.reject('pressed escape')
+  }
+
+  render() {
+    var opts = this.attrs
+    return <Overlay $$={[
+      click((e, node) => {
+        if (e.target === node && opts.clickOutsideToClose)
+          this.reject('clicked outside to close')
+      }),
+      // Handle the escape key.
+      inserted(node => node.ownerDocument!.addEventListener('keyup', this.handleEscape.bind(this))),
+      removed(node => node.ownerDocument!.removeEventListener('keyup', this.handleEscape.bind(this)))
+    ]}>
+      <Root class={opts.class ? opts.class : ''}>{this.attrs.builder(this)}</Root>
+    </Overlay> as HTMLElement
+  }
+
+  inserted() {
+    if (!this.attrs.noanimate) {
+      animate(this.node, this.attrs.animationEnter)
+    }
   }
 
 }
@@ -56,63 +116,27 @@ export function Root(attrs: Attrs, children: DocumentFragment): Element {
   return <div class={[dialog.root, Flex.column]}>{children}</div>
 }
 
-export interface DialogOptions {
-  parent?: Node
-  class?: ClassDefinition | ClassDefinition[]
-  noanimate?: boolean
-  clickOutsideToClose?: boolean
-  noEscapeKey?: boolean
-  animationEnter?: string
-  animationLeave?: string
-}
-
-export type DialogBuilder<T> = (dlc: DialogCtrl<T>) => Node
 
 /**
  * A function that returns a promise and that allows us to show a nice dialog.
  */
-export function dialog<T>(opts: DialogOptions, cbk: DialogBuilder<T>): Promise<T> {
+export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promise<T> {
 
-  let dlg = new DialogCtrl<T>();
-
-  let contents = cbk(dlg)
-
-  function bye(res: T) {
-    return animate(dialog_holder, dialog.leave).then(() => {
-      remove_and_unmount(dialog_holder)
-      return res
-    })
-  }
-
-  function handleEscape(ev: KeyboardEvent) {
-    if (opts.noEscapeKey) return
-    if (ev.keyCode === 27)
-      dlg.reject('pressed escape')
-  }
-
-  let dialog_holder = <Overlay $$={[
-    click(function (e, node) {
-      if (e.target === node && opts.clickOutsideToClose) dlg.reject('clicked outside to close')
-    }),
-    dlg,
-    // Handle the escape key.
-    inserted(node => node.ownerDocument!.addEventListener('keyup', handleEscape)),
-    removed(node => node.ownerDocument!.removeEventListener('keyup', handleEscape))
-  ]}>
-    <Root class={opts.class ? opts.class : ''}>{contents}</Root>
-  </Overlay> as HTMLElement
-
-  if (!opts.noanimate) {
-    animate(dialog_holder, dialog.enter)
-  }
-
-  // Remove the dialog from the DOM once we have answered it.
+  let dialo = <Dialog
+    builder={builder}
+    clickOutsideToClose={opts.clickOutsideToClose}
+    closeIntercept={opts.closeIntercept}
+    noanimate={opts.noanimate}
+    animationEnter={opts.animationEnter || dialog.enter}
+    animationLeave={opts.animationLeave || dialog.leave}
+  />
+  // BOOO ugly cast !
+  let ctrl = Dialog.get(dialo) as any as Dialog<T>
 
   let parent = opts.parent || document.body
+  append_child_and_mount(parent, dialo)
 
-  append_child_and_mount(parent, dialog_holder)
-
-  return dlg.promise.then(bye, (err) => bye(Promise.reject(err) as any))
+  return ctrl.promise
 
 }
 
