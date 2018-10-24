@@ -44,6 +44,8 @@ export interface DialogAttrs<T> extends Attrs, DialogCommon {
 }
 
 
+var _dialog_stack = [] as Node[]
+
 
 export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 
@@ -60,7 +62,9 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
       // Do nothing if closing was prevented.
       return false
     await animate(this.node, this.attrs.animationLeave)
+    _dialog_stack = _dialog_stack.filter(n => n !== this.node)
     remove_and_unmount(this.node)
+    // Remove the node from the dialog stack.
     return true
   }
 
@@ -75,6 +79,9 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
   }
 
   handleEscape(ev: KeyboardEvent) {
+    // Ignore the event if it was not meant for us
+    if (_dialog_stack[_dialog_stack.length - 1] !== this.node) return
+
     if (this.attrs.noEscapeKey) return
     if (ev.keyCode === 27)
       this.reject('pressed escape')
@@ -88,7 +95,9 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
           this.reject('clicked outside to close')
       }),
       // Handle the escape key.
-      inserted(node => node.ownerDocument!.addEventListener('keyup', this.handleEscape.bind(this))),
+      inserted(node => {
+        node.ownerDocument!.addEventListener('keyup', this.handleEscape.bind(this))
+      }),
       removed(node => node.ownerDocument!.removeEventListener('keyup', this.handleEscape.bind(this)))
     ]}>
       <Root class={opts.class ? opts.class : ''}>{this.attrs.builder(this)}</Root>
@@ -96,6 +105,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
   }
 
   inserted() {
+    _dialog_stack.push(this.node)
     if (!this.attrs.noanimate) {
       animate(this.node, this.attrs.animationEnter)
     }
