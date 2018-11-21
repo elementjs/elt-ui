@@ -65,16 +65,16 @@ export namespace Button {
       textAlign: 'center',
       minWidth: '64px',
       background: Styling.colors.BG,
-      color: Styling.colors.FG,
+      color: Styling.colors.PRIMARY,
       textTransform: 'uppercase',
-      fontWeight: 'bold',
-      '--eltui-color-fg': 'var(--eltui-color-primary)'
+      fontWeight: 'bold'
     },
   )
 
   export const icon_button = cls('icon-button', {
     minWidth: '0',
-    fontSize: '1.2em'
+    fontSize: '1.2em',
+    color: Styling.colors.PRIMARY
   })
 
   s(button).append(`::-moz-focus-inner`, {border: 0})

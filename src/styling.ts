@@ -68,17 +68,17 @@ export namespace Styling {
 
     export const reverse_primary = _cls('reverse_primary', {
       // Doing a little trick to swap out primary and contrast
-      '--eltui-color-reverse-primary': 'var(--eltui-color-primary)',
-      '--eltui-color-reverse-fg': 'var(--eltui-color-fg)',
-      '--eltui-color-reverse-bg': 'var(--eltui-color-bg)',
+      '--eltui-color-reverse-primary': 'var(--eltui-color-bg)',
+      '--eltui-color-reverse-fg': 'var(--eltui-color-bg)',
+      '--eltui-color-reverse-bg': 'var(--eltui-color-primary)',
       color: BG,
       backgroundColor: PRIMARY
     })
 
     osun.s`*`.childOf(reverse_primary, {
-      '--eltui-color-bg': 'var(--eltui-color-reverse-primary)',
-      '--eltui-color-fg': 'var(--eltui-color-reverse-bg)',
-      '--eltui-color-primary': 'var(--eltui-color-reverse-bg)',
+      '--eltui-color-bg': 'var(--eltui-color-reverse-bg)',
+      '--eltui-color-fg': 'var(--eltui-color-reverse-fg)',
+      '--eltui-color-primary': 'var(--eltui-color-reverse-primary)',
       color: FG,
       backgroundColor: BG
     })

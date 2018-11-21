@@ -100,7 +100,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
       }),
       removed(node => node.ownerDocument!.removeEventListener('keyup', this.handleEscape.bind(this)))
     ]}>
-      <Root class={opts.class ? opts.class : ''}>{this.attrs.builder(this)}</Root>
+      {this.attrs.builder(this)}
     </Overlay> as HTMLElement
   }
 
@@ -165,7 +165,7 @@ export interface ModalOptions extends DialogOptions {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) => <>
+  return dialog<boolean>(opts, (dlg) => <Root>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
@@ -178,7 +178,7 @@ export function modal(opts: ModalOptions) {
         <Button click={() => dlg.resolve(false)}>{disagree}</Button>
       )}
     </ButtonBar>
-  </>);
+  </Root>);
 
 }
 
