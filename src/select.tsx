@@ -12,7 +12,7 @@ import {
 } from 'elt'
 
 
-export type LabelFn<T> = (opt: T) => Renderable
+export type LabelFn<T> = (opt: T) => o.RO<Renderable>
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 
@@ -83,7 +83,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={o_model.equals(opt)}>
-							{opt.tf(val => labelfn(val))}
+							{opt.tf(val => <>{labelfn(val)}</>)}
 					</option>
 				)}
 			</select>
