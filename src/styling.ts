@@ -22,38 +22,26 @@ export namespace Styling {
       '--eltui-color-primary': toRGB(value),
       '--eltui-color-reverse-bg': toRGB(value)
     } }
-    export function SetAccent(value: string) { return {'--eltui-color-accent': toRGB(value)} }
     export function SetFg(value: string) { return {'--eltui-color-fg': toRGB(value)} }
     export function SetBg(value: string) { return {'--eltui-color-bg': toRGB(value)} }
 
     export function SetReversePrimary(value: string) { return {'--eltui-color-reverse-primary': toRGB(value)} }
-    export function SetReverseAccent(value: string) { return {'--eltui-color-reverse-accent': toRGB(value)} }
     export function SetReverseFg(value: string) { return {'--eltui-color-reverse-fg': toRGB(value)} }
     export function SetReverseBg(value: string) { return {'--eltui-color-reverse-bg': toRGB(value)} }
 
     export function SimpleTheme(
       primary: string,
-      accent: string = '#f44336',
       fg: string = '#3c3c3b',
       bg: string = '#ffffff') {
         return {
           '--eltui-color-primary': toRGB(primary),
-          '--eltui-color-accent': toRGB(accent),
           '--eltui-color-fg': toRGB(fg),
           '--eltui-color-bg': toRGB(bg),
           '--eltui-color-reverse-primary': toRGB(bg),
-          '--eltui-color-reverse-accent': toRGB(accent),
           '--eltui-color-reverse-fg': toRGB(bg),
           '--eltui-color-reverse-bg': toRGB(primary)
         } as osun.CSSProperties
     }
-
-    export const ACCENT = `rgba(var(--eltui-color-accent), 1)`
-    export const ACCENT2 = `rgba(var(--eltui-color-accent), 0.74)`
-    export const ACCENT3 = `rgba(var(--eltui-color-accent), 0.54)`
-    export const ACCENT4 = `rgba(var(--eltui-color-accent), 0.24)`
-    export const ACCENT5 = `rgba(var(--eltui-color-accent), 0.14)`
-    export const ACCENT6 = `rgba(var(--eltui-color-accent), 0.07)`
 
     export const PRIMARY = `rgba(var(--eltui-color-primary), 1)`
     export const PRIMARY2 = `rgba(var(--eltui-color-primary), 0.74)`
@@ -80,12 +68,19 @@ export namespace Styling {
 
     export const reverse_primary = _cls('reverse_primary', {
       // Doing a little trick to swap out primary and contrast
-      '--eltui-color-primary': 'var(--eltui-color-reverse-primary)',
-      '--eltui-color-fg': 'var(--eltui-color-reverse-fg)',
-      '--eltui-color-bg': 'var(--eltui-color-reverse-bg)',
-      '--eltui-color-accent': 'var(--eltui-color-reverse-accent)',
-      backgroundColor: BG,
-      color: FG
+      '--eltui-color-reverse-primary': 'var(--eltui-color-primary)',
+      '--eltui-color-reverse-fg': 'var(--eltui-color-fg)',
+      '--eltui-color-reverse-bg': 'var(--eltui-color-bg)',
+      color: BG,
+      backgroundColor: PRIMARY
+    })
+
+    osun.s`*`.childOf(reverse_primary, {
+      '--eltui-color-bg': 'var(--eltui-color-reverse-primary)',
+      '--eltui-color-fg': 'var(--eltui-color-reverse-bg)',
+      '--eltui-color-primary': 'var(--eltui-color-reverse-bg)',
+      color: FG,
+      backgroundColor: BG
     })
   }
 
@@ -128,12 +123,6 @@ export namespace Styling {
     export const bg5 = _cls('text-bg5', {color: colors.BG5})
     export const bg6 = _cls('text-bg6', {color: colors.BG6})
 
-    export const accent = _cls('text-accent', {color: colors.ACCENT})
-    export const accent2 = _cls('text-accent2', {color: colors.ACCENT2})
-    export const accent3 = _cls('text-accent3', {color: colors.ACCENT3})
-    export const accent4 = _cls('text-accent4', {color: colors.ACCENT4})
-    export const accent5 = _cls('text-accent5', {color: colors.ACCENT5})
-    export const accent6 = _cls('text-accent6', {color: colors.ACCENT6})
   }
 
 

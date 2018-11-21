@@ -170,7 +170,6 @@ export namespace Input {
 
   export const input_error = cls('input-error', {
     position: 'absolute',
-    color: Styling.colors.ACCENT,
     fontSize: '10px',
     top: '48px'
   })
@@ -184,15 +183,10 @@ export namespace Input {
   // Styling labels that are children of different container combinations
   // The label is always the one being styled here
   combine(_ => s(label).childOf(_.and(container)), () => {
-    s(error, { color: Styling.colors.ACCENT })
     s(focused, { color: Styling.colors.PRIMARY })
     s(empty_unfocused, {
       fontSize: `14px`,
       transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
     })
-  })
-
-  s(element).childOf(s(container).and(error), {
-    borderBottomColor: Styling.colors.ACCENT
   })
 }
