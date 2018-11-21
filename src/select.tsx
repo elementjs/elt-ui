@@ -8,7 +8,6 @@ import {
 	on,
 	Renderable,
 	Repeat,
-	Display,
 	Mixin
 } from 'elt'
 
@@ -21,7 +20,7 @@ export type ChangeFn<T> = (value: T, ev?: Event) => any
 export interface SelectAttributes<T> extends Attrs {
 	model: o.O<T>
 	options: o.RO<T[]>
-	labelfn?: LabelFn<T>
+	labelfn: LabelFn<T>
 	onchange?: ChangeFn<T>
 	placeholder?: o.RO<string>
 }
@@ -41,12 +40,6 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 		let options = o(attrs.options)
 		let {model, labelfn, onchange} = attrs
 		const o_model = o(model)
-
-		// Used for typing, to avoid the undefined part.
-		var real_labelfn = (obj: any) => {
-			return obj.label || obj.text || obj
-		}
-		if (labelfn) real_labelfn = labelfn
 
 		//  We use a touched() function to avoid infinite loops since there
 		//  is a circular logic here.
@@ -90,7 +83,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={o_model.equals(opt)}>
-							{opt.tf(val => Display(real_labelfn(val)))}
+							{opt.tf(val => labelfn(val))}
 					</option>
 				)}
 			</select>
