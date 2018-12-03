@@ -80,7 +80,7 @@ export namespace Styling {
       '--eltui-color-fg': 'var(--eltui-color-reverse-fg)',
       '--eltui-color-primary': 'var(--eltui-color-reverse-primary)',
       color: FG,
-      backgroundColor: BG
+      // backgroundColor: BG
     })
   }
 
