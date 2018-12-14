@@ -46,7 +46,7 @@ get_spacing_class(32)
 get_spacing_class(64)
 
 export function Flex({row, column, spacing, align, justify, 'absolute-grow': ag, 'inner-class': incls, 'inner-style': instyl, wrap}: FlexAttrs, ch: DocumentFragment) {
-	return <div class={Flex.outer_flex} style={{flexGrow: ag}}>
+	return <div style={{flexGrow: ag}}>
 		<div style={Object.assign({
 			alignItems: o.tf(align, a => a || 'normal'),
 			justifyContent: o.tf(justify, j => j || 'inherit'),
@@ -92,9 +92,6 @@ export namespace Flex {
 	export const absolute_grow4 = cls('absolute-grow4', {
 		flexGrow: 4,
 		flexBasis: 0
-	})
-	export const outer_flex = cls('outer-flex', {
-		overflow: 'hidden'
 	})
 
 	export const grow = cls('grow', {flexGrow: 1})
