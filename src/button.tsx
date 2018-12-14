@@ -30,7 +30,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
       // in this context, this is the Node.
       var n = event.target as Node
       inker(n, event)
-      click && click.call(this, event, node)
+      click && click.call(this, event, node, null!)
     }
   }
 
