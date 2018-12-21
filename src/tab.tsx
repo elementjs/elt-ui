@@ -74,7 +74,7 @@ export class Tab extends Component<TabAttributes> {
 			{this.attrs.text}
 		</div>)
 
-		this.observe(this.container.o_active_tab, tab => {
+		this.observers.observe(this.container.o_active_tab, tab => {
 			this.o_is_active.set(tab === this)
 		})
 

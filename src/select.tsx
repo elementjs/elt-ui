@@ -51,20 +51,20 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			return false
 		}
 
-		this.observe(options, (opts) => {
+		this.observers.observe(options, (opts) => {
 			if (touched()) return;
 
 			this.selected.set('' + opts.indexOf(o_model.get()));
 
 		});
 
-		this.observe(model, (v) => {
+		this.observers.observe(model, (v) => {
 			if (touched()) return;
 
 			this.selected.set(''+ options.get().indexOf(v));
 		});
 
-		this.observe(this.selected, (v) => {
+		this.observers.observe(this.selected, (v) => {
 			if (touched()) return;
 			o_model.set(options.get()[parseInt(v)]);
 		});
