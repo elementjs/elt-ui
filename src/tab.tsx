@@ -12,7 +12,7 @@ import {
 import { inkable } from './ink'
 
 import { Flex } from './flex'
-import { Styling } from './styling'
+import S from './styling'
 import { cls } from 'osun'
 
 
@@ -34,7 +34,7 @@ export class TabContainer extends Component {
 
 export namespace TabContainer {
 	export const bar = cls('bar', {
-		backgroundColor: Styling.colors.BG,
+		backgroundColor: S.BG,
 		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
 		height: '48px'
 	})
@@ -97,7 +97,7 @@ export class Tab extends Component<TabAttributes> {
 		return <div
 			class={[
 				Tab.content,
-				this.o_is_active.tf(act => act ? Flex.column : Styling.display_none),
+				this.o_is_active.tf(act => act ? Flex.column : S.display_none),
 				Flex.absolute_grow
 			]}
 		>
@@ -111,12 +111,12 @@ export class Tab extends Component<TabAttributes> {
 export namespace Tab {
 
 	export const title = cls('title', {
-		color: Styling.colors.PRIMARY,
+		color: S.PRIMARY,
 		userSelect: 'none',
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		fontWeight: 'bold',
-		borderBottom: `1px solid ${Styling.colors.PRIMARY}`,
+		borderBottom: `1px solid ${S.PRIMARY}`,
 		height: '48px',
 		lineHeight: '48px',
 		fontSize: '14px',
@@ -135,13 +135,13 @@ export namespace Tab {
 		width: 'calc(100% - 1px)',
 		transition: 'transform 0.2s linear',
 		transform: 'scaleX(0)',
-		borderBottom: `1px solid ${Styling.colors.PRIMARY}`,
+		borderBottom: `1px solid ${S.PRIMARY}`,
 	})
 
 	export const active = cls('active', {
 		transform: 'scaleX(1)'
 	})
 
-	export const content = cls('content', {backgroundColor: Styling.colors.BG})
+	export const content = cls('content', {backgroundColor: S.BG})
 
 }

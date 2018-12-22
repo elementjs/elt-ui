@@ -2,7 +2,7 @@
 import {click, Mixin, append_child_and_mount, remove_and_unmount} from 'elt'
 
 import { animate } from './animate'
-import { Styling } from './styling'
+import S from './styling'
 import { keyframes, cls, s } from 'osun'
 
 export const ANIM_DURATION = 300
@@ -16,8 +16,8 @@ export function inker(node: Node, event: MouseEvent) {
 	const position = (window.getComputedStyle((node as HTMLElement)).position)
 	const is_relative = position === 'relative' || position === 'absolute'
 
-	const ink_circle = <div class={inker.ink}/> as HTMLDivElement
-	const ink_container = <div class={inker.container}>
+	const ink_circle = <div class={inker.cls_ink}/> as HTMLDivElement
+	const ink_container = <div class={inker.cls_container}>
 		{ink_circle}
 	</div> as HTMLDivElement
 
@@ -75,7 +75,7 @@ export function inker(node: Node, event: MouseEvent) {
 		it.marginTop = halved
 		it.marginLeft = halved
 
-		animate(ink_container, inker.ink_animate).then(() => {
+		animate(ink_container, inker.cls_ink_animate).then(() => {
 			remove_and_unmount(ink_container)
 		})
 	})
@@ -102,25 +102,25 @@ export function inkClickDelay(fn: (ev: MouseEvent) => void) {
 
 export namespace inker {
 
-		export const rippleOpacity = keyframes('ripple', {
+		export const kf_ripple_opacity = keyframes('ripple', {
 			'0%': { opacity: 0},
 			'10%': { opacity: 0.26 },
 			'75%': { opacity: 0.26},
 			'100%': { opacity: 0 }
 		})
 
-		export const rippleSize = keyframes('size', {
+		export const kf_ripple_size = keyframes('size', {
 			'0%': {transform: `scale(0) translateZ(0)`},
 			'75%': {transform: `scale(1) translateZ(0)`},
 			'100%': { transform: `scale(1) translateZ(0)` }
 		})
 
-		export const ink_animate = cls('em-ink-animate')
+		export const cls_ink_animate = cls('em-ink-animate')
 
-		export const ink = cls('ink', {
+		export const cls_ink = cls('ink', {
 				display: 'block',
 				position: 'absolute',
-				backgroundColor: Styling.colors.PRIMARY,
+				backgroundColor: S.PRIMARY,
 				borderRadius: '50%',
 				transform: 'scale(0)',
 				pointerEvents: 'none',
@@ -131,26 +131,26 @@ export namespace inker {
 			}
 		)
 
-		export const container = cls('container', {
+		export const cls_container = cls('container', {
 				display: 'block',
 				width: '100%',
 				height: '100%',
 				top: '0px',
 				left: '0px',
 				opacity: 0,
-				backgroundColor: Styling.colors.PRIMARY3,
+				backgroundColor: S.PRIMARY3,
 				overflow: 'hidden',
 				position: 'absolute',
 				pointerEvents: 'none',
 			}
 		)
 
-		s(container).and(ink_animate, {
-			animation: `${rippleOpacity} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
+		s(cls_container).and(cls_ink_animate, {
+			animation: `${kf_ripple_opacity} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
-		s(ink).childOf(s(container).and(ink_animate), {
-			animation: `${rippleSize} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
+		s(cls_ink).childOf(s(cls_container).and(cls_ink_animate), {
+			animation: `${kf_ripple_size} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
 	}

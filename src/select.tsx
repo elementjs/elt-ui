@@ -78,8 +78,8 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			decorators.push(on('change', ev => fn(o_model.get(), ev)))
 		}
 
-		return <label class={Select.label}>
-			<select class={Select.select} $$={decorators}>
+		return <label class={Select.cls_label}>
+			<select class={Select.cls_select} $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={o_model.equals(opt)}>
@@ -92,39 +92,39 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 
 }
 
-import { Styling } from './styling'
+import S from './styling'
 import { cls, s } from 'osun'
 
 export namespace Select {
 
-	export const select = cls('select',
-		Styling.no_spurious_borders,
-		Styling.no_native_appearance,
+	export const cls_select = cls('select',
+		S.no_spurious_borders,
+		S.no_native_appearance,
 		{
 			padding: '0 16px 0 8px',
 			height: '32px',
 			margin: 0,
-			border: `1px solid ${Styling.colors.FG5}`,
-			borderColor: Styling.colors.FG5,
+			border: `1px solid ${S.FG5}`,
+			borderColor: S.FG5,
 			borderRadius: '2px',
-			background: Styling.colors.BG,
-			color: Styling.colors.FG3,
+			background: S.BG,
+			color: S.FG3,
 			display: 'inline-block',
 			cursor: 'pointer'
 		},
 	)
 
-	s(select).append(`:-moz-focusring`).define({
-		color: Styling.colors.TRANSPARENT,
-		textShadow: `0 0 0 ${Styling.colors.FG3}`
+	s(cls_select).append(`:-moz-focusring`).define({
+		color: S.TRANSPARENT,
+		textShadow: `0 0 0 ${S.FG3}`
 	})
 
-	export const label = cls('label', {position: 'relative'})
+	export const cls_label = cls('label', {position: 'relative'})
 
-	s(label).append('::after').define({
+	s(cls_label).append('::after').define({
 		content: "'\\f2f2'",
 		fontFamily: '"Material-Design-Iconic-Font", monospace',
-		color: Styling.colors.FG3,
+		color: S.FG3,
 		right: '8px',
 		top: '9px',
 		padding: '0 0 2px',

@@ -3,11 +3,9 @@ import { Insertable, append_child_and_mount, remove_and_unmount } from 'elt'
 import { animate } from './animate'
 import { Flex } from './flex'
 
-import { Styling } from './styling'
+import S from './styling'
 import { cls } from 'osun'
 
-
-// import * as css from './toast.styl'
 
 /**
  * FIXME: there should be a queue instead of brutally dismissing everything.
@@ -21,7 +19,7 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={[Toaster.holder, Flex.row, Flex.justify_center]}/>
+		this._holder = <div class={[Toaster.cls_holder, Flex.row, Flex.justify_center]}/>
 	}
 
 	kill(node: HTMLElement) {
@@ -46,7 +44,7 @@ export class Toaster {
 		}
 
 		let toast = (msg instanceof Node ? msg
-			: <div class={Toaster.toast}>{msg}</div>) as HTMLElement
+			: <div class={Toaster.cls_toast}>{msg}</div>) as HTMLElement
 
 		animate(toast, animate.fade_in)
 		append_child_and_mount(this._holder, toast)
@@ -61,7 +59,7 @@ export class Toaster {
 
 export namespace Toaster {
 
-	export const holder = cls('toast-holder',
+	export const cls_holder = cls('toast-holder',
 		{
 			position: 'fixed',
 			bottom: 0,
@@ -69,12 +67,12 @@ export namespace Toaster {
 			width: '100%',
 	})
 
-	export const toast = cls('toast', {
+	export const cls_toast = cls('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
-		background: Styling.colors.FG2,
+		background: S.FG2,
 		borderRadius: '2px 2px 0 0',
-		color: Styling.colors.BG,
+		color: S.BG,
 		cursor: 'pointer'
 	})
 

@@ -12,7 +12,7 @@ import { inkClickDelay } from './ink'
 import { Flex } from './flex'
 
 import { animate } from './animate'
-import { Styling } from './styling'
+import S from './styling'
 import { cls, s, combine } from 'osun'
 
 
@@ -71,7 +71,7 @@ export namespace Nav {
 		height: '100vh',
 		width: '250px',
 		boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
-		backgroundColor: Styling.colors.BG
+		backgroundColor: S.BG
 	})
 
 	export const enter = cls('enter')
@@ -124,7 +124,7 @@ export namespace NavDivider {
 	export const divider = cls('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid ${Styling.colors.FG6}`,
+		borderBottom: `1px solid ${S.FG6}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})

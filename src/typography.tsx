@@ -1,5 +1,5 @@
 import { Attrs } from 'elt'
-import { Styling } from './styling'
+import S from './styling'
 import { cls, s } from 'osun'
 
 export function TypographicZone(a: Attrs, ch: DocumentFragment) {
@@ -70,11 +70,11 @@ export namespace TypographicZone {
     })
 
     s(`blockquote`, {
-      color: Styling.colors.FG2,
+      color: S.FG2,
       paddingLeft: '12px',
       borderLeftWidth: '4px',
       borderLeftStyle: 'solid',
-      borderLeftColor: Styling.colors.PRIMARY3
+      borderLeftColor: S.PRIMARY3
     })
   })
 

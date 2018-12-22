@@ -11,7 +11,7 @@ import {Checkbox} from './checkbox'
 
 import FaCircle from 'elt-fa/circle-regular'
 import FaDotCircle from 'elt-fa/dot-circle-regular'
-import { Styling } from './styling'
+import S from './styling'
 import {inkable} from './ink'
 
 
@@ -37,18 +37,18 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
   render(children: DocumentFragment): Element {
 
     let classes = {
-      [Checkbox.on]: this.model.equals(this.value),
-      [Checkbox.off]: this.model.differs(this.value),
-      [Checkbox.disabled]: this.disabled
+      [Checkbox.cls_on]: this.model.equals(this.value),
+      [Checkbox.cls_off]: this.model.differs(this.value),
+      [Checkbox.cls_disabled]: this.disabled
     };
 
-    return <label class={[Styling.control, Checkbox.label]} $$={[inkable(), click(e => this.setValue())]}>
+    return <label class={[S.control, Checkbox.cls_label]} $$={[inkable(), click(e => this.setValue())]}>
         <div class={[Flex.row, Flex.align_center]}>
           {this.o_checked.tf(v => v ?
-            <FaDotCircle class={[Checkbox.icon, classes]}/> :
-            <FaCircle class={[Checkbox.icon, classes]}/>
+            <FaDotCircle class={[Checkbox.cls_icon, classes]}/> :
+            <FaCircle class={[Checkbox.cls_icon, classes]}/>
           )}
-          <span class={[Checkbox.content, classes]}>{children}</span>
+          <span class={[Checkbox.cls_content, classes]}>{children}</span>
         </div>
       </label>;
 

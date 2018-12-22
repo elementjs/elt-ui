@@ -7,7 +7,7 @@ import {
 } from 'elt'
 
 import { Button } from './button'
-import { Styling } from './styling'
+import S from './styling'
 import { cls, s, combine } from 'osun'
 import FaClose from 'elt-fa/window-close'
 
@@ -31,18 +31,18 @@ export namespace Search {
       borderRadius: '3px',
       border: '1px solid',
       position: 'relative',
-      borderColor: Styling.colors.FG5,
-      color: Styling.colors.FG,
-      backgroundColor: Styling.colors.FG6,
+      borderColor: S.FG5,
+      color: S.FG,
+      backgroundColor: S.FG6,
       fontSize: '0.8em',
       padding: '8px 16px'
     },
-    Styling.no_spurious_borders,
-    Styling.no_native_appearance,
+    S.no_spurious_borders,
+    S.no_native_appearance,
   )
 
   s(element).append(`::placeholder`, {
-    color: Styling.colors.FG5
+    color: S.FG5
   })
 
   export const button = cls('search-btn', {
@@ -134,14 +134,14 @@ export namespace Input {
 
     fontSize: '12px',
     pointerEvents: 'none',
-    color: Styling.colors.FG6,
+    color: S.FG6,
     transformOrigin: 'top left',
     transform: 'translateZ(0)',
     transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
   })
 
   export const element = cls('input-elt',
-    Styling.no_spurious_borders,
+    S.no_spurious_borders,
     {
       position: 'relative',
       borderRadius: 0,
@@ -152,7 +152,7 @@ export namespace Input {
       paddingRight: '4px',
       paddingLeft: '4px',
       paddingBottom: '4px',
-      borderBottom: `1px solid ${Styling.colors.FG6}`,
+      borderBottom: `1px solid ${S.FG6}`,
       width: '100%',
       transition: `border-bottom-color linear 0.3s`,
     }
@@ -165,7 +165,7 @@ export namespace Input {
   })
 
   s(element).append(`:focus`, {
-    paddingBottom: '3px', borderBottom: `2px solid ${Styling.colors.PRIMARY}`
+    paddingBottom: '3px', borderBottom: `2px solid ${S.PRIMARY}`
   })
 
   export const input_error = cls('input-error', {
@@ -183,7 +183,7 @@ export namespace Input {
   // Styling labels that are children of different container combinations
   // The label is always the one being styled here
   combine(_ => s(label).childOf(_.and(container)), () => {
-    s(focused, { color: Styling.colors.PRIMARY })
+    s(focused, { color: S.PRIMARY })
     s(empty_unfocused, {
       fontSize: `14px`,
       transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
