@@ -79,6 +79,12 @@ export namespace Styling {
     // backgroundColor: BG
   })
 
+  export const text_italic = cls('italic', {fontStyle: 'italic'})
+  export const text_oblique = cls('oblique', {fontStyle: 'oblique'})
+  export const text_uppercase = cls('uppercase', {textTransform: 'uppercase'})
+  export const text_lowercase = cls('lowercase', {textTransform: 'lowercase'})
+  export const text_capitalize = cls('capitalize', {textTransform: 'capitalize'})
+
   export const text_bold = cls('bold', {fontWeight: 'bold'})
 
   export const text_big = cls('small', {fontSize: '18px'})
@@ -167,37 +173,51 @@ export namespace Styling {
 
   export const display_none = cls('display-none', {display: 'none'})
 
-  export const padding_very_big = cls('padding-very-big', {padding: '32px'})
-  export const padding_big = cls('padding-big', {padding: '24px'})
-  export const padding = cls('padding', {padding: '16px'})
-  export const padding_small = cls('padding-small', {padding: '8px'})
-  export const padding_very_small = cls('padding-very-small', {padding: '4px'})
-  export const padding_no = cls('no-padding', {padding: '0px'})
+  const pad = (n: number) => cls(`padding${n}`, {padding: `${n / 1.618}px ${n}px`})
+  export const padding0 = pad(0)
+  export const padding4 = pad(4)
+  export const padding8 = pad(8)
+  export const padding16 = pad(16)
+  export const padding24 = pad(24)
+  export const padding32 = pad(32)
 
-  export const margins_very_big = cls('margins-very-big', {margin: '32px'})
-  export const margins_big = cls('margins-big', {margin: '24px'})
-  export const margins = cls('margin', {padding: '16px'})
-  export const margins_small = cls('margin-small', {margin: '8px'})
-  export const margins_very_small = cls('margin-very-small', {margin: '4px'})
-  export const margins_no = cls('no-margins', {margin: '0'})
+  const mar = (n: number) => cls(`margin${n}`, {margin: `${n / 1.618}px ${n}px`})
+  export const margin0 = mar(0)
+  export const margin4 = mar(4)
+  export const margin8 = mar(8)
+  export const margin16 = mar(16)
+  export const margin24 = mar(24)
+  export const margin32 = mar(32)
 
   export const control = cls('control', {
-    padding: '8px',
     fontSize: '16px',
     display: 'inline-block',
     '-webkit-tap-highlight-color': Styling.TRANSPARENT,
     position: 'relative', // needed for inking.
     background: BG
-  })
+  }, padding8)
 
-  export const bold = cls('bold', {fontWeight: 'bold'})
+  const curs = (s: string) => cls(`cursor-${s}`, {cursor: s})
+  export const cursor_pointer = curs('pointer')
+  export const cursor_help = curs('help')
+  export const cursor_move = curs('move')
+  export const cursor_grab = curs('grab')
+  export const cursor_grabbing = curs('grabbing')
+  export const cursor_progress = curs('progress')
+  export const cursor_row_resize = curs('row-resize')
+  export const cursor_text = curs('text')
+  export const cursor_zoom_in = curs('zoom-in')
+  export const cursor_zoom_out = curs('zoom-out')
+
+  const pos = (s: string) => cls(`position-${s}`, {position: s as any})
+  export const position_relative = pos('relative')
+  export const position_absolute = pos('absolute')
+  export const position_sticky = pos('sticky')
+  export const position_fixed = pos('fixed')
+
+  export const pointer_events_none = cls('no-pointer-events', {pointerEvents: 'none'})
+
   export const raised = cls('raised', {boxShadow: `0 2px 2px ${FG3}`})
-  export const cursor_pointer = cls('cursor-pointer', {cursor: 'pointer'})
-  export const relative = cls('relative', {position: 'relative'})
-  export const absolute = cls('absolute', {position: 'absolute'})
-  export const sticky = cls('sticky', {position: 'sticky'})
-  export const fixed = cls('fixed', {position: 'fixed'})
-  export const no_pointer_events = cls('no-pointer-events', {pointerEvents: 'none'})
 
 }
 
