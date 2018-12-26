@@ -2,6 +2,21 @@
 import {cls, s, CSSProperties, raw, rule} from 'osun'
 
 
+declare module 'osun/lib/types' {
+  interface CSSProperties {
+
+    '--eltui-color-primary'?: string
+    '--eltui-color-fg'?: string
+    '--eltui-color-bg'?: string
+    '--eltui-color-accent'?: string
+    '--eltui-color-reverse-fg'?: string
+    '--eltui-color-reverse-bg'?: string
+    '--eltui-color-reverse-accent'?: string
+    '--eltui-color-reverse-primary'?: string
+  }
+}
+
+
 export namespace Styling {
 
   export function toRGB(str: string): string {
@@ -271,20 +286,6 @@ table {
 	border-spacing: 0;
 }
 `)
-
-declare module 'osun/lib/types' {
-  interface CSSProperties {
-
-    '--eltui-color-primary'?: string
-    '--eltui-color-fg'?: string
-    '--eltui-color-bg'?: string
-    '--eltui-color-accent'?: string
-    '--eltui-color-reverse-fg'?: string
-    '--eltui-color-reverse-bg'?: string
-    '--eltui-color-reverse-accent'?: string
-    '--eltui-color-reverse-primary'?: string
-  }
-}
 
 rule('*', {
   boxSizing: 'border-box'
