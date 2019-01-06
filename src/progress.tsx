@@ -5,20 +5,18 @@ import { cls } from 'osun'
 export interface ProgressAttrs extends Attrs {
   mode?: o.RO<'determinate' | 'indeterminate' | 'query' | 'buffer' | 'off'>
   progress?: o.RO<number>
-  error?: o.RO<boolean>
 }
 
 
-export function Progress({error, mode, progress}: ProgressAttrs) {
+export function Progress({mode, progress}: ProgressAttrs) {
   const o_mode = o(mode || 'determinate')
   const o_progress = o(progress || 0)
-  const o_error = o(error)
   return <div
-    class={[S.bg_primary5, Progress.cls_holder, {[Progress.cls_error]: o_error}]}
+    class={[S.background_tint07, Progress.cls_holder]}
     style={{opacity: o_progress.tf(v => v > 0 && v < 100 ? '1' : '0')}}
   >
       {DisplayIf(o_mode.equals('determinate'), () => <div class={[
-        S.bg_primary2,
+        S.background_tint75,
         Progress.cls_determinate
         ]}
         style={{width: o_progress.tf(v => `${v}%`)}}
@@ -31,10 +29,6 @@ export function Progress({error, mode, progress}: ProgressAttrs) {
 
 
 export namespace Progress {
-
-  export const cls_error = cls('error', {
-    '--eltui-color-primary': 'var(--eltui-color-accent)'
-  })
 
   export const cls_holder = cls('progress-holder', {
     position: 'absolute',

@@ -7,7 +7,7 @@ import { cls } from 'osun'
 
 export function Toolbar(_: Attrs, children: DocumentFragment): Element {
 
-  return <Flex class={[S.reverse_primary, S.text_bigger]} spacing='16' inner-class={Toolbar.cls_inner_toolbar} align='center'>{children}</Flex>
+  return <Flex class={[S.swap_contrast_color, S.text_bigger]} spacing='16' inner-class={Toolbar.cls_inner_toolbar} align='center'>{children}</Flex>
 
 }
 

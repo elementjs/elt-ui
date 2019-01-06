@@ -120,7 +120,7 @@ export namespace inker {
 		export const cls_ink = cls('ink', {
 				display: 'block',
 				position: 'absolute',
-				backgroundColor: S.PRIMARY,
+				backgroundColor: S.TINT,
 				borderRadius: '50%',
 				transform: 'scale(0)',
 				pointerEvents: 'none',
@@ -138,7 +138,7 @@ export namespace inker {
 				top: '0px',
 				left: '0px',
 				opacity: 0,
-				backgroundColor: S.PRIMARY3,
+				backgroundColor: S.TINT50,
 				overflow: 'hidden',
 				position: 'absolute',
 				pointerEvents: 'none',

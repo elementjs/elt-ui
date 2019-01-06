@@ -111,12 +111,12 @@ export class Tab extends Component<TabAttributes> {
 export namespace Tab {
 
 	export const title = cls('title', {
-		color: S.PRIMARY,
+		color: S.TINT,
 		userSelect: 'none',
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		fontWeight: 'bold',
-		borderBottom: `1px solid ${S.PRIMARY}`,
+		borderBottom: `1px solid ${S.TINT}`,
 		height: '48px',
 		lineHeight: '48px',
 		fontSize: '14px',
@@ -135,7 +135,7 @@ export namespace Tab {
 		width: 'calc(100% - 1px)',
 		transition: 'transform 0.2s linear',
 		transform: 'scaleX(0)',
-		borderBottom: `1px solid ${S.PRIMARY}`,
+		borderBottom: `1px solid ${S.TINT}`,
 	})
 
 	export const active = cls('active', {

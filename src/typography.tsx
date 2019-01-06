@@ -70,11 +70,11 @@ export namespace TypographicZone {
     })
 
     s(`blockquote`, {
-      color: S.FG2,
+      color: S.Fg(0.84),
       paddingLeft: '12px',
       borderLeftWidth: '4px',
       borderLeftStyle: 'solid',
-      borderLeftColor: S.PRIMARY3
+      borderLeftColor: S.FG50
     })
   })
 

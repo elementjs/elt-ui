@@ -124,7 +124,7 @@ export namespace NavDivider {
 	export const divider = cls('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid ${S.FG6}`,
+		borderBottom: `1px solid ${S.FG07}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})

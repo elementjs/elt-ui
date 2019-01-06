@@ -104,11 +104,11 @@ export namespace Select {
 			padding: '0 16px 0 8px',
 			height: '32px',
 			margin: 0,
-			border: `1px solid ${S.FG5}`,
-			borderColor: S.FG5,
+			border: `1px solid ${S.FG07}`,
+			borderColor: S.FG07,
 			borderRadius: '2px',
 			background: S.BG,
-			color: S.FG3,
+			color: S.FG50,
 			display: 'inline-block',
 			cursor: 'pointer'
 		},
@@ -116,20 +116,8 @@ export namespace Select {
 
 	s(cls_select).append(`:-moz-focusring`).define({
 		color: S.TRANSPARENT,
-		textShadow: `0 0 0 ${S.FG3}`
+		textShadow: `0 0 0 ${S.FG50}`
 	})
 
 	export const cls_label = cls('label', {position: 'relative'})
-
-	s(cls_label).append('::after').define({
-		content: "'\\f2f2'",
-		fontFamily: '"Material-Design-Iconic-Font", monospace',
-		color: S.FG3,
-		right: '8px',
-		top: '9px',
-		padding: '0 0 2px',
-		position: 'absolute',
-		pointerEvents: 'none',
-		verticalAlign: 'middle'
-	})
 }

@@ -31,9 +31,9 @@ export namespace Search {
       borderRadius: '3px',
       border: '1px solid',
       position: 'relative',
-      borderColor: S.FG5,
+      borderColor: S.FG25,
       color: S.FG,
-      backgroundColor: S.FG6,
+      backgroundColor: S.FG07,
       fontSize: '0.8em',
       padding: '8px 16px'
     },
@@ -42,7 +42,7 @@ export namespace Search {
   )
 
   s(element).append(`::placeholder`, {
-    color: S.FG5
+    color: S.FG25
   })
 
   export const button = cls('search-btn', {
@@ -134,7 +134,7 @@ export namespace Input {
 
     fontSize: '12px',
     pointerEvents: 'none',
-    color: S.FG6,
+    color: S.FG07,
     transformOrigin: 'top left',
     transform: 'translateZ(0)',
     transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
@@ -152,7 +152,7 @@ export namespace Input {
       paddingRight: '4px',
       paddingLeft: '4px',
       paddingBottom: '4px',
-      borderBottom: `1px solid ${S.FG6}`,
+      borderBottom: `1px solid ${S.FG07}`,
       width: '100%',
       transition: `border-bottom-color linear 0.3s`,
     }
@@ -165,7 +165,7 @@ export namespace Input {
   })
 
   s(element).append(`:focus`, {
-    paddingBottom: '3px', borderBottom: `2px solid ${S.PRIMARY}`
+    paddingBottom: '3px', borderBottom: `2px solid ${S.TINT}`
   })
 
   export const input_error = cls('input-error', {
@@ -183,7 +183,7 @@ export namespace Input {
   // Styling labels that are children of different container combinations
   // The label is always the one being styled here
   combine(_ => s(label).childOf(_.and(container)), () => {
-    s(focused, { color: S.PRIMARY })
+    s(focused, { color: S.TINT })
     s(empty_unfocused, {
       fontSize: `14px`,
       transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`

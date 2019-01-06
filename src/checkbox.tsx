@@ -77,12 +77,11 @@ export namespace Checkbox {
     {
       marginRight: '8px',
       transition: 'color linear 0.3s',
-      '--eltui-color-fg': 'var(--eltui-color-primary)'
     },
   )
 
   s(cls_icon).and(cls_off, {fill: `rgba(0, 0, 0, 0.74)`}),
   s(cls_icon).and(cls_disabled, {fill: `rgba(0, 0, 0, 0.26)`}),
-  s(cls_icon).and(cls_on, {fill: S.PRIMARY}),
+  // s(cls_icon).and(cls_on, {fill: S.PRIMARY}),
   s(cls_icon).append('::before', {fontSize: '18px'})
 }

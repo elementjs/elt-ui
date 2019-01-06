@@ -39,7 +39,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
       Button.cls_button,
       S.control,
       {
-        [S.reverse_primary]: attrs.reversed,
+        [S.swap_contrast_color]: attrs.reversed,
         [Button.cls_disabled]: attrs.disabled,
         [Button.cls_icon_button]: attrs.icon
       }
@@ -65,7 +65,7 @@ export namespace Button {
       textAlign: 'center',
       minWidth: '64px',
       background: S.BG,
-      color: S.PRIMARY,
+      color: S.TINT,
       textTransform: 'uppercase',
       fontWeight: 'bold'
     },
@@ -74,7 +74,7 @@ export namespace Button {
   export const cls_icon_button = cls('icon-button', {
     minWidth: '0',
     fontSize: '1.2em',
-    color: S.PRIMARY
+    color: S.TINT
   })
 
   s(cls_button).append(`::-moz-focus-inner`, {border: 0})
@@ -83,7 +83,7 @@ export namespace Button {
   })
 
   export const cls_disabled = cls('disabled', {
-    color: S.FG4,
+    color: S.FG25,
     boxShadow: 'none'
   })
 
