@@ -16,7 +16,7 @@ import {inker} from './ink'
 export interface ButtonAttrs extends Attrs {
   bordered?: o.RO<boolean>
   disabled?: o.RO<boolean>
-  reversed?: o.RO<boolean>
+  contrast?: o.RO<boolean>
   click?: Listener<MouseEvent>
   icon?: o.RO<boolean>
 }
@@ -39,7 +39,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
       Button.cls_button,
       S.control,
       {
-        [S.swap_contrast_color]: attrs.reversed,
+        [S.contrast_on_tint]: attrs.contrast,
         [Button.cls_disabled]: attrs.disabled,
         [Button.cls_icon_button]: attrs.icon
       }
@@ -83,7 +83,7 @@ export namespace Button {
   })
 
   export const cls_disabled = cls('disabled', {
-    color: S.FG25,
+    color: S.FG14,
     boxShadow: 'none'
   })
 

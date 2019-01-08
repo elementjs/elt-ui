@@ -74,7 +74,7 @@ export namespace TypographicZone {
       paddingLeft: '12px',
       borderLeftWidth: '4px',
       borderLeftStyle: 'solid',
-      borderLeftColor: S.FG50
+      borderLeftColor: S.FG14
     })
   })
 

@@ -108,7 +108,7 @@ export namespace Select {
 			borderColor: S.FG07,
 			borderRadius: '2px',
 			background: S.BG,
-			color: S.FG50,
+			color: S.FG75,
 			display: 'inline-block',
 			cursor: 'pointer'
 		},
@@ -116,7 +116,7 @@ export namespace Select {
 
 	s(cls_select).append(`:-moz-focusring`).define({
 		color: S.TRANSPARENT,
-		textShadow: `0 0 0 ${S.FG50}`
+		textShadow: `0 0 0 ${S.FG75}`
 	})
 
 	export const cls_label = cls('label', {position: 'relative'})

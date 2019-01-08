@@ -138,7 +138,7 @@ export namespace inker {
 				top: '0px',
 				left: '0px',
 				opacity: 0,
-				backgroundColor: S.TINT50,
+				backgroundColor: S.TINT14,
 				overflow: 'hidden',
 				position: 'absolute',
 				pointerEvents: 'none',

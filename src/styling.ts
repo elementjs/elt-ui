@@ -33,92 +33,123 @@ declare module 'osun/lib/types' {
 }
 
 
-export interface colorTheme {
+export interface ColorTheme {
   tint: string
-  text: string
-  background: string
+  fg: string
+  bg: string
   contrast: string
 }
 
 
 export namespace Styling {
 
-  export function Setcolor(theme: colorTheme) {
-    return cls(`set-color-x`, {
-      '--eltui-colors-tint': theme.tint,
-      '--eltui-colors-fg': theme.text,
-      '--eltui-colors-bg': theme.background,
-      '--eltui-colors-contrast': theme.contrast
-    })
+  export function toRGB(s: string | [number, number, number]): string {
+    if (Array.isArray(s))
+      return `${s[0], s[1], s[2]}`
+    if (s[0] === '#')
+      s = s.slice(1)
+    if (s.length !== 6)
+      return s
+    return `${parseInt(s.slice(0, 2), 16)}, ${parseInt(s.slice(2, 4), 16)}, ${parseInt(s.slice(4, 6), 16)}`
   }
 
-  export const Tint = (alpha: number = 1) => `rgba(var(--eltui-colors-current-color), ${alpha})`
+  export function SetTheme(theme: ColorTheme) {
+    return {
+      '--eltui-colors-tint': toRGB(theme.tint),
+      '--eltui-colors-fg': toRGB(theme.fg),
+      '--eltui-colors-bg': toRGB(theme.bg),
+      '--eltui-colors-contrast': toRGB(theme.contrast),
+      '--eltui-colors-current-tint': 'var(--eltui-colors-tint)',
+      '--eltui-colors-current-fg': 'var(--eltui-colors-fg)',
+      '--eltui-colors-current-bg': 'var(--eltui-colors-bg)'
+    } as CSSProperties
+  }
+
+  export function SetTint(tint: string) {
+    return {
+      '--eltui-colors-tint': toRGB(tint),
+      '--eltui-colors-current-tint': 'var(--eltui-colors-tint)'
+    } as CSSProperties
+  }
+
+  export function SetFg(tint: string) {
+    return {
+      '--eltui-colors-fg': toRGB(tint)
+    } as CSSProperties
+  }
+
+  export function SetBg(tint: string) {
+    return {
+      '--eltui-colors-bg': toRGB(tint)
+    } as CSSProperties
+  }
+
+  export function SetContrast(tint: string) {
+    return {
+      '--eltui-colors-contrast': toRGB(tint)
+    } as CSSProperties
+  }
+
+  export const Tint = (alpha: number = 1) => `rgba(var(--eltui-colors-current-tint), ${alpha})`
   export const Fg = (alpha: number = 1) => `rgba(var(--eltui-colors-current-fg), ${alpha})`
   export const Bg = (alpha: number = 1) => `rgba(var(--eltui-colors-current-bg), ${alpha})`
 
   export const TINT = Tint()
   export const TINT75 = Tint(0.75)
-  export const TINT50 = Tint(0.50)
-  export const TINT25 = Tint(0.25)
+  export const TINT14 = Tint(0.14)
   export const TINT07 = Tint(0.07)
 
   export const FG = Fg()
   export const FG75 = Fg(0.75)
-  export const FG50 = Fg(0.50)
-  export const FG25 = Fg(0.25)
+  export const FG14 = Fg(0.14)
   export const FG07 = Fg(0.07)
 
   export const BG = Bg()
   export const BG75 = Bg(0.75)
-  export const BG50 = Bg(0.50)
-  export const BG25 = Bg(0.25)
+  export const BG14 = Bg(0.14)
   export const BG07 = Bg(0.07)
+
+  export const contrast_on_tint = cls('tint-reverse', {
+    '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
+    '--eltui-colors-current-fg': 'var(--eltui-colors-contrast)',
+    '--eltui-colors-current-bg': 'var(--eltui-colors-tint)',
+    color: FG,
+    background: BG
+  })
 
   const bg = (name: string, s: string) => cls(`background-${name}`, {backgroundColor: s})
   export const background_tint = bg('tint', TINT)
   export const background_tint75 = bg('tint75', TINT75)
-  export const background_tint50 = bg('tint50', TINT50)
-  export const background_tint14 = bg('tint25', TINT25)
+  export const background_tint14 = bg('tint14', TINT14)
   export const background_tint07 = bg('tint07', TINT07)
 
   export const background_fg = bg('fg', FG)
   export const background_fg75 = bg('fg75', FG75)
-  export const background_fg50 = bg('fg50', FG50)
-  export const background_fg14 = bg('fg25', FG25)
+  export const background_fg14 = bg('fg14', FG14)
   export const background_fg07 = bg('fg07', FG07)
 
   export const background_bg = bg('bg', BG)
   export const background_bg75 = bg('bg75', BG75)
-  export const background_bg50 = bg('bg50', BG50)
-  export const background_bg14 = bg('bg25', BG25)
+  export const background_bg14 = bg('bg14', BG14)
   export const background_bg07 = bg('bg07', BG07)
 
   const txt = (name: string, s: string) => cls(`color-${name}`, {color: s})
   export const color_tint = txt('tint', TINT)
   export const color_tint75 = txt('tint75', TINT75)
-  export const color_tint50 = txt('tint50', TINT50)
-  export const color_tint14 = txt('tint25', TINT25)
+  export const color_tint14 = txt('tint14', TINT14)
   export const color_tint07 = txt('tint07', TINT07)
 
   export const color_fg = txt('fg', FG)
   export const color_fg75 = txt('fg75', FG75)
-  export const color_fg50 = txt('fg50', FG50)
-  export const color_fg14 = txt('fg25', FG25)
+  export const color_fg14 = txt('fg14', FG14)
   export const color_fg07 = txt('fg07', FG07)
 
   export const color_bg = txt('bg', BG)
   export const color_bg75 = txt('bg75', BG75)
-  export const color_bg50 = txt('bg50', BG50)
-  export const color_bg25 = txt('bg25', BG25)
+  export const color_bg14 = txt('bg14', BG14)
   export const color_bg07 = txt('bg07', BG07)
 
   export const TRANSPARENT = `rgba(0, 0, 0, 0)`
-
-  export const swap_contrast_color = cls('swap-contrast-color', {
-    '--eltui-colors-current-bg': 'var(--eltui-colors-tint)',
-    '--eltui-colors-current-fg': 'var(--eltui-colors-contrast)',
-    '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)'
-  })
 
   export const text_italic = cls('italic', {fontStyle: 'italic'})
   export const text_oblique = cls('oblique', {fontStyle: 'oblique'})
@@ -150,9 +181,18 @@ export namespace Styling {
     } as CSSProperties
   }
 
-  export const border_text_color = cls('border-fg', mkborder(FG))
-  export const border_background_color = cls('border-fg', mkborder(BG))
-  export const border_color = cls('border-fg', mkborder(TINT))
+  export const border_fg = cls('border-fg', mkborder(FG))
+  export const border_bg = cls('border-bg', mkborder(BG))
+  export const border_tint = cls('border-tint', mkborder(TINT))
+  export const border_fg75 = cls('border-fg75', mkborder(FG75))
+  export const border_bg75 = cls('border-bg75', mkborder(BG75))
+  export const border_tint75 = cls('border-tint75', mkborder(TINT75))
+  export const border_fg14 = cls('border-fg14', mkborder(FG14))
+  export const border_bg14 = cls('border-bg14', mkborder(BG14))
+  export const border_tint14 = cls('border-tint14', mkborder(TINT14))
+  export const border_fg07 = cls('border-fg07', mkborder(FG07))
+  export const border_bg07 = cls('border-bg07', mkborder(BG07))
+  export const border_tint07 = cls('border-tint07', mkborder(TINT07))
 
   export const no_spurious_borders = cls('no-spurious-borders', {
     '-webkit-tap-highlight-color': TRANSPARENT,
@@ -176,9 +216,9 @@ export namespace Styling {
 
   export const display_none = cls('display-none', {display: 'none'})
 
-  const pad = (n: number) => cls(`padding${n}`, {padding: `${n / RATIO}rem ${n}rem`})
+  const pad = (n: number) => cls(`padding${n.toString().replace('.', '-')}`, {padding: `${n / RATIO}rem ${n}rem`})
   export const padding0 = cls('padding-0', {padding: '0'})
-  export const padding_1 = pad(RATIO)
+  export const padding_1 = pad(1 / RATIO)
   export const padding = pad(1)
   export const padding2 = pad(2)
   export const padding3 = pad(3)
@@ -211,6 +251,26 @@ export namespace Styling {
   export const cursor_text = curs('text')
   export const cursor_zoom_in = curs('zoom-in')
   export const cursor_zoom_out = curs('zoom-out')
+
+  const hover = (name: string, color: string) => {
+    const hov = cls(`hover-${name}`)
+    s(hov).append(':hover', {
+      backgroundColor: color
+    })
+    return hov
+  }
+  export const hover_tint = hover('tint', TINT)
+  export const hover_fg = hover('fg', FG)
+  export const hover_bg = hover('bg', BG)
+  export const hover_tint75 = hover('tint75', TINT75)
+  export const hover_fg75 = hover('fg75', FG75)
+  export const hover_bg75 = hover('bg75', BG75)
+  export const hover_tint14 = hover('tint14', TINT14)
+  export const hover_fg14 = hover('fg14', FG14)
+  export const hover_bg14 = hover('tint14', BG14)
+  export const hover_tint07 = hover('tint07', TINT07)
+  export const hover_fg07 = hover('fg07', FG07)
+  export const hover_bg07 = hover('bg07', BG07)
 
   const pos = (s: string) => cls(`position-${s}`, {position: s as any})
   export const position_relative = pos('relative')

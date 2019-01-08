@@ -31,7 +31,7 @@ export namespace Search {
       borderRadius: '3px',
       border: '1px solid',
       position: 'relative',
-      borderColor: S.FG25,
+      borderColor: S.FG14,
       color: S.FG,
       backgroundColor: S.FG07,
       fontSize: '0.8em',
@@ -42,7 +42,7 @@ export namespace Search {
   )
 
   s(element).append(`::placeholder`, {
-    color: S.FG25
+    color: S.FG14
   })
 
   export const button = cls('search-btn', {
