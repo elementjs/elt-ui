@@ -6,12 +6,13 @@ import {
   Component
 } from 'elt'
 
-import {Flex} from './flex'
 
 import FaSquareRegular from 'elt-fa/square-regular'
 import FaMinusSquare from 'elt-fa/minus-square'
 import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {inkable} from './ink'
+import { cls, s } from 'osun'
+import S from './styling'
 
 
 export interface CheckboxAttributes extends Attrs {
@@ -44,17 +45,15 @@ export class Checkbox extends Component<CheckboxAttributes> {
     }
 
     return <label class={[Checkbox.cls_label, S.control]} $$={[inkable(), click(e => this.toggle())]}>
-        <Flex row class={[Flex.align_center]}>
-          {this.o_model.tf(getIcon)}
-          <span class={[Checkbox.cls_content, classes]}>{children}</span>
-        </Flex>
-      </label>;
+      <div class={[S.flex_row, S.align_items_center]}>
+        {this.o_model.tf(getIcon)}
+        <span class={[Checkbox.cls_content, classes]}>{children}</span>
+      </div>
+    </label>
 
   }
 }
 
-import { cls, s } from 'osun'
-import S from './styling'
 
 export namespace Checkbox {
 
