@@ -168,15 +168,20 @@ export namespace Styling {
 
   export const text_bold = cls('bold', {fontWeight: 'bold'})
 
-  export const text_big = cls('small', {fontSize: '18px'})
-  export const text_bigger = cls('bigger', {fontSize: '22px'})
-  export const text_very_big = cls('very_big', {fontSize: '28px'})
-  export const text_huge = cls('huge', {fontSize: '48px'})
-  export const text_very_huge = cls('very-huge', {fontSize: '64px'})
+  export const text_normal = cls('normal', {
+    fontSize: '1rem',
+    fontWeight: 'normal',
+    textDecoration: 'none'
+  })
+  export const text_big = cls('small', {fontSize: '1.2rem'})
+  export const text_bigger = cls('bigger', {fontSize: '1.4rem'})
+  export const text_very_big = cls('very_big', {fontSize: '1.8rem'})
+  export const text_huge = cls('huge', {fontSize: '2.4rem'})
+  export const text_very_huge = cls('very-huge', {fontSize: '4rem'})
 
-  export const text_small = cls('small', {fontSize: '14px'})
-  export const text_smaller = cls('smaller', {fontSize: '12px'})
-  export const text_verysmall = cls('very-small', {fontSize: '10px'})
+  export const text_small = cls('small', {fontSize: '0.8rem'})
+  export const text_smaller = cls('smaller', {fontSize: '0.7rem'})
+  export const text_verysmall = cls('very-small', {fontSize: '0.6rem'})
 
   export const text_centered = cls('text-center', {textAlign: 'center'})
   export const text_right = cls('text-right', {textAlign: 'right'})
@@ -386,6 +391,18 @@ export namespace Styling {
   export const colgap_1 = _colgap(`_1`, 1 / RATIO)
   export const colgap = _colgap('1', RATIO)
   export const colgap2 = _colgap('1', RATIO)
+
+  const _rowgap = (cl: string, n: number) => {
+    const c = cls(`rowgap-${cl}`)
+    s`*`.childOf(c, {marginTop: `${n}rem`})
+    s`:first-child`.childOf(c, {marginTop: 0})
+    return c
+  }
+
+  export const rowgap_2 = _rowgap(`_2`, 1 / RATIO / 2)
+  export const rowgap_1 = _rowgap(`_1`, 1 / RATIO)
+  export const rowgap = _rowgap('1', RATIO)
+  export const rowgap2 = _rowgap('1', RATIO)
 
 }
 
