@@ -43,6 +43,15 @@ export namespace Styling {
 
   export const RATIO = 1.618033
 
+  export const VAR_RATIO = '--eltui-ratio'
+  export const VAR_CURRENT_FG = '--eltui-colors-current-fg'
+  export const VAR_CURRENT_BG = '--eltui-colors-current-bg'
+  export const VAR_CURRENT_TINT = '--eltui-colors-current-tint'
+  export const VAR_FG = '--eltui-colors-fg'
+  export const VAR_TINT = '--eltui-colors-tint'
+  export const VAR_BG = '--eltui-colors-bg'
+  export const VAR_CONTRAST = '--eltui-colors-contrast'
+
   export function toRGB(s: string | [number, number, number]): string {
     if (Array.isArray(s))
       return `${s[0], s[1], s[2]}`
