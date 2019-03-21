@@ -184,6 +184,7 @@ export namespace Styling {
     fontWeight: 'normal',
     textDecoration: 'none'
   })
+
   export const text_big = cls('small', {fontSize: '1.2rem'})
   export const text_bigger = cls('bigger', {fontSize: '1.4rem'})
   export const text_very_big = cls('very_big', {fontSize: '1.8rem'})
@@ -197,6 +198,8 @@ export namespace Styling {
   export const text_centered = cls('text-center', {textAlign: 'center'})
   export const text_right = cls('text-right', {textAlign: 'right'})
   export const text_justified = cls('text-right', {textAlign: 'justify'})
+
+  export const vertical_align_middle = cls('middle', {verticalAlign: 'middle'})
 
   function mkborder(col: string) {
     return {
