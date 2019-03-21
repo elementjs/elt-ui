@@ -174,6 +174,8 @@ export namespace Styling {
   export const text_uppercase = cls('uppercase', {textTransform: 'uppercase'})
   export const text_lowercase = cls('lowercase', {textTransform: 'lowercase'})
   export const text_capitalize = cls('capitalize', {textTransform: 'capitalize'})
+  export const text_superscript = cls('superscript', {verticalAlign: 'super'})
+  export const text_subscript = cls('subscript', {verticalAlign: 'sub'})
 
   export const text_bold = cls('bold', {fontWeight: 'bold'})
 
@@ -267,9 +269,10 @@ export namespace Styling {
   export const padding3 = pad(3)
   export const padding4 = pad(4)
 
-  const mar = (n: number) => cls(`margin${n}`, {margin: `${n / RATIO}px ${n}px`})
+  const mar = (n: number) => cls(`margin${n.toString().replace('.', '_')}`, {margin: `${n / RATIO}rem ${n}rem`})
   export const margin0 = cls('margin0', {margin: '0'})
-  export const margin_1 = mar(RATIO)
+  export const margin_1 = mar(1 / RATIO)
+  export const margin_2 = mar(1 / RATIO / 2)
   export const margin = mar(1)
   export const margin2 = mar(2)
   export const margin3 = mar(3)
@@ -280,7 +283,7 @@ export namespace Styling {
     display: 'inline-block',
     '-webkit-tap-highlight-color': Styling.TRANSPARENT,
     position: 'relative', // needed for inking.
-    background: BG
+    // background: BG
   }, padding)
 
   const curs = (s: string) => cls(`cursor-${s}`, {cursor: s})
@@ -354,18 +357,31 @@ export namespace Styling {
   const flexalign = (val: CSSProperties['alignItems']) => cls(`flex-align-${val}`, {alignItems: val})
   export const align_items_center = flexalign('center')
   export const align_items_stretch = flexalign('stretch')
-  export const align_items_start = flexalign('start')
-  export const align_items_end = flexalign('end')
-
+  export const align_items_start = flexalign('flex-start')
+  export const align_items_end = flexalign('flex-end')
   export const align_items_baseline = flexalign('baseline')
   export const align_items_first_baseline = flexalign('first baseline')
   export const align_items_last_baseline = flexalign('last baseline')
+
+  const flexjust = (val: CSSProperties['justifyContent']) => cls(`flex-align-${val}`, {justifyContent: val})
+  export const justify_content_center = flexjust('center')
+  export const justify_content_stretch = flexjust('stretch')
+  export const justify_content_start = flexjust('flex-start')
+  export const justify_content_end = flexjust('flex-end')
+  export const justify_content_left = flexjust('left')
+  export const justify_content_right = flexjust('right')
+  export const justify_content_space_between = flexjust('space-between')
+  export const justify_content_space_evenly = flexjust('space-evenly')
+  export const justify_content_space_around = flexjust('space-around')
 
   export const flex_absolute_grow = fag(1)
   export const flex_absolute_grow2 = fag(2)
   export const flex_absolute_grow3 = fag(3)
   export const flex_absolute_grow4 = fag(4)
   export const flex_absolute_grow5 = fag(5)
+
+  export const flex_wrap = cls('flex-wrap', {flexWrap: 'wrap'})
+  export const flex_wrap_reverse = cls('flex-wrap', {flexWrap: 'wrap-reverse'})
 
   export const flex_grow1 = cls('flex-grow-1', {flexGrow: 1})
   export const flex_grow2 = cls('flex-grow-2', {flexGrow: 2})

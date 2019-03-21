@@ -64,7 +64,7 @@ export namespace Button {
       cursor: 'pointer',
       textAlign: 'center',
       minWidth: '64px',
-      background: S.BG,
+      background: 'none',
       color: S.TINT,
       textTransform: 'uppercase',
       fontWeight: 'bold'
