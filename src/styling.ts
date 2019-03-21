@@ -236,7 +236,7 @@ export namespace Styling {
   export const full_width = cls('full-width', {width: '100%'})
   export const full_height = cls('full-height', {height: '100%'})
   export const full_screen = cls('fullscreen', {
-    width: '100%', height: '100%', position: 'fixed',
+    width: '100vw', height: '100vh', position: 'fixed',
     left: 0,
     top: 0,
     transformOrigin: '50% 50%'
