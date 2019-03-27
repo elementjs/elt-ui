@@ -185,7 +185,7 @@ export namespace Styling {
     textDecoration: 'none'
   })
 
-  export const text_big = cls('small', {fontSize: '1.2rem'})
+  export const text_big = cls('big', {fontSize: '1.2rem'})
   export const text_bigger = cls('bigger', {fontSize: '1.4rem'})
   export const text_very_big = cls('very_big', {fontSize: '1.8rem'})
   export const text_huge = cls('huge', {fontSize: '2.4rem'})
@@ -324,10 +324,12 @@ export namespace Styling {
   export const hover_fg07 = hover('fg07', FG07)
   export const hover_bg07 = hover('bg07', BG07)
 
-  const pos = (s: string) => cls(`position-${s}`, {position: s as any})
+  const pos = (s: CSSProperties['position']) => cls(`position-${s}`, {position: s})
   export const position_relative = pos('relative')
   export const position_absolute = pos('absolute')
-  export const position_sticky = pos('sticky')
+  export const position_sticky = cls('sticky', {
+    position: ['-webkit-sticky', 'sticky']
+  })
   export const position_fixed = pos('fixed')
 
   export const pointer_events_none = cls('no-pointer-events', {pointerEvents: 'none'})
@@ -354,7 +356,7 @@ export namespace Styling {
 
   const fag = (n: number) => cls(`flex-absolute-grow${n}`, {
     flexBasis: 0,
-    flexGrow: 1
+    flexGrow: n
   })
 
   const flexalign = (val: CSSProperties['alignItems']) => cls(`flex-align-${val}`, {alignItems: val})
