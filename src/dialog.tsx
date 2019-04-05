@@ -10,7 +10,8 @@ import {
   removed,
   append_child_and_mount,
   remove_and_unmount,
-  Component
+  Component,
+  bound
 } from 'elt';
 
 import { Flex } from './flex'
@@ -79,6 +80,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
       if (this.attrs.closeRejects) this._reject(value);
   }
 
+  @bound
   handleEscape(ev: KeyboardEvent) {
     // Ignore the event if it was not meant for us
     if (_dialog_stack[_dialog_stack.length - 1] !== this.node) return
@@ -98,10 +100,10 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
       // Handle the escape key.
       init(node => {
         requestAnimationFrame(() => {
-          node.ownerDocument!.addEventListener('keyup', this.handleEscape.bind(this))
+          node.ownerDocument!.addEventListener('keyup', this.handleEscape)
         })
       }),
-      removed(node => node.ownerDocument!.removeEventListener('keyup', this.handleEscape.bind(this)))
+      removed(node => node.ownerDocument!.removeEventListener('keyup', this.handleEscape))
     ]}>
       {this.attrs.builder(this)}
     </Overlay> as HTMLElement
