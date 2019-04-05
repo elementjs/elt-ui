@@ -34,6 +34,7 @@ export interface DialogCommon {
 export interface DialogOptions extends DialogCommon {
   parent?: Node
   class?: ClassDefinition | ClassDefinition[]
+  closeRejects?: boolean
 }
 
 
@@ -41,6 +42,7 @@ export interface DialogAttrs<T> extends Attrs, DialogCommon {
   builder: DialogBuilder<T>
   animationEnter: string
   animationLeave: string
+  closeRejects?: boolean
 }
 
 
@@ -74,7 +76,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 
   async reject(value: any) {
     if (this.tryclose())
-      this._reject(value);
+      if (this.attrs.closeRejects) this._reject(value);
   }
 
   handleEscape(ev: KeyboardEvent) {
@@ -138,6 +140,7 @@ export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promi
     clickOutsideToClose={opts.clickOutsideToClose}
     closeIntercept={opts.closeIntercept}
     noanimate={opts.noanimate}
+    closeRejects={opts.closeRejects}
     animationEnter={opts.animationEnter || dialog.enter}
     animationLeave={opts.animationLeave || dialog.leave}
   />
