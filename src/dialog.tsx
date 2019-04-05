@@ -6,7 +6,7 @@ import {
   o,
   Renderable,
   DisplayIf,
-  inserted,
+  init,
   removed,
   append_child_and_mount,
   remove_and_unmount,
@@ -64,7 +64,6 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
     await animate(this.node, this.attrs.animationLeave)
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
     remove_and_unmount(this.node)
-    // Remove the node from the dialog stack.
     return true
   }
 
@@ -95,8 +94,10 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
           this.reject('clicked outside to close')
       }),
       // Handle the escape key.
-      inserted(node => {
-        node.ownerDocument!.addEventListener('keyup', this.handleEscape.bind(this))
+      init(node => {
+        requestAnimationFrame(() => {
+          node.ownerDocument!.addEventListener('keyup', this.handleEscape.bind(this))
+        })
       }),
       removed(node => node.ownerDocument!.removeEventListener('keyup', this.handleEscape.bind(this)))
     ]}>
@@ -104,7 +105,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
     </Overlay> as HTMLElement
   }
 
-  inserted() {
+  init() {
     _dialog_stack.push(this.node)
     if (!this.attrs.noanimate) {
       animate(this.node, this.attrs.animationEnter)

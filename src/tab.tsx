@@ -56,7 +56,7 @@ export class Tab extends Component<TabAttributes> {
 	children: Node[] = []
 	o_is_active = o(false)
 
-	inserted(node: Element) {
+	init(node: Element) {
 		if (this.container) return
 
 		this.container = TabContainer.get(node)

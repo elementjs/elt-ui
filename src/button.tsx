@@ -41,7 +41,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
       {
         [S.contrast_on_tint]: attrs.contrast,
         [Button.cls_disabled]: attrs.disabled,
-        [Button.cls_icon_button]: attrs.icon
+        [Button.cls_icon_button]: attrs.icon,
       }
     ]}
     disabled={o.tf(attrs.disabled, val => !!val)}
@@ -51,6 +51,12 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   </button>
 
 }
+
+Button.cls_bordered = cls('button-bordered', {
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  borderColor: S.TINT
+})
 
 
 export namespace Button {
@@ -97,8 +103,10 @@ export interface ButtonBarAttrs extends Attrs {
 
 export class ButtonBar extends Component<ButtonBarAttrs> {
 
-  inserted(node: Element, parent: Element) {
-    parent.classList.add(ButtonBar.cls_has_button_bar)
+  init(node: Element) {
+    requestAnimationFrame(() => {
+      node.parentElement!.classList.add(ButtonBar.cls_has_button_bar)
+    })
   }
 
   removed(node: Element, parent: Element) {

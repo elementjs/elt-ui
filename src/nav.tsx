@@ -31,7 +31,7 @@ export class Nav extends Component<Attrs, HTMLElement> {
 		})
 	}
 
-	inserted(node: HTMLElement) {
+	init(node: HTMLElement) {
 		animate(node, Nav.enter)
 	}
 

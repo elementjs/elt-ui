@@ -83,7 +83,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
   const o_model = o(model)
   label = label || placeholder || ''
 
-  const o_focused: o.Observable<boolean> = o(false)
+  const o_focused: o.Observable<boolean> = o(false as boolean)
 
   const input = <input
     {...other_attrs}
