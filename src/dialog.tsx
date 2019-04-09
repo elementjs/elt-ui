@@ -7,7 +7,7 @@ import {
   Renderable,
   DisplayIf,
   init,
-  removed,
+  deinit,
   append_child_and_mount,
   remove_and_unmount,
   Component,
@@ -82,6 +82,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 
   @bound
   handleEscape(ev: KeyboardEvent) {
+    console.log('escaping')
     // Ignore the event if it was not meant for us
     if (_dialog_stack[_dialog_stack.length - 1] !== this.node) return
 
@@ -103,7 +104,9 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
           node.ownerDocument!.addEventListener('keyup', this.handleEscape)
         })
       }),
-      removed(node => node.ownerDocument!.removeEventListener('keyup', this.handleEscape))
+      deinit(node => {
+        node.ownerDocument!.removeEventListener('keyup', this.handleEscape)
+      })
     ]}>
       {this.attrs.builder(this)}
     </Overlay> as HTMLElement
