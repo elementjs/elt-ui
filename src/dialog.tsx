@@ -82,7 +82,6 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 
   @bound
   handleEscape(ev: KeyboardEvent) {
-    console.log('escaping')
     // Ignore the event if it was not meant for us
     if (_dialog_stack[_dialog_stack.length - 1] !== this.node) return
 
