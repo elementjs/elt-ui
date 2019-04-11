@@ -6,13 +6,13 @@ import {
 	Component,
 	o,
 	on,
-	Renderable,
+	Insertable,
 	Repeat,
 	Mixin
 } from 'elt'
 
 
-export type LabelFn<T> = (opt: T) => o.RO<Renderable>
+export type LabelFn<T> = (opt: T) => o.RO<Insertable>
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 

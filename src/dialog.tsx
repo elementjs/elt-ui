@@ -4,7 +4,7 @@ import {
   ClassDefinition,
   click,
   o,
-  Renderable,
+  Insertable,
   DisplayIf,
   init,
   deinit,
@@ -160,10 +160,10 @@ export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promi
 
 
 export interface ModalOptions extends DialogOptions {
-  text: o.RO<Renderable>
-  title: o.RO<Renderable>
-  agree?: o.RO<Renderable>
-  disagree?: o.RO<Renderable>,
+  text: o.RO<Insertable>
+  title: o.RO<Insertable>
+  agree?: o.RO<Insertable>
+  disagree?: o.RO<Insertable>,
 }
 
 /**
