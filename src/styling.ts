@@ -39,6 +39,73 @@ export interface ColorTheme {
 }
 
 
+
+export type CSSPropertiesWithDefaults = CSSProperties & { $size?: string, $color?: string }
+export type CssClasses = {[name: string]: CSSPropertiesWithDefaults}
+export type ExtendedCssBuilder<T extends CssClasses> = CssBuilder & {[K in keyof T] : ExtendedCssBuilder<T>}
+
+
+export class CssBuilder {
+
+  // class names cache
+  static cache = {} as {[name: string]: string}
+
+  constructor(
+    public base: string = '',
+    public classes: CssClasses = {},
+    public props: CSSPropertiesWithDefaults = {}
+  ) {
+    this.make_props(classes)
+  }
+
+  static from<T extends CssClasses>(base: string, desc: T, props: CSSPropertiesWithDefaults = {}) {
+    var c = new CssBuilder(base, desc, props)
+    return c as ExtendedCssBuilder<T>
+  }
+
+  make_props(c: CssClasses) {
+    for (let x in c) {
+      Object.defineProperty(this, x, {
+        get: () => new CssBuilder(
+          this.base + '__' + x,
+          this.classes,
+          Object.assign({},
+            this.props,
+            c[x]
+          ))
+      })
+    }
+  }
+
+  and<U extends CssClasses, T extends CssClasses>(this: ExtendedCssBuilder<U>, desc: T): ExtendedCssBuilder<T & U>
+  and<T extends CssClasses>(desc: T): ExtendedCssBuilder<T>
+  and<T extends CssClasses>(desc: T): ExtendedCssBuilder<T>  {
+    var n = new CssBuilder(this.base, Object.assign({}, this.classes, desc), this.props)
+    return n as ExtendedCssBuilder<T>
+  }
+
+  toString() {
+    const name = this.base
+    const c = CssBuilder.cache
+    const prev = c[name]
+    if (prev) return prev
+    var {$size, $color, ...rest} = this.props
+    var repl = {
+      $size: $size || '1rem',
+      $color: $color || Styling.FG
+    } as {[name: string]: string}
+    for (var x in rest) {
+      const p = (rest as any)[x] as string
+      (rest as any)[x] = typeof p !== 'string' ? p :
+        p.replace(/\$size|\$color/g, m => repl[m])
+    }
+    var res = cls(name, rest)
+    c[name] = res
+    return res
+  }
+}
+
+
 export namespace Styling {
 
   export const RATIO = 1.618033
@@ -120,6 +187,96 @@ export namespace Styling {
   export const BG50 = Bg(0.50)
   export const BG14 = Bg(0.14)
   export const BG07 = Bg(0.07)
+
+  export const SIZES = {
+    very_small: { $size: `${1 / RATIO / RATIO}rem` },
+    small: { $size: `${1 / RATIO}rem` },
+    normal: { $size: '1rem' },
+    big: { $size: `${RATIO}rem` },
+    very_big: { $size: `${RATIO * RATIO}rem` },
+    huge: { $size: `${RATIO * RATIO * RATIO}rem` },
+    very_huge: { $size: `${RATIO * RATIO * RATIO * RATIO}rem` }
+  }
+
+  export const COLORS = {
+    tint: { $color: TINT },
+    tint75: { $color: TINT75 },
+    tint50: { $color: TINT50 },
+    tint14: { $color: TINT14 },
+    tint07: { $color: TINT07 },
+    fg: { $color: FG },
+    fg75: { $color: FG75 },
+    fg50: { $color: FG50 },
+    fg14: { $color: FG14 },
+    fg07: { $color: FG07 },
+    bg: { $color: BG },
+    bg75: { $color: BG75 },
+    bg50: { $color: BG50 },
+    bg14: { $color: BG14 },
+    bg07: { $color: BG07 },
+  }
+
+  export const paddings = CssBuilder.from('padding', {
+    top: { paddingTop: `$size` },
+    bottom: { paddingBottom: '$size' },
+    left: { paddingLeft: '$size' },
+    right: { paddingRight: '$size' },
+    vertical: { padding: '$size 0' },
+    horizontal: { padding: '0 $size' },
+    all: { padding: '$size' }
+  }).and(SIZES)
+
+  export const margins = CssBuilder.from('margins', {
+    top: { marginTop: `$size` },
+    bottom: { marginBottom: '$size' },
+    left: { marginLeft: '$size' },
+    right: { marginRight: '$size' },
+    vertical: { margin: '$size 0' },
+    horizontal: { margin: '0 $size' },
+    all: { margin: '$size' }
+  }).and(SIZES)
+
+  export const borders = CssBuilder.from('borders', {
+    top: { borderTopStyle: `solid`, borderTopColor: '$color', borderTopWidth: '1px' },
+    bottom: { borderBottomStyle: `solid`, borderBottomColor: '$color', borderBottomWidth: '1px' },
+    left: { borderLeftStyle: `solid`, borderLeftColor: '$color', borderLeftWidth: '1px' },
+    right: { borderRightStyle: `solid`, borderRightColor: '$color', borderRightWidth: '1px' },
+    vertical: { borderTopStyle: `solid`, borderTopColor: '$color', borderTopWidth: '1px', borderBottomStyle: `solid`, borderBottomColor: '$color', borderBottomWidth: '1px' },
+    horizontal: { borderLeftStyle: `solid`, borderLeftColor: '$color', borderLeftWidth: '1px', borderRightStyle: `solid`, borderRightColor: '$color', borderRightWidth: '1px' },
+    all: { borderStyle: `solid`, borderColor: '$color', borderWidth: '1px' },
+    width2px: { borderWidth: '2px' },
+    width3px: { borderWidth: '3px' },
+    width4px: { borderWidth: '4px' }
+  }, { borderColor: '$color', $color: FG })
+  .and(COLORS)
+
+  export const background = CssBuilder.from('background', COLORS)
+
+  export const text = CssBuilder.from('text', {
+    bold: { fontWeight: 'bold' },
+    italic: { fontVariant: 'italic' },
+    underline: { textDecoration: 'underline' },
+    oblique: {fontStyle: 'oblique'},
+    uppercase: {textTransform: 'uppercase'},
+    lowercase: {textTransform: 'lowercase'},
+    capitalize: {textTransform: 'capitalize'},
+    superscript: {verticalAlign: 'super'},
+    subscript: {verticalAlign: 'sub'},
+    centered: {textAlign: 'center'},
+    right: {textAlign: 'right'},
+    justified: {textAlign: 'justify'},
+    align_middle: {verticalAlign: 'middle'},
+  }, { fontSize: '$size', color: '$color', $color: FG, $size: '1rem' }).and(COLORS).and(SIZES)
+
+  export const flex = CssBuilder.from('flex', {
+
+  })
+
+  const P = (k: CSSProperties['position']) => { return { position: k } as CSSProperties }
+  export const position = CssBuilder.from('position', {
+    absolute: P('absolute'),
+  })
+
 
   export const contrast_on_tint = cls('tint-reverse', {
     '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
@@ -249,8 +406,8 @@ export namespace Styling {
 
   const opaque_pad = (n: number) => cls(`padding${n.toString().replace('.', '-')}`, {
     borderStyle: 'solid',
-    borderTopWidth: `${n / RATIO}rem`,
-    borderBottomWidth: `${n / RATIO}rem`,
+    borderTopWidth: `${n}rem`,
+    borderBottomWidth: `${n}rem`,
     borderRightWidth: `${n}rem`,
     borderLeftWidth: `${n}rem`,
     borderColor: BG
@@ -263,7 +420,7 @@ export namespace Styling {
   export const padding_opaque3 = opaque_pad(3)
   export const padding_opaque4 = opaque_pad(4)
 
-  const pad = (n: number) => cls(`padding${n.toString().replace('.', '-')}`, {padding: `${n / RATIO}rem ${n}rem`})
+  const pad = (n: number) => cls(`padding${n.toString().replace('.', '-')}`, {padding: `${n}rem`})
   export const padding0 = cls('padding-0', {padding: '0'})
   export const padding_2 = pad(1 / RATIO / 2)
   export const padding_1 = pad(1 / RATIO)
@@ -272,7 +429,7 @@ export namespace Styling {
   export const padding3 = pad(3)
   export const padding4 = pad(4)
 
-  const mar = (n: number) => cls(`margin${n.toString().replace('.', '_')}`, {margin: `${n / RATIO}rem ${n}rem`})
+  const mar = (n: number) => cls(`margin${n.toString().replace('.', '_')}`, {margin: `${n}rem`})
   export const margin0 = cls('margin0', {margin: '0'})
   export const margin_1 = mar(1 / RATIO)
   export const margin_2 = mar(1 / RATIO / 2)
