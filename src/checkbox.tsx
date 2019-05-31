@@ -45,7 +45,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
     }
 
     return <label class={[Checkbox.cls_label, S.control]} $$={[inkable(), click(e => this.toggle())]}>
-      <div class={[S.flex_row, S.align_items_center]}>
+      <div class={[S.flex.row.align_center]}>
         {this.o_model.tf(getIcon)}
         <span class={[Checkbox.cls_content, classes]}>{children}</span>
       </div>

@@ -12,11 +12,11 @@ export function Progress({mode, progress}: ProgressAttrs) {
   const o_mode = o(mode || 'determinate')
   const o_progress = o(progress || 0)
   return <div
-    class={[S.background_tint07, Progress.cls_holder]}
+    class={[S.background.tint07, Progress.cls_holder]}
     style={{opacity: o_progress.tf(v => v > 0 && v < 100 ? '1' : '0')}}
   >
       {DisplayIf(o_mode.equals('determinate'), () => <div class={[
-        S.background_tint75,
+        S.background.tint75,
         Progress.cls_determinate
         ]}
         style={{width: o_progress.tf(v => `${v}%`)}}

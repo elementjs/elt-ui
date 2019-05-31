@@ -1,5 +1,5 @@
 
-import {cls, s, CSSProperties, raw, rule} from 'osun'
+import {cls, s, CSSProperties, raw, rule, CssBuilder} from 'osun'
 
 
 // background
@@ -36,73 +36,6 @@ export interface ColorTheme {
   fg: string
   bg: string
   contrast: string
-}
-
-
-
-export type CSSPropertiesWithDefaults = CSSProperties & { $size?: string, $color?: string }
-export type CssClasses = {[name: string]: CSSPropertiesWithDefaults}
-export type ExtendedCssBuilder<T extends CssClasses> = CssBuilder & {[K in keyof T] : ExtendedCssBuilder<T>}
-
-
-export class CssBuilder {
-
-  // class names cache
-  static cache = {} as {[name: string]: string}
-
-  constructor(
-    public base: string = '',
-    public classes: CssClasses = {},
-    public props: CSSPropertiesWithDefaults = {}
-  ) {
-    this.make_props(classes)
-  }
-
-  static from<T extends CssClasses>(base: string, desc: T, props: CSSPropertiesWithDefaults = {}) {
-    var c = new CssBuilder(base, desc, props)
-    return c as ExtendedCssBuilder<T>
-  }
-
-  make_props(c: CssClasses) {
-    for (let x in c) {
-      Object.defineProperty(this, x, {
-        get: () => new CssBuilder(
-          this.base + '__' + x,
-          this.classes,
-          Object.assign({},
-            this.props,
-            c[x]
-          ))
-      })
-    }
-  }
-
-  and<U extends CssClasses, T extends CssClasses>(this: ExtendedCssBuilder<U>, desc: T): ExtendedCssBuilder<T & U>
-  and<T extends CssClasses>(desc: T): ExtendedCssBuilder<T>
-  and<T extends CssClasses>(desc: T): ExtendedCssBuilder<T>  {
-    var n = new CssBuilder(this.base, Object.assign({}, this.classes, desc), this.props)
-    return n as ExtendedCssBuilder<T>
-  }
-
-  toString() {
-    const name = this.base
-    const c = CssBuilder.cache
-    const prev = c[name]
-    if (prev) return prev
-    var {$size, $color, ...rest} = this.props
-    var repl = {
-      $size: $size || '1rem',
-      $color: $color || Styling.FG
-    } as {[name: string]: string}
-    for (var x in rest) {
-      const p = (rest as any)[x] as string
-      (rest as any)[x] = typeof p !== 'string' ? p :
-        p.replace(/\$size|\$color/g, m => repl[m])
-    }
-    var res = cls(name, rest)
-    c[name] = res
-    return res
-  }
 }
 
 
@@ -190,7 +123,7 @@ export namespace Styling {
 
   export const SIZES = {
     very_small: { $size: `${1 / RATIO / RATIO}rem` },
-    small: { $size: `${1 / RATIO}rem` },
+    small: { $size: `${1 / Math.pow(RATIO, 1 / 2)}rem` },
     normal: { $size: '1rem' },
     big: { $size: `${RATIO}rem` },
     very_big: { $size: `${RATIO * RATIO}rem` },
@@ -216,27 +149,29 @@ export namespace Styling {
     bg07: { $color: BG07 },
   }
 
-  export const paddings = CssBuilder.from('padding', {
+  export const padding = CssBuilder.from('padding', {
     top: { paddingTop: `$size` },
     bottom: { paddingBottom: '$size' },
     left: { paddingLeft: '$size' },
     right: { paddingRight: '$size' },
     vertical: { padding: '$size 0' },
     horizontal: { padding: '0 $size' },
-    all: { padding: '$size' }
-  }).and(SIZES)
+    all: { padding: '$size' },
+    none: { padding: 0 }
+  }).more(SIZES)
 
-  export const margins = CssBuilder.from('margins', {
+  export const margin = CssBuilder.from('margins', {
     top: { marginTop: `$size` },
     bottom: { marginBottom: '$size' },
     left: { marginLeft: '$size' },
     right: { marginRight: '$size' },
     vertical: { margin: '$size 0' },
     horizontal: { margin: '0 $size' },
-    all: { margin: '$size' }
-  }).and(SIZES)
+    all: { margin: '$size' },
+    none: { margin: 0 }
+  }).more(SIZES)
 
-  export const borders = CssBuilder.from('borders', {
+  export const border = CssBuilder.from('borders', {
     top: { borderTopStyle: `solid`, borderTopColor: '$color', borderTopWidth: '1px' },
     bottom: { borderBottomStyle: `solid`, borderBottomColor: '$color', borderBottomWidth: '1px' },
     left: { borderLeftStyle: `solid`, borderLeftColor: '$color', borderLeftWidth: '1px' },
@@ -246,11 +181,14 @@ export namespace Styling {
     all: { borderStyle: `solid`, borderColor: '$color', borderWidth: '1px' },
     width2px: { borderWidth: '2px' },
     width3px: { borderWidth: '3px' },
-    width4px: { borderWidth: '4px' }
-  }, { borderColor: '$color', $color: FG })
-  .and(COLORS)
+    width4px: { borderWidth: '4px' },
+    circle: { borderRadius: '50%' },
+  }, { borderColor: '$color' })
+  .more(COLORS)
 
-  export const background = CssBuilder.from('background', COLORS)
+  export const background = CssBuilder.from('background', {
+
+  }, { background: '$color' }).more(COLORS)
 
   export const text = CssBuilder.from('text', {
     bold: { fontWeight: 'bold' },
@@ -266,17 +204,71 @@ export namespace Styling {
     right: {textAlign: 'right'},
     justified: {textAlign: 'justify'},
     align_middle: {verticalAlign: 'middle'},
-  }, { fontSize: '$size', color: '$color', $color: FG, $size: '1rem' }).and(COLORS).and(SIZES)
+  }, { fontSize: '$size', color: '$color' }).more(COLORS).more(SIZES)
+
+  const _fag = (n: number) => { return { flexGrow: n, flexBasis: 0 } as CSSProperties }
+  const _flexjust = (val: CSSProperties['justifyContent']) => { return {justifyContent: val} as CSSProperties }
+  const _flexalign = (val: CSSProperties['alignItems']) => { return {alignItems: val} as CSSProperties }
 
   export const flex = CssBuilder.from('flex', {
-
+    row: { display: 'flex', flexDirection: 'row' },
+    column: { display: 'flex', flexDirection: 'column' },
+    absolute_grow1: _fag(1),
+    absolute_grow2: _fag(2),
+    absolute_grow3: _fag(3),
+    absolute_grow4: _fag(4),
+    absolute_grow5: _fag(5),
+    grow1: { flexGrow: 1 },
+    grow2: { flexGrow: 2 },
+    grow3: { flexGrow: 3 },
+    grow4: { flexGrow: 4 },
+    grow5: { flexGrow: 5 },
+    justify_center: _flexjust('center'),
+    justify_stretch: _flexjust('stretch'),
+    justify_start: _flexjust('flex-start'),
+    justify_end: _flexjust('flex-end'),
+    justify_left: _flexjust('left'),
+    justify_right: _flexjust('right'),
+    justify_space_between: _flexjust('space-between'),
+    justify_space_evenly: _flexjust('space-evenly'),
+    justify_space_around: _flexjust('space-around'),
+    align_center: _flexalign('center'),
+    align_stretch: _flexalign('stretch'),
+    align_start: _flexalign('flex-start'),
+    align_end: _flexalign('flex-end'),
+    align_baseline: _flexalign('baseline'),
+    align_first_baseline: _flexalign('first baseline'),
+    align_last_baseline: _flexalign('last baseline'),
+    gap: {
+      position: 'relative',
+      top: '-$size',
+      left: '-$size'
+    },
   })
 
+  /// Positions
   const P = (k: CSSProperties['position']) => { return { position: k } as CSSProperties }
   export const position = CssBuilder.from('position', {
     absolute: P('absolute'),
+    relative: P('relative'),
+    static: P('static'),
+    fixed: P('fixed'),
+    sticky: P(['-webkit-sticky', 'sticky'])
   })
 
+  const _curs = (s: string) => { return {cursor: s} as CSSProperties }
+  export const cursor = CssBuilder.from('mouse', {
+    pointer: _curs('pointer'),
+    help: _curs('help'),
+    move: _curs('move'),
+    grab: _curs('grab'),
+    grabbing: _curs('grabbing'),
+    progress: _curs('progress'),
+    row_resize: _curs('row-resize'),
+    text: _curs('text'),
+    zoom_in: _curs('zoom-in'),
+    zoom_out: _curs('zoom-out'),
+  })
 
   export const contrast_on_tint = cls('tint-reverse', {
     '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
@@ -286,101 +278,7 @@ export namespace Styling {
     background: BG
   })
 
-  const bg = (name: string, s: string) => cls(`background-${name}`, {backgroundColor: s})
-  export const background_tint = bg('tint', TINT)
-  export const background_tint75 = bg('tint75', TINT75)
-  export const background_tint50 = bg('tint50', TINT50)
-  export const background_tint14 = bg('tint14', TINT14)
-  export const background_tint07 = bg('tint07', TINT07)
-
-  export const background_fg = bg('fg', FG)
-  export const background_fg75 = bg('fg75', FG75)
-  export const background_fg50 = bg('fg50', FG50)
-  export const background_fg14 = bg('fg14', FG14)
-  export const background_fg07 = bg('fg07', FG07)
-
-  export const background_bg = bg('bg', BG)
-  export const background_bg75 = bg('bg75', BG75)
-  export const background_bg50 = bg('bg50', BG50)
-  export const background_bg14 = bg('bg14', BG14)
-  export const background_bg07 = bg('bg07', BG07)
-
-  const txt = (name: string, s: string) => cls(`color-${name}`, {color: s})
-  export const color_tint = txt('tint', TINT)
-  export const color_tint75 = txt('tint75', TINT75)
-  export const color_tint50 = txt('tint50', TINT50)
-  export const color_tint14 = txt('tint14', TINT14)
-  export const color_tint07 = txt('tint07', TINT07)
-
-  export const color_fg = txt('fg', FG)
-  export const color_fg75 = txt('fg75', FG75)
-  export const color_fg50 = txt('fg50', FG50)
-  export const color_fg14 = txt('fg14', FG14)
-  export const color_fg07 = txt('fg07', FG07)
-
-  export const color_bg = txt('bg', BG)
-  export const color_bg75 = txt('bg75', BG75)
-  export const color_bg50 = txt('bg50', BG50)
-  export const color_bg14 = txt('bg14', BG14)
-  export const color_bg07 = txt('bg07', BG07)
-
   export const TRANSPARENT = `rgba(0, 0, 0, 0)`
-
-  export const text_italic = cls('italic', {fontStyle: 'italic'})
-  export const text_oblique = cls('oblique', {fontStyle: 'oblique'})
-  export const text_uppercase = cls('uppercase', {textTransform: 'uppercase'})
-  export const text_lowercase = cls('lowercase', {textTransform: 'lowercase'})
-  export const text_capitalize = cls('capitalize', {textTransform: 'capitalize'})
-  export const text_superscript = cls('superscript', {verticalAlign: 'super'})
-  export const text_subscript = cls('subscript', {verticalAlign: 'sub'})
-
-  export const text_bold = cls('bold', {fontWeight: 'bold'})
-
-  export const text_normal = cls('normal', {
-    fontSize: '1rem',
-    fontWeight: 'normal',
-    textDecoration: 'none'
-  })
-
-  export const text_big = cls('big', {fontSize: '1.2rem'})
-  export const text_bigger = cls('bigger', {fontSize: '1.4rem'})
-  export const text_very_big = cls('very_big', {fontSize: '1.8rem'})
-  export const text_huge = cls('huge', {fontSize: '2.4rem'})
-  export const text_very_huge = cls('very-huge', {fontSize: '4rem'})
-
-  export const text_small = cls('small', {fontSize: '0.8rem'})
-  export const text_smaller = cls('smaller', {fontSize: '0.7rem'})
-  export const text_verysmall = cls('very-small', {fontSize: '0.6rem'})
-
-  export const text_centered = cls('text-center', {textAlign: 'center'})
-  export const text_right = cls('text-right', {textAlign: 'right'})
-  export const text_justified = cls('text-right', {textAlign: 'justify'})
-
-  export const vertical_align_middle = cls('middle', {verticalAlign: 'middle'})
-
-  function mkborder(col: string) {
-    return {
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderColor: col
-    } as CSSProperties
-  }
-
-  export const border_fg = cls('border-fg', mkborder(FG))
-  export const border_bg = cls('border-bg', mkborder(BG))
-  export const border_tint = cls('border-tint', mkborder(TINT))
-  export const border_fg75 = cls('border-fg75', mkborder(FG75))
-  export const border_bg75 = cls('border-bg75', mkborder(BG75))
-  export const border_tint75 = cls('border-tint75', mkborder(TINT75))
-  export const border_fg50 = cls('border-fg50', mkborder(FG50))
-  export const border_bg50 = cls('border-bg50', mkborder(BG50))
-  export const border_tint50 = cls('border-tint50', mkborder(TINT50))
-  export const border_fg14 = cls('border-fg14', mkborder(FG14))
-  export const border_bg14 = cls('border-bg14', mkborder(BG14))
-  export const border_tint14 = cls('border-tint14', mkborder(TINT14))
-  export const border_fg07 = cls('border-fg07', mkborder(FG07))
-  export const border_bg07 = cls('border-bg07', mkborder(BG07))
-  export const border_tint07 = cls('border-tint07', mkborder(TINT07))
 
   export const no_spurious_borders = cls('no-spurious-borders', {
     '-webkit-tap-highlight-color': TRANSPARENT,
@@ -420,43 +318,13 @@ export namespace Styling {
   export const padding_opaque3 = opaque_pad(3)
   export const padding_opaque4 = opaque_pad(4)
 
-  const pad = (n: number) => cls(`padding${n.toString().replace('.', '-')}`, {padding: `${n}rem`})
-  export const padding0 = cls('padding-0', {padding: '0'})
-  export const padding_2 = pad(1 / RATIO / 2)
-  export const padding_1 = pad(1 / RATIO)
-  export const padding = pad(1)
-  export const padding2 = pad(2)
-  export const padding3 = pad(3)
-  export const padding4 = pad(4)
-
-  const mar = (n: number) => cls(`margin${n.toString().replace('.', '_')}`, {margin: `${n}rem`})
-  export const margin0 = cls('margin0', {margin: '0'})
-  export const margin_1 = mar(1 / RATIO)
-  export const margin_2 = mar(1 / RATIO / 2)
-  export const margin = mar(1)
-  export const margin2 = mar(2)
-  export const margin3 = mar(3)
-  export const margin4 = mar(4)
-
   export const control = cls('control', {
     fontSize: '16px',
     display: 'inline-block',
     '-webkit-tap-highlight-color': Styling.TRANSPARENT,
     position: 'relative', // needed for inking.
     // background: BG
-  }, padding)
-
-  const curs = (s: string) => cls(`cursor-${s}`, {cursor: s})
-  export const cursor_pointer = curs('pointer')
-  export const cursor_help = curs('help')
-  export const cursor_move = curs('move')
-  export const cursor_grab = curs('grab')
-  export const cursor_grabbing = curs('grabbing')
-  export const cursor_progress = curs('progress')
-  export const cursor_row_resize = curs('row-resize')
-  export const cursor_text = curs('text')
-  export const cursor_zoom_in = curs('zoom-in')
-  export const cursor_zoom_out = curs('zoom-out')
+  }, padding.all)
 
   const hover = (name: string, color: string) => {
     const hov = cls(`hover-${name}`)
@@ -481,14 +349,6 @@ export namespace Styling {
   export const hover_fg07 = hover('fg07', FG07)
   export const hover_bg07 = hover('bg07', BG07)
 
-  const pos = (s: CSSProperties['position']) => cls(`position-${s}`, {position: s})
-  export const position_relative = pos('relative')
-  export const position_absolute = pos('absolute')
-  export const position_sticky = cls('sticky', {
-    position: ['-webkit-sticky', 'sticky']
-  })
-  export const position_fixed = pos('fixed')
-
   export const pointer_events_none = cls('no-pointer-events', {pointerEvents: 'none'})
 
   export const box_shadow = cls('raised', {boxShadow: `0 2px 2px rgba(var(--eltui-colors-fg), 0.54)`})
@@ -496,60 +356,6 @@ export namespace Styling {
   export const round_borders = cls('round-borders', {
     borderRadius: `calc(1rem / 4.5)`
   })
-
-
-  /// FLEX
-
-  export const flex_row = cls('flex-row', {
-    display: 'flex',
-    flexDirection: 'row'
-  })
-
-  export const flex_column = cls('flex-column', {
-    display: 'flex',
-    flexDirection: 'column'
-  })
-
-
-  const fag = (n: number) => cls(`flex-absolute-grow${n}`, {
-    flexBasis: 0,
-    flexGrow: n
-  })
-
-  const flexalign = (val: CSSProperties['alignItems']) => cls(`flex-align-${val}`, {alignItems: val})
-  export const align_items_center = flexalign('center')
-  export const align_items_stretch = flexalign('stretch')
-  export const align_items_start = flexalign('flex-start')
-  export const align_items_end = flexalign('flex-end')
-  export const align_items_baseline = flexalign('baseline')
-  export const align_items_first_baseline = flexalign('first baseline')
-  export const align_items_last_baseline = flexalign('last baseline')
-
-  const flexjust = (val: CSSProperties['justifyContent']) => cls(`flex-align-${val}`, {justifyContent: val})
-  export const justify_content_center = flexjust('center')
-  export const justify_content_stretch = flexjust('stretch')
-  export const justify_content_start = flexjust('flex-start')
-  export const justify_content_end = flexjust('flex-end')
-  export const justify_content_left = flexjust('left')
-  export const justify_content_right = flexjust('right')
-  export const justify_content_space_between = flexjust('space-between')
-  export const justify_content_space_evenly = flexjust('space-evenly')
-  export const justify_content_space_around = flexjust('space-around')
-
-  export const flex_absolute_grow = fag(1)
-  export const flex_absolute_grow2 = fag(2)
-  export const flex_absolute_grow3 = fag(3)
-  export const flex_absolute_grow4 = fag(4)
-  export const flex_absolute_grow5 = fag(5)
-
-  export const flex_wrap = cls('flex-wrap', {flexWrap: 'wrap'})
-  export const flex_wrap_reverse = cls('flex-wrap', {flexWrap: 'wrap-reverse'})
-
-  export const flex_grow1 = cls('flex-grow-1', {flexGrow: 1})
-  export const flex_grow2 = cls('flex-grow-2', {flexGrow: 2})
-  export const flex_grow3 = cls('flex-grow-3', {flexGrow: 3})
-  export const flex_grow4 = cls('flex-grow-4', {flexGrow: 4})
-  export const flex_grow5 = cls('flex-grow-5', {flexGrow: 5})
 
   const flexgap = (n: number) => {
     const c = cls(`flex-gap-${n}`, {
@@ -671,7 +477,7 @@ rule('::-webkit-scrollbar', {
 })
 
 rule('::-webkit-scrollbar-track', {
-  background: Styling.background_tint07
+  background: Styling.background.tint07
 })
 
 rule('::-webkit-scrollbar-thumb', {
