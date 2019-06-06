@@ -1,7 +1,6 @@
 
 import { Insertable, append_child_and_mount, remove_and_unmount } from 'elt'
 import { animate } from './animate'
-import { Flex } from './flex'
 
 import S from './styling'
 import { cls } from 'osun'
@@ -19,7 +18,7 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={[Toaster.cls_holder, Flex.row, Flex.justify_center]}/>
+		this._holder = <div class={[Toaster.cls_holder, S.flex.row.justify_center]}/>
 	}
 
 	kill(node: HTMLElement) {

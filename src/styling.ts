@@ -122,13 +122,15 @@ export namespace Styling {
   export const BG07 = Bg(0.07)
 
   export const SIZES = {
-    very_small: { $size: `${1 / RATIO / RATIO}rem` },
-    small: { $size: `${1 / Math.pow(RATIO, 1 / 2)}rem` },
+    very_tiny: { $size: `${1 / Math.pow(RATIO, 3 / 2)}rem` },
+    tiny: { $size: `${1 / Math.pow(RATIO, 1)}rem` },
+    very_small: { $size: `${1 / Math.pow(RATIO, 1 / 2)}rem` },
+    small: { $size: `${1 / Math.pow(RATIO, 1 / 3)}rem` },
     normal: { $size: '1rem' },
     big: { $size: `${RATIO}rem` },
-    very_big: { $size: `${RATIO * RATIO}rem` },
-    huge: { $size: `${RATIO * RATIO * RATIO}rem` },
-    very_huge: { $size: `${RATIO * RATIO * RATIO * RATIO}rem` }
+    very_big: { $size: `${Math.pow(RATIO, 3 / 2)}rem` },
+    huge: { $size: `${RATIO * RATIO}rem` },
+    very_huge: { $size: `${Math.pow(RATIO, 3)}rem` }
   }
 
   export const COLORS = {
@@ -154,10 +156,11 @@ export namespace Styling {
     bottom: { paddingBottom: '$size' },
     left: { paddingLeft: '$size' },
     right: { paddingRight: '$size' },
-    vertical: { padding: '$size 0' },
-    horizontal: { padding: '0 $size' },
+    vertical: { paddingTop: '$size', paddingBottom: '$size' },
+    horizontal: { paddingLeft: '$size', paddingRight: '$size' },
     all: { padding: '$size' },
-    none: { padding: 0 }
+    squashed: { padding: `calc($size / ${RATIO}) $size` },
+    none: { $size: '0' }
   }).more(SIZES)
 
   export const margin = CssBuilder.from('margins', {
@@ -168,7 +171,7 @@ export namespace Styling {
     vertical: { margin: '$size 0' },
     horizontal: { margin: '0 $size' },
     all: { margin: '$size' },
-    none: { margin: 0 }
+    none: { $size: '0' }
   }).more(SIZES)
 
   export const border = CssBuilder.from('borders', {
@@ -183,18 +186,19 @@ export namespace Styling {
     width3px: { borderWidth: '3px' },
     width4px: { borderWidth: '4px' },
     circle: { borderRadius: '50%' },
+    round: { borderRadius: `calc(1rem / 4.5)` },
+    shadow: { boxShadow: `0 2px 2px rgba(var(--eltui-colors-fg), 0.54)` }
   }, { borderColor: '$color' })
   .more(COLORS)
 
   export const background = CssBuilder.from('background', {
 
-  }, { background: '$color' }).more(COLORS)
+  }, { backgroundColor: '$color' }).more(COLORS)
 
   export const text = CssBuilder.from('text', {
     bold: { fontWeight: 'bold' },
-    italic: { fontVariant: 'italic' },
+    italic: { fontStyle: 'italic' },
     underline: { textDecoration: 'underline' },
-    oblique: {fontStyle: 'oblique'},
     uppercase: {textTransform: 'uppercase'},
     lowercase: {textTransform: 'lowercase'},
     capitalize: {textTransform: 'capitalize'},
@@ -213,6 +217,8 @@ export namespace Styling {
   export const flex = CssBuilder.from('flex', {
     row: { display: 'flex', flexDirection: 'row' },
     column: { display: 'flex', flexDirection: 'column' },
+    wrap: { flexWrap: 'wrap' },
+    wrap_reverse: { flexWrap: 'wrap-reverse' },
     absolute_grow1: _fag(1),
     absolute_grow2: _fag(2),
     absolute_grow3: _fag(3),
@@ -239,12 +245,37 @@ export namespace Styling {
     align_baseline: _flexalign('baseline'),
     align_first_baseline: _flexalign('first baseline'),
     align_last_baseline: _flexalign('last baseline'),
-    gap: {
-      position: 'relative',
-      top: '-$size',
-      left: '-$size'
+    gap(kls: string) {
+      if (this.path.indexOf('wrap') > -1 || this.path.indexOf('wrap_reverse') > -1) {
+        s(kls, this.getProps({
+          position: 'relative',
+          top: '-$size',
+          left: '-$size',
+          marginBottom: '-$size',
+          marginRight: '-$size'
+        }))
+        s`*`.childOf(kls, this.getProps({
+          marginTop: '$size',
+          marginLeft: '$size'
+        }))
+      } else if (this.path.indexOf('row') === -1) {
+        s`*`.childOf(kls, this.getProps({
+          marginTop: '$size'
+        }))
+        s`:first-child`.childOf(kls, {
+          marginTop: 0
+        })
+      } else {
+        s`*`.childOf(kls, this.getProps({
+          marginLeft: '$size'
+        }))
+        s`:first-child`.childOf(kls, {
+          marginLeft: 0
+        })
+      }
+      // this.path
     },
-  })
+  }).more(SIZES)
 
   /// Positions
   const P = (k: CSSProperties['position']) => { return { position: k } as CSSProperties }
@@ -372,30 +403,6 @@ export namespace Styling {
 
   export const flex_gap = flexgap(1)
   export const flex_gap2 = flexgap(2)
-
-  const _colgap = (cl: string, n: number) => {
-    const c = cls(`colgap-${cl}`)
-    s`*`.childOf(c, {marginLeft: `${n}rem`})
-    s`:first-child`.childOf(c, {marginLeft: 0})
-    return c
-  }
-
-  export const colgap_2 = _colgap(`_2`, 1 / RATIO / 2)
-  export const colgap_1 = _colgap(`_1`, 1 / RATIO)
-  export const colgap = _colgap('1', RATIO)
-  export const colgap2 = _colgap('1', RATIO)
-
-  const _rowgap = (cl: string, n: number) => {
-    const c = cls(`rowgap-${cl}`)
-    s`*`.childOf(c, {marginTop: `${n}rem`})
-    s`:first-child`.childOf(c, {marginTop: 0})
-    return c
-  }
-
-  export const rowgap_2 = _rowgap(`_2`, 1 / RATIO / 2)
-  export const rowgap_1 = _rowgap(`_1`, 1 / RATIO)
-  export const rowgap = _rowgap('1', RATIO)
-  export const rowgap2 = _rowgap('1', RATIO)
 
 }
 

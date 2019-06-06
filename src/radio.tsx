@@ -6,7 +6,6 @@ import {
   Component,
 } from 'elt'
 
-import {Flex} from './flex'
 import {Checkbox} from './checkbox'
 
 import FaCircle from 'elt-fa/circle-regular'
@@ -43,7 +42,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
     };
 
     return <label class={[S.control, Checkbox.cls_label]} $$={[inkable(), click(e => this.setValue())]}>
-        <div class={[Flex.row, Flex.align_center]}>
+        <div class={[S.flex.row.align_center]}>
           {this.o_checked.tf(v => v ?
             <FaDotCircle class={[Checkbox.cls_icon, classes]}/> :
             <FaCircle class={[Checkbox.cls_icon, classes]}/>

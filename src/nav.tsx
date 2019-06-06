@@ -9,8 +9,6 @@ import {
 
 import { inkClickDelay } from './ink'
 
-import { Flex } from './flex'
-
 import { animate } from './animate'
 import S from './styling'
 import { cls, s, combine } from 'osun'
@@ -42,7 +40,7 @@ export class Nav extends Component<Attrs, HTMLElement> {
 				if (e.target === overlay)
 					this.detach()
 			})]}/>
-			<div class={[Nav.drawer, Flex.column]}>
+			<div class={[Nav.drawer, S.flex.column]}>
 				{ch}
 			</div>
 		</div> as HTMLElement
@@ -170,7 +168,7 @@ export namespace NavItem {
 }
 
 export function NavBody(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={[Flex.column, Flex.absolute_grow]}>{ch}</div>
+	return <div class={[S.flex.column.absolute_grow1]}>{ch}</div>
 }
 
 

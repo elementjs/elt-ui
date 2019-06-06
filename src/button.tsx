@@ -9,7 +9,6 @@ import {
 
 import S from './styling'
 import { cls, s } from 'osun'
-import {Flex} from './flex'
 import {inker} from './ink'
 
 
@@ -114,7 +113,7 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
   }
 
   render(children: DocumentFragment): Element {
-    return <div class={[ButtonBar.cls_button_bar, Flex.row, Flex.justify_center]}>{children}</div>
+    return <div class={[ButtonBar.cls_button_bar, S.flex.row.justify_center]}>{children}</div>
   }
 }
 

@@ -11,7 +11,6 @@ import {
 
 import { inkable } from './ink'
 
-import { Flex } from './flex'
 import S from './styling'
 import { cls } from 'osun'
 
@@ -23,8 +22,8 @@ export class TabContainer extends Component {
 	o_titles = o([] as Node[])
 
 	render(children: DocumentFragment): Element {
-		return <div class={Flex.column}>
-			<div class={[TabContainer.bar, Flex.row, Flex.justify_center]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
+		return <div class={S.flex.column}>
+			<div class={[TabContainer.bar, S.flex.row.justify_center]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
 		</div>
 
@@ -97,8 +96,8 @@ export class Tab extends Component<TabAttributes> {
 		return <div
 			class={[
 				Tab.content,
-				this.o_is_active.tf(act => act ? Flex.column : S.display_none),
-				Flex.absolute_grow
+				this.o_is_active.tf(act => act ? S.flex.column : S.display_none),
+				S.flex.absolute_grow1
 			]}
 		>
 			{this.o_is_active.tf(a => a ? frag : null)}

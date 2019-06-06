@@ -14,9 +14,9 @@ import {
   bound
 } from 'elt';
 
-import { Flex } from './flex'
 import { animate } from './animate'
 import { Button, ButtonBar } from './button';
+import S from './styling'
 import { cls, s } from 'osun'
 
 
@@ -119,7 +119,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[dialog.overlay, Flex.column, Flex.align_center, Flex.justify_center]}>{children}</div>
+  return <div class={[dialog.overlay, S.flex.column.align_center.justify_center]}>{children}</div>
 }
 
 export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={dialog.title}>{children}</h3> }
@@ -128,7 +128,7 @@ export function Content(attrs: Attrs, children: DocumentFragment): Element { ret
 
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[dialog.root, Flex.column]}>{children}</div>
+  return <div class={[dialog.root, S.flex.column]}>{children}</div>
 }
 
 
