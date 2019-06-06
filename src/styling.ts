@@ -122,7 +122,7 @@ export namespace Styling {
   export const BG07 = Bg(0.07)
 
   export const SIZES = {
-    very_tiny: { $size: `${1 / Math.pow(RATIO, 3 / 2)}rem` },
+    very_tiny: { $size: `${1 / Math.pow(RATIO, 2)}rem` },
     tiny: { $size: `${1 / Math.pow(RATIO, 1)}rem` },
     very_small: { $size: `${1 / Math.pow(RATIO, 1 / 2)}rem` },
     small: { $size: `${1 / Math.pow(RATIO, 1 / 3)}rem` },
@@ -208,6 +208,10 @@ export namespace Styling {
     right: {textAlign: 'right'},
     justified: {textAlign: 'justify'},
     align_middle: {verticalAlign: 'middle'},
+    pre_line: { whiteSpace: 'pre-line' },
+    pre: { whiteSpace: 'pre' },
+    pre_wrap: { whiteSpace: 'pre-wrap' },
+    nowrap: { whiteSpace: 'nowrap' },
   }, { fontSize: '$size', color: '$color' }).more(COLORS).more(SIZES)
 
   const _fag = (n: number) => { return { flexGrow: n, flexBasis: 0 } as CSSProperties }

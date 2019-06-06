@@ -122,9 +122,9 @@ export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
   return <div class={[dialog.overlay, S.flex.column.align_center.justify_center]}>{children}</div>
 }
 
-export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={dialog.title}>{children}</h3> }
+export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={S.text.tint.uppercase.bold}>{children}</h3> }
 
-export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={dialog.content}>{children}</div> }
+export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={S.text.pre_line}>{children}</div> }
 
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
@@ -170,7 +170,7 @@ export interface ModalOptions extends DialogOptions {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) => <Root>
+  return dialog<boolean>(opts, (dlg) => <Root class={[S.padding.all.normal, S.padding.bottom.none, S.flex.column.gap.normal]}>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
