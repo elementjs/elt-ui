@@ -198,8 +198,8 @@ export namespace dialog {
   export const leave = cls('leave')
 
   export const root = cls('root', {
-    '-webkit-transform-style': 'preserve-3d',
-    '-webkit-backface-visibility': 'hidden',
+    WebkitTransformStyle: 'preserve-3d',
+    WebkitBackfaceVisibility: 'hidden',
     transform: `translateZ(0)`,
     transformOrigin: `50% 0`,
     margin: `24px 24px`,

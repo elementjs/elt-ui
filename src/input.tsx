@@ -159,7 +159,7 @@ export namespace Input {
   )
 
   s(element).append(`[type="time"]`, {
-    '-webkit-appearance': 'none',
+    WebkitAppearance: 'none',
     minWidth: '15px',
     minHeight: '48px'
   })

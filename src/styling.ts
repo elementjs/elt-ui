@@ -1,7 +1,6 @@
 
 import {cls, s, CSSProperties, raw, rule, CssBuilder} from 'osun'
 
-
 // background
 // text
 // color
@@ -12,9 +11,9 @@ import {cls, s, CSSProperties, raw, rule, CssBuilder} from 'osun'
 // text_on_color
 // export const RATIO = 16 / 9
 
-declare module 'osun/lib/types' {
+declare module 'csstype' {
 
-  interface CSSProperties {
+  interface PropertiesFallback {
 
     '--eltui-ratio'?: string
 
@@ -221,6 +220,7 @@ export namespace Styling {
   export const flex = CssBuilder.from('flex', {
     row: { display: 'flex', flexDirection: 'row' },
     column: { display: 'flex', flexDirection: 'column' },
+    inline: { display: 'inline-flex' },
     wrap: { flexWrap: 'wrap' },
     wrap_reverse: { flexWrap: 'wrap-reverse' },
     absolute_grow1: _fag(1),
@@ -305,6 +305,11 @@ export namespace Styling {
     zoom_out: _curs('zoom-out'),
   })
 
+  export const display = CssBuilder.from('display', {
+    block: { display: 'block' },
+    inline: { display: 'inline-block' }
+  })
+
   export const contrast_on_tint = cls('tint-reverse', {
     '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
     '--eltui-colors-current-fg': 'var(--eltui-colors-contrast)',
@@ -316,13 +321,13 @@ export namespace Styling {
   export const TRANSPARENT = `rgba(0, 0, 0, 0)`
 
   export const no_spurious_borders = cls('no-spurious-borders', {
-    '-webkit-tap-highlight-color': TRANSPARENT,
+    WebkitTapHighlightColor: TRANSPARENT,
     'outline': 0
   })
 
   export const no_native_appearance = cls('no-native-appearance', {
-    '-webkit-appearance': 'none',
-    '-moz-appearance': 'none',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
     appearance: 'none'
   })
 
@@ -356,7 +361,7 @@ export namespace Styling {
   export const control = cls('control', {
     fontSize: '16px',
     display: 'inline-block',
-    '-webkit-tap-highlight-color': Styling.TRANSPARENT,
+    WebkitTapHighlightColor: Styling.TRANSPARENT,
     position: 'relative', // needed for inking.
     // background: BG
   }, padding.all)
@@ -488,7 +493,7 @@ rule('::-webkit-scrollbar', {
 })
 
 rule('::-webkit-scrollbar-track', {
-  background: Styling.background.tint07
+  background: Styling.TINT07
 })
 
 rule('::-webkit-scrollbar-thumb', {
