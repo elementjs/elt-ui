@@ -128,7 +128,7 @@ export function Content(attrs: Attrs, children: DocumentFragment): Element { ret
 
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[dialog.root, S.flex.column]}>{children}</div>
+  return <div class={[dialog.root, S.flex.column, S.border.round.shadow]}>{children}</div>
 }
 
 
@@ -215,7 +215,7 @@ export namespace dialog {
     width: '100vw',
 
     transform: 'translateZ(0)',
-    backgroundColor: `rgba(0, 0, 0, 0.75)`,
+    backgroundColor: `rgba(0, 0, 0, 0.54)`,
   })
 
   s(overlay).and(enter, {

@@ -185,7 +185,7 @@ export namespace Styling {
     width3px: { borderWidth: '3px' },
     width4px: { borderWidth: '4px' },
     circle: { borderRadius: '50%' },
-    round: { borderRadius: `calc(1rem / 4.5)` },
+    round: { borderRadius: `4px` },
     shadow: { boxShadow: `0 2px 2px rgba(var(--eltui-colors-fg), 0.54)` }
   }, { borderColor: '$color' })
   .more(COLORS)
@@ -288,7 +288,11 @@ export namespace Styling {
     relative: P('relative'),
     static: P('static'),
     fixed: P('fixed'),
-    sticky: P(['-webkit-sticky', 'sticky'])
+    sticky: P(['-webkit-sticky', 'sticky']),
+    top: { top: 0 },
+    bottom: { bottom: 0 },
+    left: { left: 0 },
+    right: { right: 0 }
   })
 
   const _curs = (s: string) => { return {cursor: s} as CSSProperties }
@@ -303,6 +307,8 @@ export namespace Styling {
     text: _curs('text'),
     zoom_in: _curs('zoom-in'),
     zoom_out: _curs('zoom-out'),
+    events_none: { pointerEvents: 'none' },
+    events_auto: { pointerEvents: 'auto' },
   })
 
   export const display = CssBuilder.from('display', {
