@@ -17,5 +17,5 @@ export function Toolbar(_: Attrs, children: DocumentFragment): Element {
 
 Toolbar.cls_toolbar = cls('toolbar')
 s`h3`.childOf(Toolbar.cls_toolbar, {
-  fontSize: S.SIZES.big.$size
+  fontSize: (S.SIZES.big as any).$size
 })

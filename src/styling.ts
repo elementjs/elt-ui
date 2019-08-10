@@ -1,5 +1,5 @@
 
-import {cls, s, CSSProperties, raw, rule, CssBuilder} from 'osun'
+import {cls, s, CSSProperties, raw, rule, CssBuilder, CSSPropertiesWithDefaults} from 'osun'
 
 // background
 // text
@@ -120,17 +120,30 @@ export namespace Styling {
   export const BG14 = Bg(0.14)
   export const BG07 = Bg(0.07)
 
-  export const SIZES = {
-    very_tiny: { $size: `${1 / Math.pow(RATIO, 2)}rem` },
-    tiny: { $size: `${1 / Math.pow(RATIO, 1)}rem` },
-    very_small: { $size: `${1 / Math.pow(RATIO, 1 / 2)}rem` },
-    small: { $size: `${1 / Math.pow(RATIO, 1 / 3)}rem` },
-    normal: { $size: '1rem' },
-    big: { $size: `${RATIO}rem` },
-    very_big: { $size: `${Math.pow(RATIO, 3 / 2)}rem` },
-    huge: { $size: `${RATIO * RATIO}rem` },
-    very_huge: { $size: `${Math.pow(RATIO, 3)}rem` }
+  function _mksizes<T extends {[name: string]: number | string}>(sizes: T): {[K in keyof T]: CSSPropertiesWithDefaults} {
+    var res = {} as {[K in keyof T]: CSSPropertiesWithDefaults}
+    for (var x in sizes) {
+      res[x] = { $size: sizes[x] } as any
+    }
+    return res
   }
+
+  export const SIZES = _mksizes({
+    very_tiny: `0.4rem`,
+    tiny: `0.6rem`,
+    very_small: `0.8rem`,
+    small: `0.9rem`,
+    normal: `1rem`,
+    big: `1.2rem`,
+    very_big: `1.5rem`,
+    huge: `2rem`,
+    very_huge: `3rem`,
+    px6: `6px`,
+    px4: `4px`,
+    px3: `3px`,
+    px2: `2px`,
+    px1: `1px`,
+  })
 
   export const COLORS = {
     tint: { $color: TINT },
@@ -185,7 +198,7 @@ export namespace Styling {
     width3px: { borderWidth: '3px' },
     width4px: { borderWidth: '4px' },
     circle: { borderRadius: '50%' },
-    round: { borderRadius: `4px` },
+    round: { borderRadius: `2px` },
     shadow: { boxShadow: `0 2px 2px rgba(var(--eltui-colors-fg), 0.54)` }
   }, { borderColor: '$color' })
   .more(COLORS)
