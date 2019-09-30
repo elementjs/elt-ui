@@ -93,28 +93,38 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 }
 
 import S from './styling'
-import { cls, s } from 'osun'
+import { cls, rule } from 'osun'
 
 export namespace Select {
 
 	export const cls_select = cls('select',
-		S.no_spurious_borders,
-		S.no_native_appearance,
-		{
-			padding: '0 16px 0 8px',
-			height: '32px',
-			margin: 0,
-			border: `1px solid ${S.FG07}`,
-			borderColor: S.FG07,
-			borderRadius: '2px',
-			background: S.BG,
-			color: S.FG75,
-			display: 'inline-block',
-			cursor: 'pointer'
-		},
+		S.box
+			.noSpuriousBorders.noNativeAppearance
+			.padding('0 16px 0 8px')
+			.marginNone
+			.height(32)
+			.borderAll(S.FG07)
+			.background(S.BG)
+			.borderRound
+			.cursorPointer
+			.inlineBlock
+		,
+			S.text.color(S.FG75)
+		// {
+		// 	padding: '0 16px 0 8px',
+		// 	height: '32px',
+		// 	margin: 0,
+		// 	border: `1px solid ${S.FG07}`,
+		// 	borderColor: S.FG07,
+		// 	borderRadius: '2px',
+		// 	background: S.BG,
+		// 	color: S.FG75,
+		// 	display: 'inline-block',
+		// 	cursor: 'pointer'
+		// },
 	)
 
-	s(cls_select).append(`:-moz-focusring`).define({
+	rule`${cls_select}:-moz-focusring`({
 		color: S.TRANSPARENT,
 		textShadow: `0 0 0 ${S.FG75}`
 	})

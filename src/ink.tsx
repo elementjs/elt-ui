@@ -3,7 +3,7 @@ import {click, Mixin, append_child_and_mount, remove_and_unmount} from 'elt'
 
 import { animate } from './animate'
 import S from './styling'
-import { keyframes, cls, s } from 'osun'
+import { keyframes, cls, rule } from 'osun'
 
 export const ANIM_DURATION = 300
 
@@ -144,12 +144,11 @@ export namespace inker {
 				pointerEvents: 'none',
 			}
 		)
-
-		s(cls_container).and(cls_ink_animate, {
+		.and(cls_ink_animate, {
 			animation: `${kf_ripple_opacity} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
-		s(cls_ink).childOf(s(cls_container).and(cls_ink_animate), {
+		rule`${cls_container}${cls_ink_animate} ${cls_ink}`({
 			animation: `${kf_ripple_size} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 

@@ -8,7 +8,7 @@ import {
 
 import { Button } from './button'
 import S from './styling'
-import { cls, s, combine } from 'osun'
+import { cls, rule } from 'osun'
 import FaClose from 'elt-fa/window-close'
 
 var id_gen = 0;
@@ -27,28 +27,21 @@ export function Search({model, placeholder}: SearchAttributes) {
 
 export namespace Search {
 
-  export const element = cls('search', {
-      borderRadius: '3px',
-      border: '1px solid',
-      position: 'relative',
-      borderColor: S.FG14,
-      color: S.FG,
-      backgroundColor: S.FG07,
-      fontSize: '0.8em',
-      padding: '8px 16px'
-    },
-    S.no_spurious_borders,
-    S.no_native_appearance,
+  export const element = cls('search',
+    S.box
+      .positionRelative
+      .noSpuriousBorders
+      .noNativeAppearance
+      .background(S.FG07)
+      .borderAll(S.FG14).borderRound
+      .padding('8px 16px'),
+    S.text.size('0.8em').color(S.FG)
+  ).placeholder(
+    S.text.color(S.FG14)
   )
 
-  s(element).append(`::placeholder`, {
-    color: S.FG14
-  })
+  export const button = cls('search-btn', S.box.positionAbsolute.right(0))
 
-  export const button = cls('search-btn', {
-    position: 'absolute',
-    right: 0
-  })
 }
 
 export interface InputAttributes extends Attrs {
@@ -108,9 +101,9 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
     })
 
   return <div class={[Input.container, {
-    [Input.focused]: o_focused,
-    [Input.empty_unfocused]: o_unfocus_and_empty,
-    [Input.error]: attrs.error
+    [Input.focused.toString()]: o_focused,
+    [Input.empty_unfocused.toString()]: o_unfocus_and_empty,
+    [Input.error.toString()]: attrs.error
   }]}>
       {input}
       {label ?
@@ -141,7 +134,7 @@ export namespace Input {
   })
 
   export const element = cls('input-elt',
-    S.no_spurious_borders,
+    S.box.noSpuriousBorders,
     {
       position: 'relative',
       borderRadius: 0,
@@ -158,13 +151,13 @@ export namespace Input {
     }
   )
 
-  s(element).append(`[type="time"]`, {
+  rule`${element}[type="time"]`({
     WebkitAppearance: 'none',
     minWidth: '15px',
     minHeight: '48px'
   })
 
-  s(element).append(`:focus`, {
+  rule`${element}:focus`({
     paddingBottom: '3px', borderBottom: `2px solid ${S.TINT}`
   })
 
@@ -180,13 +173,12 @@ export namespace Input {
     height: '64px',
   })
 
-  // Styling labels that are children of different container combinations
-  // The label is always the one being styled here
-  combine(_ => s(label).childOf(_.and(container)), () => {
-    s(focused, { color: S.TINT })
-    s(empty_unfocused, {
-      fontSize: `14px`,
-      transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
-    })
+  rule`${container}${focused} > ${label}`({
+    color: S.TINT
+  })
+
+  rule`${container}${empty_unfocused} > ${label}`({
+    fontSize: `14px`,
+    transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
   })
 }

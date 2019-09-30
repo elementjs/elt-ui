@@ -42,7 +42,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
     };
 
     return <label class={[S.control, Checkbox.cls_label]} $$={[inkable(), click(e => this.setValue())]}>
-        <div class={[S.flex.row.align_center]}>
+        <div class={[S.flex.row.alignCenter]}>
           {this.o_checked.tf(v => v ?
             <FaDotCircle class={[Checkbox.cls_icon, classes]}/> :
             <FaCircle class={[Checkbox.cls_icon, classes]}/>

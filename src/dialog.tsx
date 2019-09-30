@@ -17,7 +17,7 @@ import {
 import { animate } from './animate'
 import { Button, ButtonBar } from './button';
 import S from './styling'
-import { cls, s } from 'osun'
+import { cls, rule } from 'osun'
 
 
 export type DialogBuilder<T> = (dlc: Dialog<T>) => Node
@@ -119,16 +119,16 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 }
 
 export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[dialog.overlay, S.flex.column.align_center.justify_center]}>{children}</div>
+  return <div class={[dialog.overlay, S.flex.column.alignCenter.justifyCenter]}>{children}</div>
 }
 
-export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={S.text.tint.uppercase.bold}>{children}</h3> }
+export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={S.text.uppercase.bold.color(S.TINT)}>{children}</h3> }
 
-export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={S.text.pre_line}>{children}</div> }
+export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={S.text.preLine}>{children}</div> }
 
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[dialog.root, S.flex.column, S.border.round.shadow]}>{children}</div>
+  return <div class={[dialog.root, S.flex.column, S.box.borderAll(S.TINT07).borderRound.boxShadow]}>{children}</div>
 }
 
 
@@ -170,7 +170,7 @@ export interface ModalOptions extends DialogOptions {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) => <Root class={[S.padding.all.normal, S.padding.bottom.none, S.flex.column.gap.normal]}>
+  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZES.normal).paddingBottom('none'), S.flex.column.gap(S.SIZES.normal)]}>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
@@ -217,37 +217,28 @@ export namespace dialog {
     transform: 'translateZ(0)',
     backgroundColor: `rgba(0, 0, 0, 0.54)`,
   })
-
-  s(overlay).and(enter, {
+  .and(enter, {
     animation: `${animate.fade_in} 0.2s both ease-in`
   })
-
-  s(root).childOf(s(overlay).and(enter), {
-    animation: `${animate.top_enter} 0.2s both ease-in`
-  })
-
-  s(overlay).and(leave, {
+  .and(leave, {
     animation: `${animate.FADE_OUT} 0.2s both ease-in`
   })
 
-  s(root).childOf(s(overlay).and(leave), {
-    animation: `${animate.top_leave} 0.2s both ease-in`
+  rule`${overlay}${enter} > ${root}`({
+    animation: `${animate.top_enter} 0.2s both ease-in`
   })
 
+  rule`${overlay}${leave}`({
+    animation: `${animate.top_leave} 0.2s both ease-in`
+  })
 
   export const content = cls('content', {
     padding: '0 24px',
     paddingBottom: '24px',
     color: 'var(--eltui-text-color)',
   })
-
-  s(content).append(':first-child', {
-    paddingTop: '24px'
-  })
-
-  s`*:last-child`.childOf(content, {
-    marginBottom: 0
-  })
+  .firstChild({ paddingTop: '24px' })
+  .lastChild({ marginBottom: 0 })
 
   export const title = cls('title', {
     margin: '16px 24px',

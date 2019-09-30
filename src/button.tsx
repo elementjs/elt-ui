@@ -8,7 +8,7 @@ import {
 } from 'elt'
 
 import S from './styling'
-import { cls, s } from 'osun'
+import { cls, rule } from 'osun'
 import {inker} from './ink'
 
 
@@ -37,7 +37,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
     class={[
       Button.cls_button,
       S.control,
-      S.padding.squashed.normal,
+      S.box.padding(S.SIZES.normal),
       {
         [S.contrast_on_tint]: attrs.contrast,
         [Button.cls_disabled]: attrs.disabled,
@@ -62,19 +62,20 @@ Button.cls_bordered = cls('button-bordered', {
 export namespace Button {
 
   export const cls_button = cls('button',
-    S.no_spurious_borders,
-    {
-      // This style applies to a button, that we want to completely reset.
-      position: 'relative',
-      display: 'inline-block',
-      cursor: 'pointer',
-      textAlign: 'center',
-      minWidth: '64px',
-      background: 'none',
-      color: S.TINT,
-      textTransform: 'uppercase',
-      fontWeight: 'bold'
-    },
+    S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer.background('none'),
+    S.text.centered.uppercase.bold.color(S.TINT),
+    // {
+    //   // This style applies to a button, that we want to completely reset.
+    //   position: 'relative',
+    //   display: 'inline-block',
+    //   cursor: 'pointer',
+    //   textAlign: 'center',
+    //   minWidth: '64px',
+    //   background: 'none',
+    //   color: S.TINT,
+    //   textTransform: 'uppercase',
+    //   fontWeight: 'bold'
+    // },
   )
 
   export const cls_icon_button = cls('icon-button', {
@@ -83,9 +84,12 @@ export namespace Button {
     color: S.TINT
   })
 
-  s(cls_button).append(`::-moz-focus-inner`, {border: 0})
-  s(cls_button).children(() => {
-    s(`*`, {pointerEvents: 'none'})
+  rule`${cls_button}::-moz-focus-inner`({
+    border: 0
+  })
+
+  rule`${cls_button} > *`({
+    pointerEvents: 'none'
   })
 
   export const cls_disabled = cls('disabled', {
@@ -114,7 +118,7 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
   }
 
   render(children: DocumentFragment): Element {
-    return <div class={[ButtonBar.cls_button_bar, S.flex.row.justify_center]}>{children}</div>
+    return <div class={[ButtonBar.cls_button_bar, S.flex.row.justifyCenter]}>{children}</div>
   }
 }
 

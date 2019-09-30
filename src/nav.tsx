@@ -11,7 +11,7 @@ import { inkClickDelay } from './ink'
 
 import { animate } from './animate'
 import S from './styling'
-import { cls, s, combine } from 'osun'
+import { cls } from 'osun'
 
 
 export interface NavAttributes extends Attrs {
@@ -73,22 +73,19 @@ export namespace Nav {
 	})
 
 	export const enter = cls('enter')
-
-	combine(s => s.childOf(enter), () => {
-		s(overlay, {
-			animation: `${animate.fade_in} 0.2s ease-in forwards`,
-		})
-
-		s(drawer, {
-			animation: `${animate.slide_from_left} 0.2s ease-in forwards`
-		})
+	.children(overlay, {
+		animation: `${animate.fade_in} 0.2s ease-in forwards`,
+	})
+	.children(drawer, {
+		animation: `${animate.slide_from_left} 0.2s ease-in forwards`
 	})
 
 	export const leave = cls('leave')
-
-	s(leave).children(() => {
-		s(overlay, { animation: `${animate.FADE_OUT} 0.2s ease-out forwards` })
-		s(drawer, { animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards` })
+	.children(overlay, {
+		animation: `${animate.FADE_OUT} 0.2s ease-out forwards`
+	})
+	.children(drawer, {
+		animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards`
 	})
 
 }
@@ -134,7 +131,7 @@ export interface NavItemAttributes extends Attrs {
 }
 
 export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
-	let res = <div class={[NavItem.item, S.flex.row.align_center]} $$={[inkClickDelay(function (e) {
+	let res = <div class={[NavItem.item, S.flex.row.alignCenter]} $$={[inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
 			// XXX should we log an error here if c was null ?
@@ -168,7 +165,7 @@ export namespace NavItem {
 }
 
 export function NavBody(a: Attrs, ch: DocumentFragment): Element {
-	return <div class={[S.flex.column.absolute_grow1]}>{ch}</div>
+	return <div class={[S.flex.column.absoluteGrow(1)]}>{ch}</div>
 }
 
 

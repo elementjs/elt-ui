@@ -11,7 +11,7 @@ import FaSquareRegular from 'elt-fa/square-regular'
 import FaMinusSquare from 'elt-fa/minus-square'
 import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {inkable} from './ink'
-import { cls, s } from 'osun'
+import { cls } from 'osun'
 import S from './styling'
 
 
@@ -45,7 +45,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
     }
 
     return <label class={[Checkbox.cls_label, S.control]} $$={[inkable(), click(e => this.toggle())]}>
-      <div class={[S.flex.row.align_center]}>
+      <div class={[S.flex.row.alignCenter]}>
         {this.o_model.tf(getIcon)}
         <span class={[Checkbox.cls_content, classes]}>{children}</span>
       </div>
@@ -68,9 +68,8 @@ export namespace Checkbox {
   })
 
   export const cls_content = cls('content', { verticalAlign: 'middle' })
-
-  s(cls_content).and(cls_off, {fill: `rgba(0, 0, 0, 0.74)`})
-  s(cls_content).and(cls_disabled, {fill: `rgba(0, 0, 0, 0.26)`})
+    .and(cls_off, {fill: `rgba(0, 0, 0, 0.74)`})
+    .and(cls_disabled, {fill: `rgba(0, 0, 0, 0.26)`})
 
   export const cls_icon = cls('icon',
     {
@@ -78,9 +77,7 @@ export namespace Checkbox {
       transition: 'color linear 0.3s',
     },
   )
-
-  s(cls_icon).and(cls_off, {fill: `rgba(0, 0, 0, 0.74)`}),
-  s(cls_icon).and(cls_disabled, {fill: `rgba(0, 0, 0, 0.26)`}),
-  // s(cls_icon).and(cls_on, {fill: S.PRIMARY}),
-  s(cls_icon).append('::before', {fontSize: '18px'})
+  .and(cls_off, {fill: `rgba(0, 0, 0, 0.74)`})
+  .and(cls_disabled, {fill: `rgba(0, 0, 0, 0.26)`})
+  .and('::before', {fontSize: '18px'})
 }

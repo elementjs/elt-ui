@@ -18,7 +18,7 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={[Toaster.cls_holder, S.flex.row.justify_center]}/>
+		this._holder = <div class={[Toaster.cls_holder, S.flex.row.justifyCenter]}/>
 	}
 
 	kill(node: HTMLElement) {

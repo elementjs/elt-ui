@@ -1,15 +1,5 @@
 
-import {cls, s, CSSProperties, raw, rule, CssBuilder, CSSPropertiesWithDefaults} from 'osun'
-
-// background
-// text
-// color
-// text on color -- for reverse ?
-// current-bg (color or background)
-// current-fg (color or text-on-color or text)
-
-// text_on_color
-// export const RATIO = 16 / 9
+import {cls, CSSProperties, raw, rule, helpers } from 'osun'
 
 declare module 'csstype' {
 
@@ -39,6 +29,11 @@ export interface ColorTheme {
 
 
 export namespace Styling {
+
+  export const box = helpers.box
+  export const flex = helpers.flex
+  export const text = helpers.text
+  export const grid = helpers.grid
 
   export const RATIO = 1.618033
 
@@ -120,15 +115,7 @@ export namespace Styling {
   export const BG14 = Bg(0.14)
   export const BG07 = Bg(0.07)
 
-  function _mksizes<T extends {[name: string]: number | string}>(sizes: T): {[K in keyof T]: CSSPropertiesWithDefaults} {
-    var res = {} as {[K in keyof T]: CSSPropertiesWithDefaults}
-    for (var x in sizes) {
-      res[x] = { $size: sizes[x] } as any
-    }
-    return res
-  }
-
-  export const SIZES = _mksizes({
+  export const SIZES = {
     very_tiny: `0.4rem`,
     tiny: `0.6rem`,
     very_small: `0.8rem`,
@@ -143,7 +130,7 @@ export namespace Styling {
     px3: `3px`,
     px2: `2px`,
     px1: `1px`,
-  })
+  }
 
   export const COLORS = {
     tint: { $color: TINT },
@@ -163,172 +150,6 @@ export namespace Styling {
     bg07: { $color: BG07 },
   }
 
-  export const padding = CssBuilder.from('padding', {
-    top: { paddingTop: `$size` },
-    bottom: { paddingBottom: '$size' },
-    left: { paddingLeft: '$size' },
-    right: { paddingRight: '$size' },
-    vertical: { paddingTop: '$size', paddingBottom: '$size' },
-    horizontal: { paddingLeft: '$size', paddingRight: '$size' },
-    all: { padding: '$size' },
-    squashed: { padding: `calc($size / ${RATIO}) $size` },
-    none: { $size: '0' }
-  }).more(SIZES)
-
-  export const margin = CssBuilder.from('margins', {
-    top: { marginTop: `$size` },
-    bottom: { marginBottom: '$size' },
-    left: { marginLeft: '$size' },
-    right: { marginRight: '$size' },
-    vertical: { margin: '$size 0' },
-    horizontal: { margin: '0 $size' },
-    all: { margin: '$size' },
-    none: { $size: '0' }
-  }).more(SIZES)
-
-  export const border = CssBuilder.from('borders', {
-    top: { borderTopStyle: `solid`, borderTopColor: '$color', borderTopWidth: '1px' },
-    bottom: { borderBottomStyle: `solid`, borderBottomColor: '$color', borderBottomWidth: '1px' },
-    left: { borderLeftStyle: `solid`, borderLeftColor: '$color', borderLeftWidth: '1px' },
-    right: { borderRightStyle: `solid`, borderRightColor: '$color', borderRightWidth: '1px' },
-    vertical: { borderTopStyle: `solid`, borderTopColor: '$color', borderTopWidth: '1px', borderBottomStyle: `solid`, borderBottomColor: '$color', borderBottomWidth: '1px' },
-    horizontal: { borderLeftStyle: `solid`, borderLeftColor: '$color', borderLeftWidth: '1px', borderRightStyle: `solid`, borderRightColor: '$color', borderRightWidth: '1px' },
-    all: { borderStyle: `solid`, borderColor: '$color', borderWidth: '1px' },
-    width2px: { borderWidth: '2px' },
-    width3px: { borderWidth: '3px' },
-    width4px: { borderWidth: '4px' },
-    circle: { borderRadius: '50%' },
-    round: { borderRadius: `2px` },
-    shadow: { boxShadow: `0 2px 2px rgba(var(--eltui-colors-fg), 0.54)` }
-  }, { borderColor: '$color' })
-  .more(COLORS)
-
-  export const background = CssBuilder.from('background', {
-
-  }, { backgroundColor: '$color' }).more(COLORS)
-
-  export const text = CssBuilder.from('text', {
-    bold: { fontWeight: 'bold' },
-    italic: { fontStyle: 'italic' },
-    underline: { textDecoration: 'underline' },
-    uppercase: {textTransform: 'uppercase'},
-    lowercase: {textTransform: 'lowercase'},
-    capitalize: {textTransform: 'capitalize'},
-    superscript: {verticalAlign: 'super'},
-    subscript: {verticalAlign: 'sub'},
-    centered: {textAlign: 'center'},
-    right: {textAlign: 'right'},
-    justified: {textAlign: 'justify'},
-    align_middle: {verticalAlign: 'middle'},
-    pre_line: { whiteSpace: 'pre-line' },
-    pre: { whiteSpace: 'pre' },
-    pre_wrap: { whiteSpace: 'pre-wrap' },
-    nowrap: { whiteSpace: 'nowrap' },
-  }, { fontSize: '$size', color: '$color' }).more(COLORS).more(SIZES)
-
-  const _fag = (n: number) => { return { flexGrow: n, flexBasis: 0 } as CSSProperties }
-  const _flexjust = (val: CSSProperties['justifyContent']) => { return {justifyContent: val} as CSSProperties }
-  const _flexalign = (val: CSSProperties['alignItems']) => { return {alignItems: val} as CSSProperties }
-
-  export const flex = CssBuilder.from('flex', {
-    row: { display: 'flex', flexDirection: 'row' },
-    column: { display: 'flex', flexDirection: 'column' },
-    inline: { display: 'inline-flex' },
-    wrap: { flexWrap: 'wrap' },
-    wrap_reverse: { flexWrap: 'wrap-reverse' },
-    absolute_grow1: _fag(1),
-    absolute_grow2: _fag(2),
-    absolute_grow3: _fag(3),
-    absolute_grow4: _fag(4),
-    absolute_grow5: _fag(5),
-    grow1: { flexGrow: 1 },
-    grow2: { flexGrow: 2 },
-    grow3: { flexGrow: 3 },
-    grow4: { flexGrow: 4 },
-    grow5: { flexGrow: 5 },
-    justify_center: _flexjust('center'),
-    justify_stretch: _flexjust('stretch'),
-    justify_start: _flexjust('flex-start'),
-    justify_end: _flexjust('flex-end'),
-    justify_left: _flexjust('left'),
-    justify_right: _flexjust('right'),
-    justify_space_between: _flexjust('space-between'),
-    justify_space_evenly: _flexjust('space-evenly'),
-    justify_space_around: _flexjust('space-around'),
-    align_center: _flexalign('center'),
-    align_stretch: _flexalign('stretch'),
-    align_start: _flexalign('flex-start'),
-    align_end: _flexalign('flex-end'),
-    align_baseline: _flexalign('baseline'),
-    align_first_baseline: _flexalign('first baseline'),
-    align_last_baseline: _flexalign('last baseline'),
-    gap(kls: string) {
-      if (this.path.indexOf('wrap') > -1 || this.path.indexOf('wrap_reverse') > -1) {
-        s(kls, this.getProps({
-          position: 'relative',
-          top: '-$size',
-          left: '-$size',
-          marginBottom: '-$size',
-          marginRight: '-$size'
-        }))
-        s`*`.childOf(kls, this.getProps({
-          marginTop: '$size',
-          marginLeft: '$size'
-        }))
-      } else if (this.path.indexOf('row') === -1) {
-        s`*`.childOf(kls, this.getProps({
-          marginTop: '$size'
-        }))
-        s`:first-child`.childOf(kls, {
-          marginTop: 0
-        })
-      } else {
-        s`*`.childOf(kls, this.getProps({
-          marginLeft: '$size'
-        }))
-        s`:first-child`.childOf(kls, {
-          marginLeft: 0
-        })
-      }
-      // this.path
-    },
-  }).more(SIZES)
-
-  /// Positions
-  const P = (k: CSSProperties['position']) => { return { position: k } as CSSProperties }
-  export const position = CssBuilder.from('position', {
-    absolute: P('absolute'),
-    relative: P('relative'),
-    static: P('static'),
-    fixed: P('fixed'),
-    sticky: P(['-webkit-sticky', 'sticky']),
-    top: { top: 0 },
-    bottom: { bottom: 0 },
-    left: { left: 0 },
-    right: { right: 0 }
-  })
-
-  const _curs = (s: string) => { return {cursor: s} as CSSProperties }
-  export const cursor = CssBuilder.from('mouse', {
-    pointer: _curs('pointer'),
-    help: _curs('help'),
-    move: _curs('move'),
-    grab: _curs('grab'),
-    grabbing: _curs('grabbing'),
-    progress: _curs('progress'),
-    row_resize: _curs('row-resize'),
-    text: _curs('text'),
-    zoom_in: _curs('zoom-in'),
-    zoom_out: _curs('zoom-out'),
-    events_none: { pointerEvents: 'none' },
-    events_auto: { pointerEvents: 'auto' },
-  })
-
-  export const display = CssBuilder.from('display', {
-    block: { display: 'block' },
-    inline: { display: 'inline-block' }
-  })
-
   export const contrast_on_tint = cls('tint-reverse', {
     '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
     '--eltui-colors-current-fg': 'var(--eltui-colors-contrast)',
@@ -339,98 +160,13 @@ export namespace Styling {
 
   export const TRANSPARENT = `rgba(0, 0, 0, 0)`
 
-  export const no_spurious_borders = cls('no-spurious-borders', {
-    WebkitTapHighlightColor: TRANSPARENT,
-    'outline': 0
-  })
-
-  export const no_native_appearance = cls('no-native-appearance', {
-    WebkitAppearance: 'none',
-    MozAppearance: 'none',
-    appearance: 'none'
-  })
-
-  export const full_width = cls('full-width', {width: '100%'})
-  export const full_height = cls('full-height', {height: '100%'})
-  export const full_screen = cls('fullscreen', {
-    width: '100vw', height: '100vh', position: 'fixed',
-    left: 0,
-    top: 0,
-    transformOrigin: '50% 50%'
-  })
-
-  export const display_none = cls('display-none', {display: 'none'})
-
-  const opaque_pad = (n: number) => cls(`padding${n.toString().replace('.', '-')}`, {
-    borderStyle: 'solid',
-    borderTopWidth: `${n}rem`,
-    borderBottomWidth: `${n}rem`,
-    borderRightWidth: `${n}rem`,
-    borderLeftWidth: `${n}rem`,
-    borderColor: BG
-  })
-
-  export const padding_opaque_2 = opaque_pad(1 / RATIO / 2)
-  export const padding_opaque_1 = opaque_pad(1 / RATIO / 2)
-  export const padding_opaque = opaque_pad(1)
-  export const padding_opaque2 = opaque_pad(2)
-  export const padding_opaque3 = opaque_pad(3)
-  export const padding_opaque4 = opaque_pad(4)
-
   export const control = cls('control', {
     fontSize: '16px',
     display: 'inline-block',
     WebkitTapHighlightColor: Styling.TRANSPARENT,
     position: 'relative', // needed for inking.
     // background: BG
-  }, padding.all)
-
-  const hover = (name: string, color: string) => {
-    const hov = cls(`hover-${name}`)
-    s(hov).append(':hover', {
-      backgroundColor: color
-    })
-    return hov
-  }
-  export const hover_tint = hover('tint', TINT)
-  export const hover_fg = hover('fg', FG)
-  export const hover_bg = hover('bg', BG)
-  export const hover_tint75 = hover('tint75', TINT75)
-  export const hover_fg75 = hover('fg75', FG75)
-  export const hover_bg75 = hover('bg75', BG75)
-  export const hover_tint50 = hover('tint50', TINT50)
-  export const hover_fg50 = hover('fg50', FG50)
-  export const hover_bg50 = hover('bg50', BG50)
-  export const hover_tint14 = hover('tint14', TINT14)
-  export const hover_fg14 = hover('fg14', FG14)
-  export const hover_bg14 = hover('tint14', BG14)
-  export const hover_tint07 = hover('tint07', TINT07)
-  export const hover_fg07 = hover('fg07', FG07)
-  export const hover_bg07 = hover('bg07', BG07)
-
-  export const pointer_events_none = cls('no-pointer-events', {pointerEvents: 'none'})
-
-  export const box_shadow = cls('raised', {boxShadow: `0 2px 2px rgba(var(--eltui-colors-fg), 0.54)`})
-
-  export const round_borders = cls('round-borders', {
-    borderRadius: `calc(1rem / 4.5)`
-  })
-
-  const flexgap = (n: number) => {
-    const c = cls(`flex-gap-${n}`, {
-      marginLeft: `-${n}rem`,
-      marginTop: `-${n / RATIO}rem`
-    })
-    s`*`.childOf(c, {marginTop: `${n / RATIO}rem`, marginLeft: `${n}rem`})
-    s(c).append(':empty', {
-      marginLeft: 0,
-      marginTop: 0
-    })
-    return c
-  }
-
-  export const flex_gap = flexgap(1)
-  export const flex_gap2 = flexgap(2)
+  }, box.padding(SIZES.normal))
 
 }
 
@@ -485,11 +221,11 @@ table {
 }
 `)
 
-rule('*', {
+rule`*`({
   boxSizing: 'border-box'
 })
 
-rule(':root', {
+rule`:root`({
   '--eltui-colors-tint': '63, 81, 181',
   '--eltui-colors-fg': `0, 0, 0`,
   '--eltui-colors-bg': `255, 255, 255`,
@@ -503,19 +239,19 @@ rule(':root', {
   fontSize: '16px'
 })
 
-rule('button, input, select, textarea', {
+rule`button, input, select, textarea`({
   fontSize: 'inherit'
 })
 
-rule('::-webkit-scrollbar', {
+rule`::-webkit-scrollbar`({
   width: 'calc(1rem / 2)'
 })
 
-rule('::-webkit-scrollbar-track', {
+rule`::-webkit-scrollbar-track`({
   background: Styling.TINT07
 })
 
-rule('::-webkit-scrollbar-thumb', {
+rule`::-webkit-scrollbar-thumb`({
   background: Styling.Tint(0.24),
   borderRadius: 'calc(1rem / 4)'
 })
