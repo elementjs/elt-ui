@@ -8,7 +8,7 @@ import {
 
 import { Button } from './button'
 import S from './styling'
-import { cls, rule } from 'osun'
+import { style, rule } from 'osun'
 import FaClose from 'elt-fa/window-close'
 
 var id_gen = 0;
@@ -27,7 +27,7 @@ export function Search({model, placeholder}: SearchAttributes) {
 
 export namespace Search {
 
-  export const element = cls('search',
+  export const element = style('search',
     S.box
       .positionRelative
       .noSpuriousBorders
@@ -42,7 +42,7 @@ export namespace Search {
     S.text.color(S.FG14)
   )
 
-  export const button = cls('search-btn', S.box.positionAbsolute.right(0))
+  export const button = style('search-btn', S.box.positionAbsolute.right(0))
 
 }
 
@@ -118,11 +118,11 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
 
 export namespace Input {
 
-  export const error = cls('error')
-  export const focused = cls('focused')
-  export const empty_unfocused = cls('unfocused')
+  export const error = style('error')
+  export const focused = style('focused')
+  export const empty_unfocused = style('unfocused')
 
-  export const label = cls('label', {
+  export const label = style('label', {
     position: 'absolute',
     top: '12px',
     left: '4px',
@@ -135,7 +135,7 @@ export namespace Input {
     transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
   })
 
-  export const element = cls('input-elt',
+  export const element = style('input-elt',
     S.box.noSpuriousBorders,
     {
       position: 'relative',
@@ -163,13 +163,13 @@ export namespace Input {
     paddingBottom: '3px', borderBottom: `2px solid ${S.TINT}`
   })
 
-  export const input_error = cls('input-error', {
+  export const input_error = style('input-error', {
     position: 'absolute',
     fontSize: '10px',
     top: '48px'
   })
 
-  export const container = cls('container', {
+  export const container = style('container', {
     display: 'inline-block',
     position: 'relative',
     height: '64px',

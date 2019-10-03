@@ -11,7 +11,7 @@ import FaSquareRegular from 'elt-fa/square-regular'
 import FaMinusSquare from 'elt-fa/minus-square'
 import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {inkable} from './ink'
-import { cls, rule } from 'osun'
+import { style, rule } from 'osun'
 import S from './styling'
 
 
@@ -57,21 +57,21 @@ export class Checkbox extends Component<CheckboxAttributes> {
 
 export namespace Checkbox {
 
-  export const cls_on = cls('on')
-  export const cls_off = cls('off')
-  export const cls_disabled = cls('disabled')
+  export const cls_on = style('on')
+  export const cls_off = style('off')
+  export const cls_disabled = style('disabled')
 
-  export const cls_label = cls('label', {
+  export const cls_label = style('label', {
     position: 'relative',
     cursor: 'pointer',
     userSelect: 'none',
   })
 
-  export const cls_content = cls('content', { verticalAlign: 'middle' })
+  export const cls_content = style('content', { verticalAlign: 'middle' })
   rule`${cls_content}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
   rule`${cls_content}${cls_disabled}`({fill: `rgba(0, 0, 0, 0.26)`})
 
-  export const cls_icon = cls('icon', {
+  export const cls_icon = style('icon', {
     marginRight: '8px',
     transition: 'color linear 0.3s',
   })

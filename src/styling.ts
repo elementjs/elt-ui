@@ -1,5 +1,5 @@
 
-import {cls, CSSProperties, raw, rule } from 'osun'
+import {style, CSSProperties, raw, rule } from 'osun'
 import * as helpers from 'osun/lib/helpers'
 
 declare module 'csstype' {
@@ -151,7 +151,7 @@ export namespace Styling {
     bg07: { $color: BG07 },
   }
 
-  export const contrast_on_tint = cls('tint-reverse', {
+  export const contrast_on_tint = style('tint-reverse', {
     '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
     '--eltui-colors-current-fg': 'var(--eltui-colors-contrast)',
     '--eltui-colors-current-bg': 'var(--eltui-colors-tint)',
@@ -161,7 +161,7 @@ export namespace Styling {
 
   export const TRANSPARENT = `rgba(0, 0, 0, 0)`
 
-  export const control = cls('control', {
+  export const control = style('control', {
     fontSize: '16px',
     display: 'inline-block',
     WebkitTapHighlightColor: Styling.TRANSPARENT,

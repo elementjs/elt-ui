@@ -3,7 +3,7 @@ import {click, Mixin, append_child_and_mount, remove_and_unmount} from 'elt'
 
 import { animate } from './animate'
 import S from './styling'
-import { keyframes, cls, rule } from 'osun'
+import { keyframes, style, rule } from 'osun'
 
 export const ANIM_DURATION = 300
 
@@ -115,9 +115,9 @@ export namespace inker {
 			'100%': { transform: `scale(1) translateZ(0)` }
 		})
 
-		export const cls_ink_animate = cls('em-ink-animate')
+		export const cls_ink_animate = style('em-ink-animate')
 
-		export const cls_ink = cls('ink', {
+		export const cls_ink = style('ink', {
 				display: 'block',
 				position: 'absolute',
 				backgroundColor: S.TINT,
@@ -131,7 +131,7 @@ export namespace inker {
 			}
 		)
 
-		export const cls_container = cls('container', {
+		export const cls_container = style('container', {
 				display: 'block',
 				width: '100%',
 				height: '100%',

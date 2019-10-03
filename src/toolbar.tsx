@@ -2,7 +2,7 @@
 import { Attrs } from 'elt'
 
 import S from './styling'
-import { cls, rule } from 'osun';
+import { style, rule } from 'osun';
 
 export function Toolbar(_: Attrs, children: DocumentFragment): Element {
 
@@ -16,8 +16,8 @@ export function Toolbar(_: Attrs, children: DocumentFragment): Element {
 }
 
 export namespace Toolbar.css {
-  export const toolbar = cls('toolbar')
-  rule`${toolbar} > h3`({
+  export const toolbar = style('toolbar')
+  rule `${toolbar} > h3`({
     fontSize: S.SIZES.big
   })
 }

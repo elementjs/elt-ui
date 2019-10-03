@@ -17,7 +17,7 @@ import {
 import { animate } from './animate'
 import { Button, ButtonBar } from './button';
 import S from './styling'
-import { cls, rule } from 'osun'
+import { style, rule } from 'osun'
 
 
 export type DialogBuilder<T> = (dlc: Dialog<T>) => Node
@@ -193,11 +193,11 @@ export function modal(opts: ModalOptions) {
  */
 export namespace dialog {
 
-  export const stacked = cls('stacked')
-  export const enter = cls('enter')
-  export const leave = cls('leave')
+  export const stacked = style('stacked')
+  export const enter = style('enter')
+  export const leave = style('leave')
 
-  export const root = cls('root', {
+  export const root = style('root', {
     WebkitTransformStyle: 'preserve-3d',
     WebkitBackfaceVisibility: 'hidden',
     transform: `translateZ(0)`,
@@ -206,7 +206,7 @@ export namespace dialog {
     backgroundColor: `white`
   })
 
-  export const overlay = cls('overlay', {
+  export const overlay = style('overlay', {
     overflow: 'hidden',
     position: 'absolute',
     top: 0,
@@ -232,7 +232,7 @@ export namespace dialog {
     animation: `${animate.top_leave} 0.2s both ease-in`
   })
 
-  export const content = cls('content', {
+  export const content = style('content', {
     padding: '0 24px',
     paddingBottom: '24px',
     color: 'var(--eltui-text-color)',
@@ -240,7 +240,7 @@ export namespace dialog {
   rule`${content} > :first-child`({ paddingTop: '24px' })
   rule`${content} > :last-child`({ marginBottom: 0 })
 
-  export const title = cls('title', {
+  export const title = style('title', {
     margin: '16px 24px',
     fontSize: '1.25em',
     fontWeight: 'bold',

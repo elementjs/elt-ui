@@ -93,11 +93,11 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 }
 
 import S from './styling'
-import { cls, rule } from 'osun'
+import { style, rule } from 'osun'
 
 export namespace Select.css {
 
-	export const select = cls('select',
+	export const select = style('select',
 		S.box
 			.noSpuriousBorders.noNativeAppearance
 			.padding('0 16px 0 8px')
@@ -117,5 +117,5 @@ export namespace Select.css {
 		textShadow: `0 0 0 ${S.FG75}`
 	})
 
-	export const label = cls('label', {position: 'relative'})
+	export const label = style('label', {position: 'relative'})
 }

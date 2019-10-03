@@ -8,7 +8,7 @@ import {
 } from 'elt'
 
 import S from './styling'
-import { cls, rule } from 'osun'
+import { style, rule } from 'osun'
 import {inker} from './ink'
 
 
@@ -52,7 +52,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
 
 }
 
-Button.cls_bordered = cls('button-bordered', {
+Button.cls_bordered = style('button-bordered', {
   borderWidth: '1px',
   borderStyle: 'solid',
   borderColor: S.TINT
@@ -61,7 +61,7 @@ Button.cls_bordered = cls('button-bordered', {
 
 export namespace Button {
 
-  export const cls_button = cls('button',
+  export const cls_button = style('button',
     S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer.background('none'),
     S.text.centered.uppercase.bold.color(S.TINT),
     // {
@@ -78,7 +78,7 @@ export namespace Button {
     // },
   )
 
-  export const cls_icon_button = cls('icon-button', {
+  export const cls_icon_button = style('icon-button', {
     minWidth: '0',
     fontSize: '1.2em',
     color: S.TINT
@@ -92,7 +92,7 @@ export namespace Button {
     pointerEvents: 'none'
   })
 
-  export const cls_disabled = cls('disabled', {
+  export const cls_disabled = style('disabled', {
     color: S.FG14,
     boxShadow: 'none'
   })
@@ -123,10 +123,10 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
 }
 
 export namespace ButtonBar {
-  export const cls_button_bar = cls('button-bar')
+  export const cls_button_bar = style('button-bar')
   // s(Button.button).childOf(button_bar, {padding: '0 16px',})
 
-  export const cls_has_button_bar = cls('has-button-bar', {
+  export const cls_has_button_bar = style('has-button-bar', {
     paddingBottom: '0 !important'
   })
 

@@ -12,7 +12,7 @@ import {
 import { inkable } from './ink'
 
 import S from './styling'
-import { cls } from 'osun'
+import { style } from 'osun'
 
 
 export class TabContainer extends Component {
@@ -32,7 +32,7 @@ export class TabContainer extends Component {
 }
 
 export namespace TabContainer {
-	export const bar = cls('bar', {
+	export const bar = style('bar', {
 		backgroundColor: S.BG,
 		borderBottom: `1px solid rgba(0, 0, 0, 0.14)`,
 		height: '48px'
@@ -109,7 +109,7 @@ export class Tab extends Component<TabAttributes> {
 
 export namespace Tab {
 
-	export const title = cls('title', {
+	export const title = style('title', {
 		color: S.TINT,
 		userSelect: 'none',
 		textTransform: 'uppercase',
@@ -126,7 +126,7 @@ export namespace Tab {
 		position: 'relative'
 	})
 
-	export const secondborder = cls('second-border', {
+	export const secondborder = style('second-border', {
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -137,10 +137,10 @@ export namespace Tab {
 		borderBottom: `1px solid ${S.TINT}`,
 	})
 
-	export const active = cls('active', {
+	export const active = style('active', {
 		transform: 'scaleX(1)'
 	})
 
-	export const content = cls('content', {backgroundColor: S.BG})
+	export const content = style('content', {backgroundColor: S.BG})
 
 }

@@ -1,6 +1,6 @@
 import { Attrs, o, DisplayIf } from 'elt'
 import { Styling as S} from './styling'
-import { cls } from 'osun'
+import { style } from 'osun'
 
 export interface ProgressAttrs extends Attrs {
   mode?: o.RO<'determinate' | 'indeterminate' | 'query' | 'buffer' | 'off'>
@@ -30,7 +30,7 @@ export function Progress({mode, progress}: ProgressAttrs) {
 
 export namespace Progress {
 
-  export const cls_holder = cls('progress-holder', {
+  export const cls_holder = style('progress-holder', {
     position: 'absolute',
     transition: 'background-color linear 300ms, opacity linear 500ms',
     pointerEvents: 'none',
@@ -40,7 +40,7 @@ export namespace Progress {
     padding: '0 !important'
   })
 
-  export const cls_determinate = cls('progress-determinate', {
+  export const cls_determinate = style('progress-determinate', {
     height: '8px',
     transition: `width linear 100ms, background-color linear 300ms`,
   })

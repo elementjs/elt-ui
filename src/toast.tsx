@@ -3,7 +3,7 @@ import { Insertable, append_child_and_mount, remove_and_unmount } from 'elt'
 import { animate } from './animate'
 
 import S from './styling'
-import { cls } from 'osun'
+import { style } from 'osun'
 
 
 /**
@@ -58,7 +58,7 @@ export class Toaster {
 
 export namespace Toaster {
 
-	export const cls_holder = cls('toast-holder',
+	export const cls_holder = style('toast-holder',
 		{
 			position: 'fixed',
 			bottom: 0,
@@ -66,7 +66,7 @@ export namespace Toaster {
 			width: '100%',
 	})
 
-	export const cls_toast = cls('toast', {
+	export const cls_toast = style('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
 		background: S.FG75,

@@ -1,6 +1,6 @@
 import { Attrs } from 'elt'
 import S from './styling'
-import { cls, rule } from 'osun'
+import { style, rule } from 'osun'
 
 export function TypographicZone(a: Attrs, ch: DocumentFragment) {
   return <div class={TypographicZone.css.container}>{ch}</div>
@@ -10,7 +10,7 @@ export namespace TypographicZone.css {
 
   export const titles = `h1, h2, h3, h4, h5, h6`
 
-  export const container = cls('textzone')
+  export const container = style('textzone')
   rule`${container} > :first-child`({ marginTop: 0 })
   rule`${container} > *`({ marginTop: '24px' })
 
