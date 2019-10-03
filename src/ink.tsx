@@ -144,7 +144,8 @@ export namespace inker {
 				pointerEvents: 'none',
 			}
 		)
-		.and(cls_ink_animate, {
+
+		rule`${cls_container}${cls_ink_animate}`({
 			animation: `${kf_ripple_opacity} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 

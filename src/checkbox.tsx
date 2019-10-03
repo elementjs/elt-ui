@@ -11,7 +11,7 @@ import FaSquareRegular from 'elt-fa/square-regular'
 import FaMinusSquare from 'elt-fa/minus-square'
 import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {inkable} from './ink'
-import { cls } from 'osun'
+import { cls, rule } from 'osun'
 import S from './styling'
 
 
@@ -68,16 +68,14 @@ export namespace Checkbox {
   })
 
   export const cls_content = cls('content', { verticalAlign: 'middle' })
-    .and(cls_off, {fill: `rgba(0, 0, 0, 0.74)`})
-    .and(cls_disabled, {fill: `rgba(0, 0, 0, 0.26)`})
+  rule`${cls_content}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
+  rule`${cls_content}${cls_disabled}`({fill: `rgba(0, 0, 0, 0.26)`})
 
-  export const cls_icon = cls('icon',
-    {
-      marginRight: '8px',
-      transition: 'color linear 0.3s',
-    },
-  )
-  .and(cls_off, {fill: `rgba(0, 0, 0, 0.74)`})
-  .and(cls_disabled, {fill: `rgba(0, 0, 0, 0.26)`})
-  .and('::before', {fontSize: '18px'})
+  export const cls_icon = cls('icon', {
+    marginRight: '8px',
+    transition: 'color linear 0.3s',
+  })
+  rule`${cls_icon}::before`({fontSize: '18px'})
+  rule`${cls_icon}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
+  rule`${cls_icon}${cls_disabled}`({fill: `rgba(0, 0, 0, 0.26)`})
 }

@@ -11,7 +11,7 @@ import { inkClickDelay } from './ink'
 
 import { animate } from './animate'
 import S from './styling'
-import { cls } from 'osun'
+import { cls, rule } from 'osun'
 
 
 export interface NavAttributes extends Attrs {
@@ -73,18 +73,18 @@ export namespace Nav {
 	})
 
 	export const enter = cls('enter')
-	.children(overlay, {
+	rule`${enter} > ${overlay}`({
 		animation: `${animate.fade_in} 0.2s ease-in forwards`,
 	})
-	.children(drawer, {
+	rule`${enter} > ${drawer}`({
 		animation: `${animate.slide_from_left} 0.2s ease-in forwards`
 	})
 
 	export const leave = cls('leave')
-	.children(overlay, {
+	rule`${leave} > ${overlay}`({
 		animation: `${animate.FADE_OUT} 0.2s ease-out forwards`
 	})
-	.children(drawer, {
+	rule`${leave} > ${drawer}`({
 		animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards`
 	})
 

@@ -33,10 +33,12 @@ export namespace Search {
       .noSpuriousBorders
       .noNativeAppearance
       .background(S.FG07)
-      .borderAll(S.FG14).borderRound
+      .border(S.FG14).borderRound
       .padding('8px 16px'),
     S.text.size('0.8em').color(S.FG)
-  ).placeholder(
+  )
+
+  rule`${element}:placeholder`(
     S.text.color(S.FG14)
   )
 

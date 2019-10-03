@@ -3,53 +3,30 @@ import S from './styling'
 import { cls, rule } from 'osun'
 
 export function TypographicZone(a: Attrs, ch: DocumentFragment) {
-  return <div class={TypographicZone.container}>{ch}</div>
+  return <div class={TypographicZone.css.container}>{ch}</div>
 }
 
-export namespace TypographicZone {
+export namespace TypographicZone.css {
 
   export const titles = `h1, h2, h3, h4, h5, h6`
 
   export const container = cls('textzone')
-  .firstChild({ marginTop: 0})
-  .children({ marginTop: '24px' })
-  .children(titles, {
-    marginTop: '48px'
-  })
-  .children('h1', {
-    fontSize: 'xx-large',
-    fontWeight: 'bold',
-  })
-  .children('h2', {
-    fontSize: 'x-large',
-    fontWeight: 'bold',
-  })
-  .children(`h3`, {
-    fontSize: 'large',
-    fontWeight: 'bold',
-  })
-  .children(`h4`, {
-    fontSize: 'normal',
-    fontWeight: 'bold',
-  })
-  .children(`h5`, {
-    fontSize: 'normal',
-    fontWeight: 'bold',
-  })
-  .children(`h6`, {
-    fontSize: 'small',
-    fontWeight: 'bold',
-  })
-  .children(`p`, {
-    lineHeight: '20px'
-  })
-  .children(`b`, {
-    fontWeight: 'bold'
-  })
-  .children(`em`, {
-    fontStyle: 'italic'
-  })
-  .children(`blockquote`, {
+  rule`${container} > :first-child`({ marginTop: 0 })
+  rule`${container} > *`({ marginTop: '24px' })
+
+  rule`${container} > ${titles}`({ marginTop: '48px' })
+  rule`${container} > ${titles} + ${container} > ${titles}`({ marginTop: '24px' })
+
+  rule`${container} > h1`({ fontSize: 'xx-large', fontWeight: 'bold', })
+  rule`${container} > h2`({ fontSize: 'x-large', fontWeight: 'bold', })
+  rule`${container} > h3`({ fontSize: 'large', fontWeight: 'bold', })
+  rule`${container} > h4`({ fontSize: 'normal', fontWeight: 'bold', })
+  rule`${container} > h5`({ fontSize: 'normal', fontWeight: 'bold', })
+  rule`${container} > h6`({ fontSize: 'small', fontWeight: 'bold', })
+  rule`${container} > p`({ lineHeight: '20px' })
+  rule`${container} > b`({ fontWeight: 'bold' })
+  rule`${container} > em`({ fontStyle: 'italic' })
+  rule`${container} > blockquote`({
     color: S.Fg(0.84),
     paddingLeft: '12px',
     borderLeftWidth: '4px',
@@ -57,7 +34,4 @@ export namespace TypographicZone {
     borderLeftColor: S.FG14
   })
 
-  rule`${container} > ${titles} + ${container} ${titles}`({
-    marginTop: '24px'
-  })
 }

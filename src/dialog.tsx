@@ -128,7 +128,7 @@ export function Content(attrs: Attrs, children: DocumentFragment): Element { ret
 
 
 export function Root(attrs: Attrs, children: DocumentFragment): Element {
-  return <div class={[dialog.root, S.flex.column, S.box.borderAll(S.TINT07).borderRound.boxShadow]}>{children}</div>
+  return <div class={[dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow]}>{children}</div>
 }
 
 
@@ -217,10 +217,10 @@ export namespace dialog {
     transform: 'translateZ(0)',
     backgroundColor: `rgba(0, 0, 0, 0.54)`,
   })
-  .and(enter, {
+  rule`${overlay}${enter}`({
     animation: `${animate.fade_in} 0.2s both ease-in`
   })
-  .and(leave, {
+  rule`${overlay}${leave}`({
     animation: `${animate.FADE_OUT} 0.2s both ease-in`
   })
 
@@ -237,8 +237,8 @@ export namespace dialog {
     paddingBottom: '24px',
     color: 'var(--eltui-text-color)',
   })
-  .firstChild({ paddingTop: '24px' })
-  .lastChild({ marginBottom: 0 })
+  rule`${content} > :first-child`({ paddingTop: '24px' })
+  rule`${content} > :last-child`({ marginBottom: 0 })
 
   export const title = cls('title', {
     margin: '16px 24px',

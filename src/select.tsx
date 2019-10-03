@@ -78,8 +78,8 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			decorators.push(on('change', ev => fn(o_model.get(), ev)))
 		}
 
-		return <label class={Select.cls_label}>
-			<select class={Select.cls_select} $$={decorators}>
+		return <label class={Select.css.label}>
+			<select class={Select.css.select} $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={o_model.equals(opt)}>
@@ -95,39 +95,27 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 import S from './styling'
 import { cls, rule } from 'osun'
 
-export namespace Select {
+export namespace Select.css {
 
-	export const cls_select = cls('select',
+	export const select = cls('select',
 		S.box
 			.noSpuriousBorders.noNativeAppearance
 			.padding('0 16px 0 8px')
 			.marginNone
 			.height(32)
-			.borderAll(S.FG07)
+			.border(S.FG07)
 			.background(S.BG)
 			.borderRound
 			.cursorPointer
 			.inlineBlock
 		,
 			S.text.color(S.FG75)
-		// {
-		// 	padding: '0 16px 0 8px',
-		// 	height: '32px',
-		// 	margin: 0,
-		// 	border: `1px solid ${S.FG07}`,
-		// 	borderColor: S.FG07,
-		// 	borderRadius: '2px',
-		// 	background: S.BG,
-		// 	color: S.FG75,
-		// 	display: 'inline-block',
-		// 	cursor: 'pointer'
-		// },
 	)
 
-	rule`${cls_select}:-moz-focusring`({
+	rule`${select}:-moz-focusring`({
 		color: S.TRANSPARENT,
 		textShadow: `0 0 0 ${S.FG75}`
 	})
 
-	export const cls_label = cls('label', {position: 'relative'})
+	export const label = cls('label', {position: 'relative'})
 }

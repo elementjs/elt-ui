@@ -1,5 +1,6 @@
 
-import {cls, CSSProperties, raw, rule, helpers } from 'osun'
+import {cls, CSSProperties, raw, rule } from 'osun'
+import * as helpers from 'osun/lib/helpers'
 
 declare module 'csstype' {
 
