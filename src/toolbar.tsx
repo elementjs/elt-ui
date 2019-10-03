@@ -14,7 +14,7 @@ export namespace Toolbar.css {
   export const toolbar = style('toolbar',
     S.contrast_on_tint,
     S.text.bold,
-    S.flex.row.alignCenter.gap(16),
+    S.flex.alignCenter.gappedRow(16),
     S.box.padding(16).paddingHorizontal(16),
   )
 

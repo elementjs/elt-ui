@@ -170,7 +170,7 @@ export interface ModalOptions extends DialogOptions {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZES.normal).paddingBottom('none'), S.flex.column.gap(S.SIZES.normal)]}>
+  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZES.normal).paddingBottom('none'), S.flex.gappedColumn(S.SIZES.normal)]}>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
