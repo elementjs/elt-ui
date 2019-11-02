@@ -13,6 +13,6 @@
     "watch": "wtsc -w"
   },
   "dependencies": {
-    "osun": "0.2.0"
+    "osun": "0.3.0"
   }
 }
