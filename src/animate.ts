@@ -1,8 +1,6 @@
 
+import { add_event_listener, remove_event_listener } from 'elt'
 import { keyframes } from 'osun'
-
-const END_EVENTS = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend']
-const START_EVENTS = ['webkitAnimationStart', 'mozAnimationStart', 'MSAnimationStart', 'oanimationstart', 'animationstart']
 
 
 export function animate(node: HTMLElement, cls: string) {
@@ -14,8 +12,8 @@ export function animate(node: HTMLElement, cls: string) {
 
 		function end() {
 			ended = true
-			START_EVENTS.forEach(name => node.removeEventListener(name as any, fnstart))
-			END_EVENTS.forEach(name => node.removeEventListener(name as any, fnend))
+			remove_event_listener(node, 'animationend', fnend)
+			remove_event_listener(node, 'animationstart', fnstart)
 			resolve(node)
 		}
 
@@ -37,8 +35,8 @@ export function animate(node: HTMLElement, cls: string) {
 			anims.add(ev.animationName)
 		}
 
-		START_EVENTS.forEach(name => node.addEventListener(name as any, fnstart))
-		END_EVENTS.forEach(name => node.addEventListener(name as any, fnend))
+		add_event_listener(node, 'animationstart', fnstart)
+		add_event_listener(node, 'animationend', fnend)
 
 		// We leave 100 ms to the animations to potentially start. If during
 		// this delay nothing started, we call the end function.
