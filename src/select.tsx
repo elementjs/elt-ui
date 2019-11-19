@@ -33,40 +33,36 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 	 * Setup the observation logic.
 	 */
 	render(children: DocumentFragment): Element {
-		let mod = false;
-
 		let attrs = this.attrs
 
 		let options = o(attrs.options)
 		let {model, labelfn, onchange} = attrs
 		const o_model = o(model)
 
-		//  We use a touched() function to avoid infinite loops since there
-		//  is a circular logic here.
-		let touched = () => {
-			if (mod)
-				return true
-			mod = true
-			requestAnimationFrame(() => { mod = false; });
-			return false
+		var in_protection = false
+		function protect(fn: () => void) {
+			if (in_protection) return
+			in_protection = true
+			fn()
+			in_protection = false
 		}
 
 		this.observe(options, (opts) => {
-			if (touched()) return;
-
-			this.selected.set('' + opts.indexOf(o_model.get()));
-
+			protect(() => {
+				this.selected.set('' + opts.indexOf(o_model.get()));
+			})
 		});
 
 		this.observe(model, (v) => {
-			if (touched()) return;
-
-			this.selected.set(''+ options.get().indexOf(v));
+			protect(() => {
+				this.selected.set(''+ options.get().indexOf(v));
+			})
 		});
 
 		this.observe(this.selected, (v) => {
-			if (touched()) return;
-			o_model.set(options.get()[parseInt(v)]);
+			protect(() => {
+				o_model.set(options.get()[parseInt(v)]);
+			})
 		});
 
 		////////////////////////////////
