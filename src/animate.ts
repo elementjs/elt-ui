@@ -63,7 +63,7 @@ export namespace animate {
 		'100%': {opacity: 1}
 	})
 
-	export const FADE_OUT = keyframes('fade-out', {
+	export const fade_out = keyframes('fade-out', {
 		'100%': {opacity: 0}
 	})
 

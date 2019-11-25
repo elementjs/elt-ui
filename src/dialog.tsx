@@ -218,15 +218,16 @@ export namespace dialog {
   rule`${overlay}${enter}`({
     animation: `${animate.fade_in} 0.2s both ease-in`
   })
-  rule`${overlay}${leave}`({
-    animation: `${animate.FADE_OUT} 0.2s both ease-in`
-  })
 
   rule`${overlay}${enter} > ${root}`({
     animation: `${animate.top_enter} 0.2s both ease-in`
   })
 
   rule`${overlay}${leave}`({
+    animation: `${animate.fade_out} 0.2s both ease-in`
+  })
+
+  rule`${overlay}${leave} > ${root}`({
     animation: `${animate.top_leave} 0.2s both ease-in`
   })
 
