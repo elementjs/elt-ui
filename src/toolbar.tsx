@@ -19,7 +19,7 @@ export namespace Toolbar.css {
   )
 
   rule `${toolbar} > h3`({
-    fontSize: S.SIZES.big
+    fontSize: S.SIZE_BIG
   })
 }
 

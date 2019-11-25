@@ -15,7 +15,7 @@ export function Progress({mode, progress}: ProgressAttrs) {
     class={[S.box.background(S.TINT07), Progress.cls_holder]}
     style={{opacity: o_progress.tf(v => v > 0 && v < 100 ? '1' : '0')}}
   >
-      {DisplayIf(o_mode.equals('determinate'), () => <div class={[
+      {DisplayIf(o_mode.tf(m => m === 'determinate'), () => <div class={[
         S.box.background(S.TINT75),
         Progress.cls_determinate
         ]}

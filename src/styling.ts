@@ -116,40 +116,20 @@ export namespace Styling {
   export const BG14 = Bg(0.14)
   export const BG07 = Bg(0.07)
 
-  export const SIZES = {
-    very_tiny: `0.4rem`,
-    tiny: `0.6rem`,
-    very_small: `0.8rem`,
-    small: `0.9rem`,
-    normal: `1rem`,
-    big: `1.2rem`,
-    very_big: `1.5rem`,
-    huge: `2rem`,
-    very_huge: `3rem`,
-    px6: `6px`,
-    px4: `4px`,
-    px3: `3px`,
-    px2: `2px`,
-    px1: `1px`,
-  }
-
-  export const COLORS = {
-    tint: { $color: TINT },
-    tint75: { $color: TINT75 },
-    tint50: { $color: TINT50 },
-    tint14: { $color: TINT14 },
-    tint07: { $color: TINT07 },
-    fg: { $color: FG },
-    fg75: { $color: FG75 },
-    fg50: { $color: FG50 },
-    fg14: { $color: FG14 },
-    fg07: { $color: FG07 },
-    bg: { $color: BG },
-    bg75: { $color: BG75 },
-    bg50: { $color: BG50 },
-    bg14: { $color: BG14 },
-    bg07: { $color: BG07 },
-  }
+  export const SIZE_VERY_TINY = `0.4rem`
+  export const SIZE_TINY = `0.6rem`
+  export const SIZE_VERY_SMALL = `0.8rem`
+  export const SIZE_SMALL = `0.9rem`
+  export const SIZE_NORMAL = `1rem`
+  export const SIZE_BIG = `1.2rem`
+  export const SIZE_VERY_BIG = `1.5rem`
+  export const SIZE_HUGE = `2rem`
+  export const SIZE_VERY_HUGE = `3rem`
+  export const SIZE_PX6 = `6px`
+  export const SIZE_PX4 = `4px`
+  export const SIZE_PX3 = `3px`
+  export const SIZE_PX2 = `2px`
+  export const SIZE_PX1 = `1px`
 
   export const contrast_on_tint = style('tint-reverse', {
     '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
@@ -167,7 +147,7 @@ export namespace Styling {
     WebkitTapHighlightColor: Styling.TRANSPARENT,
     position: 'relative', // needed for inking.
     // background: BG
-  }, box.padding(SIZES.normal))
+  }, box.padding('4px 12px'))
 
 }
 

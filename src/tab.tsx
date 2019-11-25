@@ -63,7 +63,7 @@ export class Tab extends Component<TabAttributes> {
 		if (!this.container)
 			throw new Error('Tab must be inside a TabContainer')
 
-		this.container.o_titles.push(<div
+		this.container.o_titles.mutate(titles => (titles.push(<div
 			class={Tab.title}
 			$$={[
 				click(ev => this.activate()),
@@ -71,7 +71,7 @@ export class Tab extends Component<TabAttributes> {
 			]}>
 			<div class={[Tab.secondborder, {[Tab.active]: this.o_is_active}]}>&nbsp;</div>
 			{this.attrs.text}
-		</div>)
+		</div>), titles))
 
 		this.observe(this.container.o_active_tab, tab => {
 			this.o_is_active.set(tab === this)

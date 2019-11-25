@@ -11,7 +11,6 @@ import {
   append_child_and_mount,
   remove_and_unmount,
   Component,
-  bound
 } from 'elt';
 
 import { animate } from './animate'
@@ -78,8 +77,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
       this._reject(value);
   }
 
-  @bound
-  handleEscape(ev: KeyboardEvent) {
+  handleEscape = (ev: KeyboardEvent) => {
     // Ignore the event if it was not meant for us
     if (_dialog_stack[_dialog_stack.length - 1] !== this.node) return
 
@@ -170,7 +168,7 @@ export interface ModalOptions extends DialogOptions {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZES.normal).paddingBottom('none'), S.flex.gappedColumn(S.SIZES.normal)]}>
+  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZE_NORMAL).paddingBottom('none'), S.flex.gappedColumn(S.SIZE_NORMAL)]}>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}

@@ -78,7 +78,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			<select class={Select.css.select} $$={decorators}>
 				{Repeat(options, (opt, i) => <option
 						value={i}
-						selected={o_model.equals(opt)}>
+						selected={o.virtual([o_model, opt], ([m, o]) => m === o)}>
 							{opt.tf(val => <>{labelfn(val)}</>)}
 					</option>
 				)}

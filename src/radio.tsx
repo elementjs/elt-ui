@@ -35,9 +35,11 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
 
   render(children: DocumentFragment): Element {
 
+    const equals = o.virtual([this.model, this.value], ([m, v]) => m === v)
+
     let classes = {
-      [Checkbox.cls_on]: this.model.equals(this.value),
-      [Checkbox.cls_off]: this.model.differs(this.value),
+      [Checkbox.cls_on]: equals,
+      [Checkbox.cls_off]: equals.tf(e => !e),
       [Checkbox.cls_disabled]: this.disabled
     };
 

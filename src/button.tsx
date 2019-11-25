@@ -37,7 +37,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
     class={[
       Button.cls_button,
       S.control,
-      S.box.padding(S.SIZES.normal),
+      S.box.paddingSquashed(8),
       {
         [S.contrast_on_tint]: attrs.contrast,
         [Button.cls_disabled]: attrs.disabled,

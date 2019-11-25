@@ -27,7 +27,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
 
   toggle() {
     if (o.get(this.o_disabled)) return
-    this.o_model.toggle()
+    this.o_model.mutate(v => !v)
   }
 
   render(children: DocumentFragment): Element {
@@ -40,7 +40,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
 
     let classes = {
       [Checkbox.cls_on]: this.o_model,
-      [Checkbox.cls_off]: this.o_model.isFalse(),
+      [Checkbox.cls_off]: this.o_model.tf(m => m == false),
       [Checkbox.cls_disabled]: this.o_disabled
     }
 
