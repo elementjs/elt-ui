@@ -17,14 +17,14 @@ export namespace TypographicZone.css {
   rule`${container} > ${titles}`({ marginTop: '48px' })
   rule`${container} > ${titles} + ${container} > ${titles}`({ marginTop: '24px' })
 
-  rule`${container} > h1`({ fontSize: 'xx-large', fontWeight: 'bold', })
-  rule`${container} > h2`({ fontSize: 'x-large', fontWeight: 'bold', })
-  rule`${container} > h3`({ fontSize: 'large', fontWeight: 'bold', })
-  rule`${container} > h4`({ fontSize: 'normal', fontWeight: 'bold', })
-  rule`${container} > h5`({ fontSize: 'normal', fontWeight: 'bold', })
-  rule`${container} > h6`({ fontSize: 'small', fontWeight: 'bold', })
+  rule`${container} > h1`({ fontSize: 'xx-large', fontWeight: 'bolder', })
+  rule`${container} > h2`({ fontSize: 'x-large', fontWeight: 'bolder', })
+  rule`${container} > h3`({ fontSize: 'large', fontWeight: 'bolder', })
+  rule`${container} > h4`({ fontSize: 'normal', fontWeight: 'bolder', })
+  rule`${container} > h5`({ fontSize: 'normal', fontWeight: 'bolder', })
+  rule`${container} > h6`({ fontSize: 'small', fontWeight: 'bolder', })
   rule`${container} > p`({ lineHeight: '20px' })
-  rule`${container} > b`({ fontWeight: 'bold' })
+  rule`${container} > b`({ fontWeight: 'bolder' })
   rule`${container} > em`({ fontStyle: 'italic' })
   rule`${container} > blockquote`({
     color: S.Fg(0.84),

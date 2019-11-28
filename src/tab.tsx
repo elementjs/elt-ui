@@ -114,7 +114,7 @@ export namespace Tab {
 		userSelect: 'none',
 		textTransform: 'uppercase',
 		textAlign: 'center',
-		fontWeight: 'bold',
+		fontWeight: 'bolder',
 		borderBottom: `1px solid ${S.TINT}`,
 		height: '48px',
 		lineHeight: '48px',

@@ -82,7 +82,7 @@ export namespace Nav {
 
 	export const leave = style('leave')
 	rule`${leave} > ${overlay}`({
-		animation: `${animate.FADE_OUT} 0.2s ease-out forwards`
+		animation: `${animate.fade_out} 0.2s ease-out forwards`
 	})
 	rule`${leave} > ${drawer}`({
 		animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards`
@@ -152,7 +152,7 @@ export namespace NavItem {
 	export const item = style('item', {
 		position: 'relative',
 		height: '48px',
-		fontWeight: 'bold',
+		fontWeight: 'bolder',
 		cursor: 'pointer',
 	})
 

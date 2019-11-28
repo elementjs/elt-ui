@@ -242,7 +242,7 @@ export namespace dialog {
   export const title = style('title', {
     margin: '16px 24px',
     fontSize: '1.25em',
-    fontWeight: 'bold',
+    fontWeight: 'bolder',
     padding: 0
   })
 

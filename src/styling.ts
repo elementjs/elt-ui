@@ -8,14 +8,9 @@ declare module 'csstype' {
 
     '--eltui-ratio'?: string
 
-    '--eltui-colors-current-fg'?: string
-    '--eltui-colors-current-bg'?: string
-    '--eltui-colors-current-tint'?: string
-
     '--eltui-colors-fg'?: string
     '--eltui-colors-tint'?: string
     '--eltui-colors-bg'?: string
-    '--eltui-colors-contrast'?: string
     // Bottom of this is color.
   }
 }
@@ -25,7 +20,7 @@ export interface ColorTheme {
   tint: string
   fg: string
   bg: string
-  contrast: string
+  // contrast: string
 }
 
 
@@ -39,13 +34,9 @@ export namespace Styling {
   export const RATIO = 1.618033
 
   export const VAR_RATIO = '--eltui-ratio'
-  export const VAR_CURRENT_FG = '--eltui-colors-current-fg'
-  export const VAR_CURRENT_BG = '--eltui-colors-current-bg'
-  export const VAR_CURRENT_TINT = '--eltui-colors-current-tint'
   export const VAR_FG = '--eltui-colors-fg'
   export const VAR_TINT = '--eltui-colors-tint'
   export const VAR_BG = '--eltui-colors-bg'
-  export const VAR_CONTRAST = '--eltui-colors-contrast'
 
   export function toRGB(s: string | [number, number, number]): string {
     if (Array.isArray(s))
@@ -62,17 +53,14 @@ export namespace Styling {
       '--eltui-colors-tint': toRGB(theme.tint),
       '--eltui-colors-fg': toRGB(theme.fg),
       '--eltui-colors-bg': toRGB(theme.bg),
-      '--eltui-colors-contrast': toRGB(theme.contrast),
-      '--eltui-colors-current-tint': 'var(--eltui-colors-tint)',
-      '--eltui-colors-current-fg': 'var(--eltui-colors-fg)',
-      '--eltui-colors-current-bg': 'var(--eltui-colors-bg)'
+      // backgroundColor: 'rgba(var(--eltui-colors-bg))',
+      color: 'rgba(var(--eltui-colors-fg), 1)',
     } as CSSProperties
   }
 
   export function SetTint(tint: string) {
     return {
       '--eltui-colors-tint': toRGB(tint),
-      '--eltui-colors-current-tint': 'var(--eltui-colors-tint)'
     } as CSSProperties
   }
 
@@ -94,9 +82,9 @@ export namespace Styling {
     } as CSSProperties
   }
 
-  export const Tint = (alpha: number = 1) => `rgba(var(--eltui-colors-current-tint), ${alpha})`
-  export const Fg = (alpha: number = 1) => `rgba(var(--eltui-colors-current-fg), ${alpha})`
-  export const Bg = (alpha: number = 1) => `rgba(var(--eltui-colors-current-bg), ${alpha})`
+  export const Tint = (alpha: number = 1) => `rgba(var(--eltui-colors-tint), ${alpha})`
+  export const Fg = (alpha: number = 1) => `rgba(var(--eltui-colors-fg), ${alpha})`
+  export const Bg = (alpha: number = 1) => `rgba(var(--eltui-colors-bg), ${alpha})`
 
   export const TINT = Tint()
   export const TINT75 = Tint(0.75)
@@ -132,9 +120,9 @@ export namespace Styling {
   export const SIZE_PX1 = `1px`
 
   export const contrast_on_tint = style('tint-reverse', {
-    '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
-    '--eltui-colors-current-fg': 'var(--eltui-colors-contrast)',
-    '--eltui-colors-current-bg': 'var(--eltui-colors-tint)',
+    // '--eltui-colors-current-tint': 'var(--eltui-colors-contrast)',
+    // '--eltui-colors-current-fg': 'var(--eltui-colors-contrast)',
+    // '--eltui-colors-current-bg': 'var(--eltui-colors-tint)',
     color: FG,
     background: BG
   })
@@ -210,10 +198,10 @@ rule`:root`({
   '--eltui-colors-tint': '63, 81, 181',
   '--eltui-colors-fg': `0, 0, 0`,
   '--eltui-colors-bg': `255, 255, 255`,
-  '--eltui-colors-contrast': `255, 255, 255`,
-  '--eltui-colors-current-fg': `var(--eltui-colors-fg)`,
-  '--eltui-colors-current-tint': `var(--eltui-colors-tint)`,
-  '--eltui-colors-current-bg': `var(--eltui-colors-bg)`,
+  // '--eltui-colors-contrast': `255, 255, 255`,
+  // '--eltui-colors-current-fg': `var(--eltui-colors-fg)`,
+  // '--eltui-colors-current-tint': `var(--eltui-colors-tint)`,
+  // '--eltui-colors-current-bg': `var(--eltui-colors-bg)`,
   // '--eltui-colors-accent': `244, 67, 54`,
   color: Styling.FG,
   background: Styling.BG,

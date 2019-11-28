@@ -22,7 +22,7 @@ export class Toaster {
 	}
 
 	kill(node: HTMLElement) {
-		animate(node, animate.FADE_OUT).then(node =>
+		animate(node, animate.fade_out).then(node =>
 			remove_and_unmount(node)
 		)
 	}
