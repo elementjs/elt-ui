@@ -4,7 +4,6 @@ import { keyframes } from 'osun'
 
 
 export function animate(node: HTMLElement, cls: string) {
-	node.classList.add(cls)
 
 	return new Promise<HTMLElement>((resolve, reject) => {
 		var ended = false
@@ -37,6 +36,7 @@ export function animate(node: HTMLElement, cls: string) {
 
 		add_event_listener(node, 'animationstart', fnstart)
 		add_event_listener(node, 'animationend', fnend)
+		node.classList.add(cls)
 
 		// We leave 100 ms to the animations to potentially start. If during
 		// this delay nothing started, we call the end function.
