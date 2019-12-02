@@ -16,7 +16,7 @@ import S from './styling'
 
 
 export interface CheckboxAttributes extends Attrs {
-  model: o.O<boolean>
+  model: o.Observable<boolean>
   disabled?: o.RO<boolean>
 }
 

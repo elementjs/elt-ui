@@ -15,7 +15,7 @@ var id_gen = 0;
 
 
 export interface SearchAttributes extends Attrs {
-  model: o.O<string>
+  model: o.Observable<string>
   placeholder?: o.RO<string|null|undefined>
 }
 
@@ -47,7 +47,7 @@ export namespace Search {
 }
 
 export interface InputAttributes extends Attrs {
-  model: o.O<string>
+  model: o.Observable<string>
   disabled?: o.RO<boolean>
   type?: o.RO<string>
   label?: o.RO<string>

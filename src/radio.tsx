@@ -15,7 +15,7 @@ import {inkable} from './ink'
 
 
 export interface RadioAttributes<T> extends Attrs {
-  model: o.O<T>
+  model: o.Observable<T>
   value: o.RO<T>
   disabled?: o.RO<boolean>
 }

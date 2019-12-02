@@ -18,7 +18,7 @@ export type ChangeFn<T> = (value: T, ev?: Event) => any
 
 
 export interface SelectAttributes<T> extends Attrs {
-	model: o.O<T>
+	model: o.Observable<T>
 	options: o.RO<T[]>
 	labelfn: LabelFn<T>
 	onchange?: ChangeFn<T>
