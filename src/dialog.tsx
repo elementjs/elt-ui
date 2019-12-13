@@ -11,7 +11,6 @@ import {
   append_child_and_mount,
   remove_and_unmount,
   Component,
-  e
 } from 'elt';
 
 import { animate } from './animate'

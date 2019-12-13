@@ -1,5 +1,5 @@
 
-import { Attrs, e } from 'elt'
+import { Attrs } from 'elt'
 
 import S from './styling'
 import { style, rule } from 'osun';

@@ -5,7 +5,6 @@ import {
 	Attrs,
 	remove_and_unmount,
 	o,
-	e
 } from 'elt'
 
 import { inkClickDelay } from './ink'

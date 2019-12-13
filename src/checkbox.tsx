@@ -4,7 +4,6 @@ import {
   click,
   Attrs,
   Component,
-  e
 } from 'elt'
 
 

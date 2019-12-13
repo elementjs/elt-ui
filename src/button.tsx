@@ -5,7 +5,6 @@ import {
   click,
   Attrs,
   Listener,
-  e
 } from 'elt'
 
 import S from './styling'

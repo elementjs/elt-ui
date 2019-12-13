@@ -9,7 +9,6 @@ import {
 	Insertable,
 	Repeat,
 	Mixin,
-	e
 } from 'elt'
 
 
