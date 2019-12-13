@@ -6,7 +6,8 @@ import {
 	Repeat,
 	o,
 	Insertable,
-	Fragment as F
+	Fragment as F,
+	e
 } from 'elt'
 
 import { inkable } from './ink'

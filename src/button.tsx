@@ -4,7 +4,8 @@ import {
   Component,
   click,
   Attrs,
-  Listener
+  Listener,
+  e
 } from 'elt'
 
 import S from './styling'

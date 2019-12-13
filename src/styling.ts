@@ -55,6 +55,7 @@ export namespace Styling {
       '--eltui-colors-bg': toRGB(theme.bg),
       // backgroundColor: 'rgba(var(--eltui-colors-bg))',
       color: 'rgba(var(--eltui-colors-fg), 1)',
+      backgroundColor: 'rgba(var(--eltui-colors-bg), 1)'
     } as CSSProperties
   }
 

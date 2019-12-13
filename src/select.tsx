@@ -8,7 +8,8 @@ import {
 	on,
 	Insertable,
 	Repeat,
-	Mixin
+	Mixin,
+	e
 } from 'elt'
 
 

@@ -3,7 +3,8 @@ import {
   o,
   click,
   Attrs,
-  Component
+  Component,
+  e
 } from 'elt'
 
 

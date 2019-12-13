@@ -1,5 +1,5 @@
 
-import {click, Mixin, append_child_and_mount, remove_and_unmount} from 'elt'
+import { click, Mixin, append_child_and_mount, remove_and_unmount, e } from 'elt'
 
 import { animate } from './animate'
 import S from './styling'

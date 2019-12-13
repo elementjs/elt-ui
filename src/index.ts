@@ -1,7 +1,7 @@
 
 import * as dialog from './dialog'
 export {dialog}
-export {default as toast} from './toast'
+export { toast } from './toast'
 
 export {Button, ButtonBar, ButtonAttrs, ButtonBarAttrs} from './button'
 export {Checkbox, CheckboxAttributes} from './checkbox'

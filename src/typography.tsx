@@ -1,4 +1,4 @@
-import { Attrs } from 'elt'
+import { Attrs, e } from 'elt'
 import S from './styling'
 import { style, rule } from 'osun'
 

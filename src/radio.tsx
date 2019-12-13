@@ -4,6 +4,7 @@ import {
   click,
   Attrs,
   Component,
+  e
 } from 'elt'
 
 import {Checkbox} from './checkbox'

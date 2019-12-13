@@ -5,12 +5,13 @@ import {
   click,
   o,
   Insertable,
-  DisplayIf,
+  If,
   init,
   deinit,
   append_child_and_mount,
   remove_and_unmount,
   Component,
+  e
 } from 'elt';
 
 import { animate } from './animate'
@@ -174,10 +175,10 @@ export function modal(opts: ModalOptions) {
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
     </Content>
     <ButtonBar>
-      {DisplayIf(o(opts.agree), agree =>
+      {If(o(opts.agree), agree =>
         <Button click={() => dlg.resolve(true)}>{agree}</Button>
       )}
-      {DisplayIf(o(opts.disagree), disagree =>
+      {If(o(opts.disagree), disagree =>
         <Button click={() => dlg.resolve(false)}>{disagree}</Button>
       )}
     </ButtonBar>
@@ -209,6 +210,7 @@ export namespace dialog {
     position: 'absolute',
     top: 0,
     left: 0,
+    zIndex: 1,
     height: '100vh',
     width: '100vw',
 

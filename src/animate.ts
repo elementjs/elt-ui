@@ -3,6 +3,10 @@ import { add_event_listener, remove_event_listener } from 'elt'
 import { keyframes } from 'osun'
 
 
+/**
+ * Create a Promise that will be resolved once all of the animations
+ * that started after the class was added to the node end.
+ */
 export function animate(node: HTMLElement, cls: string) {
 
 	return new Promise<HTMLElement>((resolve, reject) => {
@@ -72,19 +76,19 @@ export namespace animate {
 		'100%': {transform: `translateX(0) translateZ(0)`}
 	})
 
-	export const SLIDE_TO_LEFT = keyframes('slide-to-left', {
+	export const slide_to_left = keyframes('slide-to-left', {
 		'0%': {transform: `translateX(0) translateZ(0)`},
 		'100%': {transform: `translateX(-100%) translateZ(0)`}
 	})
 
 	export const top_enter = keyframes('top-enter', {
-		'0%': {transform: `translate3d(0, 50px, 0) scale3d(1.1, 1.1, 1)`},
-		'100%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`}
+		'0%': {transform: `scale3d(1.1, 1.1, 1)`, transformOrigin: 'top 50%'},
+		'100%': {transform: `scale3d(1, 1, 1)`}
 	})
 
 	export const top_leave = keyframes('top-leave', {
-		'0%': {transform: `translate3d(0, 0, 0) scale3d(1, 1, 1)`},
-		'100%': {transform: `translate3d(0, -50px, 0) scale3d(0.9, 0.9, 1)`}
+		'0%': {transform: `scale3d(1, 1, 1)`, transformOrigin: 'top 50%'},
+		'100%': {transform: `scale3d(0.9, 0.9, 1)`}
 	})
 
 }

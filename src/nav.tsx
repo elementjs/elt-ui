@@ -5,6 +5,7 @@ import {
 	Attrs,
 	remove_and_unmount,
 	o,
+	e
 } from 'elt'
 
 import { inkClickDelay } from './ink'
@@ -85,7 +86,7 @@ export namespace Nav {
 		animation: `${animate.fade_out} 0.2s ease-out forwards`
 	})
 	rule`${leave} > ${drawer}`({
-		animation: `${animate.SLIDE_TO_LEFT} 0.2s ease-out forwards`
+		animation: `${animate.slide_to_left} 0.2s ease-out forwards`
 	})
 
 }

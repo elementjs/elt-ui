@@ -2,8 +2,9 @@
 import {
   o,
   bind,
-  DisplayIf,
-  Attrs
+  If,
+  Attrs,
+  e
 } from 'elt'
 
 import { Button } from './button'
@@ -111,7 +112,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
       {label ?
           <label class={Input.label} for={id}>{label}</label>
       : null}
-      {DisplayIf(o(error), error => <div class={Input.input_error}>{error}</div>)}
+      {If(o(error), error => <div class={Input.input_error}>{error}</div>)}
     </div>;
 }
 
