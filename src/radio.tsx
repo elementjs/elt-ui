@@ -2,7 +2,6 @@
 import {
   o,
   click,
-  Attrs,
   Component,
 } from 'elt'
 
@@ -14,7 +13,7 @@ import S from './styling'
 import {inkable} from './ink'
 
 
-export interface RadioAttributes<T> extends Attrs {
+export interface RadioAttributes<T> extends E.JSX.Attrs {
   model: o.Observable<T>
   value: o.RO<T>
   disabled?: o.RO<boolean>

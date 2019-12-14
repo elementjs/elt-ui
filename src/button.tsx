@@ -3,8 +3,7 @@ import {
   o,
   Component,
   click,
-  Attrs,
-  Listener,
+  Mixin
 } from 'elt'
 
 import S from './styling'
@@ -12,11 +11,11 @@ import { style, rule } from 'osun'
 import {inker} from './ink'
 
 
-export interface ButtonAttrs extends Attrs {
+export interface ButtonAttrs extends E.JSX.Attrs {
   bordered?: o.RO<boolean>
   disabled?: o.RO<boolean>
   contrast?: o.RO<boolean>
-  click?: Listener<MouseEvent>
+  click?: Mixin.Listener<MouseEvent>
   icon?: o.RO<boolean>
 }
 
@@ -100,7 +99,7 @@ export namespace Button {
 }
 
 
-export interface ButtonBarAttrs extends Attrs {
+export interface ButtonBarAttrs extends E.JSX.Attrs {
   stacked?: boolean
 }
 

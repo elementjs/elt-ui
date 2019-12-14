@@ -1,8 +1,8 @@
-import { Attrs, o, If } from 'elt'
+import { o, If } from 'elt'
 import { Styling as S} from './styling'
 import { style } from 'osun'
 
-export interface ProgressAttrs extends Attrs {
+export interface ProgressAttrs extends E.JSX.Attrs {
   mode?: o.RO<'determinate' | 'indeterminate' | 'query' | 'buffer' | 'off'>
   progress?: o.RO<number>
 }

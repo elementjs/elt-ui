@@ -1,11 +1,9 @@
 
 import {
-	Attrs,
 	click,
 	Component,
 	Repeat,
 	o,
-	Insertable,
 	Fragment as F,
 } from 'elt'
 
@@ -40,8 +38,8 @@ export namespace TabContainer {
 }
 
 
-export interface TabAttributes extends Attrs {
-	text: Insertable,
+export interface TabAttributes extends E.JSX.Attrs {
+	text: E.JSX.Insertable,
 }
 
 

@@ -1,5 +1,5 @@
 
-import { Insertable, append_child_and_mount, remove_and_unmount } from 'elt'
+import { append_child_and_mount, remove_and_unmount } from 'elt'
 import { animate } from './animate'
 
 import S from './styling'
@@ -27,7 +27,7 @@ export class Toaster {
 		)
 	}
 
-	toast(msg: Insertable) {
+	toast(msg: E.JSX.Insertable) {
 		// if (!this._mounted)
 		// 	this.mount(document.body);
 

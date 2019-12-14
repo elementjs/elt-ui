@@ -1,10 +1,7 @@
-
-import { Attrs } from 'elt'
-
 import S from './styling'
 import { style, rule } from 'osun';
 
-export function Toolbar(_: Attrs, children: DocumentFragment): Element {
+export function Toolbar(_: E.JSX.Attrs, children: DocumentFragment): Element {
 
   return <div style={{height: '3rem'}} class={Toolbar.css.toolbar}>{children}</div>
 }

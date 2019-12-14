@@ -1,10 +1,7 @@
 
 import {
-  Attrs,
-  ClassDefinition,
   click,
   o,
-  Insertable,
   If,
   init,
   deinit,
@@ -33,11 +30,11 @@ export interface DialogCommon {
 
 export interface DialogOptions extends DialogCommon {
   parent?: Node
-  class?: ClassDefinition | ClassDefinition[]
+  class?: E.JSX.ClassDefinition | E.JSX.ClassDefinition[]
 }
 
 
-export interface DialogAttrs<T> extends Attrs, DialogCommon {
+export interface DialogAttrs<T> extends E.JSX.Attrs, DialogCommon {
   builder: DialogBuilder<T>
   animationEnter: string
   animationLeave: string
@@ -116,16 +113,16 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 
 }
 
-export function Overlay(attrs: Attrs, children: DocumentFragment): Element {
+export function Overlay(attrs: E.JSX.Attrs, children: DocumentFragment): Element {
   return <div class={[dialog.overlay, S.flex.column.alignCenter.justifyCenter]}>{children}</div>
 }
 
-export function Title(attrs: Attrs, children: DocumentFragment): Element { return <h3 class={S.text.uppercase.bold.color(S.TINT)}>{children}</h3> }
+export function Title(attrs: E.JSX.Attrs, children: DocumentFragment): Element { return <h3 class={S.text.uppercase.bold.color(S.TINT)}>{children}</h3> }
 
-export function Content(attrs: Attrs, children: DocumentFragment): Element { return <div class={S.text.preLine}>{children}</div> }
+export function Content(attrs: E.JSX.Attrs, children: DocumentFragment): Element { return <div class={S.text.preLine}>{children}</div> }
 
 
-export function Root(attrs: Attrs, children: DocumentFragment): Element {
+export function Root(attrs: E.JSX.Attrs, children: DocumentFragment): Element {
   return <div class={[dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow]}>{children}</div>
 }
 
@@ -155,10 +152,10 @@ export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promi
 
 
 export interface ModalOptions extends DialogOptions {
-  text: o.RO<Insertable>
-  title: o.RO<Insertable>
-  agree?: o.RO<Insertable>
-  disagree?: o.RO<Insertable>,
+  text: o.RO<E.JSX.Insertable>
+  title: o.RO<E.JSX.Insertable>
+  agree?: o.RO<E.JSX.Insertable>
+  disagree?: o.RO<E.JSX.Insertable>,
 }
 
 /**

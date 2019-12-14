@@ -2,7 +2,6 @@
 import {
   o,
   click,
-  Attrs,
   Component,
 } from 'elt'
 
@@ -15,7 +14,7 @@ import { style, rule } from 'osun'
 import S from './styling'
 
 
-export interface CheckboxAttributes extends Attrs {
+export interface CheckboxAttributes extends E.JSX.Attrs {
   model: o.Observable<boolean>
   disabled?: o.RO<boolean>
 }

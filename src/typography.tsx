@@ -1,8 +1,7 @@
-import { Attrs } from 'elt'
 import S from './styling'
 import { style, rule } from 'osun'
 
-export function TypographicZone(a: Attrs, ch: DocumentFragment) {
+export function TypographicZone(a: E.JSX.Attrs, ch: DocumentFragment) {
   return <div class={TypographicZone.css.container}>{ch}</div>
 }
 

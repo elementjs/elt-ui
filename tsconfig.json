@@ -10,7 +10,7 @@
         "outDir": "./lib",
         "rootDir": "./src",
         "jsx": "react",
-        "reactNamespace": "E",
+        "jsxFactory": "E",
         "experimentalDecorators": true,
         "lib": ["es6", "dom"],
         "types": []

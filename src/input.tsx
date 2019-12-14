@@ -3,7 +3,6 @@ import {
   o,
   bind,
   If,
-  Attrs,
 } from 'elt'
 
 import { Button } from './button'
@@ -14,7 +13,7 @@ import FaClose from 'elt-fa/window-close'
 var id_gen = 0;
 
 
-export interface SearchAttributes extends Attrs {
+export interface SearchAttributes extends E.JSX.Attrs {
   model: o.Observable<string>
   placeholder?: o.RO<string|null|undefined>
 }
@@ -46,7 +45,7 @@ export namespace Search {
 
 }
 
-export interface InputAttributes extends Attrs {
+export interface InputAttributes extends E.JSX.Attrs {
   model: o.Observable<string>
   disabled?: o.RO<boolean>
   type?: o.RO<string>

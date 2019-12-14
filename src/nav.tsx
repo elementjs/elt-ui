@@ -2,7 +2,6 @@
 import {
 	click,
 	Component,
-	Attrs,
 	remove_and_unmount,
 	o,
 } from 'elt'
@@ -14,11 +13,11 @@ import S from './styling'
 import { style, rule } from 'osun'
 
 
-export interface NavAttributes extends Attrs {
+export interface NavAttributes extends E.JSX.Attrs {
 
 }
 
-export class Nav extends Component<Attrs, HTMLElement> {
+export class Nav extends Component<E.JSX.Attrs, HTMLElement> {
 
 	detach() {
 		this.node.classList.remove(Nav.enter)
@@ -90,7 +89,7 @@ export namespace Nav {
 
 }
 
-export function NavHeader(a: Attrs, ch: DocumentFragment): Element {
+export function NavHeader(a: E.JSX.Attrs, ch: DocumentFragment): Element {
 	return <div class={NavHeader.header}>{ch}</div>
 }
 
@@ -103,7 +102,7 @@ export namespace NavHeader {
 
 }
 
-export function NavSubheader(a: Attrs, ch: DocumentFragment): Element {
+export function NavSubheader(a: E.JSX.Attrs, ch: DocumentFragment): Element {
 	return <div class={NavSubheader.subheader}>{ch}</div>
 }
 
@@ -111,7 +110,7 @@ export namespace NavSubheader {
 	export const subheader = style('subheader', {paddingLeft: '16px'})
 }
 
-export function NavDivider(a: Attrs, ch: DocumentFragment): Element {
+export function NavDivider(a: E.JSX.Attrs, ch: DocumentFragment): Element {
 	return <div class={NavDivider.divider}/>
 }
 
@@ -125,8 +124,8 @@ export namespace NavDivider {
 	})
 }
 
-export interface NavItemAttributes extends Attrs {
-	icon: o.RO<(a: Attrs) => Element>
+export interface NavItemAttributes extends E.JSX.Attrs {
+	icon: o.RO<(a: E.JSX.Attrs) => Element>
 	click?: (ev: MouseEvent) => any
 }
 
@@ -164,12 +163,12 @@ export namespace NavItem {
 
 }
 
-export function NavBody(a: Attrs, ch: DocumentFragment): Element {
+export function NavBody(a: E.JSX.Attrs, ch: DocumentFragment): Element {
 	return <div class={[S.flex.column.absoluteGrow(1)]}>{ch}</div>
 }
 
 
-export function NavFooter(a: Attrs, ch: DocumentFragment): Element {
+export function NavFooter(a: E.JSX.Attrs, ch: DocumentFragment): Element {
 	return <div class={NavFooter.footer}>{ch}</div>
 }
 

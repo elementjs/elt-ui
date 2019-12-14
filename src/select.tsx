@@ -1,23 +1,22 @@
 
 //////////////////////////////////////////////////////////////
 import {
-	Attrs,
 	bind,
 	Component,
 	o,
 	on,
-	Insertable,
 	Repeat,
 	Mixin,
+	Fragment as F
 } from 'elt'
 
 
-export type LabelFn<T> = (opt: T) => o.RO<Insertable>
+export type LabelFn<T> = (opt: T) => o.RO<E.JSX.Insertable>
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 
 
-export interface SelectAttributes<T> extends Attrs {
+export interface SelectAttributes<T> extends E.JSX.Attrs {
 	model: o.Observable<T>
 	options: o.RO<T[]>
 	labelfn: LabelFn<T>
@@ -79,7 +78,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 				{Repeat(options, (opt, i) => <option
 						value={i}
 						selected={o.virtual([o_model, opt], ([m, o]) => m === o)}>
-							{opt.tf(val => <>{labelfn(val)}</>)}
+							{opt.tf(val => <F>{labelfn(val)}</F>)}
 					</option>
 				)}
 			</select>
