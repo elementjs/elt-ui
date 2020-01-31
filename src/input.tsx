@@ -3,12 +3,14 @@ import {
   o,
   bind,
   If,
+  on,
 } from 'elt'
 
 import { Button } from './button'
 import S from './styling'
-import { style, rule } from 'osun'
+import { style, rule, CssNamespace } from 'osun'
 import FaClose from 'elt-fa/window-close'
+import { Control } from './control'
 
 var id_gen = 0;
 
@@ -68,31 +70,16 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
   let {
     model,
     label,
-    placeholder,
+    // placeholder,
     error,
     type,
     ...other_attrs
   } = attrs
 
   const o_model = o(model)
-  label = label || placeholder || ''
+  // label = label || placeholder || ''
 
   const o_focused: o.Observable<boolean> = o(false as boolean)
-
-  const input = <input
-    {...other_attrs}
-    id={id}
-    class={Input.element}
-    type={type || 'text'}
-    $$={[bind(o_model)]}
-  />
-
-  input.addEventListener('blur', ev => {
-    o_focused.set(false)
-  })
-  input.addEventListener('focus', ev => {
-    o_focused.set(true)
-  })
 
   // const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
   const o_unfocus_and_empty = o.merge({model: o_model, focus: o_focused})
@@ -101,85 +88,29 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
       return res
     })
 
-  return <div class={[Input.container, {
-    [Input.focused.toString()]: o_focused,
-    [Input.empty_unfocused.toString()]: o_unfocus_and_empty,
-    [Input.error.toString()]: attrs.error
-  }]}>
-      {input}
-      {label ?
-          <label class={Input.label} for={id}>{label}</label>
-      : null}
-      {If(o(error), error => <div class={Input.input_error}>{error}</div>)}
-    </div>;
+  const res = <input
+    {...other_attrs}
+    id={id}
+    class={[Control.css.control, Input.css.input, {
+       [Input.css.focused]: o_focused,
+       [Input.css.empty_unfocused]: o_unfocus_and_empty,
+    }]}
+    // class={Input.element}
+    type={type || 'text'}
+    $$={[bind(o_model), on('blur', () => o_focused.set(false)), on('focus', () => {
+      console.log('???')
+      o_focused.set(true)
+    })]}
+  />
+
+  return res
 }
 
-
-export namespace Input {
-
-  export const error = style('error')
-  export const focused = style('focused')
-  export const empty_unfocused = style('unfocused')
-
-  export const label = style('label', {
-    position: 'absolute',
-    top: '12px',
-    left: '4px',
-
-    fontSize: '12px',
-    pointerEvents: 'none',
-    color: S.FG07,
-    transformOrigin: 'top left',
-    transform: 'translateZ(0)',
-    transition: `transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s`
-  })
-
-  export const element = style('input-elt',
-    S.box.noSpuriousBorders,
-    {
-      position: 'relative',
-      borderRadius: 0,
-      fontSize: '14px',
-      height: '32px',
-      border: 'none',
-      top: '24px',
-      paddingRight: '4px',
-      paddingLeft: '4px',
-      paddingBottom: '4px',
-      borderBottom: `1px solid ${S.FG07}`,
-      width: '100%',
-      transition: `border-bottom-color linear 0.3s`,
-    }
-  )
-
-  rule`${element}[type="time"]`({
-    WebkitAppearance: 'none',
-    minWidth: '15px',
-    minHeight: '48px'
-  })
-
-  rule`${element}:focus`({
-    paddingBottom: '3px', borderBottom: `2px solid ${S.TINT}`
-  })
-
-  export const input_error = style('input-error', {
-    position: 'absolute',
-    fontSize: '10px',
-    top: '48px'
-  })
-
-  export const container = style('container', {
-    display: 'inline-block',
-    position: 'relative',
-    height: '64px',
-  })
-
-  rule`${container}${focused} > ${label}`({
-    color: S.TINT
-  })
-
-  rule`${container}${empty_unfocused} > ${label}`({
-    fontSize: `14px`,
-    transform: `translateY(20px) translateZ(0) scaleX(1.1) scaleY(1.1)`
-  })
-}
+Input.css = CssNamespace({
+  focused: style('focused', S.box.border(S.TINT50)),
+  empty_unfocused: style('empty-unfocused'),
+  container: style('input-container'),
+  input: style('input', S.box.border(S.TINT14))
+}, ({input}) => {
+  rule`${input}::placeholder`(S.text.color(S.FG14))
+})

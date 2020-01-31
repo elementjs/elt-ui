@@ -11,6 +11,7 @@ import FaCircle from 'elt-fa/circle-regular'
 import FaDotCircle from 'elt-fa/dot-circle-regular'
 import S from './styling'
 import {inkable} from './ink'
+import { Control } from './control'
 
 
 export interface RadioAttributes<T> extends E.JSX.Attrs {
@@ -42,14 +43,12 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
       [Checkbox.cls_disabled]: this.disabled
     };
 
-    return <label class={[S.control, Checkbox.cls_label]} $$={[inkable(), click(e => this.setValue())]}>
-        <div class={[S.flex.row.alignCenter]}>
-          {this.o_checked.tf(v => v ?
-            <FaDotCircle class={[Checkbox.cls_icon, classes]}/> :
-            <FaCircle class={[Checkbox.cls_icon, classes]}/>
-          )}
-          <span class={[Checkbox.cls_content, classes]}>{children}</span>
-        </div>
+    return <label class={[Control.css.control, Checkbox.cls_label]} $$={[inkable(), click(e => this.setValue())]}>
+        {this.o_checked.tf(v => v ?
+          <FaDotCircle class={[Checkbox.cls_icon, classes]}/> :
+          <FaCircle class={[Checkbox.cls_icon, classes]}/>
+        )}
+        <span class={[Checkbox.cls_content, classes]}>{children}</span>
       </label>;
 
   }

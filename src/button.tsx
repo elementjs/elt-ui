@@ -9,6 +9,7 @@ import {
 import S from './styling'
 import { style, rule } from 'osun'
 import {inker} from './ink'
+import { Control } from './control'
 
 
 export interface ButtonAttrs extends E.JSX.Attrs {
@@ -35,8 +36,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
   return <button
     class={[
       Button.cls_button,
-      S.control,
-      S.box.paddingSquashed(8),
+      Control.css.control,
       {
         [S.contrast_on_tint]: attrs.contrast,
         [Button.cls_disabled]: attrs.disabled,
@@ -61,20 +61,9 @@ Button.cls_bordered = style('button-bordered', {
 export namespace Button {
 
   export const cls_button = style('button',
-    S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer.background('none'),
-    S.text.centered.uppercase.bold.color(S.TINT),
-    // {
-    //   // This style applies to a button, that we want to completely reset.
-    //   position: 'relative',
-    //   display: 'inline-block',
-    //   cursor: 'pointer',
-    //   textAlign: 'center',
-    //   minWidth: '64px',
-    //   background: 'none',
-    //   color: S.TINT,
-    //   textTransform: 'uppercase',
-    //   fontWeight: 'bold'
-    // },
+    S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer.cursorPointer,
+    S.text.centered.bold.color(S.BG),
+    Control.css.color_full
   )
 
   export const cls_icon_button = style('icon-button', {

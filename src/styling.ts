@@ -29,7 +29,7 @@ export namespace Styling {
   export const box = helpers.box
   export const flex = helpers.flex
   export const text = helpers.text
-  export const grid = helpers.grid
+  // export const grid = helpers.grid
 
   export const RATIO = 1.618033
 
@@ -129,14 +129,6 @@ export namespace Styling {
   })
 
   export const TRANSPARENT = `rgba(0, 0, 0, 0)`
-
-  export const control = style('control', {
-    fontSize: '16px',
-    display: 'inline-block',
-    WebkitTapHighlightColor: Styling.TRANSPARENT,
-    position: 'relative', // needed for inking.
-    // background: BG
-  }, box.padding('4px 12px'))
 
 }
 
