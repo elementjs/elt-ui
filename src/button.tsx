@@ -61,9 +61,9 @@ Button.cls_bordered = style('button-bordered', {
 export namespace Button {
 
   export const cls_button = style('button',
-    S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer.cursorPointer,
-    S.text.centered.bold.color(S.BG),
-    Control.css.color_full
+    S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer,
+    S.text.centered.bold.color(S.TINT),
+    Control.css.color_middle
   )
 
   export const cls_icon_button = style('icon-button', {

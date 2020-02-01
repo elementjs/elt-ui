@@ -3,7 +3,7 @@ import * as dialog from './dialog'
 export {dialog}
 export { toast } from './toast'
 
-export {Control, ControlBox} from './control'
+export {Control, ControlBox, ControlLabel} from './control'
 export {Button, ButtonBar, ButtonAttrs, ButtonBarAttrs} from './button'
 export {Checkbox, CheckboxAttributes, Toggle} from './checkbox'
 export {Input, InputAttributes, Search, SearchAttributes} from './input'

@@ -33,9 +33,9 @@ export class Checkbox extends Component<CheckboxAttributes> {
   render(children: DocumentFragment): Element {
 
     function getIcon(value: boolean) {
-      if (value === undefined) return <FaMinusSquare class={[Checkbox.cls_icon, classes]}/>
-      if (value) return <FaCheckSquareRegular class={[Checkbox.cls_icon, classes]}/>
-      return <FaSquareRegular class={[Checkbox.cls_icon, classes]}/>
+      if (value === undefined) return <FaMinusSquare class={[Checkbox.cls_icon]}/>
+      if (value) return <FaCheckSquareRegular class={[Checkbox.cls_icon]}/>
+      return <FaSquareRegular class={[Checkbox.cls_icon]}/>
     }
 
     let classes = {
@@ -44,9 +44,9 @@ export class Checkbox extends Component<CheckboxAttributes> {
       [Checkbox.cls_disabled]: this.o_disabled
     }
 
-    return <label class={[Checkbox.cls_label, Control.css.control]} $$={[inkable(), click(e => this.toggle())]}>
+    return <label class={[Checkbox.cls_label, Control.css.control, classes]} $$={[inkable(), click(e => this.toggle())]}>
       {this.o_model.tf(getIcon)}
-      <span class={[Checkbox.cls_content, classes]}>{children}</span>
+      <span class={[Checkbox.cls_content]}>{children}</span>
     </label>
 
   }
@@ -60,6 +60,7 @@ export namespace Checkbox {
   export const cls_disabled = style('disabled')
 
   export const cls_label = style('label', S.box.border(S.TINT14).background(S.TINT07).cursorPointer)
+  rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
 
   export const cls_content = style('content', S.box.paddingLeft('1.4em'))
   rule`${cls_content}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
@@ -76,6 +77,6 @@ export namespace Checkbox {
 
 
 export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch: DocumentFragment) {
-  return <div class={[Control.css.control, model.tf(m => m ? Control.css.color_full : Control.css.color_faint)]} $$={[inkable(), click(() => model.mutate(m => !m))]}><span>{ch}</span></div>
+  return <div class={[S.box.cursorPointer, Control.css.control, model.tf(m => m ? Control.css.color_full : Control.css.color_faint)]} $$={[inkable(), click(() => model.mutate(m => !m))]}><span>{ch}</span></div>
 }
 

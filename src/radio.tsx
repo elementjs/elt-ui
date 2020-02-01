@@ -9,7 +9,6 @@ import {Checkbox} from './checkbox'
 
 import FaCircle from 'elt-fa/circle-regular'
 import FaDotCircle from 'elt-fa/dot-circle-regular'
-import S from './styling'
 import {inkable} from './ink'
 import { Control } from './control'
 
@@ -43,12 +42,12 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
       [Checkbox.cls_disabled]: this.disabled
     };
 
-    return <label class={[Control.css.control, Checkbox.cls_label]} $$={[inkable(), click(e => this.setValue())]}>
+    return <label class={[Control.css.control, Checkbox.cls_label, classes]} $$={[inkable(), click(e => this.setValue())]}>
         {this.o_checked.tf(v => v ?
-          <FaDotCircle class={[Checkbox.cls_icon, classes]}/> :
-          <FaCircle class={[Checkbox.cls_icon, classes]}/>
+          <FaDotCircle class={Checkbox.cls_icon}/> :
+          <FaCircle class={Checkbox.cls_icon}/>
         )}
-        <span class={[Checkbox.cls_content, classes]}>{children}</span>
+        <span class={Checkbox.cls_content}>{children}</span>
       </label>;
 
   }
