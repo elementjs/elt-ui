@@ -2,7 +2,6 @@
 import {
   o,
   bind,
-  If,
   on,
 } from 'elt'
 
@@ -97,10 +96,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
     }]}
     // class={Input.element}
     type={type || 'text'}
-    $$={[bind(o_model), on('blur', () => o_focused.set(false)), on('focus', () => {
-      console.log('???')
-      o_focused.set(true)
-    })]}
+    $$={[bind(o_model), on('focusout', () => o_focused.set(false)), on('focusin', () => o_focused.set(true))]}
   />
 
   return res

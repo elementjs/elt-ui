@@ -1,9 +1,9 @@
-import { CssNamespace, style, rule } from 'osun'
+import { style, rule } from 'osun'
 import { Styling as S } from './styling'
 import { inker } from './ink'
 
-export var CONTROL_PADDING = '4px 8px'
-export var CONTROL_RADIUS = '4px 8px'
+export var CONTROL_PADDING = '0.25em 0.5em'
+export var CONTROL_RADIUS = '0.25em 0.5em'
 
 export function Control(a: E.JSX.Attrs, ch: DocumentFragment) {
   return <div class={Control.css.control}>{ch}</div>
@@ -14,6 +14,7 @@ export namespace Control.css {
   export const control = style('control',
     S.box
       .positionRelative
+      // .height('calc(1.5em + 2px)')
       .padding(CONTROL_PADDING)
       .overflowHidden
       .noSpuriousBorders
@@ -44,11 +45,11 @@ export namespace Control.css {
   rule`${control_box} > ${control}:not(:last-child)`({borderRightWidth: '0'})
 
   rule`${control_box} > ${control}:last-child`({
-    borderRadius: '0 8px 4px 0',
+    borderRadius: '0 0.5em 0.25em 0',
   })
 
   rule`${control_box} > ${control}:first-child`({
-    borderRadius: '4px 0 0 8px',
+    borderRadius: '0.25em 0 0 0.5em',
   })
 
 }
