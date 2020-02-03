@@ -16,7 +16,7 @@ export namespace Control.css {
       .positionRelative
       // .height('calc(1.5em + 2px)')
       .padding(CONTROL_PADDING)
-      .overflowHidden
+      // .overflowHidden
       .noSpuriousBorders
       .noNativeAppearance
       .inlineBlock,
