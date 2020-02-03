@@ -64,21 +64,13 @@ export namespace Checkbox {
   // rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
 
   export const cls_content = style('content', S.box.paddingLeft('0.25em'))
-  rule`${cls_content}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
-  rule`${cls_content}${cls_disabled}`({fill: `rgba(0, 0, 0, 0.26)`})
 
-  export const cls_icon = style('icon', {
-    // position: 'absolute',
-    transition: 'color linear 0.3s',
-  }, S.text.color(S.TINT))
-
-  rule`${cls_icon}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
-  rule`${cls_icon}${cls_disabled}`({fill: `rgba(0, 0, 0, 0.26)`})
+  export const cls_icon = style('icon', S.text.color(S.TINT))
 }
 
 
 export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch: DocumentFragment) {
-  return <div class={[
+  return <button class={[
     S.box.cursorPointer,
     Control.css.control,
     Toggle.css.container,
@@ -86,10 +78,10 @@ export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch
     // model.tf(m => m ? Control.css.color_middle : Control.css.color_faint)
   ]}
     $$={[inkable(), click(() => model.mutate(m => !m))]}
-  >{ch}</div>
+  >{ch}</button>
 }
 
 export namespace Toggle.css {
   export const container = style('toggle-container', S.box.border(S.TINT14))
-  export const on = style('toggle-on', S.box.background(S.TINT14).text.color(S.TINT))
+  export const on = style('toggle-on', S.box.background(S.TINT75).text.color(S.BG))
 }

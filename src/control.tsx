@@ -78,5 +78,5 @@ export function ControlLabel(a: E.JSX.Attrs, ch: DocumentFragment) {
 
 export namespace ControlLabel.css {
   export const container = style('span', S.box.background(S.TINT07).border(S.TINT14))
-  export const span = style('span', S.text.color(S.TINT75).uppercase.size('0.7em'))
+  export const span = style('span', S.text.bold.color(S.TINT75).uppercase.size('0.7em'), {verticalAlign: '.125em'})
 }
