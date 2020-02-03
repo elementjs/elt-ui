@@ -49,7 +49,7 @@ export namespace Control.css {
   export const color_faint = style('color-faint', S.box.background(S.TINT07).border(S.TINT14))
 
   export const control_box = style('control-box',
-    S.box.overflowHidden, S.flex.row.inline,
+    S.flex.row.inline,
   )
 
   rule`${control_box} > ${control}`({
@@ -79,7 +79,7 @@ export namespace Control.css {
   })
 
   rule`${control_box_vertical} > ${control}:last-child`({
-    borderRadius: '0 0 0.5em 0.25em',
+    borderRadius: '0 0 0.25em 0.5em',
   })
 
 }

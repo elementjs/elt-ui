@@ -6,6 +6,24 @@ import { style } from 'osun';
 import { inker } from './ink';
 
 
+export function Triangle(a: E.JSX.SVGAttributes) {
+  return <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class={Triangle.css.triangle} width='19' height='16' viewBox='0 0 140 100'>
+    <path class={Triangle.css.path} d="M 10,100 70,10 130,100"/>
+  </svg>
+}
+
+
+export namespace Triangle.css {
+  export const triangle = style('triangle',
+    S.box.positionAbsolute.top(-15).left(16),
+  )
+
+  export const path = style('triangle-path',
+    { stroke: S.TINT14, strokeWidth: '10px', fill: S.BG, strokeLinejoin: 'round' }
+  )
+}
+
+
 /**
  * Parent needs to be at least absolute.
  */
@@ -27,7 +45,7 @@ export function Float(a: E.JSX.Attrs, ch: DocumentFragment) {
         n.style.bottom = `${vh - prect.top}px`
         n.style.transformOrigin = 'bottom center'
       } else {
-        n.style.top = `${prect.bottom}px`
+        n.style.top = `${prect.bottom + 16}px`
         n.style.transformOrigin = 'top center'
       }
 
@@ -38,6 +56,7 @@ export function Float(a: E.JSX.Attrs, ch: DocumentFragment) {
       }
     })
   })}>
+    <Triangle/>
     {ch}
   </div>
 }
@@ -55,7 +74,6 @@ Float.css = {
     animationDuration: '0.1s',
     animationTimingFunction: 'ease-in',
     transformOrigin: 'top center',
-    overflow: 'hidden'
   }),
 
   leave_float: style('leave-float', {
