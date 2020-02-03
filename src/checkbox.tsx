@@ -44,10 +44,11 @@ export class Checkbox extends Component<CheckboxAttributes> {
       [Checkbox.cls_disabled]: this.o_disabled
     }
 
-    return <label class={[Checkbox.cls_label, Control.css.control, classes]} $$={[inkable(), click(e => this.toggle())]}>
+    return <div class={[Checkbox.cls_label, Control.css.control, classes]} $$={[inkable(), click(e => this.toggle())]}>
       {this.o_model.tf(getIcon)}
+      {' '}
       <span class={[Checkbox.cls_content]}>{children}</span>
-    </label>
+    </div>
 
   }
 }
@@ -62,12 +63,12 @@ export namespace Checkbox {
   export const cls_label = style('label', S.box.border(S.TINT14).background(S.TINT07).cursorPointer)
   rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
 
-  export const cls_content = style('content', S.box.paddingLeft('1.4em'))
+  export const cls_content = style('content')
   rule`${cls_content}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
   rule`${cls_content}${cls_disabled}`({fill: `rgba(0, 0, 0, 0.26)`})
 
   export const cls_icon = style('icon', {
-    position: 'absolute',
+    // position: 'absolute',
     transition: 'color linear 0.3s',
   }, S.text.color(S.TINT))
 

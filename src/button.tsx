@@ -63,8 +63,10 @@ export namespace Button {
   export const cls_button = style('button',
     S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer,
     S.text.centered.bold.color(S.TINT),
-    Control.css.color_middle
+    Control.css.color_middle,
   )
+
+  export const cls_button_classic = style('button-classic', S.text.color(S.TINT).box.background(S.TINT07).border(S.TINT))
 
   export const cls_icon_button = style('icon-button', {
     minWidth: '0',

@@ -73,39 +73,30 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			decorators.push(on('change', ev => fn(o_model.get(), ev)))
 		}
 
-		return <label class={Select.css.label}>
-			<select class={Select.css.select} $$={decorators}>
-				{Repeat(options, (opt, i) => <option
-						value={i}
-						selected={o.virtual([o_model, opt], ([m, o]) => m === o)}>
-							{opt.tf(val => <F>{labelfn(val)}</F>)}
-					</option>
-				)}
-			</select>
-		</label>
+		return <div class={[Control.css.control, Control.css.color_faint, Select.css.select]} $$={decorators}>
+			{model.tf(labelfn)}
+			{/* {Repeat(options, (opt, i) => <option
+					value={i}
+					selected={o.virtual([o_model, opt], ([m, o]) => m === o)}>
+						{opt.tf(val => <F>{labelfn(val)}</F>)}
+				</option>
+			)} */}
+		</div>
 	}
 
 }
 
 import S from './styling'
 import { style, rule } from 'osun'
+import { Control } from './control'
 
 export namespace Select.css {
 
-	export const select = style('select',
-		S.box
-			.noSpuriousBorders.noNativeAppearance
-			.padding('0 16px 0 8px')
-			.marginNone
-			.height(32)
-			.border(S.FG07)
-			.background(S.BG)
-			.borderRound
-			.cursorPointer
-			.inlineBlock
-		,
-			S.text.color(S.FG75)
-	)
+	export const select = style('select')
+	rule`${select}::after`({
+		content: '"\u25BC"',
+		fontSize: '1em'
+	})
 
 	rule`${select}:-moz-focusring`({
 		color: S.TRANSPARENT,

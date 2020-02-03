@@ -47,6 +47,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
           <FaDotCircle class={Checkbox.cls_icon}/> :
           <FaCircle class={Checkbox.cls_icon}/>
         )}
+        {' '}
         <span class={Checkbox.cls_content}>{children}</span>
       </label>;
 

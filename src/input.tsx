@@ -108,5 +108,5 @@ Input.css = CssNamespace({
   container: style('input-container'),
   input: style('input', S.box.border(S.TINT14))
 }, ({input}) => {
-  rule`${input}::placeholder`(S.text.color(S.FG14))
+  rule`${input}::placeholder`(S.text.color(S.FG14).size('1em').box.padding(0).margin(0).inlineBlock)
 })
