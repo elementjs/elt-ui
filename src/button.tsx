@@ -37,8 +37,8 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
     class={[
       Button.cls_button,
       Control.css.control,
+      o.tf(attrs.contrast, c => c ? Button.cls_button_contrast : Button.cls_button_classic)
       {
-        [S.contrast_on_tint]: attrs.contrast,
         [Button.cls_disabled]: attrs.disabled,
         [Button.cls_icon_button]: attrs.icon,
       }
@@ -62,11 +62,13 @@ export namespace Button {
 
   export const cls_button = style('button',
     S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer,
-    S.text.centered.bold.color(S.TINT),
-    Control.css.color_middle,
+    S.text.centered.bold,
+    // Control.css.color_middle,
   )
 
-  export const cls_button_classic = style('button-classic', S.text.color(S.TINT).box.background(S.TINT07).border(S.TINT))
+  export const cls_button_classic = style('button-classic', S.text.color(S.TINT).box.border(S.TINT))
+  export const cls_button_contrast = style('button-contrast', S.text.color(S.BG).box.background(S.TINT).border(S.TINT))
+  rule`${cls_button_contrast} ${inker.cls_container}`({'--eltui-colors-tint': `var(--eltui-colors-bg)`})
 
   export const cls_icon_button = style('icon-button', {
     minWidth: '0',

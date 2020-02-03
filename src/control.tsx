@@ -16,24 +16,25 @@ export namespace Control.css {
       .positionRelative
       // .height('calc(1.5em + 2px)')
       .padding(CONTROL_PADDING)
-      // .overflowHidden
+      .overflowHidden
       .noSpuriousBorders
       .noNativeAppearance
       .inlineBlock,
-    // S.flex.row.inline.alignBaseline,
+    // S.flex.row.inline,
     {
       borderRadius: CONTROL_RADIUS,
       WebkitTapHighlightColor: `rgba(0, 0, 0, 0)`,
+      lineHeight: 'normal',
       userSelect: 'none',
       verticalAlign: 'baseline',
     },
   )
-  // rule`${control}::before`({
-  //   content: '"\u00a0"',
-  //   display: 'inline-block',
-  //   height: '1em',
-  //   width: 0
-  // })
+  rule`${control}::before`({
+    content: '"\u00a0"',
+    display: 'inline-block',
+    height: '1em',
+    width: 0
+  })
   // rule`${control}::after`({
   //   content: '"\u00a0"',
   //   display: 'inline-block',
@@ -43,7 +44,7 @@ export namespace Control.css {
 
   export const color_full = style('color-full', S.box.background(S.TINT).border(S.BG14).text.color(S.BG))
   rule`${color_full} ${inker.cls_container}`({'--eltui-colors-tint': 'var(--eltui-colors-bg)'})
-  export const color_middle = style('color-faint', S.box.background(S.TINT14).border(S.TINT75))
+  export const color_middle = style('color-faint', S.box.background(S.TINT14).border(S.TINT14).text.color(S.TINT))
   export const color_faint = style('color-faint', S.box.background(S.TINT07).border(S.TINT14))
 
   export const control_box = style('control-box',
@@ -77,6 +78,5 @@ export function ControlLabel(a: E.JSX.Attrs, ch: DocumentFragment) {
 
 export namespace ControlLabel.css {
   export const container = style('span', S.box.background(S.TINT07).border(S.TINT14))
-  export const fix = style('fix', {width: 0})
-  export const span = style('span', S.text.color(S.TINT75).uppercase.size('0.7em'), {verticalAlign: '0.125em'})
+  export const span = style('span', S.text.color(S.TINT75).uppercase.size('0.7em'))
 }

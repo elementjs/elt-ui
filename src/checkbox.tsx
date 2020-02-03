@@ -44,11 +44,11 @@ export class Checkbox extends Component<CheckboxAttributes> {
       [Checkbox.cls_disabled]: this.o_disabled
     }
 
-    return <div class={[Checkbox.cls_label, Control.css.control, classes]} $$={[inkable(), click(e => this.toggle())]}>
+    return <button class={[Checkbox.cls_label, Control.css.control, classes]} $$={[inkable(), click(e => this.toggle())]}>
       {this.o_model.tf(getIcon)}
       {' '}
       <span class={[Checkbox.cls_content]}>{children}</span>
-    </div>
+    </button>
 
   }
 }
@@ -60,10 +60,10 @@ export namespace Checkbox {
   export const cls_off = style('off')
   export const cls_disabled = style('disabled')
 
-  export const cls_label = style('label', S.box.border(S.TINT14).background(S.TINT07).cursorPointer)
-  rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
+  export const cls_label = style('label', S.box.border(S.TINT14).background(S.BG).cursorPointer)
+  // rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
 
-  export const cls_content = style('content')
+  export const cls_content = style('content', S.box.paddingLeft('0.25em'))
   rule`${cls_content}${cls_off}`({fill: `rgba(0, 0, 0, 0.74)`})
   rule`${cls_content}${cls_disabled}`({fill: `rgba(0, 0, 0, 0.26)`})
 
@@ -78,6 +78,18 @@ export namespace Checkbox {
 
 
 export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch: DocumentFragment) {
-  return <div class={[S.box.cursorPointer, Control.css.control, model.tf(m => m ? Control.css.color_full : Control.css.color_faint)]} $$={[inkable(), click(() => model.mutate(m => !m))]}><span>{ch}</span></div>
+  return <div class={[
+    S.box.cursorPointer,
+    Control.css.control,
+    Toggle.css.container,
+    {[Toggle.css.on]: model},
+    // model.tf(m => m ? Control.css.color_middle : Control.css.color_faint)
+  ]}
+    $$={[inkable(), click(() => model.mutate(m => !m))]}
+  >{ch}</div>
 }
 
+export namespace Toggle.css {
+  export const container = style('toggle-container', S.box.border(S.TINT14))
+  export const on = style('toggle-on', S.box.background(S.TINT14).text.color(S.TINT))
+}
