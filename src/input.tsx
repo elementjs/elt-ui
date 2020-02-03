@@ -105,8 +105,7 @@ export function Input(attrs: InputAttributes, content: DocumentFragment): Elemen
 Input.css = CssNamespace({
   focused: style('focused', S.box.border(S.TINT50)),
   empty_unfocused: style('empty-unfocused'),
-  container: style('input-container'),
-  input: style('input', S.box.border(S.TINT14))
+  input: style('input', S.box.border(S.TINT14), {flexGrow: 1})
 }, ({input}) => {
   rule`${input}::placeholder`(S.text.color(S.FG14).size('1em').box.padding(0).margin(0).inlineBlock)
 })

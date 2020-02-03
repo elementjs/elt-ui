@@ -7,11 +7,17 @@ import {
 	on,
 	Repeat,
 	Mixin,
-	Fragment as F
+	click
 } from 'elt'
 
+import S from './styling'
+import { style } from 'osun'
+import { Control, ControlBox } from './control'
+import { float, Float } from './float'
 
-export type LabelFn<T> = (opt: T) => o.RO<E.JSX.Insertable>
+import FaCaretDown from 'elt-fa/caret-down'
+
+export type LabelFn<T> = (opt: T) => E.JSX.Insertable
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 
@@ -21,7 +27,6 @@ export interface SelectAttributes<T> extends E.JSX.Attrs {
 	options: o.RO<T[]>
 	labelfn: LabelFn<T>
 	onchange?: ChangeFn<T>
-	placeholder?: o.RO<string>
 }
 
 export class Select<T> extends Component<SelectAttributes<T>> {
@@ -37,71 +42,46 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 		let options = o(attrs.options)
 		let {model, labelfn, onchange} = attrs
 		const o_model = o(model)
-
-		var in_protection = false
-		function protect(fn: () => void) {
-			if (in_protection) return
-			in_protection = true
-			fn()
-			in_protection = false
-		}
-
-		this.observe(options, (opts) => {
-			protect(() => {
-				this.selected.set('' + opts.indexOf(o_model.get()));
-			})
-		});
-
-		this.observe(model, (v) => {
-			protect(() => {
-				this.selected.set(''+ options.get().indexOf(v));
-			})
-		});
-
-		this.observe(this.selected, (v) => {
-			protect(() => {
-				o_model.set(options.get()[parseInt(v)]);
-			})
-		});
-
 		////////////////////////////////
 
 		let decorators: Mixin[] = [bind(this.selected)];
+
+		decorators.push(float(acc => <Float><ControlBox style={{width: `${select_container.clientWidth}px`}} vertical>
+			{Repeat(options, (opt, i) => <div
+				class={[Control.css.control, {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
+				$$={click(() => acc(model.set(o.get(opt))))}
+				>
+						{opt.tf(val => labelfn(val))}
+				</div>
+			)}
+		</ControlBox></Float>))
 
 		if (onchange) {
 			var fn = onchange // used this for typing matters.
 			decorators.push(on('change', ev => fn(o_model.get(), ev)))
 		}
 
-		return <div class={[Control.css.control, Control.css.color_faint, Select.css.select]} $$={decorators}>
-			{model.tf(labelfn)}
-			{/* {Repeat(options, (opt, i) => <option
-					value={i}
-					selected={o.virtual([o_model, opt], ([m, o]) => m === o)}>
-						{opt.tf(val => <F>{labelfn(val)}</F>)}
-				</option>
-			)} */}
+		const select_container = <div class={[Control.css.control, Select.css.select]} $$={decorators}>
+			{model.tf(m => labelfn(m))}
+			<span class={S.flex.absoluteGrow(1)}/>
+			<FaCaretDown style={{color: S.TINT75}}/>
 		</div>
+
+		return select_container
 	}
 
 }
 
-import S from './styling'
-import { style, rule } from 'osun'
-import { Control } from './control'
-
 export namespace Select.css {
 
-	export const select = style('select')
-	rule`${select}::after`({
-		content: '"\u25BC"',
-		fontSize: '1em'
-	})
+	export const select = style('select', S.box.cursorPointer.border(S.TINT14).flex.row.inline)
 
-	rule`${select}:-moz-focusring`({
-		color: S.TRANSPARENT,
-		textShadow: `0 0 0 ${S.FG75}`
-	})
+	export const selected = style('selected', S.box.background(S.TINT07))
+
+	// rule`${select}:-moz-focusring`({
+	// 	color: S.TRANSPARENT,
+	// 	textShadow: `0 0 0 ${S.FG75}`
+	// })
 
 	export const label = style('label', {position: 'relative'})
 }

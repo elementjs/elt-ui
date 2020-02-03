@@ -10,7 +10,7 @@ import FaSquareRegular from 'elt-fa/square-regular'
 import FaMinusSquare from 'elt-fa/minus-square'
 import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {inkable} from './ink'
-import { style, rule } from 'osun'
+import { style } from 'osun'
 import S from './styling'
 import { Control } from './control'
 

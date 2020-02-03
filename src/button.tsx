@@ -37,7 +37,7 @@ export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element
     class={[
       Button.cls_button,
       Control.css.control,
-      o.tf(attrs.contrast, c => c ? Button.cls_button_contrast : Button.cls_button_classic)
+      o.tf(attrs.contrast, c => c ? Button.cls_button_contrast : Button.cls_button_classic),
       {
         [Button.cls_disabled]: attrs.disabled,
         [Button.cls_icon_button]: attrs.icon,

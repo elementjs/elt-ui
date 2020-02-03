@@ -1,6 +1,7 @@
 import { style, rule } from 'osun'
 import { Styling as S } from './styling'
 import { inker } from './ink'
+import { o } from 'elt'
 
 export var CONTROL_PADDING = '0.25em 0.5em'
 export var CONTROL_RADIUS = '0.25em 0.5em'
@@ -65,10 +66,26 @@ export namespace Control.css {
     borderRadius: '0.25em 0 0 0.5em',
   })
 
+  export const control_box_vertical = style('control-box-vertical', S.flex.inline, {flexDirection: 'column'})
+
+  rule`${control_box_vertical} > ${control}`({
+    borderRadius: '0',
+  })
+
+  rule`${control_box_vertical} > ${control}:not(:last-child)`({borderBottomWidth: '0'})
+
+  rule`${control_box_vertical} > ${control}:first-child`({
+    borderRadius: '0.25em 0.5em 0 0',
+  })
+
+  rule`${control_box_vertical} > ${control}:last-child`({
+    borderRadius: '0 0 0.5em 0.25em',
+  })
+
 }
 
-export function ControlBox(a: E.JSX.Attrs, ch: DocumentFragment) {
-  return <div class={Control.css.control_box}>{ch}</div>
+export function ControlBox(a: E.JSX.Attrs & {vertical?: o.RO<boolean>}, ch: DocumentFragment) {
+  return <div class={o.tf(a.vertical, v => v ? Control.css.control_box_vertical : Control.css.control_box)}>{ch}</div>
 }
 
 

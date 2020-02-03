@@ -48,7 +48,7 @@ Float.css = {
     maxHeight: '90vh',
     position: 'fixed',
     zIndex: 2,
-    backgroundColor: S.BG,
+    // backgroundColor: S.BG,
     boxShadow: `2px 2px 10px ${S.FG14}`,
     animationFillMode: 'forwards',
     animationName: animate.top_enter,
