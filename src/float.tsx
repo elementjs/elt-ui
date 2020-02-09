@@ -1,5 +1,5 @@
 
-import { $init, insert_before_and_mount, remove_and_unmount, $click } from 'elt'
+import { $init, insert_before_and_mount, remove_and_unmount, $click, $class } from 'elt'
 import { animate } from './animate'
 import { Styling as S } from './styling'
 import { style, rule } from 'osun';
@@ -10,8 +10,9 @@ import { inker } from './ink';
  */
 export function Float(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
 
-  return <div class={[Float.css.float]}>
-    {$init(n => {
+  return E.DIV(
+    $class(Float.css.float),
+    $init(n => {
       requestAnimationFrame(() => {
         const doc = n.ownerDocument!
         const rect = n.getBoundingClientRect()
@@ -36,9 +37,40 @@ export function Float(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
           n.style.left = `${prect.left}px`
         }
       })
-    })}
-    {ch}
-  </div>
+    }),
+    ch
+  )
+
+  // return <div class={[Float.css.float]}>
+  //   {$init(n => {
+  //     requestAnimationFrame(() => {
+  //       const doc = n.ownerDocument!
+  //       const rect = n.getBoundingClientRect()
+  //       const parent = n.parentElement!
+  //       const prect = (parent as Element).getBoundingClientRect()
+  //       const vw = (window.innerWidth || doc.documentElement!.clientWidth)
+  //       const vh = (window.innerHeight || doc.documentElement!.clientHeight)
+  //       doc.body!.appendChild(n)
+
+  //       if (prect.bottom + rect.height > vh) {
+  //         // console.log(prect.bottom)
+  //         n.style.bottom = `${vh - prect.top}px`
+  //         n.style.transformOrigin = 'bottom center'
+  //       } else {
+  //         n.style.top = `${prect.bottom + 16}px`
+  //         n.style.transformOrigin = 'top center'
+  //       }
+
+  //       if (prect.left + rect.width > vw) {
+  //         n.style.right = `${vw - prect.right}px`
+  //       } else {
+  //         n.style.left = `${prect.left}px`
+  //       }
+  //     })
+  //   })}
+  //   <Triangle/>
+  //   {ch}
+  // </div>
 }
 
 

@@ -82,14 +82,14 @@ export function inker(node: Node, event: MouseEvent) {
 }
 
 
-export function $inkable<N extends Node>(): Decorator<N> {
+export function $inkable<N extends Element>(): Decorator<N> {
 	return $click(function (ev, node) {
 		inker(node, ev)
 	})
 }
 
 
-export function inkClickDelay(fn: (ev: MouseEvent) => void) {
+export function $inkClickDelay(fn: (ev: MouseEvent) => void) {
 	return $click(function (ev, node) {
 		inker(node, ev)
 		setTimeout(() => {

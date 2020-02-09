@@ -1,12 +1,12 @@
 
 import {
-	click,
+	$click,
 	Component,
 	remove_and_unmount,
 	o,
 } from 'elt'
 
-import { inkClickDelay } from './ink'
+import { $inkClickDelay } from './ink'
 
 import { animate } from './animate'
 import S from './styling'
@@ -17,7 +17,7 @@ export interface NavAttributes extends E.JSX.Attrs {
 
 }
 
-export class Nav extends Component<E.JSX.Attrs, HTMLElement> {
+export class Nav extends Component<E.JSX.Attrs> {
 
 	detach() {
 		this.node.classList.remove(Nav.enter)
@@ -35,10 +35,12 @@ export class Nav extends Component<E.JSX.Attrs, HTMLElement> {
 	render(ch: E.JSX.Renderable[]): HTMLElement {
 
 		return <div>
-			<div class={Nav.overlay} $$={[click((e, overlay) => {
-				if (e.target === overlay)
-					this.detach()
-			})]}/>
+			<div class={Nav.overlay}>
+				{$click((e, overlay) => {
+					if (e.target === overlay)
+						this.detach()
+				})}
+			</div>
 			<div class={[Nav.drawer, S.flex.column]}>
 				{ch}
 			</div>
@@ -130,15 +132,16 @@ export interface NavItemAttributes extends E.JSX.Attrs {
 }
 
 export function NavItem(a: NavItemAttributes, ch: E.JSX.Renderable[]) {
-	let res = <div class={[NavItem.item, S.flex.row.alignCenter]} $$={[inkClickDelay(function (e) {
-		if (a.click && a.click(e) !== false) {
-			let c = Nav.get(res)
-			// XXX should we log an error here if c was null ?
+	let res = <div class={[NavItem.item, S.flex.row.alignCenter]}>
+		{$inkClickDelay(function (e) {
+			if (a.click && a.click(e) !== false) {
+				let c = Nav.get(res)
+				// XXX should we log an error here if c was null ?
 
-			if (c) c.detach()
-			else console.warn('could not get Nav')
-		}
-	})]}>
+				if (c) c.detach()
+				else console.warn('could not get Nav')
+			}
+		})}
 		{o.tf(a.icon, I => <I class={NavItem.item_icon}/>)}
 		{ch}
 	</div>

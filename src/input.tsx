@@ -2,7 +2,7 @@
 import {
   o,
   bind,
-  on,
+  $on,
 } from 'elt'
 
 import { Button } from './button'
@@ -20,7 +20,8 @@ export interface SearchAttributes extends E.JSX.Attrs {
 }
 
 export function Search({model, placeholder}: SearchAttributes) {
-  return <input placeholder={placeholder} class={[Search.element]} $$={bind(o(model))}>
+  return <input placeholder={placeholder} class={[Search.element]}>
+      {bind(o(model))}
       <Button class={Search.button} icon><FaClose/></Button>
     </input>
 }
@@ -96,8 +97,11 @@ export function Input(attrs: InputAttributes, content: E.JSX.Renderable[]) {
     }]}
     // class={Input.element}
     type={type || 'text'}
-    $$={[bind(o_model), on('focusout', () => o_focused.set(false)), on('focusin', () => o_focused.set(true))]}
-  />
+  >
+    {bind(o_model)}
+    {$on('focusout', () => o_focused.set(false))}
+    {$on('focusin', () => o_focused.set(true))}
+  </input> as HTMLInputElement
 
   return res
 }

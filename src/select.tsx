@@ -4,10 +4,11 @@ import {
 	bind,
 	Component,
 	o,
-	on,
+	$on,
 	Repeat,
 	Mixin,
-	click
+	$click,
+	Decorator,
 } from 'elt'
 
 import S from './styling'
@@ -17,7 +18,7 @@ import { $float, Float } from './float'
 
 import FaCaretDown from 'elt-fa/caret-down'
 
-export type LabelFn<T> = (opt: T) => E.JSX.Insertable
+export type LabelFn<T> = (opt: T) => E.JSX.Renderable
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 export type ChangeFn<T> = (value: T, ev?: Event) => any
 
@@ -45,29 +46,31 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 		const o_model = o(model)
 		////////////////////////////////
 
-		let decorators: Mixin[] = [bind(this.selected)];
+		let decorators: (Mixin<HTMLDivElement> | Decorator<HTMLDivElement>)[] = [bind(this.selected)];
 
-		decorators.push($float(acc => <Float><ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG).border(S.TINT14)} vertical>
-			{Repeat(options, (opt, i) => <div
-				class={[Control.css.control, S.box.border(S.TINT14), {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
-				$$={[click(() => acc(model.set(o.get(opt))))]}
-				>
+		decorators.push($float(acc =>
+			<Float><ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG).border(S.TINT14)} vertical>
+				{Repeat(options, (opt, i) => <div
+						class={[Control.css.control, {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
+					>
+						{$click(() => acc(model.set(o.get(opt))))}
 						{opt.tf(val => labelfn(val))}
-				</div>
-			)}
-		</ControlBox></Float>))
+					</div>
+				)}
+		</ControlBox></Float> as HTMLDivElement))
 
 		if (onchange) {
 			var fn = onchange // used this for typing matters.
-			decorators.push(on('change', ev => fn(o_model.get(), ev)))
+			decorators.push($on('change', ev => fn(o_model.get(), ev)))
 		}
 
-		const select_container = <div class={[Control.css.control, Select.css.select]} $$={decorators}>
+		const select_container = <div class={[Control.css.control, Select.css.select]}>
+			{decorators}
 			{model.tf(m => labelfn(m))}
 			<span class={S.flex.absoluteGrow(1)}/>
 			<FaCaretDown style={{color: S.TINT75}}/>
 
-		</div>
+		</div> as HTMLDivElement
 
 		return select_container
 	}

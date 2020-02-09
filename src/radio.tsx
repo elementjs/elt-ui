@@ -42,7 +42,10 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
       [Checkbox.cls_disabled]: this.disabled
     };
 
-    return <label class={[Control.css.control, Checkbox.cls_label, classes]} $$={[$inkable(), $click(e => this.setValue())]}>
+    return <label class={[Control.css.control, Checkbox.cls_label, classes]}>
+        {$inkable()}
+        {$click(e => this.setValue())}
+
         {this.o_checked.tf(v => v ?
           <FaDotCircle class={Checkbox.cls_icon}/> :
           <FaCircle class={Checkbox.cls_icon}/>

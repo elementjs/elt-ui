@@ -1,10 +1,10 @@
 
 import {
-  click,
+  $click,
+  $init,
+  $deinit,
   o,
   If,
-  init,
-  deinit,
   append_child_and_mount,
   remove_and_unmount,
   Component,
@@ -44,7 +44,7 @@ export interface DialogAttrs<T> extends E.JSX.Attrs, DialogCommon {
 var _dialog_stack = [] as Node[]
 
 
-export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
+export class Dialog<T> extends Component<DialogAttrs<T>> {
 
   _resolve: (v: T) => any = undefined!
   _reject: (...a: Array<any>) => any = undefined!
@@ -85,21 +85,19 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 
   render() {
     var opts = this.attrs
-    return <Overlay $$={[
-      click((e, node) => {
+    return <Overlay>
+      {$click((e, node) => {
         if (e.target === node && opts.clickOutsideToClose)
           this.reject('clicked outside to close')
-      }),
-      // Handle the escape key.
-      init(node => {
+      })}
+      {$init(node => {
         requestAnimationFrame(() => {
           node.ownerDocument!.addEventListener('keyup', this.handleEscape)
         })
-      }),
-      deinit(node => {
+      })}
+      {$deinit(node => {
         node.ownerDocument!.removeEventListener('keyup', this.handleEscape)
-      })
-    ]}>
+      })}
       {this.attrs.builder(this)}
     </Overlay> as HTMLElement
   }
@@ -152,10 +150,10 @@ export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promi
 
 
 export interface ModalOptions extends DialogOptions {
-  text: o.RO<E.JSX.Insertable>
-  title: o.RO<E.JSX.Insertable>
-  agree?: o.RO<E.JSX.Insertable>
-  disagree?: o.RO<E.JSX.Insertable>,
+  text: o.RO<E.JSX.Renderable>
+  title: o.RO<E.JSX.Renderable>
+  agree?: o.RO<E.JSX.Renderable>
+  disagree?: o.RO<E.JSX.Renderable>,
 }
 
 /**
