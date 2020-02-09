@@ -8,7 +8,7 @@ import { inker } from './ink';
 /**
  * Parent needs to be at least absolute.
  */
-export function Float(a: E.JSX.Attrs<HTMLDivElement>, ch: DocumentFragment) {
+export function Float(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
 
   return <div class={[Float.css.float]}>
     {$init(n => {
@@ -120,7 +120,7 @@ export function create_float<T>(
 }
 
 
-export function float<T>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element) {
+export function $float<T>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element) {
   return $click((ev, node) => {
     inker(node, ev)
     create_float(node, ch)

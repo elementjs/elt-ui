@@ -13,14 +13,14 @@ import {$inkable} from './ink'
 import { Control } from './control'
 
 
-export interface RadioAttributes<T> extends E.JSX.HTMLAttributes<HTMLLabelElement> {
+export interface RadioAttributes<T> extends E.JSX.Attrs<HTMLLabelElement> {
   model: o.Observable<T>
   val: o.RO<T>
   disabled?: o.RO<boolean>
 }
 
 
-export class Radio<T> extends Component<HTMLLabelElement, RadioAttributes<T>> {
+export class Radio<T> extends Component<RadioAttributes<T>> {
 
   disabled: o.ReadonlyObservable<boolean> = o(this.attrs.disabled||false)
   value: o.RO<T> = this.attrs.val

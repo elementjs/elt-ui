@@ -13,7 +13,7 @@ import {
 import S from './styling'
 import { style } from 'osun'
 import { Control, ControlBox } from './control'
-import { float, Float } from './float'
+import { $float, Float } from './float'
 
 import FaCaretDown from 'elt-fa/caret-down'
 
@@ -37,7 +37,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 	/**
 	 * Setup the observation logic.
 	 */
-	render(children: DocumentFragment): Element {
+	render(children: E.JSX.Renderable[]) {
 		let attrs = this.attrs
 
 		let options = o(attrs.options)
@@ -47,8 +47,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 
 		let decorators: Mixin[] = [bind(this.selected)];
 
-		decorators.push(float(acc => <Float class={Control.css.control_border}>
-			<ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG)} vertical>
+		decorators.push($float(acc => <Float><ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG).border(S.TINT14)} vertical>
 			{Repeat(options, (opt, i) => <div
 				class={[Control.css.control, S.box.border(S.TINT14), {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
 				$$={[click(() => acc(model.set(o.get(opt))))]}

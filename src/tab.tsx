@@ -38,7 +38,7 @@ export namespace TabContainer {
 }
 
 
-export interface TabAttributes extends E.JSX.HTMLAttributes<HTMLDivElement> {
+export interface TabAttributes extends E.JSX.Attrs<HTMLDivElement> {
 	text: E.JSX.Insertable<HTMLDivElement>,
 }
 
@@ -47,13 +47,13 @@ export interface TabAttributes extends E.JSX.HTMLAttributes<HTMLDivElement> {
  * FIXME missing is_active logic, since I don't know how to dynamically
  * watch the parent container observable.
  */
-export class Tab extends Component<HTMLDivElement, TabAttributes> {
+export class Tab extends Component<TabAttributes> {
 
 	container: TabContainer | null = null
 	children: Node[] = []
 	o_is_active = o(false)
 
-	init(node: Element) {
+	init(node) {
 		if (this.container) return
 
 		this.container = TabContainer.get(node)

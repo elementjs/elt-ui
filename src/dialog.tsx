@@ -113,16 +113,16 @@ export class Dialog<T> extends Component<DialogAttrs<T>, HTMLElement> {
 
 }
 
-export function Overlay(attrs: E.JSX.Attrs, children: DocumentFragment): Element {
+export function Overlay(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) {
   return <div class={[dialog.overlay, S.flex.column.alignCenter.justifyCenter]}>{children}</div>
 }
 
-export function Title(attrs: E.JSX.Attrs, children: DocumentFragment): Element { return <h3 class={S.text.uppercase.bold.color(S.TINT)}>{children}</h3> }
+export function Title(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) { return <h3 class={S.text.uppercase.bold.color(S.TINT)}>{children}</h3> }
 
-export function Content(attrs: E.JSX.Attrs, children: DocumentFragment): Element { return <div class={S.text.preLine}>{children}</div> }
+export function Content(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) { return <div class={S.text.preLine}>{children}</div> }
 
 
-export function Root(attrs: E.JSX.Attrs, children: DocumentFragment): Element {
+export function Root(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) {
   return <div class={[dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow]}>{children}</div>
 }
 

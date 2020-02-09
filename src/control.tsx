@@ -6,7 +6,7 @@ import { o } from 'elt'
 export var CONTROL_PADDING = '0.25em 0.5em'
 export var CONTROL_RADIUS = '0.25em 0.5em'
 
-export function Control(a: E.JSX.Attrs, ch: DocumentFragment) {
+export function Control(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
   return <div class={Control.css.control}>{ch}</div>
 }
 
@@ -86,12 +86,12 @@ export namespace Control.css {
 
 }
 
-export function ControlBox(a: E.JSX.Attrs & {vertical?: o.RO<boolean>}, ch: DocumentFragment) {
+export function ControlBox(a: E.JSX.Attrs & {vertical?: o.RO<boolean>}, ch: E.JSX.Renderable[]) {
   return <div class={o.tf(a.vertical, v => v ? Control.css.control_box_vertical : Control.css.control_box)}>{ch}</div>
 }
 
 
-export function ControlLabel(a: E.JSX.Attrs, ch: DocumentFragment) {
+export function ControlLabel(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
   return <div class={[Control.css.control, ControlLabel.css.container]}><span class={ControlLabel.css.span}>{ch}</span></div>
 }
 

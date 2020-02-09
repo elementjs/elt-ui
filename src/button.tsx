@@ -21,7 +21,7 @@ export interface ButtonAttrs extends E.JSX.Attrs {
 }
 
 
-export function Button(attrs : ButtonAttrs, children: DocumentFragment): Element {
+export function Button(attrs : ButtonAttrs, children: E.JSX.Renderable[]) {
 
   function doClick(this: Node, event: MouseEvent, node: Node) {
     let click = o.get(attrs.click)
@@ -99,17 +99,17 @@ export interface ButtonBarAttrs extends E.JSX.Attrs {
 
 export class ButtonBar extends Component<ButtonBarAttrs> {
 
-  init(node: Element) {
+  init(node) {
     requestAnimationFrame(() => {
       node.parentElement!.classList.add(ButtonBar.cls_has_button_bar)
     })
   }
 
-  removed(node: Element, parent: Element) {
+  removed(node, parent) {
     parent.classList.remove(ButtonBar.cls_has_button_bar)
   }
 
-  render(children: DocumentFragment): Element {
+  render(children: E.JSX.Renderable[]) {
     return <div class={[ButtonBar.cls_button_bar, S.flex.row.justifyCenter]}>{children}</div>
   }
 }

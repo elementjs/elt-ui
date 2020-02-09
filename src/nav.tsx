@@ -32,7 +32,7 @@ export class Nav extends Component<E.JSX.Attrs, HTMLElement> {
 		animate(node, Nav.enter)
 	}
 
-	render(ch: DocumentFragment): HTMLElement {
+	render(ch: E.JSX.Renderable[]): HTMLElement {
 
 		return <div>
 			<div class={Nav.overlay} $$={[click((e, overlay) => {
@@ -89,7 +89,7 @@ export namespace Nav {
 
 }
 
-export function NavHeader(a: E.JSX.Attrs, ch: DocumentFragment): Element {
+export function NavHeader(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
 	return <div class={NavHeader.header}>{ch}</div>
 }
 
@@ -102,7 +102,7 @@ export namespace NavHeader {
 
 }
 
-export function NavSubheader(a: E.JSX.Attrs, ch: DocumentFragment): Element {
+export function NavSubheader(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
 	return <div class={NavSubheader.subheader}>{ch}</div>
 }
 
@@ -110,7 +110,7 @@ export namespace NavSubheader {
 	export const subheader = style('subheader', {paddingLeft: '16px'})
 }
 
-export function NavDivider(a: E.JSX.Attrs, ch: DocumentFragment): Element {
+export function NavDivider(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
 	return <div class={NavDivider.divider}/>
 }
 
@@ -129,7 +129,7 @@ export interface NavItemAttributes extends E.JSX.Attrs {
 	click?: (ev: MouseEvent) => any
 }
 
-export function NavItem(a: NavItemAttributes, ch: DocumentFragment): Element {
+export function NavItem(a: NavItemAttributes, ch: E.JSX.Renderable[]) {
 	let res = <div class={[NavItem.item, S.flex.row.alignCenter]} $$={[inkClickDelay(function (e) {
 		if (a.click && a.click(e) !== false) {
 			let c = Nav.get(res)
@@ -163,12 +163,12 @@ export namespace NavItem {
 
 }
 
-export function NavBody(a: E.JSX.Attrs, ch: DocumentFragment): Element {
+export function NavBody(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
 	return <div class={[S.flex.column.absoluteGrow(1)]}>{ch}</div>
 }
 
 
-export function NavFooter(a: E.JSX.Attrs, ch: DocumentFragment): Element {
+export function NavFooter(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
 	return <div class={NavFooter.footer}>{ch}</div>
 }
 

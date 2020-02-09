@@ -30,7 +30,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
     this.o_model.mutate(v => !v)
   }
 
-  render(children: DocumentFragment): Element {
+  render(children: E.JSX.Renderable[]) {
 
     function getIcon(value: boolean) {
       if (value === undefined) return <FaMinusSquare class={[Checkbox.cls_icon]}/>
@@ -69,7 +69,7 @@ export namespace Checkbox {
 }
 
 
-export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch: DocumentFragment) {
+export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch: E.JSX.Renderable[]) {
   return <button class={[
     S.box.cursorPointer,
     Control.css.control,

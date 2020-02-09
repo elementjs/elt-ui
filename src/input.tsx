@@ -62,7 +62,7 @@ export interface InputAttributes extends E.JSX.Attrs {
 }
 
 
-export function Input(attrs: InputAttributes, content: DocumentFragment): Element {
+export function Input(attrs: InputAttributes, content: E.JSX.Renderable[]) {
 
   let id = attrs.id || `input_${id_gen++}`;
 
