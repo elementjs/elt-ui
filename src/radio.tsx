@@ -1,7 +1,7 @@
 
 import {
   o,
-  click,
+  $click,
   Component,
 } from 'elt'
 
@@ -9,21 +9,21 @@ import {Checkbox} from './checkbox'
 
 import FaCircle from 'elt-fa/circle-regular'
 import FaDotCircle from 'elt-fa/dot-circle-regular'
-import {inkable} from './ink'
+import {$inkable} from './ink'
 import { Control } from './control'
 
 
-export interface RadioAttributes<T> extends E.JSX.Attrs {
+export interface RadioAttributes<T> extends E.JSX.HTMLAttributes<HTMLLabelElement> {
   model: o.Observable<T>
-  value: o.RO<T>
+  val: o.RO<T>
   disabled?: o.RO<boolean>
 }
 
 
-export class Radio<T> extends Component<RadioAttributes<T>> {
+export class Radio<T> extends Component<HTMLLabelElement, RadioAttributes<T>> {
 
   disabled: o.ReadonlyObservable<boolean> = o(this.attrs.disabled||false)
-  value: o.RO<T> = this.attrs.value
+  value: o.RO<T> = this.attrs.val
   model: o.Observable<T> = o(this.attrs.model)
 
   o_checked = o.merge({model: this.model, value: this.value}).tf(({model: m, value: v}) => m === v)
@@ -32,7 +32,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
     this.model.set(o.get(this.value))
   }
 
-  render(children: DocumentFragment): Element {
+  render(children: E.JSX.Renderable[]) {
 
     const equals = o.virtual([this.model, this.value], ([m, v]) => m === v)
 
@@ -42,7 +42,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
       [Checkbox.cls_disabled]: this.disabled
     };
 
-    return <label class={[Control.css.control, Checkbox.cls_label, classes]} $$={[inkable(), click(e => this.setValue())]}>
+    return <label class={[Control.css.control, Checkbox.cls_label, classes]} $$={[$inkable(), $click(e => this.setValue())]}>
         {this.o_checked.tf(v => v ?
           <FaDotCircle class={Checkbox.cls_icon}/> :
           <FaCircle class={Checkbox.cls_icon}/>

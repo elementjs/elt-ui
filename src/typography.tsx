@@ -1,7 +1,7 @@
 import S from './styling'
 import { style, rule } from 'osun'
 
-export function TypographicZone(a: E.JSX.Attrs, ch: DocumentFragment) {
+export function TypographicZone(a: E.JSX.IntrinsicElements['div'], ch: E.JSX.Renderable[]) {
   return <div class={TypographicZone.css.container}>{ch}</div>
 }
 

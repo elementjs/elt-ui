@@ -1,5 +1,5 @@
 
-import { click, Mixin, append_child_and_mount, remove_and_unmount } from 'elt'
+import { $click, append_child_and_mount, remove_and_unmount, Decorator } from 'elt'
 
 import { animate } from './animate'
 import S from './styling'
@@ -82,15 +82,15 @@ export function inker(node: Node, event: MouseEvent) {
 }
 
 
-export function inkable(): Mixin {
-	return click(function (ev, node) {
+export function $inkable<N extends Node>(): Decorator<N> {
+	return $click(function (ev, node) {
 		inker(node, ev)
 	})
 }
 
 
 export function inkClickDelay(fn: (ev: MouseEvent) => void) {
-	return click(function (ev, node) {
+	return $click(function (ev, node) {
 		inker(node, ev)
 		setTimeout(() => {
 			fn(ev)

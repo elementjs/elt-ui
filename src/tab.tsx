@@ -1,13 +1,13 @@
 
 import {
-	click,
+	$click,
 	Component,
 	Repeat,
 	o,
 	Fragment as F,
 } from 'elt'
 
-import { inkable } from './ink'
+import { $inkable } from './ink'
 
 import S from './styling'
 import { style } from 'osun'
@@ -19,7 +19,7 @@ export class TabContainer extends Component {
 	o_active_tab = o(null as Tab | null)
 	o_titles = o([] as Node[])
 
-	render(children: DocumentFragment): Element {
+	render(children: E.JSX.Renderable[]) {
 		return <div class={S.flex.column}>
 			<div class={[TabContainer.bar, S.flex.row.justifyCenter]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
@@ -38,8 +38,8 @@ export namespace TabContainer {
 }
 
 
-export interface TabAttributes extends E.JSX.Attrs {
-	text: E.JSX.Insertable,
+export interface TabAttributes extends E.JSX.HTMLAttributes<HTMLDivElement> {
+	text: E.JSX.Insertable<HTMLDivElement>,
 }
 
 
@@ -47,7 +47,7 @@ export interface TabAttributes extends E.JSX.Attrs {
  * FIXME missing is_active logic, since I don't know how to dynamically
  * watch the parent container observable.
  */
-export class Tab extends Component<TabAttributes> {
+export class Tab extends Component<HTMLDivElement, TabAttributes> {
 
 	container: TabContainer | null = null
 	children: Node[] = []
@@ -63,10 +63,9 @@ export class Tab extends Component<TabAttributes> {
 
 		this.container.o_titles.mutate(titles => (titles.push(<div
 			class={Tab.title}
-			$$={[
-				click(ev => this.activate()),
-				inkable()
-			]}>
+		>
+			{$click(ev => this.activate())}
+			{$inkable()}
 			<div class={[Tab.secondborder, {[Tab.active]: this.o_is_active}]}>&nbsp;</div>
 			{this.attrs.text}
 		</div>), titles))
@@ -87,7 +86,7 @@ export class Tab extends Component<TabAttributes> {
 		this.container.o_active_tab.set(this)
 	}
 
-	render(children: DocumentFragment): Element {
+	render(children: E.JSX.Renderable[]) {
 
 		const frag = <F>{children}</F>
 

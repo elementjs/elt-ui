@@ -9,7 +9,7 @@ import {
 import FaSquareRegular from 'elt-fa/square-regular'
 import FaMinusSquare from 'elt-fa/minus-square'
 import FaCheckSquareRegular from 'elt-fa/check-square-regular'
-import {inkable} from './ink'
+import {$inkable} from './ink'
 import { style } from 'osun'
 import S from './styling'
 import { Control } from './control'
@@ -44,7 +44,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
       [Checkbox.cls_disabled]: this.o_disabled
     }
 
-    return <button class={[Checkbox.cls_label, Control.css.control, classes]} $$={[inkable(), click(e => this.toggle())]}>
+    return <button class={[Checkbox.cls_label, Control.css.control, classes]} $$={[$inkable(), click(e => this.toggle())]}>
       {this.o_model.tf(getIcon)}
       {' '}
       <span class={[Checkbox.cls_content]}>{children}</span>
@@ -77,7 +77,7 @@ export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch
     {[Toggle.css.on]: model},
     // model.tf(m => m ? Control.css.color_middle : Control.css.color_faint)
   ]}
-    $$={[inkable(), click(() => model.mutate(m => !m))]}
+    $$={[$inkable(), click(() => model.mutate(m => !m))]}
   >{ch}</button>
 }
 

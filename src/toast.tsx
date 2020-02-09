@@ -27,7 +27,7 @@ export class Toaster {
 		)
 	}
 
-	toast(msg: E.JSX.Insertable) {
+	toast(msg: E.JSX.Insertable<HTMLDivElement>) {
 		// if (!this._mounted)
 		// 	this.mount(document.body);
 

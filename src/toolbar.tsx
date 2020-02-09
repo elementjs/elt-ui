@@ -1,7 +1,7 @@
 import S from './styling'
 import { style, rule } from 'osun';
 
-export function Toolbar(_: E.JSX.Attrs, children: DocumentFragment): Element {
+export function Toolbar(_: E.JSX.IntrinsicElements['div'], children: E.JSX.Renderable[]) {
 
   return <div style={{height: '3rem'}} class={Toolbar.css.toolbar}>{children}</div>
 }
