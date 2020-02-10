@@ -2,27 +2,8 @@
 import { init, insert_before_and_mount, remove_and_unmount, click } from 'elt'
 import { animate } from './animate'
 import { Styling as S } from './styling'
-import { style } from 'osun';
+import { style, rule } from 'osun';
 import { inker } from './ink';
-
-
-export function Triangle(a: E.JSX.SVGAttributes) {
-  return <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class={Triangle.css.triangle} width='19' height='16' viewBox='0 0 140 100'>
-    <path class={Triangle.css.path} d="M 10,100 70,10 130,100"/>
-  </svg>
-}
-
-
-export namespace Triangle.css {
-  export const triangle = style('triangle',
-    S.box.positionAbsolute.top(-15).left(16),
-  )
-
-  export const path = style('triangle-path',
-    { stroke: S.TINT14, strokeWidth: '10px', fill: S.BG, strokeLinejoin: 'round' }
-  )
-}
-
 
 /**
  * Parent needs to be at least absolute.
@@ -41,29 +22,39 @@ export function Float(a: E.JSX.Attrs, ch: DocumentFragment) {
       doc.body!.appendChild(elt)
 
       if (prect.bottom + rect.height > vh) {
-        // console.log(prect.bottom)
+        // rectangle would go past the bottom
+        n.classList.add(Float.css.bottom)
         n.style.bottom = `${vh - prect.top}px`
         n.style.transformOrigin = 'bottom center'
       } else {
-        n.style.top = `${prect.bottom + 16}px`
+        n.classList.add(Float.css.top)
+        n.style.top = `${prect.bottom}px`
         n.style.transformOrigin = 'top center'
       }
 
       if (prect.left + rect.width > vw) {
+        n.classList.add(Float.css.right)
         n.style.right = `${vw - prect.right}px`
       } else {
+        n.classList.add(Float.css.left)
         n.style.left = `${prect.left}px`
       }
     })
   })}>
-    <Triangle/>
     {ch}
   </div>
 }
 
 
-Float.css = {
-  float: style('float', {
+export namespace Float.css {
+  const M = 16
+
+  export const top = style('float-top', {marginTop: `${M/2}px`})
+  export const bottom = style('float-bottom', {marginBottom: `${M/2}px`})
+  export const left = style('float-left')
+  export const right = style('float-right')
+
+  export const float = style('float', {
     maxHeight: '90vh',
     position: 'fixed',
     zIndex: 2,
@@ -74,12 +65,23 @@ Float.css = {
     animationDuration: '0.1s',
     animationTimingFunction: 'ease-in',
     transformOrigin: 'top center',
-  }),
+  })
 
-  leave_float: style('leave-float', {
+  export const leave_float = style('leave-float', {
     animationName: animate.top_leave
   })
+
+  rule`${Float.css.float}::before`({content: '"\u00a0"'},
+    S.box.block.width(M).height(M).border(S.TINT14).positionAbsolute.background(S.BG),
+    {borderRadius: '0.15em', zIndex: -1, transform: `translateZ(0) rotate(-45deg)`, transformOrigin: '50% 50%', boxShadow: `2px 2px 10px ${S.FG14}`}
+  )
+  rule`${Float.css.float}${bottom}::before`(S.box.bottom(-M / 2))
+  rule`${Float.css.float}${top}::before`(S.box.top(-M / 2))
+  rule`${Float.css.float}${left}::before`(S.box.left(M))
+  rule`${Float.css.float}${right}::before`(S.box.right(M))
+
 }
+
 
 
 const wm = new WeakMap<Node, Promise<any>>()

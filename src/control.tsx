@@ -11,6 +11,7 @@ export function Control(a: E.JSX.Attrs, ch: DocumentFragment) {
 }
 
 export namespace Control.css {
+  export const control_border = style('control-border', {borderRadius: CONTROL_RADIUS})
 
   export const control = style('control',
     S.box
@@ -50,6 +51,7 @@ export namespace Control.css {
 
   export const control_box = style('control-box',
     S.flex.row.inline,
+    control_border
   )
 
   rule`${control_box} > ${control}`({
@@ -66,7 +68,7 @@ export namespace Control.css {
     borderRadius: '0.25em 0 0 0.5em',
   })
 
-  export const control_box_vertical = style('control-box-vertical', S.flex.inline, {flexDirection: 'column'})
+  export const control_box_vertical = style('control-box-vertical', S.flex.inline, {flexDirection: 'column'}, control_border)
 
   rule`${control_box_vertical} > ${control}`({
     borderRadius: '0',

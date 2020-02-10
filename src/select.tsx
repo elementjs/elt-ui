@@ -29,6 +29,7 @@ export interface SelectAttributes<T> extends E.JSX.Attrs {
 	onchange?: ChangeFn<T>
 }
 
+
 export class Select<T> extends Component<SelectAttributes<T>> {
 
 	protected selected: o.Observable<string> = o('-1')
@@ -46,10 +47,11 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 
 		let decorators: Mixin[] = [bind(this.selected)];
 
-		decorators.push(float(acc => <Float><ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG).border(S.TINT14)} vertical>
+		decorators.push(float(acc => <Float class={Control.css.control_border}>
+			<ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG)} vertical>
 			{Repeat(options, (opt, i) => <div
-				class={[Control.css.control, {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
-				$$={click(() => acc(model.set(o.get(opt))))}
+				class={[Control.css.control, S.box.border(S.TINT14), {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
+				$$={[click(() => acc(model.set(o.get(opt))))]}
 				>
 						{opt.tf(val => labelfn(val))}
 				</div>
