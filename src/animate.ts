@@ -1,5 +1,4 @@
 
-import { add_event_listener, remove_event_listener } from 'elt'
 import { keyframes } from 'osun'
 
 
@@ -15,8 +14,8 @@ export function animate(node: HTMLElement, cls: string) {
 
 		function end() {
 			ended = true
-			remove_event_listener(node, 'animationend', fnend)
-			remove_event_listener(node, 'animationstart', fnstart)
+			node.removeEventListener('animationend', fnend)
+			node.removeEventListener('animationstart', fnstart)
 			resolve(node)
 		}
 
@@ -38,8 +37,8 @@ export function animate(node: HTMLElement, cls: string) {
 			anims.add(ev.animationName)
 		}
 
-		add_event_listener(node, 'animationstart', fnstart)
-		add_event_listener(node, 'animationend', fnend)
+		node.addEventListener('animationstart', fnstart)
+		node.addEventListener('animationend', fnend)
 		node.classList.add(cls)
 
 		// We leave 100 ms to the animations to potentially start. If during

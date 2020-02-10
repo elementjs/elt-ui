@@ -13,11 +13,7 @@ import S from './styling'
 import { style, rule } from 'osun'
 
 
-export interface NavAttributes extends E.JSX.Attrs {
-
-}
-
-export class Nav extends Component<E.JSX.Attrs> {
+export class Nav extends Component {
 
 	detach() {
 		this.node.classList.remove(Nav.enter)

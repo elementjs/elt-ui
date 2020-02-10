@@ -2,7 +2,7 @@
 import {
   o,
   Component,
-  click,
+  $click,
   Mixin
 } from 'elt'
 
@@ -12,7 +12,7 @@ import {inker} from './ink'
 import { Control } from './control'
 
 
-export interface ButtonAttrs extends E.JSX.Attrs {
+export interface ButtonAttrs extends E.JSX.Attrs<HTMLButtonElement> {
   bordered?: o.RO<boolean>
   disabled?: o.RO<boolean>
   contrast?: o.RO<boolean>
@@ -44,10 +44,10 @@ export function Button(attrs : ButtonAttrs, children: E.JSX.Renderable[]) {
       }
     ]}
     disabled={o.tf(attrs.disabled, val => !!val)}
-    $$={click(doClick)}
   >
+    {$click(doClick)}
     {children}
-  </button>
+  </button> as HTMLButtonElement
 
 }
 
@@ -92,25 +92,25 @@ export namespace Button {
 }
 
 
-export interface ButtonBarAttrs extends E.JSX.Attrs {
+export interface ButtonBarAttrs extends E.JSX.Attrs<HTMLDivElement> {
   stacked?: boolean
 }
 
 
 export class ButtonBar extends Component<ButtonBarAttrs> {
 
-  init(node) {
+  init(node = this.node) {
     requestAnimationFrame(() => {
       node.parentElement!.classList.add(ButtonBar.cls_has_button_bar)
     })
   }
 
-  removed(node, parent) {
-    parent.classList.remove(ButtonBar.cls_has_button_bar)
+  removed(node = this.node, parent: Node) {
+    (parent as Element).classList.remove(ButtonBar.cls_has_button_bar)
   }
 
   render(children: E.JSX.Renderable[]) {
-    return <div class={[ButtonBar.cls_button_bar, S.flex.row.justifyCenter]}>{children}</div>
+    return <div class={[ButtonBar.cls_button_bar, S.flex.row.justifyCenter]}>{children}</div> as HTMLDivElement
   }
 }
 

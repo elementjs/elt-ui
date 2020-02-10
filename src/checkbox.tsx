@@ -1,7 +1,7 @@
 
 import {
   o,
-  click,
+  $click,
   Component,
 } from 'elt'
 
@@ -15,7 +15,7 @@ import S from './styling'
 import { Control } from './control'
 
 
-export interface CheckboxAttributes extends E.JSX.Attrs {
+export interface CheckboxAttributes extends E.JSX.Attrs<HTMLButtonElement> {
   model: o.Observable<boolean>
   disabled?: o.RO<boolean>
 }
@@ -44,11 +44,14 @@ export class Checkbox extends Component<CheckboxAttributes> {
       [Checkbox.cls_disabled]: this.o_disabled
     }
 
-    return <button class={[Checkbox.cls_label, Control.css.control, classes]} $$={[$inkable(), click(e => this.toggle())]}>
+    return <button class={[Checkbox.cls_label, Control.css.control, classes]}>
+      {$inkable}
+      {$click(e => this.toggle())}
+
       {this.o_model.tf(getIcon)}
       {' '}
       <span class={[Checkbox.cls_content]}>{children}</span>
-    </button>
+    </button> as HTMLButtonElement
 
   }
 }
@@ -77,8 +80,11 @@ export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch
     {[Toggle.css.on]: model},
     // model.tf(m => m ? Control.css.color_middle : Control.css.color_faint)
   ]}
-    $$={[$inkable(), click(() => model.mutate(m => !m))]}
-  >{ch}</button>
+  >
+    {$inkable}
+    {$click(() => model.mutate(m => !m))}
+    {ch}
+  </button>
 }
 
 export namespace Toggle.css {

@@ -15,7 +15,7 @@ import { Control } from './control'
 
 export interface RadioAttributes<T> extends E.JSX.Attrs<HTMLLabelElement> {
   model: o.Observable<T>
-  val: o.RO<T>
+  value: o.RO<T>
   disabled?: o.RO<boolean>
 }
 
@@ -23,7 +23,7 @@ export interface RadioAttributes<T> extends E.JSX.Attrs<HTMLLabelElement> {
 export class Radio<T> extends Component<RadioAttributes<T>> {
 
   disabled: o.ReadonlyObservable<boolean> = o(this.attrs.disabled||false)
-  value: o.RO<T> = this.attrs.val
+  value: o.RO<T> = this.attrs.value
   model: o.Observable<T> = o(this.attrs.model)
 
   o_checked = o.merge({model: this.model, value: this.value}).tf(({model: m, value: v}) => m === v)
@@ -43,7 +43,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
     };
 
     return <label class={[Control.css.control, Checkbox.cls_label, classes]}>
-        {$inkable()}
+        {$inkable}
         {$click(e => this.setValue())}
 
         {this.o_checked.tf(v => v ?
@@ -52,7 +52,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
         )}
         {' '}
         <span class={Checkbox.cls_content}>{children}</span>
-      </label>;
+      </label> as HTMLLabelElement
 
   }
 }

@@ -23,7 +23,7 @@ export class TabContainer extends Component {
 		return <div class={S.flex.column}>
 			<div class={[TabContainer.bar, S.flex.row.justifyCenter]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
-		</div>
+		</div> as HTMLDivElement
 
 	}
 
@@ -65,7 +65,7 @@ export class Tab extends Component<TabAttributes> {
 			class={Tab.title}
 		>
 			{$click(ev => this.activate())}
-			{$inkable()}
+			{$inkable}
 			<div class={[Tab.secondborder, {[Tab.active]: this.o_is_active}]}>&nbsp;</div>
 			{this.attrs.text}
 		</div>), titles))
@@ -98,7 +98,7 @@ export class Tab extends Component<TabAttributes> {
 			]}
 		>
 			{this.o_is_active.tf(a => a ? frag : null)}
-		</div>
+		</div> as HTMLDivElement
 
 	}
 }
