@@ -14,7 +14,7 @@ import { Control } from './control'
 var id_gen = 0;
 
 
-export interface SearchAttributes extends E.JSX.Attrs {
+export interface SearchAttributes extends E.JSX.Attrs<HTMLInputElement> {
   model: o.Observable<string>
   placeholder?: o.RO<string|null|undefined>
 }
@@ -23,7 +23,7 @@ export function Search({model, placeholder}: SearchAttributes) {
   return <input placeholder={placeholder} class={[Search.element]}>
       {bind(o(model))}
       <Button class={Search.button} icon><FaClose/></Button>
-    </input>
+    </input> as HTMLInputElement
 }
 
 export namespace Search {
@@ -47,7 +47,7 @@ export namespace Search {
 
 }
 
-export interface InputAttributes extends E.JSX.Attrs {
+export interface InputAttributes extends E.JSX.Attrs<HTMLInputElement> {
   model: o.Observable<string>
   disabled?: o.RO<boolean>
   type?: o.RO<string>

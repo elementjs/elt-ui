@@ -87,8 +87,8 @@ export namespace Nav {
 
 }
 
-export function NavHeader(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
-	return <div class={NavHeader.header}>{ch}</div>
+export function NavHeader(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+	return <div class={NavHeader.header}>{ch}</div> as HTMLDivElement
 }
 
 export namespace NavHeader {
@@ -100,16 +100,16 @@ export namespace NavHeader {
 
 }
 
-export function NavSubheader(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
-	return <div class={NavSubheader.subheader}>{ch}</div>
+export function NavSubheader(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+	return <div class={NavSubheader.subheader}>{ch}</div> as HTMLDivElement
 }
 
 export namespace NavSubheader {
 	export const subheader = style('subheader', {paddingLeft: '16px'})
 }
 
-export function NavDivider(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
-	return <div class={NavDivider.divider}/>
+export function NavDivider(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+	return <div class={NavDivider.divider}/> as HTMLDivElement
 }
 
 export namespace NavDivider {
@@ -122,8 +122,8 @@ export namespace NavDivider {
 	})
 }
 
-export interface NavItemAttributes extends E.JSX.Attrs {
-	icon: o.RO<(a: E.JSX.Attrs) => Element>
+export interface NavItemAttributes extends E.JSX.Attrs<HTMLDivElement> {
+	icon: o.RO<(a: E.JSX.Attrs<HTMLElement | SVGElement>) => HTMLElement | SVGElement>
 	click?: (ev: MouseEvent) => any
 }
 
@@ -162,12 +162,12 @@ export namespace NavItem {
 
 }
 
-export function NavBody(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
+export function NavBody(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
 	return <div class={[S.flex.column.absoluteGrow(1)]}>{ch}</div>
 }
 
 
-export function NavFooter(a: E.JSX.Attrs, ch: E.JSX.Renderable[]) {
+export function NavFooter(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
 	return <div class={NavFooter.footer}>{ch}</div>
 }
 

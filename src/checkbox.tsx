@@ -72,7 +72,7 @@ export namespace Checkbox {
 }
 
 
-export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch: E.JSX.Renderable[]) {
+export function Toggle({model}: E.JSX.Attrs<HTMLButtonElement> & {model: o.Observable<boolean>}, ch: E.JSX.Renderable[]) {
   return <button class={[
     S.box.cursorPointer,
     Control.css.control,
@@ -84,7 +84,7 @@ export function Toggle({model}: E.JSX.Attrs & {model: o.Observable<boolean>}, ch
     {$inkable}
     {$click(() => model.mutate(m => !m))}
     {ch}
-  </button>
+  </button> as HTMLButtonElement
 }
 
 export namespace Toggle.css {

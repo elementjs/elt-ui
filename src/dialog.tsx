@@ -8,6 +8,7 @@ import {
   append_child_and_mount,
   remove_and_unmount,
   Component,
+  $class,
 } from 'elt';
 
 import { animate } from './animate'
@@ -34,7 +35,7 @@ export interface DialogOptions extends DialogCommon {
 }
 
 
-export interface DialogAttrs<T> extends E.JSX.Attrs, DialogCommon {
+export interface DialogAttrs<T> extends E.JSX.Attrs<HTMLElement>, DialogCommon {
   builder: DialogBuilder<T>
   animationEnter: string
   animationLeave: string
@@ -111,17 +112,29 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
 
 }
 
-export function Overlay(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) {
-  return <div class={[dialog.overlay, S.flex.column.alignCenter.justifyCenter]}>{children}</div>
+export function Overlay(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Renderable[]) {
+  return E('div', $class(dialog.overlay, S.flex.column.alignCenter.justifyCenter),
+    children
+  )
 }
 
-export function Title(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) { return <h3 class={S.text.uppercase.bold.color(S.TINT)}>{children}</h3> }
+export function Title(attrs: E.JSX.Attrs<HTMLHeadingElement>, children: E.JSX.Renderable[]) {
+  return E('h3', $class(S.text.uppercase.bold.color(S.TINT)),
+    children
+  )
+}
 
-export function Content(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) { return <div class={S.text.preLine}>{children}</div> }
+export function Content(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Renderable[]) {
+  return E('div', $class(S.text.preLine),
+    children
+  )
+}
 
 
-export function Root(attrs: E.JSX.Attrs, children: E.JSX.Renderable[]) {
-  return <div class={[dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow]}>{children}</div>
+export function Root(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Renderable[]) {
+  return E.DIV($class(dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow),
+    children
+  )
 }
 
 
