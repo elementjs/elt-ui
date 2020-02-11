@@ -1,5 +1,5 @@
 
-import { append_child_and_mount, remove_and_unmount } from 'elt'
+import { append_child_and_init, remove_and_deinit } from 'elt'
 import { animate } from './animate'
 
 import S from './styling'
@@ -23,7 +23,7 @@ export class Toaster {
 
 	kill(node: HTMLElement) {
 		animate(node, animate.fade_out).then(node =>
-			remove_and_unmount(node)
+			remove_and_deinit(node)
 		)
 	}
 
@@ -39,14 +39,14 @@ export class Toaster {
 		// let promise: Promise<any> = this._current ? this._current.destroy() : Promise.resolve(true)
 
 		if (!this._holder.parentNode) {
-			append_child_and_mount(document.body, this._holder)
+			append_child_and_init(document.body, this._holder)
 		}
 
 		let toast = (msg instanceof Node ? msg
 			: <div class={Toaster.cls_toast}>{msg}</div>) as HTMLElement
 
 		animate(toast, animate.fade_in)
-		append_child_and_mount(this._holder, toast)
+		append_child_and_init(this._holder, toast)
 
 		this._cancel = window.setTimeout(() => this.kill(toast), 3000)
 		this._current = toast

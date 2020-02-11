@@ -1,5 +1,5 @@
 
-import { $click, append_child_and_mount, remove_and_unmount } from 'elt'
+import { $click, append_child_and_init, remove_and_deinit } from 'elt'
 
 import { animate } from './animate'
 import S from './styling'
@@ -21,7 +21,7 @@ export function inker(node: Node, event: MouseEvent) {
 		{ink_circle}
 	</div> as HTMLDivElement
 
-	append_child_and_mount(is_relative ? node : document.body, ink_container)
+	append_child_and_init(is_relative ? node : document.body, ink_container)
 
 	// Some CSS rules may mess up the container positioning, so we enforce them
 	// here
@@ -76,7 +76,7 @@ export function inker(node: Node, event: MouseEvent) {
 		it.marginLeft = halved
 
 		animate(ink_container, inker.cls_ink_animate).then(() => {
-			remove_and_unmount(ink_container)
+			remove_and_deinit(ink_container)
 		})
 	})
 }

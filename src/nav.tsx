@@ -2,7 +2,7 @@
 import {
 	$click,
 	Component,
-	remove_and_unmount,
+	remove_and_deinit,
 	o,
 } from 'elt'
 
@@ -18,7 +18,7 @@ export class Nav extends Component {
 	detach() {
 		this.node.classList.remove(Nav.enter)
 		animate(this.node, Nav.leave).then(() => {
-			remove_and_unmount(this.node)
+			remove_and_deinit(this.node)
 		}).catch(e => {
 			console.error(e)
 		})

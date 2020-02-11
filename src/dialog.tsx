@@ -5,8 +5,8 @@ import {
   $deinit,
   o,
   If,
-  append_child_and_mount,
-  remove_and_unmount,
+  append_child_and_init,
+  remove_and_deinit,
   Component,
   $class,
 } from 'elt';
@@ -61,7 +61,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
       return false
     await animate(this.node, this.attrs.animationLeave)
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
-    remove_and_unmount(this.node)
+    remove_and_deinit(this.node)
     return true
   }
 
@@ -155,7 +155,7 @@ export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promi
   let ctrl = Dialog.get(dialo) as any as Dialog<T>
 
   let parent = opts.parent || document.body
-  append_child_and_mount(parent, dialo)
+  append_child_and_init(parent, dialo)
 
   return ctrl.promise
 
