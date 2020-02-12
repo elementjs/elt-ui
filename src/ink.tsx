@@ -11,8 +11,8 @@ export const ANIM_DURATION = 300
 export function inker(event: MouseEvent) {
 
 	const node = event.currentTarget as Element
-	var clientX = event.pageX
-	var clientY = event.pageY
+	var clientX = event.clientX
+	var clientY = event.clientY
 
 	const position = window.getComputedStyle(node).position
 	const is_relative = position === 'relative' || position === 'absolute'
@@ -107,7 +107,6 @@ export namespace inker {
 
 		export const kf_ripple_size = keyframes('size', {
 			'0%': {transform: `scale(0) translateZ(0)`},
-			'75%': {transform: `scale(1) translateZ(0)`},
 			'100%': { transform: `scale(1) translateZ(0)` }
 		})
 
