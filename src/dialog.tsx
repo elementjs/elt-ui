@@ -87,8 +87,8 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
   render() {
     var opts = this.attrs
     return <Overlay>
-      {$click((e, node) => {
-        if (e.target === node && opts.clickOutsideToClose)
+      {$click((e) => {
+        if (e.target === e.currentTarget && opts.clickOutsideToClose)
           this.reject('clicked outside to close')
       })}
       {$init(node => {

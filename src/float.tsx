@@ -153,8 +153,8 @@ export function create_float<T>(
 
 
 export function $float<T>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element) {
-  return $click((ev, node) => {
-    inker(node, ev)
-    create_float(node, ch)
+  return $click(ev => {
+    inker(ev)
+    create_float(ev.currentTarget, ch)
   })
 }

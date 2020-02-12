@@ -10,7 +10,7 @@ import FaSquareRegular from 'elt-fa/square-regular'
 import FaMinusSquare from 'elt-fa/minus-square'
 import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {$inkable} from './ink'
-import { style } from 'osun'
+import { style, rule } from 'osun'
 import S from './styling'
 import { Control } from './control'
 
@@ -23,10 +23,9 @@ export interface CheckboxAttributes extends E.JSX.Attrs<HTMLButtonElement> {
 export class Checkbox extends Component<CheckboxAttributes> {
 
   o_model: o.Observable<boolean> = o(this.attrs.model)
-  o_disabled: o.RO<boolean|undefined> = o(this.attrs.disabled)
 
   toggle() {
-    if (o.get(this.o_disabled)) return
+    if (o.get(this.attrs.disabled)) return
     this.o_model.mutate(v => !v)
   }
 
@@ -41,10 +40,9 @@ export class Checkbox extends Component<CheckboxAttributes> {
     let classes = {
       [Checkbox.cls_on]: this.o_model,
       [Checkbox.cls_off]: this.o_model.tf(m => m == false),
-      [Checkbox.cls_disabled]: this.o_disabled
     }
 
-    return <button class={[Checkbox.cls_label, Control.css.control, classes]}>
+    return <button disabled={this.attrs.disabled} class={[Checkbox.cls_label, Control.css.control, classes]}>
       {$inkable}
       {$click(e => this.toggle())}
 
@@ -65,6 +63,7 @@ export namespace Checkbox {
 
   export const cls_label = style('label', S.box.border(S.TINT14).background(S.BG).cursorPointer)
   // rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
+  rule`${cls_label}[disabled]`(S.SetTint('#dddddd'))
 
   export const cls_content = style('content', S.box.paddingLeft('0.25em'))
 
@@ -72,8 +71,8 @@ export namespace Checkbox {
 }
 
 
-export function Toggle({model}: E.JSX.Attrs<HTMLButtonElement> & {model: o.Observable<boolean>}, ch: E.JSX.Renderable[]) {
-  return <button class={[
+export function Toggle({model, disabled}: E.JSX.Attrs<HTMLButtonElement> & {model: o.Observable<boolean>, disabled?: o.RO<boolean>}, ch: E.JSX.Renderable[]) {
+  return <button disabled={disabled} class={[
     S.box.cursorPointer,
     Control.css.control,
     Toggle.css.container,

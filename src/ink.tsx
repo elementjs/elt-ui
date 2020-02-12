@@ -8,20 +8,19 @@ import { keyframes, style, rule } from 'osun'
 export const ANIM_DURATION = 300
 
 
-export function inker(node: Node, event: MouseEvent) {
+export function inker(event: MouseEvent) {
 
+	const node = event.currentTarget as Element
 	var clientX = event.pageX
 	var clientY = event.pageY
 
-	const position = (window.getComputedStyle((node as HTMLElement)).position)
+	const position = window.getComputedStyle(node).position
 	const is_relative = position === 'relative' || position === 'absolute'
 
 	const ink_circle = <div class={inker.cls_ink}/> as HTMLDivElement
 	const ink_container = <div class={inker.cls_container}>
 		{ink_circle}
 	</div> as HTMLDivElement
-
-	append_child_and_init(is_relative ? node : document.body, ink_container)
 
 	// Some CSS rules may mess up the container positioning, so we enforce them
 	// here
@@ -44,51 +43,51 @@ export function inker(node: Node, event: MouseEvent) {
 		st.height = `${ink_size}px`
 	}
 
-	requestAnimationFrame(e => {
-		const bb = ink_container.getBoundingClientRect()
+	append_child_and_init(is_relative ? node : document.body, ink_container)
 
-		const x = clientX - bb.left
-		const y = clientY - bb.top
-		const mx = bb.width - x
-		const my = bb.height - y
+	const bb = ink_container.getBoundingClientRect()
 
-		// we want the biggest distance to an edge, as it will determine
-		// the size of our inker.
-		const biggest = is_relative ? Math.sqrt(
-			Math.max(
-				x * x + y * y,
-				x * x + my * my,
-				mx * mx + y * y,
-				mx * mx + my * my
-			)
-		) :
-			// Alternatively, if we're not in relative mode, we will keep
-			ink_size / 2
+	const x = clientX - bb.left
+	const y = clientY - bb.top
+	const mx = bb.width - x
+	const my = bb.height - y
 
-		const size = `${Math.round(biggest * 2)}px`
-		const halved = `-${Math.round(biggest)}px`
-		const it = ink_circle.style
-		it.left = `${x}px`
-		it.top = `${y}px`
-		it.width = size
-		it.height = size
-		it.marginTop = halved
-		it.marginLeft = halved
+	// we want the biggest distance to an edge, as it will determine
+	// the size of our inker.
+	const biggest = is_relative ? Math.sqrt(
+		Math.max(
+			x * x + y * y,
+			x * x + my * my,
+			mx * mx + y * y,
+			mx * mx + my * my
+		)
+	) :
+		// Alternatively, if we're not in relative mode, we will keep
+		ink_size / 2
 
-		animate(ink_container, inker.cls_ink_animate).then(() => {
-			remove_and_deinit(ink_container)
-		})
+	const size = `${Math.round(biggest * 2)}px`
+	const halved = `-${Math.round(biggest)}px`
+	const it = ink_circle.style
+	it.left = `${x}px`
+	it.top = `${y}px`
+	it.width = size
+	it.height = size
+	it.marginTop = halved
+	it.marginLeft = halved
+
+	animate(ink_container, inker.cls_ink_animate).then(() => {
+		remove_and_deinit(ink_container)
 	})
 }
 
 
-export const $inkable = $click(function (ev, node) {
-	inker(node, ev)
+export const $inkable = $click(function (ev) {
+	inker(ev)
 })
 
 export function $inkClickDelay(fn: (ev: MouseEvent) => void) {
-	return $click(function (ev, node) {
-		inker(node, ev)
+	return $click(function (ev) {
+		inker(ev)
 		setTimeout(() => {
 			fn(ev)
 		// The callback is fired when the opacity starts to decrease

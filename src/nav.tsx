@@ -32,8 +32,8 @@ export class Nav extends Component {
 
 		return <div>
 			<div class={Nav.overlay}>
-				{$click((e, overlay) => {
-					if (e.target === overlay)
+				{$click((e) => {
+					if (e.target === e.currentTarget)
 						this.detach()
 				})}
 			</div>

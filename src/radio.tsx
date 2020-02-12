@@ -13,7 +13,7 @@ import {$inkable} from './ink'
 import { Control } from './control'
 
 
-export interface RadioAttributes<T> extends E.JSX.Attrs<HTMLLabelElement> {
+export interface RadioAttributes<T> extends E.JSX.Attrs<HTMLButtonElement> {
   model: o.Observable<T>
   value: o.RO<T>
   disabled?: o.RO<boolean>
@@ -42,7 +42,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
       [Checkbox.cls_disabled]: this.disabled
     };
 
-    return <label class={[Control.css.control, Checkbox.cls_label, classes]}>
+    return <button disabled={this.attrs.disabled} class={[Control.css.control, Checkbox.cls_label, classes]}>
         {$inkable}
         {$click(e => this.setValue())}
 
@@ -52,7 +52,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
         )}
         {' '}
         <span class={Checkbox.cls_content}>{children}</span>
-      </label> as HTMLLabelElement
+      </button> as HTMLButtonElement
 
   }
 }

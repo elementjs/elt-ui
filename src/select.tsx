@@ -28,6 +28,7 @@ export interface SelectAttributes<T> extends E.JSX.Attrs<HTMLDivElement> {
 	options: o.RO<T[]>
 	labelfn: LabelFn<T>
 	onchange?: ChangeFn<T>
+	disabled?: o.RO<boolean>
 }
 
 
