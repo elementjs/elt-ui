@@ -30,9 +30,9 @@ export class Checkbox extends Component<CheckboxAttributes> {
   render(children: E.JSX.Renderable[]) {
 
     function getIcon(value: boolean) {
-      if (value === undefined) return <I class={[Checkbox.cls_icon]} name='minus-square'/>
-      if (value) return <I class={[Checkbox.cls_icon]} name='check-square'/>
-      return <I class={[Checkbox.cls_icon]} name='square'/>
+      if (value === undefined) return <I class={[Checkbox.cls_icon]} regular name='minus-square'/>
+      if (value) return <I class={[Checkbox.cls_icon]} regular name='check-square'/>
+      return <I class={[Checkbox.cls_icon]} regular name='square'/>
     }
 
     let classes = {

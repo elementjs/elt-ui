@@ -1,11 +1,14 @@
 import { o } from "elt";
 
 
-var mod_map = {
+var mod_style = {
   regular: 'far',
   duotone: 'fad',
   light: 'fal',
   brand: 'fab',
+}
+
+var mod_map = {
   xs: 'fa-xs',
   sm: 'fa-sm',
   lg: 'fa-lg',
@@ -16,7 +19,7 @@ var mod_map = {
   '10x': 'fa-10x',
 }
 
-export function I(name: IconName, ...mods: (keyof typeof mod_map)[]): HTMLElement
+export function I(name: I.IconName, ...mods: (keyof typeof mod_map | keyof typeof mod_style)[]): HTMLElement
 export function I(attrs: E.JSX.Attrs<HTMLElement> & {
   // solid?: boolean // fas this is the default
   regular?: boolean // far
@@ -33,19 +36,28 @@ export function I(attrs: E.JSX.Attrs<HTMLElement> & {
   '7x'?: boolean
   '10x'?: boolean
 
-  name: o.RO<IconName>
+  name: o.RO<I.IconName>
 }): HTMLElement
 export function I(at: any, ...mods:any[]): HTMLElement {
   if (typeof at === 'string') {
-    return E('i', {class: ['fa-' + at, ...mods.map(m => mod_map[m as keyof typeof mod_map] ?? m)]})
+    var has_kind = false
+    var classes = ['fa-' + at, ...mods.map(m => {
+      if (mod_style[m as keyof typeof mod_style]) has_kind = true
+      return mod_map[m as keyof typeof mod_map] ?? mod_style[m as keyof typeof mod_style] ?? m
+    })]
+    if (!has_kind) classes.push('far')
+    return E('i', {class: classes})
   } else {
     var keys = Object.keys(at).filter(n => n !== 'name')
+    if (!at.duotone && !at.light && !at.brand && !at.regular) keys.push('regular')
     var name = at.name
-    return E('i', {class: ['fa-' + name, ...keys.map(m => mod_map[m as keyof typeof mod_map] ?? m)]})
+    return E('i', {class: ['fa-' + name, ...keys.map(m => mod_map[m as keyof typeof mod_map] ?? mod_style[m as keyof typeof mod_style] ?? m)]})
   }
 }
 
-export type IconName =
+export namespace I {
+
+  export type IconName =
   '500px' |
   'abacus' |
   'accessible-icon' |
@@ -2301,3 +2313,6 @@ export type IconName =
   'youtube' |
   'youtube-square' |
   'zhihu'
+
+
+}
