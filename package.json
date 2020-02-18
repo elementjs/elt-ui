@@ -7,12 +7,19 @@
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
+    "build:namespace": "echo 'export as namespace eltui' >> lib/index.d.ts",
+    "build:rollup": "rollup -c rollup.config.js",
     "build:js": "tsc",
-    "build": "npm run build:js",
+    "build": "npm run build:js && npm run build:rollup && npm run build:namespace",
     "prepublish": "npm run build",
-    "watch": "tsc -w | wtsc"
+    "watch": "concurrently -c green,blue -n rollup,tsc,addnamespace 'chokidar --silent \"./lib/**/*.js\" -c \"npm run build:rollup\"' 'tsc -w --preserveWatchOutput' 'chokidar --silent \"./lib/index.d.ts\" -c \"npm run build:namespace\"'"
   },
   "dependencies": {
-    "osun": "0.3.0"
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "chokidar-cli": "^2.1.0",
+    "concurrently": "^5.1.0",
+    "dts-bundle-generator": "^3.3.1",
+    "osun": "0.3.0",
+    "rollup": "^1.31.1"
   }
 }
