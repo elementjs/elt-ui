@@ -15,8 +15,7 @@ import S from './styling'
 import { style } from 'osun'
 import { Control, ControlBox } from './control'
 import { $float, Float } from './float'
-
-import FaCaretDown from 'elt-fa/caret-down'
+import { I } from './icon'
 
 export type LabelFn<T> = (opt: T) => E.JSX.Renderable
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
@@ -69,7 +68,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			{$decorators}
 			{model.tf(m => labelfn(m))}
 			<span class={S.flex.absoluteGrow(1)}/>
-			<FaCaretDown style={{color: S.TINT75}}/>
+			<I style={{color: S.TINT75}} name='caret-down'/>
 
 		</div> as HTMLDivElement
 

@@ -26,56 +26,29 @@ export function Float(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
           // console.log(prect.bottom)
           n.style.bottom = `${vh - prect.top}px`
           n.style.transformOrigin = 'bottom center'
+          n.classList.add(Float.css.bottom)
         } else {
           n.style.top = `${prect.bottom + 16}px`
           n.style.transformOrigin = 'top center'
+          n.classList.add(Float.css.top)
         }
 
         if (prect.left + rect.width > vw) {
           n.style.right = `${vw - prect.right}px`
+          n.classList.add(Float.css.right)
         } else {
           n.style.left = `${prect.left}px`
+          n.classList.add(Float.css.left)
         }
       })
     }),
     ch
   )
-
-  // return <div class={[Float.css.float]}>
-  //   {$init(n => {
-  //     requestAnimationFrame(() => {
-  //       const doc = n.ownerDocument!
-  //       const rect = n.getBoundingClientRect()
-  //       const parent = n.parentElement!
-  //       const prect = (parent as Element).getBoundingClientRect()
-  //       const vw = (window.innerWidth || doc.documentElement!.clientWidth)
-  //       const vh = (window.innerHeight || doc.documentElement!.clientHeight)
-  //       doc.body!.appendChild(n)
-
-  //       if (prect.bottom + rect.height > vh) {
-  //         // console.log(prect.bottom)
-  //         n.style.bottom = `${vh - prect.top}px`
-  //         n.style.transformOrigin = 'bottom center'
-  //       } else {
-  //         n.style.top = `${prect.bottom + 16}px`
-  //         n.style.transformOrigin = 'top center'
-  //       }
-
-  //       if (prect.left + rect.width > vw) {
-  //         n.style.right = `${vw - prect.right}px`
-  //       } else {
-  //         n.style.left = `${prect.left}px`
-  //       }
-  //     })
-  //   })}
-  //   <Triangle/>
-  //   {ch}
-  // </div>
 }
 
 
 export namespace Float.css {
-  const M = 16
+  const M = 17
 
   export const top = style('float-top', {marginTop: `${M/2}px`})
   export const bottom = style('float-bottom', {marginBottom: `${M/2}px`})

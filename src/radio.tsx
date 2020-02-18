@@ -6,11 +6,9 @@ import {
 } from 'elt'
 
 import {Checkbox} from './checkbox'
-
-import FaCircle from 'elt-fa/circle-regular'
-import FaDotCircle from 'elt-fa/dot-circle-regular'
 import {$inkable} from './ink'
 import { Control } from './control'
+import { I } from './icon'
 
 
 export interface RadioAttributes<T> extends E.JSX.Attrs<HTMLButtonElement> {
@@ -47,8 +45,8 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
         {$click(e => this.setValue())}
 
         {this.o_checked.tf(v => v ?
-          <FaDotCircle class={Checkbox.cls_icon}/> :
-          <FaCircle class={Checkbox.cls_icon}/>
+          <I class={Checkbox.cls_icon} name='dot-circle'/> :
+          <I class={Checkbox.cls_icon} name='circle'/>
         )}
         {' '}
         <span class={Checkbox.cls_content}>{children}</span>

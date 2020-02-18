@@ -8,8 +8,8 @@ import {
 import { Button } from './button'
 import S from './styling'
 import { style, rule, CssNamespace } from 'osun'
-import FaClose from 'elt-fa/window-close'
 import { Control } from './control'
+import { I } from './icon'
 
 var id_gen = 0;
 
@@ -22,7 +22,7 @@ export interface SearchAttributes extends E.JSX.Attrs<HTMLInputElement> {
 export function Search({model, placeholder}: SearchAttributes) {
   return <input placeholder={placeholder} class={[Search.element]}>
       {bind(o(model))}
-      <Button class={Search.button} icon><FaClose/></Button>
+      <Button class={Search.button} icon><I name='window-close'/></Button>
     </input> as HTMLInputElement
 }
 

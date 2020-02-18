@@ -6,13 +6,11 @@ import {
 } from 'elt'
 
 
-import FaSquareRegular from 'elt-fa/square-regular'
-import FaMinusSquare from 'elt-fa/minus-square'
-import FaCheckSquareRegular from 'elt-fa/check-square-regular'
 import {$inkable} from './ink'
 import { style, rule } from 'osun'
 import S from './styling'
 import { Control } from './control'
+import { I } from './icon'
 
 
 export interface CheckboxAttributes extends E.JSX.Attrs<HTMLButtonElement> {
@@ -32,9 +30,9 @@ export class Checkbox extends Component<CheckboxAttributes> {
   render(children: E.JSX.Renderable[]) {
 
     function getIcon(value: boolean) {
-      if (value === undefined) return <FaMinusSquare class={[Checkbox.cls_icon]}/>
-      if (value) return <FaCheckSquareRegular class={[Checkbox.cls_icon]}/>
-      return <FaSquareRegular class={[Checkbox.cls_icon]}/>
+      if (value === undefined) return <I class={[Checkbox.cls_icon]} name='minus-square'/>
+      if (value) return <I class={[Checkbox.cls_icon]} name='check-square'/>
+      return <I class={[Checkbox.cls_icon]} name='square'/>
     }
 
     let classes = {
