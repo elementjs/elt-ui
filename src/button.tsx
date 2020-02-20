@@ -3,7 +3,7 @@ import {
   o,
   Component,
   $click,
-  Mixin
+  Listener
 } from 'elt'
 
 import S from './styling'
@@ -16,7 +16,7 @@ export interface ButtonAttrs extends E.JSX.Attrs<HTMLButtonElement> {
   bordered?: o.RO<boolean>
   disabled?: o.RO<boolean>
   contrast?: o.RO<boolean>
-  click?: Mixin.Listener<MouseEvent>
+  click?: Listener<MouseEvent>
   icon?: o.RO<boolean>
 }
 
