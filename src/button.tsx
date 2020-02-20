@@ -23,15 +23,6 @@ export interface ButtonAttrs extends E.JSX.Attrs<HTMLButtonElement> {
 
 export function Button(attrs : ButtonAttrs, children: E.JSX.Renderable[]) {
 
-  function doClick(event: MouseEvent & {currentTarget: HTMLButtonElement}) {
-    let click = o.get(attrs.click)
-    if (!o.get(attrs.disabled)) {
-      // in this context, this is the Node.
-      inker(event)
-      click && click(event)
-    }
-  }
-
   return <button
     class={[
       Button.cls_button,
@@ -44,7 +35,14 @@ export function Button(attrs : ButtonAttrs, children: E.JSX.Renderable[]) {
     ]}
     disabled={o.tf(attrs.disabled, val => !!val)}
   >
-    {$click(doClick)}
+    {$click(event => {
+      let click = o.get(attrs.click)
+      if (!o.get(attrs.disabled)) {
+        // in this context, this is the Node.
+        inker(event)
+        click && click(event)
+      }
+    })}
     {children}
   </button> as HTMLButtonElement
 
