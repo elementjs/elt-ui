@@ -1,4 +1,4 @@
-import { o, If } from 'elt'
+import { o, $If } from 'elt'
 import { Styling as S} from './styling'
 import { style } from 'osun'
 
@@ -15,7 +15,7 @@ export function Progress({mode, progress}: ProgressAttrs) {
     class={[S.box.background(S.TINT07), Progress.cls_holder]}
     style={{opacity: o_progress.tf(v => v > 0 && v < 100 ? '1' : '0')}}
   >
-      {If(o_mode.tf(m => m === 'determinate'), () => <div class={[
+      {$If(o_mode.tf(m => m === 'determinate'), () => <div class={[
         S.box.background(S.TINT75),
         Progress.cls_determinate
         ]}

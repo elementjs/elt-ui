@@ -5,7 +5,7 @@ import {
 	Component,
 	o,
 	$on,
-	Repeat,
+	$Repeat,
 	Mixin,
 	$click,
 	Decorator,
@@ -50,7 +50,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 
 		$decorators.push($float(acc =>
 			<Float><ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG).border(S.TINT14)} vertical>
-				{Repeat(options, (opt, i) => <div
+				{$Repeat(options, (opt, i) => <div
 						class={[Control.css.control, {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
 					>
 						{$click(() => acc(model.set(o.get(opt))))}

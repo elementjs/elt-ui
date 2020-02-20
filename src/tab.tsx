@@ -2,7 +2,7 @@
 import {
 	$click,
 	Component,
-	Repeat,
+	$Repeat,
 	o,
 	Fragment as F,
 } from 'elt'
@@ -21,7 +21,7 @@ export class TabContainer extends Component {
 
 	render(children: E.JSX.Renderable[]) {
 		return <div class={S.flex.column}>
-			<div class={[TabContainer.bar, S.flex.row.justifyCenter]}>{Repeat(this.o_titles, o_t => o_t.get())}</div>
+			<div class={[TabContainer.bar, S.flex.row.justifyCenter]}>{$Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
 		</div> as HTMLDivElement
 
