@@ -132,7 +132,7 @@ export function Content(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Rend
 
 
 export function Root(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Renderable[]) {
-  return E.DIV($class(dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow),
+  return E.$DIV($class(dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow),
     children
   )
 }

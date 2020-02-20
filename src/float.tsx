@@ -10,7 +10,7 @@ import { inker } from './ink';
  */
 export function Float(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
 
-  return E.DIV(
+  return E.$DIV(
     $class(Float.css.float),
     $init(n => {
       requestAnimationFrame(() => {
