@@ -41,7 +41,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
     }
 
     return <button disabled={this.attrs.disabled} class={[Checkbox.cls_label, Control.css.control, classes]}>
-      {$inkable}
+      {$inkable()}
       {$click(e => this.toggle())}
 
       {this.o_model.tf(getIcon)}
@@ -78,7 +78,7 @@ export function Toggle({model, disabled}: E.JSX.Attrs<HTMLButtonElement> & {mode
     // model.tf(m => m ? Control.css.color_middle : Control.css.color_faint)
   ]}
   >
-    {$inkable}
+    {$inkable()}
     {$click(() => model.mutate(m => !m))}
     {ch}
   </button> as HTMLButtonElement

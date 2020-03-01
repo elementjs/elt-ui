@@ -125,8 +125,8 @@ export function create_float<T>(
 }
 
 
-export function $float<T>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element) {
-  return $click(ev => {
+export function $float<T, N extends Element>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element) {
+  return $click<N>(ev => {
     inker(ev)
     create_float(ev.currentTarget, ch)
   })

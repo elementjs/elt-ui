@@ -81,12 +81,14 @@ export function inker(event: MouseEvent) {
 }
 
 
-export const $inkable = $click(function (ev) {
-	inker(ev)
-})
+export function $inkable<N extends Element>() {
+	return $click<N>(function (ev) {
+		inker(ev)
+	})
+}
 
-export function $inkClickDelay(fn: (ev: MouseEvent) => void) {
-	return $click(function (ev) {
+export function $inkClickDelay<N extends Element>(fn: (ev: MouseEvent) => void) {
+	return $click<N>(function (ev) {
 		inker(ev)
 		setTimeout(() => {
 			fn(ev)
