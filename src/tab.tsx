@@ -4,7 +4,7 @@ import {
 	Component,
 	$Repeat,
 	o,
-	Fragment as F,
+	$Fragment as $F,
 } from 'elt'
 
 import { $inkable } from './ink'
@@ -88,7 +88,7 @@ export class Tab extends Component<TabAttributes> {
 
 	render(children: E.JSX.Renderable[]) {
 
-		const frag = <F>{children}</F>
+		const frag = <$F>{children}</$F>
 
 		return <div
 			class={[

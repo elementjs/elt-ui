@@ -12,7 +12,7 @@
     "build:js": "tsc",
     "build": "npm run build:js && npm run build:rollup && npm run build:namespace",
     "prepublish": "npm run build",
-    "watch": "concurrently -c green,blue -n rollup,tsc,addnamespace 'chokidar --silent \"./lib/**/*.js\" -c \"npm run build:rollup\"' 'tsc -w --preserveWatchOutput' 'chokidar --silent \"./lib/index.d.ts\" -c \"npm run build:namespace\"'"
+    "watch": "concurrently -c green,blue -n rollup,tsc,addnamespace 'chokidar --silent \"./lib/**/*.js\" -c \"npm run build:rollup\"' 'tsc -w --preserveWatchOutput' 'chokidar --silent \"./lib/index.js\" -c \"npm run build:namespace\"'"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",
