@@ -1,8 +1,8 @@
 
 import {
   o,
-  bind,
   $on,
+  $bind,
 } from 'elt'
 
 import { Button } from './button'
@@ -21,7 +21,7 @@ export interface SearchAttributes extends E.JSX.Attrs<HTMLInputElement> {
 
 export function Search({model, placeholder}: SearchAttributes) {
   return <input placeholder={placeholder} class={[Search.element]}>
-      {bind(o(model))}
+      {$bind.string(o(model))}
       <Button class={Search.button} icon><I name='window-close'/></Button>
     </input> as HTMLInputElement
 }
@@ -98,7 +98,7 @@ export function Input(attrs: InputAttributes, content: E.JSX.Renderable[]) {
     // class={Input.element}
     type={type || 'text'}
   >
-    {bind(o_model)}
+    {$bind.string(o_model)}
     {$on('focusout', () => o_focused.set(false))}
     {$on('focusin', () => o_focused.set(true))}
   </input> as HTMLInputElement
