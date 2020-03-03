@@ -81,13 +81,13 @@ export function inker(event: MouseEvent) {
 }
 
 
-export function $inkable<N extends Element>() {
+export function $inkable<N extends HTMLElement | SVGElement>() {
 	return $click<N>(function (ev) {
 		inker(ev)
 	})
 }
 
-export function $inkClickDelay<N extends Element>(fn: (ev: MouseEvent) => void) {
+export function $inkClickDelay<N extends HTMLElement | SVGElement>(fn: (ev: MouseEvent) => void) {
 	return $click<N>(function (ev) {
 		inker(ev)
 		setTimeout(() => {

@@ -7,6 +7,8 @@ import {
 	Mixin,
 	$click,
 	Decorator,
+	$style,
+	$class,
 } from 'elt'
 
 import S from './styling'
@@ -44,7 +46,9 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 		let $decorators: (Mixin<HTMLDivElement> | Decorator<HTMLDivElement>)[] = [];
 
 		$decorators.push($float(acc =>
-			<Float><ControlBox style={{width: `${select_container.clientWidth}px`}} class={S.box.background(S.BG).border(S.TINT14)} vertical>
+			<Float><ControlBox vertical>
+				{$style({width: `${select_container.clientWidth}px`})}
+				{$class(S.box.background(S.BG).border(S.TINT14))}
 				{$Repeat(options, (opt, i) => <div
 						class={[Control.css.control, {[Select.css.selected]: o.virtual([o_model, opt], ([m, o]) => m === o)}]}
 					>
