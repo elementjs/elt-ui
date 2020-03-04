@@ -3,6 +3,8 @@ import {
   o,
   $on,
   $bind,
+  Attrs,
+  Renderable,
 } from 'elt'
 
 import { Button } from './button'
@@ -14,7 +16,7 @@ import { I } from './icon'
 var id_gen = 0;
 
 
-export interface SearchAttributes extends E.JSX.Attrs<HTMLInputElement> {
+export interface SearchAttributes extends Attrs<HTMLInputElement> {
   model: o.Observable<string>
   placeholder?: o.RO<string|null|undefined>
 }
@@ -47,7 +49,7 @@ export namespace Search {
 
 }
 
-export interface InputAttributes extends E.JSX.Attrs<HTMLInputElement> {
+export interface InputAttributes extends Attrs<HTMLInputElement> {
   model: o.Observable<string>
   disabled?: o.RO<boolean>
   type?: o.RO<string>
@@ -63,7 +65,7 @@ export interface InputAttributes extends E.JSX.Attrs<HTMLInputElement> {
 }
 
 
-export function Input(attrs: InputAttributes, content: E.JSX.Renderable[]) {
+export function Input(attrs: InputAttributes, content: Renderable[]) {
 
   let id = attrs.id || `input_${id_gen++}`;
 

@@ -3,7 +3,9 @@ import {
   o,
   Component,
   $click,
-  Listener
+  Listener,
+  Attrs,
+  Renderable
 } from 'elt'
 
 import S from './styling'
@@ -12,7 +14,7 @@ import {inker} from './ink'
 import { Control } from './control'
 
 
-export interface ButtonAttrs extends E.JSX.Attrs<HTMLButtonElement> {
+export interface ButtonAttrs extends Attrs<HTMLButtonElement> {
   bordered?: o.RO<boolean>
   disabled?: o.RO<boolean>
   contrast?: o.RO<boolean>
@@ -21,7 +23,7 @@ export interface ButtonAttrs extends E.JSX.Attrs<HTMLButtonElement> {
 }
 
 
-export function Button(attrs : ButtonAttrs, children: E.JSX.Renderable[]) {
+export function Button(attrs : ButtonAttrs, children: Renderable[]) {
 
   return <button
     class={[
@@ -89,7 +91,7 @@ export namespace Button {
 }
 
 
-export interface ButtonBarAttrs extends E.JSX.Attrs<HTMLDivElement> {
+export interface ButtonBarAttrs extends Attrs<HTMLDivElement> {
   stacked?: boolean
 }
 
@@ -106,7 +108,7 @@ export class ButtonBar extends Component<ButtonBarAttrs> {
     (parent as Element).classList.remove(ButtonBar.cls_has_button_bar)
   }
 
-  render(children: E.JSX.Renderable[]) {
+  render(children: Renderable[]) {
     return <div class={[ButtonBar.cls_button_bar, S.flex.row.justifyCenter]}>{children}</div> as HTMLDivElement
   }
 }

@@ -3,6 +3,8 @@ import {
   o,
   $click,
   Component,
+  Renderable,
+  Attrs,
 } from 'elt'
 
 import {Checkbox} from './checkbox'
@@ -11,7 +13,7 @@ import { Control } from './control'
 import { I } from './icon'
 
 
-export interface RadioAttributes<T> extends E.JSX.Attrs<HTMLButtonElement> {
+export interface RadioAttributes<T> extends Attrs<HTMLButtonElement> {
   model: o.Observable<T>
   value: o.RO<T>
   disabled?: o.RO<boolean>
@@ -30,7 +32,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
     this.model.set(o.get(this.value))
   }
 
-  render(children: E.JSX.Renderable[]) {
+  render(children: Renderable[]) {
 
     const equals = o.virtual([this.model, this.value], ([m, v]) => m === v)
 

@@ -3,6 +3,8 @@ import {
   o,
   $click,
   Component,
+  Attrs,
+  Renderable,
 } from 'elt'
 
 
@@ -13,7 +15,7 @@ import { Control } from './control'
 import { I } from './icon'
 
 
-export interface CheckboxAttributes extends E.JSX.Attrs<HTMLButtonElement> {
+export interface CheckboxAttributes extends Attrs<HTMLButtonElement> {
   model: o.Observable<boolean>
   disabled?: o.RO<boolean>
 }
@@ -27,7 +29,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
     this.o_model.mutate(v => !v)
   }
 
-  render(children: E.JSX.Renderable[]) {
+  render(children: Renderable[]) {
 
     function getIcon(value: boolean) {
       if (value === undefined) return <I class={[Checkbox.cls_icon]} regular name='minus-square'/>
@@ -69,7 +71,7 @@ export namespace Checkbox {
 }
 
 
-export function Toggle({model, disabled}: E.JSX.Attrs<HTMLButtonElement> & {model: o.Observable<boolean>, disabled?: o.RO<boolean>}, ch: E.JSX.Renderable[]) {
+export function Toggle({model, disabled}: Attrs<HTMLButtonElement> & {model: o.Observable<boolean>, disabled?: o.RO<boolean>}, ch: Renderable[]) {
   return <button disabled={disabled} class={[
     S.box.cursorPointer,
     Control.css.control,

@@ -4,6 +4,8 @@ import {
 	Component,
 	remove_and_deinit,
 	o,
+	Renderable,
+	Attrs,
 } from 'elt'
 
 import { $inkClickDelay } from './ink'
@@ -28,7 +30,7 @@ export class Nav extends Component {
 		animate(node, Nav.enter)
 	}
 
-	render(ch: E.JSX.Renderable[]): HTMLElement {
+	render(ch: Renderable[]): HTMLElement {
 
 		return <div>
 			<div class={Nav.overlay}>
@@ -87,7 +89,7 @@ export namespace Nav {
 
 }
 
-export function NavHeader(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function NavHeader(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 	return <div class={NavHeader.header}>{ch}</div> as HTMLDivElement
 }
 
@@ -100,7 +102,7 @@ export namespace NavHeader {
 
 }
 
-export function NavSubheader(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function NavSubheader(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 	return <div class={NavSubheader.subheader}>{ch}</div> as HTMLDivElement
 }
 
@@ -108,7 +110,7 @@ export namespace NavSubheader {
 	export const subheader = style('subheader', {paddingLeft: '16px'})
 }
 
-export function NavDivider(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function NavDivider(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 	return <div class={NavDivider.divider}/> as HTMLDivElement
 }
 
@@ -122,12 +124,12 @@ export namespace NavDivider {
 	})
 }
 
-export interface NavItemAttributes extends E.JSX.Attrs<HTMLDivElement> {
-	icon: o.RO<(a: E.JSX.Attrs<HTMLElement | SVGElement>) => HTMLElement | SVGElement>
+export interface NavItemAttributes extends Attrs<HTMLDivElement> {
+	icon: o.RO<(a: Attrs<HTMLElement | SVGElement>) => HTMLElement | SVGElement>
 	click?: (ev: MouseEvent) => any
 }
 
-export function NavItem(a: NavItemAttributes, ch: E.JSX.Renderable[]) {
+export function NavItem(a: NavItemAttributes, ch: Renderable[]) {
 	let res = <div class={[NavItem.item, S.flex.row.alignCenter]}>
 		{$inkClickDelay(function (e) {
 			if (a.click && a.click(e) !== false) {
@@ -162,12 +164,12 @@ export namespace NavItem {
 
 }
 
-export function NavBody(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function NavBody(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 	return <div class={[S.flex.column.absoluteGrow(1)]}>{ch}</div>
 }
 
 
-export function NavFooter(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function NavFooter(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 	return <div class={NavFooter.footer}>{ch}</div>
 }
 

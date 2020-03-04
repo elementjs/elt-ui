@@ -1,12 +1,12 @@
 import { style, rule } from 'osun'
 import { Styling as S } from './styling'
 import { inker } from './ink'
-import { o } from 'elt'
+import { o, Attrs, Renderable } from 'elt'
 
 export var CONTROL_PADDING = '0.25em 0.5em'
 export var CONTROL_RADIUS = '0.25em 0.5em'
 
-export function Control(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function Control(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
   return <div class={Control.css.control}>{ch}</div> as HTMLDivElement
 }
 
@@ -86,12 +86,12 @@ export namespace Control.css {
 
 }
 
-export function ControlBox(a: E.JSX.Attrs<HTMLDivElement> & {vertical?: o.RO<boolean>}, ch: E.JSX.Renderable[]) {
+export function ControlBox(a: Attrs<HTMLDivElement> & {vertical?: o.RO<boolean>}, ch: Renderable[]) {
   return <div class={o.tf(a.vertical, v => v ? Control.css.control_box_vertical : Control.css.control_box)}>{ch}</div> as HTMLDivElement
 }
 
 
-export function ControlLabel(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
   return <div class={[Control.css.control, ControlLabel.css.container]}><span class={ControlLabel.css.span}>{ch}</span></div> as HTMLDivElement
 }
 

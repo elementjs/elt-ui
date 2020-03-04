@@ -9,6 +9,8 @@ import {
 	Decorator,
 	$style,
 	$class,
+	Renderable,
+	Attrs,
 } from 'elt'
 
 import S from './styling'
@@ -17,14 +19,14 @@ import { Control, ControlBox } from './control'
 import { $float, Float } from './float'
 import { I } from './icon'
 
-export type LabelFn<T> = (opt: T) => E.JSX.Renderable
+export type LabelFn<T> = (opt: T) => Renderable
 // export type ChangeFn<T> = (value: T, event: Event, atom: Atom) => any
 
 
-export interface SelectAttributes<T> extends E.JSX.Attrs<HTMLDivElement> {
+export interface SelectAttributes<T> extends Attrs<HTMLDivElement> {
 	model: o.Observable<T>
 	options: o.RO<T[]>
-	labelfn: (opt: T) => E.JSX.Renderable
+	labelfn: (opt: T) => Renderable
 	onchange?: (val: T) => void
 	disabled?: o.RO<boolean>
 }
@@ -35,7 +37,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 	/**
 	 * Setup the observation logic.
 	 */
-	render(children: E.JSX.Renderable[]) {
+	render(children: Renderable[]) {
 		let attrs = this.attrs
 
 		let options = o(attrs.options)

@@ -1,4 +1,4 @@
-import { o } from "elt";
+import { o, Attrs } from "elt";
 
 
 var mod_style = {
@@ -20,7 +20,7 @@ var mod_map = {
 }
 
 export function I(name: I.IconName, ...mods: (keyof typeof mod_map | keyof typeof mod_style)[]): HTMLElement
-export function I(attrs: E.JSX.Attrs<HTMLElement> & {
+export function I(attrs: Attrs<HTMLElement> & {
   // solid?: boolean // fas this is the default
   regular?: boolean // far
   duotone?: boolean // fad

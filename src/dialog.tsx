@@ -9,6 +9,9 @@ import {
   remove_and_deinit,
   Component,
   $class,
+  Attrs,
+  Renderable,
+  ClassDefinition,
 } from 'elt';
 
 import { animate } from './animate'
@@ -31,11 +34,11 @@ export interface DialogCommon {
 
 export interface DialogOptions extends DialogCommon {
   parent?: Node
-  class?: E.JSX.ClassDefinition | E.JSX.ClassDefinition[]
+  class?: ClassDefinition | ClassDefinition[]
 }
 
 
-export interface DialogAttrs<T> extends E.JSX.Attrs<HTMLElement>, DialogCommon {
+export interface DialogAttrs<T> extends Attrs<HTMLElement>, DialogCommon {
   builder: DialogBuilder<T>
   animationEnter: string
   animationLeave: string
@@ -112,26 +115,26 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
 
 }
 
-export function Overlay(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Renderable[]) {
+export function Overlay(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
   return E('div', $class(dialog.overlay, S.flex.column.alignCenter.justifyCenter),
     children
   )
 }
 
-export function Title(attrs: E.JSX.Attrs<HTMLHeadingElement>, children: E.JSX.Renderable[]) {
+export function Title(attrs: Attrs<HTMLHeadingElement>, children: Renderable[]) {
   return E('h3', $class(S.text.uppercase.bold.color(S.TINT)),
     children
   )
 }
 
-export function Content(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Renderable[]) {
+export function Content(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
   return E('div', $class(S.text.preLine),
     children
   )
 }
 
 
-export function Root(attrs: E.JSX.Attrs<HTMLDivElement>, children: E.JSX.Renderable[]) {
+export function Root(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
   return E.$DIV($class(dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow),
     children
   )
@@ -163,10 +166,10 @@ export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promi
 
 
 export interface ModalOptions extends DialogOptions {
-  text: o.RO<E.JSX.Renderable>
-  title: o.RO<E.JSX.Renderable>
-  agree?: o.RO<E.JSX.Renderable>
-  disagree?: o.RO<E.JSX.Renderable>,
+  text: o.RO<Renderable>
+  title: o.RO<Renderable>
+  agree?: o.RO<Renderable>
+  disagree?: o.RO<Renderable>,
 }
 
 /**

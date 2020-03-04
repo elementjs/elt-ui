@@ -1,5 +1,5 @@
 
-import { append_child_and_init, remove_and_deinit } from 'elt'
+import { append_child_and_init, remove_and_deinit, Insertable } from 'elt'
 import { animate } from './animate'
 
 import S from './styling'
@@ -27,7 +27,7 @@ export class Toaster {
 		)
 	}
 
-	toast(msg: E.JSX.Insertable<HTMLDivElement>) {
+	toast(msg: Insertable<HTMLDivElement>) {
 		// if (!this._mounted)
 		// 	this.mount(document.body);
 

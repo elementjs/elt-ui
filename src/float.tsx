@@ -1,5 +1,5 @@
 
-import { $init, insert_before_and_init, remove_and_deinit, $click, $class } from 'elt'
+import { $init, insert_before_and_init, remove_and_deinit, $click, $class, Attrs, Renderable } from 'elt'
 import { animate } from './animate'
 import { Styling as S } from './styling'
 import { style, rule } from 'osun';
@@ -8,7 +8,7 @@ import { inker } from './ink';
 /**
  * Parent needs to be at least absolute.
  */
-export function Float(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 
   return E.$DIV(
     $class(Float.css.float),

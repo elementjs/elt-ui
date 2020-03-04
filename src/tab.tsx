@@ -5,6 +5,9 @@ import {
 	$Repeat,
 	o,
 	$Fragment as $F,
+	Renderable,
+	Insertable,
+	Attrs,
 } from 'elt'
 
 import { $inkable } from './ink'
@@ -19,7 +22,7 @@ export class TabContainer extends Component {
 	o_active_tab = o(null as Tab | null)
 	o_titles = o([] as Node[])
 
-	render(children: E.JSX.Renderable[]) {
+	render(children: Renderable[]) {
 		return <div class={S.flex.column}>
 			<div class={[TabContainer.bar, S.flex.row.justifyCenter]}>{$Repeat(this.o_titles, o_t => o_t.get())}</div>
 			{children}
@@ -38,8 +41,8 @@ export namespace TabContainer {
 }
 
 
-export interface TabAttributes extends E.JSX.Attrs<HTMLDivElement> {
-	text: E.JSX.Insertable<HTMLDivElement>,
+export interface TabAttributes extends Attrs<HTMLDivElement> {
+	text: Insertable<HTMLDivElement>,
 }
 
 
@@ -86,7 +89,7 @@ export class Tab extends Component<TabAttributes> {
 		this.container.o_active_tab.set(this)
 	}
 
-	render(children: E.JSX.Renderable[]) {
+	render(children: Renderable[]) {
 
 		const frag = <$F>{children}</$F>
 

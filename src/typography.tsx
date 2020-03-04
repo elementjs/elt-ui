@@ -1,7 +1,8 @@
 import S from './styling'
 import { style, rule } from 'osun'
+import { Attrs, Renderable } from 'elt'
 
-export function TypographicZone(a: E.JSX.Attrs<HTMLDivElement>, ch: E.JSX.Renderable[]) {
+export function TypographicZone(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
   return <div class={TypographicZone.css.container}>{ch}</div> as HTMLDivElement
 }
 
