@@ -2,7 +2,6 @@
 import {
   $click,
   $init,
-  $deinit,
   o,
   $If,
   append_child_and_init,
@@ -12,6 +11,7 @@ import {
   Attrs,
   Renderable,
   ClassDefinition,
+  $removed,
 } from 'elt';
 
 import { animate } from './animate'
@@ -99,7 +99,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
           node.ownerDocument!.addEventListener('keyup', this.handleEscape)
         })
       })}
-      {$deinit(node => {
+      {$removed(node => {
         node.ownerDocument!.removeEventListener('keyup', this.handleEscape)
       })}
       {this.attrs.builder(this)}

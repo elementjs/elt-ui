@@ -34,7 +34,7 @@ export class Radio<T> extends Component<RadioAttributes<T>> {
 
   render(children: Renderable[]) {
 
-    const equals = o.virtual([this.model, this.value], ([m, v]) => m === v)
+    const equals = o.combine([this.model, this.value], ([m, v]) => m === v)
 
     let classes = {
       [Checkbox.cls_on]: equals,
