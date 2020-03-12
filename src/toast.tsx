@@ -1,5 +1,5 @@
 
-import { append_child_and_init, remove_and_deinit, Insertable } from 'elt'
+import { append_child_and_init, remove_node, Insertable } from 'elt'
 import { animate } from './animate'
 
 import S from './styling'
@@ -23,7 +23,7 @@ export class Toaster {
 
 	kill(node: HTMLElement) {
 		animate(node, animate.fade_out).then(node =>
-			remove_and_deinit(node)
+			remove_node(node)
 		)
 	}
 

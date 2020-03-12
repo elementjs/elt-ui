@@ -5,7 +5,7 @@ import {
   o,
   $If,
   append_child_and_init,
-  remove_and_deinit,
+  remove_node,
   Component,
   $class,
   Attrs,
@@ -64,7 +64,7 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
       return false
     await animate(this.node, this.attrs.animationLeave)
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
-    remove_and_deinit(this.node)
+    remove_node(this.node)
     return true
   }
 

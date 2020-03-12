@@ -1,5 +1,5 @@
 
-import { $click, append_child_and_init, remove_and_deinit } from 'elt'
+import { $click, append_child_and_init, remove_node } from 'elt'
 
 import { animate } from './animate'
 import S from './styling'
@@ -76,7 +76,7 @@ export function inker(event: MouseEvent) {
 	it.marginLeft = halved
 
 	animate(ink_container, inker.cls_ink_animate).then(() => {
-		remove_and_deinit(ink_container)
+		remove_node(ink_container)
 	})
 }
 

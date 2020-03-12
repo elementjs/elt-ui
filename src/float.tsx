@@ -1,5 +1,5 @@
 
-import { $init, insert_before_and_init, remove_and_deinit, $click, $class, Attrs, Renderable } from 'elt'
+import { $init, insert_before_and_init, remove_node, $click, $class, Attrs, Renderable } from 'elt'
 import { animate } from './animate'
 import { Styling as S } from './styling'
 import { style, rule } from 'osun';
@@ -97,7 +97,7 @@ export function create_float<T>(
   const remove = async () => {
     node.ownerDocument!.body.removeEventListener('click', off)
     await animate(children as HTMLElement, Float.css.leave_float)
-    remove_and_deinit(children)
+    remove_node(children)
     wm.delete(node)
   }
 
