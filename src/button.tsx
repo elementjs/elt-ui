@@ -83,10 +83,7 @@ export namespace Button {
     pointerEvents: 'none'
   })
 
-  export const cls_disabled = style('disabled', {
-    color: S.FG14,
-    boxShadow: 'none'
-  })
+  export const cls_disabled = style('disabled', S.text.color(S.FG14).box.border(S.FG14))
 
 }
 
