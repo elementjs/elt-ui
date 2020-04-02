@@ -3,7 +3,7 @@ import {
   $click,
   $init,
   o,
-  $If,
+  If,
   append_child_and_init,
   remove_node,
   Component,
@@ -135,7 +135,7 @@ export function Content(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
 
 
 export function Root(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E.$DIV($class(dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow),
+  return E.DIV($class(dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow),
     children
   )
 }
@@ -185,10 +185,10 @@ export function modal(opts: ModalOptions) {
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
     </Content>
     <ButtonBar>
-      {$If(o(opts.agree), agree =>
+      {If(o(opts.agree), agree =>
         <Button click={() => dlg.resolve(true)}>{agree}</Button>
       )}
-      {$If(o(opts.disagree), disagree =>
+      {If(o(opts.disagree), disagree =>
         <Button click={() => dlg.resolve(false)}>{disagree}</Button>
       )}
     </ButtonBar>

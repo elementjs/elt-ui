@@ -26,7 +26,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
 
   toggle() {
     if (o.get(this.attrs.disabled)) return
-    this.o_model.mutate(v => !v)
+    this.o_model.set(!this.o_model.get())
   }
 
   render(children: Renderable[]) {
@@ -81,7 +81,7 @@ export function Toggle({model, disabled}: Attrs<HTMLButtonElement> & {model: o.O
   ]}
   >
     {$inkable()}
-    {$click(() => model.mutate(m => !m))}
+    {$click(() => model.set(!model.get()))}
     {ch}
   </button> as HTMLButtonElement
 }

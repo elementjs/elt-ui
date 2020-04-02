@@ -3,7 +3,7 @@
 import {
 	Component,
 	o,
-	$Repeat,
+	Repeat,
 	Mixin,
 	$click,
 	Decorator,
@@ -51,7 +51,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			<Float><ControlBox vertical>
 				{$style({width: `${select_container.clientWidth}px`})}
 				{$class(S.box.background(S.BG).border(S.TINT14))}
-				{$Repeat(options, (opt, i) => <div
+				{Repeat(options, (opt, i) => <div
 						class={[Control.css.control, {[Select.css.selected]: o.combine(o.tuple(o_model, opt), ([m, o]) => m === o)}]}
 					>
 						{$click(() => {
