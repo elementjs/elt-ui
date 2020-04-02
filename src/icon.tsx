@@ -19,7 +19,7 @@ var mod_map = {
   '10x': 'fa-10x',
 }
 
-export function I(name: I.IconName, ...mods: (keyof typeof mod_map | keyof typeof mod_style)[]): HTMLElement
+export function I(name: I.IconName, ...mods: (keyof typeof mod_map | keyof typeof mod_style | string)[]): HTMLElement
 export function I(attrs: Attrs<HTMLElement> & {
   // solid?: boolean // fas this is the default
   regular?: boolean // far
