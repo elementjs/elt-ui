@@ -48,7 +48,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 		let $decorators: (Mixin<HTMLDivElement> | Decorator<HTMLDivElement>)[] = [];
 
 		$decorators.push($float(acc =>
-			<Float><ControlBox vertical>
+			<Float class={Control.css.control_border}><ControlBox vertical>
 				{$style({width: `${select_container.clientWidth}px`})}
 				{$class(S.box.background(S.BG).border(S.TINT14))}
 				{Repeat(options, (opt, i) => <div
