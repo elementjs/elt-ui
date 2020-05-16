@@ -48,10 +48,10 @@ export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 
 
 export namespace Float.css {
-  const M = 17
+  export const M = 17
 
-  export const top = style('float-top', {marginTop: `${M/2}px`})
-  export const bottom = style('float-bottom', {marginBottom: `${M/2}px`})
+  export const top = style('float-top')
+  export const bottom = style('float-bottom')
   export const left = style('float-left')
   export const right = style('float-right')
 
