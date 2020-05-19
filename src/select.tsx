@@ -11,6 +11,7 @@ import {
 	$class,
 	Renderable,
 	Attrs,
+	$scrollable,
 } from 'elt'
 
 import S from './styling'
@@ -48,7 +49,8 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 		let $decorators: (Mixin<HTMLDivElement> | Decorator<HTMLDivElement>)[] = [];
 
 		$decorators.push($float(acc =>
-			<Float class={Control.css.control_border}><ControlBox vertical>
+			<Float class={Control.css.control_border}><ControlBox vertical style={{maxHeight: '50vh'}}>
+				{$scrollable}
 				{$style({width: `${select_container.clientWidth}px`})}
 				{$class(S.box.background(S.BG).border(S.TINT14))}
 				{Repeat(options, (opt, i) => <div
@@ -79,7 +81,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 
 export namespace Select.css {
 
-	export const select = style('select', S.box.cursorPointer.border(S.TINT14).flex.row.inline)
+	export const select = style('select', S.box.cursorPointer.border(S.TINT14).flex.row.inline.alignBaseline)
 
 	export const select_options = style('select-options',
 		S.box.positionAbsolute
