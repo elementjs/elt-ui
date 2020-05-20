@@ -24,18 +24,23 @@ export namespace Control.css {
       .inlineBlock,
     // S.flex.row.inline,
     {
-      borderRadius: CONTROL_RADIUS,
       WebkitTapHighlightColor: `rgba(0, 0, 0, 0)`,
       lineHeight: 'normal',
       userSelect: 'none',
       verticalAlign: 'baseline',
     },
+    control_border
   )
+
   rule`${control}::before`({
     content: '"\u00a0"',
     display: 'inline-block',
     height: '1em',
     width: 0
+  })
+
+  rule`${control_border} > ${inker.cls_container}`({
+    borderRadius: CONTROL_RADIUS
   })
   // rule`${control}::after`({
   //   content: '"\u00a0"',

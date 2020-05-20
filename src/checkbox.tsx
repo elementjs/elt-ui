@@ -5,6 +5,8 @@ import {
   Component,
   Attrs,
   Renderable,
+  If,
+  Fragment as $
 } from 'elt'
 
 
@@ -47,8 +49,10 @@ export class Checkbox extends Component<CheckboxAttributes> {
       {$click(e => this.toggle())}
 
       {this.o_model.tf(getIcon)}
-      {' '}
-      <span class={[Checkbox.cls_content]}>{children}</span>
+      {If(children.length > 0, () => <$>
+        {' '}
+        <span class={[Checkbox.cls_content]}>{children}</span>
+      </$>)}
     </button> as HTMLButtonElement
 
   }

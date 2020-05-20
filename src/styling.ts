@@ -40,7 +40,7 @@ export namespace Styling {
 
   export function toRGB(s: string | [number, number, number]): string {
     if (Array.isArray(s))
-      return `${s[0], s[1], s[2]}`
+      return `${s[0]}, ${s[1]}, ${s[2]}`
     if (s[0] === '#')
       s = s.slice(1)
     if (s.length !== 6)
