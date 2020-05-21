@@ -63,14 +63,18 @@ export namespace Control.css {
     borderRadius: '0',
   })
 
-  rule`${control_box} > ${control}:not(:last-child)`({borderRightWidth: '0'})
-
-  rule`${control_box} > ${control}:last-child`({
-    borderRadius: '0 0.5em 0.25em 0',
+  rule`${control_box} > ${control}:not(:last-child)`({
+    borderRightWidth: '0'
   })
 
-  rule`${control_box} > ${control}:first-child`({
-    borderRadius: '0.25em 0 0 0.5em',
+  rule`${control_box} > ${control}:last-child, ${control_box} > ${control}:last-child > ${inker.cls_container}`({
+    borderTopRightRadius: '0.5em',
+    borderBottomRightRadius: '0.25em',
+  })
+
+  rule`${control_box} > ${control}:first-child, ${control_box} > ${control}:first-child > ${inker.cls_container}`({
+    borderTopLeftRadius: '0.25em',
+    borderBottomLeftRadius: '0.5em'
   })
 
   export const control_box_vertical = style('control-box-vertical', S.flex.inline, {flexDirection: 'column'}, control_border)
@@ -81,11 +85,12 @@ export namespace Control.css {
 
   rule`${control_box_vertical} > ${control}:not(:last-child)`({borderBottomWidth: '0'})
 
-  rule`${control_box_vertical} > ${control}:first-child`({
-    borderRadius: '0.25em 0.5em 0 0',
+  rule`${control_box_vertical} > ${control}:first-child, ${control_box_vertical} > ${control}:first-child > ${inker.cls_container}`({
+    borderTopRightRadius: '0.5em',
+    borderTopLeftRadius: '0.25em',
   })
 
-  rule`${control_box_vertical} > ${control}:last-child`({
+  rule`${control_box_vertical} > ${control}:last-child, ${control_box_vertical} > ${control}:last-child > ${inker.cls_container}`({
     borderRadius: '0 0 0.25em 0.5em',
   })
 
