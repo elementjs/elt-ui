@@ -106,6 +106,6 @@ export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 }
 
 export namespace ControlLabel.css {
-  export const container = style('span', S.box.background(S.TINT07).border(S.TINT14))
-  export const span = style('span', S.text.bold.color(S.TINT75).uppercase.size('0.7em'), {verticalAlign: '.125em'})
+  export const container = style('ctrllabel', S.box.background(S.FG07).border(S.FG14))
+  export const span = style('ctrllabel-span', S.text.color(S.FG75).uppercase.size('0.7em'), {verticalAlign: '.125em'})
 }
