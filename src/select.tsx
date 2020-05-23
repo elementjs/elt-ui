@@ -70,7 +70,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 			{$decorators}
 			{model.tf(m => labelfn(m))}
 			<span class={S.flex.absoluteGrow(1)}/>
-			<I style={{color: S.TINT75, marginLeft: '8px'}} name='caret-down'/>
+			<I style={{color: S.TINT50, marginLeft: '8px'}} name='caret-down'/>
 
 		</div> as HTMLDivElement
 

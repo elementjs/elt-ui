@@ -94,6 +94,47 @@ export namespace Control.css {
     borderRadius: '0 0 0.25em 0.5em',
   })
 
+
+  export const ctrl_table = style('table', {
+    position: 'relative',
+    display: 'inline-table',
+    borderCollapse: 'separate',
+  })
+
+  export const ctrl_row = style('row', {
+    position: 'relative',
+    display: 'table-row'
+  })
+
+  rule`${ctrl_table} > ${control}`({
+    display: 'table-row',
+  })
+
+  rule`${ctrl_row} > ${control}:not(:last-child)`({ borderRight: 0 })
+
+  rule`${ctrl_row}:first-child > ${control}:first-child`({ borderTopLeftRadius: '0.25em', })
+  rule`${ctrl_row}:last-child > ${control}:first-child`({ borderBottomLeftRadius: '0.5em', })
+  rule`${ctrl_row}:first-child > ${control}:last-child`({ borderTopRightRadius: '0.5em', })
+  rule`${ctrl_row}:last-child > ${control}:last-child`({ borderBottomRightRadius: '0.25em', })
+
+
+  rule`${ctrl_row}:not(:first-child) > ${control}`({
+    borderTop: 0
+  })
+
+  rule`${ctrl_table} > ${control}`({ borderRadius: 0 })
+  rule`${ctrl_row} > ${control}`({
+    borderRadius: 0,
+    display: 'table-cell',
+  })
+}
+
+export function ControlTable(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
+  return <div class={Control.css.ctrl_table}>{ch}</div>
+}
+
+export function ControlRow(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
+  return <div class={Control.css.ctrl_row}>{ch}</div>
 }
 
 export function ControlBox(a: Attrs<HTMLDivElement> & {vertical?: o.RO<boolean>}, ch: Renderable[]) {

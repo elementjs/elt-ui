@@ -80,10 +80,9 @@ export function Toggle({model, disabled}: Attrs<HTMLButtonElement> & {model: o.O
     S.box.cursorPointer,
     Control.css.control,
     Toggle.css.container,
+    o.tf(model, m => S.text.color(m ? S.BG : S.FG)),
     {
       [Toggle.css.on]: model,
-      [S.text.color(S.FG75)]: o.tf(model, m => !m),
-      [S.text.color(S.BG)]: model,
     },
     // model.tf(m => m ? Control.css.color_middle : Control.css.color_faint)
   ]}
@@ -96,5 +95,5 @@ export function Toggle({model, disabled}: Attrs<HTMLButtonElement> & {model: o.O
 
 export namespace Toggle.css {
   export const container = style('toggle-container', S.box.border(S.TINT14))
-  export const on = style('toggle-on', S.box.background(S.TINT75))
+  export const on = style('toggle-on', S.box.background(S.TINT))
 }
