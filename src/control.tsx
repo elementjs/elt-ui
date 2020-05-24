@@ -3,6 +3,10 @@ import { Styling as S } from './styling'
 import { inker } from './ink'
 import { o, Attrs, Renderable } from 'elt'
 
+export var TOPLEFT_CONTROL_RADIUS = '0.25em'
+export var TOPRIGHT_CONTROL_RADIUS = '0.5em'
+export var BOTTOM_LEFT_CONTROL_RADIUS = '0.5em'
+export var BOTTOM_RIGHT_CONTROL_RADIUS = '0.6em'
 export var CONTROL_PADDING = '0.25em 0.5em'
 export var CONTROL_RADIUS = '0.25em 0.5em'
 
