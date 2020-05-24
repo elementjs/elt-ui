@@ -53,7 +53,7 @@ export namespace Control.css {
   //   width: 0
   // })
 
-  export const color_full = style('color-full', S.box.background(S.TINT).border(S.BG14).text.color(S.BG))
+  export const color_full = style('color-full', S.box.background(S.TINT).border(S.TINT14).text.color(S.BG))
   rule`${color_full} ${inker.cls_container}`({'--eltui-colors-tint': 'var(--eltui-colors-bg)'})
   export const color_middle = style('color-faint', S.box.background(S.TINT14).border(S.TINT14).text.color(S.TINT))
   export const color_faint = style('color-faint', S.box.background(S.TINT07).border(S.TINT14))
@@ -145,6 +145,6 @@ export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 }
 
 export namespace ControlLabel.css {
-  export const container = style('ctrllabel', S.box.background(S.FG07).border(S.FG14))
+  export const container = style('ctrllabel', S.box.background(S.TINT07).border(S.TINT14))
   export const span = style('ctrllabel-span', S.text.color(S.FG75).uppercase.size('0.7em'), {verticalAlign: '.125em'})
 }

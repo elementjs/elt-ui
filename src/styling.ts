@@ -162,21 +162,33 @@ export namespace Styling {
       return typeof s === 'string' ? this.fromHex(s) : this.fromRGB(s)
     }
 
+    rotate(rotation: number): Color {
+      return new Color([this.lch[0], this.lch[1], (this.lch[2] + rotation) % 360])
+    }
+
     interpolate(pct_from: number, other: Color): Color {
       const oc = other.lch
       const diff = this.lch.map((n, i) => i < 2 ? n + (oc[i] - n) * pct_from : n) as [number, number, number]
       return new Color(diff)
     }
 
-    toRGB(): [number, number, number] {
+    toRGBarray(): [number, number, number] {
       return xyz2rgb(lab2xyz(lch2lab(this.lch)))
+    }
+
+    toRGB(): string {
+      return `rgb(${this.toRGBarray().join(', ')})`
+    }
+
+    toRGBA(alpha: number): string {
+      return `rgba(${this.toRGBarray().join(', ')}, ${alpha})`
     }
     /**
      * Convert back to rgb space and back to hex
      */
     toHex(): string {
       function pad(n: string) { return n.length < 2 ? '0' + n : n }
-      return '#' + this.toRGB().map(c => pad(Math.round(c).toString(16))).join('')
+      return '#' + this.toRGBarray().map(c => pad(Math.round(c).toString(16))).join('')
     }
   }
 
@@ -212,6 +224,18 @@ export namespace Styling {
       }
       return props
     }
+
+    fg(s: string): CSSProperties {
+      var props = {} as {[name: string]: string}
+      var bg = this._bg
+      var fg = Color.parse(s)
+      props[`--eltui-colors-fg`] = fg.toHex()
+      for (var i of STEPS) {
+        props[`--eltui-colors-fg-${i}`] = fg.interpolate(1 - i/100, bg).toHex()
+      }
+      return props
+    }
+
   }
 
   export const box = helpers.box
@@ -347,7 +371,7 @@ rule`*`({
 rule`html`(Styling.Theme({
   fg: '#3c3c3b',
   bg: '#ffffff',
-  tint: '#004170' // steelblue by default
+  tint: '#652DC1' // steelblue by default
 }).props)
 
 rule`:root`({
@@ -369,6 +393,7 @@ rule`button, input, select, textarea`({
 })
 
 rule`::-webkit-scrollbar`({
+  position: 'absolute',
   width: 'calc(1rem / 2)'
 })
 
