@@ -140,6 +140,8 @@ export namespace Styling {
   }
 
 
+  const STEPS = [80, 60, 25, 10]
+
   /**
    * Color is an LCH color
    */
@@ -162,8 +164,7 @@ export namespace Styling {
 
     interpolate(pct_from: number, other: Color): Color {
       const oc = other.lch
-      const diff = this.lch.map((n, i) => n + (oc[i] - n) * pct_from) as [number, number, number]
-      console.log(this.lch, other.lch, diff)
+      const diff = this.lch.map((n, i) => i < 2 ? n + (oc[i] - n) * pct_from : n) as [number, number, number]
       return new Color(diff)
     }
 
@@ -174,26 +175,42 @@ export namespace Styling {
      * Convert back to rgb space and back to hex
      */
     toHex(): string {
-      return '#' + this.toRGB().map(c => Math.round(c).toString(16)).join('')
+      function pad(n: string) { return n.length < 2 ? '0' + n : n }
+      return '#' + this.toRGB().map(c => pad(Math.round(c).toString(16))).join('')
     }
   }
 
   export class ColorTheme {
     props: CSSProperties
+    _bg: Color
+    _fg: Color
+    _tint: Color
+
     constructor(public spec: ColorThemeSpec) {
       var props = {} as {[name: string]: string}
-      var bg = Color.parse(spec.bg)
-      var fg = Color.parse(spec.fg)
-      var tint = Color.parse(spec.tint)
+      var bg = this._bg = Color.parse(spec.bg)
+      var fg = this._fg = Color.parse(spec.fg)
+      var tint = this._tint = Color.parse(spec.tint)
 
       props[`--eltui-colors-bg`] = bg.toHex()
       props[`--eltui-colors-tint`] = tint.toHex()
       props[`--eltui-colors-fg`] = fg.toHex()
-      for (var i of [7, 14, 50, 75]) {
-        props[`--eltui-colors-tint-${i}`] = bg.interpolate(i/100, tint).toHex()
-        props[`--eltui-colors-fg-${i}`] = bg.interpolate(i/100, fg).toHex()
+      for (var i of STEPS) {
+        props[`--eltui-colors-tint-${i}`] = tint.interpolate(1 - i/100, bg).toHex()
+        props[`--eltui-colors-fg-${i}`] = fg.interpolate(1 - i/100, bg).toHex()
       }
       this.props = props
+    }
+
+    tint(s: string): CSSProperties {
+      var props = {} as {[name: string]: string}
+      var bg = this._bg
+      var tint = Color.parse(s)
+      props[`--eltui-colors-tint`] = tint.toHex()
+      for (var i of STEPS) {
+        props[`--eltui-colors-tint-${i}`] = tint.interpolate(1 - i/100, bg).toHex()
+      }
+      return props
     }
   }
 
@@ -202,51 +219,8 @@ export namespace Styling {
   export const text = helpers.text
   // export const grid = helpers.grid
 
-  export function toRGB(s: string | [number, number, number]): string {
-    if (Array.isArray(s))
-      return `${s[0]}, ${s[1]}, ${s[2]}`
-    if (s[0] === '#')
-      s = s.slice(1)
-    if (s.length !== 6)
-      return s
-    return `${parseInt(s.slice(0, 2), 16)}, ${parseInt(s.slice(2, 4), 16)}, ${parseInt(s.slice(4, 6), 16)}`
-  }
-
   export function Theme(theme: ColorThemeSpec) {
-    const clt = new ColorTheme(theme)
-    return clt.props
-    // return {
-    //   '--eltui-colors-tint': toRGB(theme.tint),
-    //   '--eltui-colors-fg': toRGB(theme.fg),
-    //   '--eltui-colors-bg': toRGB(theme.bg),
-    //   // backgroundColor: 'rgba(var(--eltui-colors-bg))',
-    //   color: 'rgba(var(--eltui-colors-fg), 1)',
-    //   backgroundColor: 'rgba(var(--eltui-colors-bg), 1)'
-    // } as CSSProperties
-  }
-
-  export function SetTint(tint: string) {
-    return {
-      '--eltui-colors-tint': toRGB(tint),
-    } as CSSProperties
-  }
-
-  export function SetFg(tint: string) {
-    return {
-      '--eltui-colors-fg': toRGB(tint)
-    } as CSSProperties
-  }
-
-  export function SetBg(tint: string) {
-    return {
-      '--eltui-colors-bg': toRGB(tint)
-    } as CSSProperties
-  }
-
-  export function SetContrast(tint: string) {
-    return {
-      '--eltui-colors-contrast': toRGB(tint)
-    } as CSSProperties
+    return new ColorTheme(theme)
   }
 
   export const Tint = (alpha?: number) => `var(--eltui-colors-tint${alpha ? `-${alpha}` : ''})`
@@ -254,22 +228,22 @@ export namespace Styling {
   export const Bg = (alpha?: number) => `var(--eltui-colors-bg${alpha ? `-${alpha}` : ''})`
 
   export const TINT = Tint()
-  export const TINT75 = Tint(75)
-  export const TINT50 = Tint(50)
-  export const TINT14 = Tint(14)
-  export const TINT07 = Tint(7)
+  export const TINT75 = Tint(STEPS[0])
+  export const TINT50 = Tint(STEPS[1])
+  export const TINT14 = Tint(STEPS[2])
+  export const TINT07 = Tint(STEPS[3])
 
   export const FG = Fg()
-  export const FG75 = Fg(75)
-  export const FG50 = Fg(50)
-  export const FG14 = Fg(14)
-  export const FG07 = Fg(7)
+  export const FG75 = Fg(STEPS[0])
+  export const FG50 = Fg(STEPS[1])
+  export const FG14 = Fg(STEPS[2])
+  export const FG07 = Fg(STEPS[3])
 
   export const BG = Bg()
-  export const BG75 = Bg(75)
-  export const BG50 = Bg(50)
-  export const BG14 = Bg(14)
-  export const BG07 = Bg(7)
+  export const BG75 = Bg(STEPS[0])
+  export const BG50 = Bg(STEPS[1])
+  export const BG14 = Bg(STEPS[2])
+  export const BG07 = Bg(STEPS[3])
 
   export const SIZE_VERY_TINY = `0.4rem`
   export const SIZE_TINY = `0.6rem`
@@ -370,11 +344,11 @@ rule`*`({
   boxSizing: 'border-box'
 })
 
-rule`:root`(Styling.Theme({
+rule`html`(Styling.Theme({
   fg: '#3c3c3b',
   bg: '#ffffff',
-  tint: '#36648B' // steelblue by default
-}))
+  tint: '#004170' // steelblue by default
+}).props)
 
 rule`:root`({
   // '--eltui-colors-tint': '63, 81, 181',

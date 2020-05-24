@@ -60,7 +60,7 @@ export namespace Float.css {
     position: 'fixed',
     zIndex: 2,
     // backgroundColor: S.BG,
-    boxShadow: `2px 2px 10px ${S.FG14}`,
+    boxShadow: `0px 0px 10px ${S.TINT14}`,
     animationFillMode: 'forwards',
     animationName: animate.top_enter,
     animationDuration: '0.1s',
@@ -73,8 +73,8 @@ export namespace Float.css {
   })
 
   rule`${Float.css.float}::before`({content: '"\u00a0"'},
-    S.box.block.width(M).height(M).border(S.TINT14).positionAbsolute.background(S.BG),
-    {borderRadius: '0.15em', zIndex: -1, transform: `translateZ(0) rotate(-45deg)`, transformOrigin: '50% 50%', boxShadow: `2px 2px 10px ${S.FG14}`}
+    S.box.block.width(M).height(M).background(S.BG).border(S.TINT14).positionAbsolute,
+    {borderRadius: '0.15em', zIndex: -1, transform: `translateZ(0) rotate(-45deg)`, transformOrigin: '50% 50%', boxShadow: `0px 0px 10px ${S.TINT14}`}
   )
   rule`${Float.css.float}${bottom}::before`(S.box.bottom(-M / 2))
   rule`${Float.css.float}${top}::before`(S.box.top(-M / 2))

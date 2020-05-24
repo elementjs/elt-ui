@@ -67,7 +67,8 @@ export namespace Checkbox {
 
   export const cls_label = style('label', S.box.border(S.TINT14).background(S.BG).cursorPointer)
   // rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
-  rule`${cls_label}[disabled]`(S.SetTint('#dddddd'))
+  rule`${cls_label}[disabled]`(S.box.border(S.FG14).background(S.BG).text.color(S.FG50))
+  rule`${cls_label}[disabled] i`(S.text.color(S.FG50))
 
   export const cls_content = style('content', S.box.paddingLeft('0.25em'))
 
