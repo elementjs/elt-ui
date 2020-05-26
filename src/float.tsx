@@ -5,6 +5,9 @@ import { Styling as S } from './styling'
 import { style, rule } from 'osun';
 import { inker } from './ink';
 
+export const M = 17
+export const MMove = M / ( Math.SQRT2)
+
 /**
  * Parent needs to be at least absolute.
  */
@@ -24,11 +27,11 @@ export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 
         if (prect.bottom + rect.height > vh) {
           // console.log(prect.bottom)
-          n.style.bottom = `${vh - prect.top}px`
+          n.style.bottom = `${vh - prect.top + MMove}px`
           n.style.transformOrigin = 'bottom center'
           n.classList.add(Float.css.bottom)
         } else {
-          n.style.top = `${prect.bottom + 16}px`
+          n.style.top = `${prect.bottom + MMove}px`
           n.style.transformOrigin = 'top center'
           n.classList.add(Float.css.top)
         }
@@ -48,7 +51,6 @@ export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 
 
 export namespace Float.css {
-  export const M = 17
 
   export const top = style('float-top')
   export const bottom = style('float-bottom')

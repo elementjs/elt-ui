@@ -81,7 +81,7 @@ export function Toggle({model, disabled}: Attrs<HTMLButtonElement> & {model: o.O
     S.box.cursorPointer,
     Control.css.control,
     Toggle.css.container,
-    o.tf(model, m => S.text.color(m ? S.BG : S.FG)),
+    o.tf(model, m => S.text.color(m ? S.BG : S.FG14)),
     {
       [Toggle.css.on]: model,
     },

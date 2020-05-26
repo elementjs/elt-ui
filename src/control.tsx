@@ -101,7 +101,7 @@ export namespace Control.css {
 
   export const ctrl_table = style('table', {
     position: 'relative',
-    // display: 'inline-table',
+    display: 'inline-table',
     borderCollapse: 'separate',
   })
 
