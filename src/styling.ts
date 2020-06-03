@@ -402,8 +402,8 @@ rule`::-webkit-scrollbar-track`({
 })
 
 rule`::-webkit-scrollbar-thumb`({
-  background: Styling.Tint(0.24),
-  borderRadius: 'calc(1rem / 4)'
+  background: Styling.TINT14,
+  // borderRadius: 'calc(1rem / 4)'
 })
 
 export default Styling

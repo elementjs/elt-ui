@@ -105,7 +105,7 @@ export function create_float<T>(
 
   // Remove the float if we clicked outside of it.
   const off = (ev: MouseEvent | KeyboardEvent | TouchEvent) => {
-    if (!children.contains(ev.target as Node)) {
+    if (!children.contains(ev.target as Node) && (ev.target as Element).isConnected) {
       remove()
     }
   }
