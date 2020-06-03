@@ -127,9 +127,10 @@ export function create_float<T>(
 }
 
 
-export function $float<T, N extends HTMLElement | SVGElement>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element) {
+export function $float<T, N extends HTMLElement | SVGElement>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element, cbk?: (promise: Promise<T>) => void) {
   return $click<N>(ev => {
     inker(ev)
-    create_float(ev.currentTarget, ch)
+    const prom = create_float(ev.currentTarget, ch)
+    cbk?.(prom)
   })
 }
