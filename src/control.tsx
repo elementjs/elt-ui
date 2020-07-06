@@ -32,6 +32,7 @@ export namespace Control.css {
       lineHeight: 'normal',
       userSelect: 'none',
       verticalAlign: 'baseline',
+      transition: `border 0.3s, padding 0.3s`,
     },
     control_border
   )
@@ -46,12 +47,19 @@ export namespace Control.css {
   rule`${control_border} > ${inker.cls_container}`({
     borderRadius: CONTROL_RADIUS
   })
-  // rule`${control}::after`({
-  //   content: '"\u00a0"',
-  //   display: 'inline-block',
-  //   height: '1em',
-  //   width: 0
-  // })
+
+  export const active = style('active')
+
+  rule`${active}::after`({
+    position: 'absolute',
+    left: '0.25em',
+    bottom: 0,
+    width: 'calc(100% - 0.5em)',
+    height: '2px',
+    content: '"\u00a0"',
+    transition: 'background 0.3s',
+    background: S.TINT50,
+  })
 
   export const color_full = style('color-full', S.box.background(S.TINT).border(S.TINT14).text.color(S.BG))
   rule`${color_full} ${inker.cls_container}`({'--eltui-colors-tint': 'var(--eltui-colors-bg)'})

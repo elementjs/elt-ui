@@ -101,6 +101,7 @@ export function create_float<T>(
     await animate(children as HTMLElement, Float.css.leave_float)
     remove_node(children)
     wm.delete(node)
+    _reject(null)
   }
 
   // Remove the float if we clicked outside of it.
@@ -111,7 +112,9 @@ export function create_float<T>(
   }
 
   var children!: Node
+  var _reject: (e: any) => any
   const prom = new Promise<T>((accept, reject) => {
+    _reject = reject
     children = ch(accept, reject)
   })
   wm.set(node, prom)

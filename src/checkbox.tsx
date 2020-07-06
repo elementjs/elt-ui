@@ -61,7 +61,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
 
 export namespace Checkbox {
 
-  export const cls_on = style('on')
+  export const cls_on = style('on', Control.css.active)
   export const cls_off = style('off')
   export const cls_disabled = style('disabled')
 
@@ -70,9 +70,20 @@ export namespace Checkbox {
   rule`${cls_label}[disabled]`(S.box.border(S.FG14).background(S.BG).text.color(S.FG50))
   rule`${cls_label}[disabled] i`(S.text.color(S.FG50))
 
-  export const cls_content = style('content', S.box.paddingLeft('0.25em'))
+  // rule`${cls_on}::after`({
+  //   position: 'absolute',
+  //   bottom: 0,
+  //   left: 0,
+  //   width: '100%',
+  //   height: '2px',
+  //   background: S.TINT,
+  //   content: `"\u00a0"`
+  // })
+
+  export const cls_content = style('content', S.box.paddingLeft('0.25em').text.color(S.FG))
 
   export const cls_icon = style('icon', S.text.color(S.TINT))
+  rule`${cls_off} ${cls_icon}`(S.text.color(S.TINT50))
 }
 
 

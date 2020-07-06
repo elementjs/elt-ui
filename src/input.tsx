@@ -84,9 +84,9 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
   const o_focused: o.Observable<boolean> = o(false as boolean)
 
   // const o_unfocus_and_empty = o(data.model, o_focused, (value: string, focused: boolean) => !focused && !value)
-  const o_unfocus_and_empty = o.merge({model: o_model, focus: o_focused})
+  const o_unfocus_and_filled = o.merge({model: o_model, focus: o_focused})
     .tf(value => {
-      var res = !value.model && !value.focus
+      var res = !!value.model && !value.focus
       return res
     })
 
@@ -95,7 +95,7 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
     id={id}
     class={[Control.css.control, Input.css.input, {
        [Input.css.focused]: o_focused,
-       [Input.css.empty_unfocused]: o_unfocus_and_empty,
+       [Input.css.empty_filled]: o_unfocus_and_filled,
     }]}
     // class={Input.element}
     type={type || 'text'}
@@ -109,8 +109,8 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
 }
 
 Input.css = CssNamespace({
-  focused: style('focused', S.box.border(S.TINT50)),
-  empty_unfocused: style('empty-unfocused'),
+  focused: style('focused', Control.css.active),
+  empty_filled: style('empty-unfocused'),
   input: style('input', S.box.border(S.TINT14), {flexGrow: 1})
 }, ({input}) => {
   rule`${input}::placeholder`(S.text.color(S.FG14).size('1em').box.padding(0).margin(0).inlineBlock)

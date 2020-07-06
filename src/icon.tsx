@@ -47,17 +47,22 @@ export function I(at: any, ...mods:any[]): HTMLElement {
       if (mod_style[m as keyof typeof mod_style]) has_kind = true
       return mod_map[m as keyof typeof mod_map] ?? mod_style[m as keyof typeof mod_style] ?? m
     })]
-    if (!has_kind) classes.push('far')
+    if (!has_kind) classes.push(mod_style[I.default_style])
     return E('i', {class: classes})
   } else {
     var keys = Object.keys(at).filter(n => n !== 'name')
-    if (!at.duotone && !at.light && !at.brand && !at.regular) keys.push('regular')
+    if (!at.duotone && !at.light && !at.brand && !at.regular) keys.push(I.default_style)
     var name = at.name
     return E('i', {class: ['fa-' + name, ...keys.map(m => mod_map[m as keyof typeof mod_map] ?? mod_style[m as keyof typeof mod_style] ?? m)]})
   }
 }
 
 export namespace I {
+
+  export var default_style: keyof typeof mod_style = 'regular'
+  export function setDefaultStyle(style: 'regular' | 'light' | 'duotone') {
+    default_style = style
+  }
 
   export type IconName =
   '500px' |

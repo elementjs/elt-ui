@@ -12,6 +12,8 @@ import {
 	Renderable,
 	Attrs,
 	$scrollable,
+	$inserted,
+	$removed,
 } from 'elt'
 
 import S from './styling'
@@ -46,10 +48,13 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 		const o_model = o(model)
 		////////////////////////////////
 
+		const o_active = o(false)
 		let $decorators: (Mixin<HTMLDivElement> | Decorator<HTMLDivElement>)[] = [];
 
 		$decorators.push($float(acc =>
 			<Float class={Control.css.control_border}><ControlBox vertical style={{maxHeight: '50vh'}}>
+				{$inserted(() => o_active.set(true))}
+				{$removed(() => o_active.set(false))}
 				{$scrollable}
 				{$style({width: `${select_container.clientWidth}px`})}
 				{$class(S.box.background(S.BG).border(S.TINT14))}
@@ -66,7 +71,7 @@ export class Select<T> extends Component<SelectAttributes<T>> {
 				)}
 		</ControlBox></Float> as HTMLDivElement))
 
-		const select_container = <div class={[Control.css.control, Select.css.select]}>
+		const select_container = <div class={[Control.css.control, Select.css.select, {[Control.css.active]: o_active}]}>
 			{$decorators}
 			{model.tf(m => labelfn(m))}
 			<span class={S.flex.absoluteGrow(1)}/>
