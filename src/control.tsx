@@ -44,9 +44,9 @@ export namespace Control.css {
     width: 0
   })
 
-  rule`${control_border} > ${inker.cls_container}`({
-    borderRadius: CONTROL_RADIUS
-  })
+  // rule`${control_border} > ${inker.cls_container}`({
+  //   borderRadius: CONTROL_RADIUS
+  // })
 
   export const active = style('active')
 
@@ -79,12 +79,12 @@ export namespace Control.css {
     borderRightWidth: '0'
   })
 
-  rule`${control_box} > ${control}:last-child, ${control_box} > ${control}:last-child > ${inker.cls_container}`({
+  rule`${control_box} > ${control}:last-child`({
     borderTopRightRadius: '0.5em',
     borderBottomRightRadius: '0.25em',
   })
 
-  rule`${control_box} > ${control}:first-child, ${control_box} > ${control}:first-child > ${inker.cls_container}`({
+  rule`${control_box} > ${control}:first-child`({
     borderTopLeftRadius: '0.25em',
     borderBottomLeftRadius: '0.5em'
   })
@@ -97,12 +97,12 @@ export namespace Control.css {
 
   rule`${control_box_vertical} > ${control}:not(:last-child)`({borderBottomWidth: '0'})
 
-  rule`${control_box_vertical} > ${control}:first-child, ${control_box_vertical} > ${control}:first-child > ${inker.cls_container}`({
+  rule`${control_box_vertical} > ${control}:first-child`({
     borderTopRightRadius: '0.5em',
     borderTopLeftRadius: '0.25em',
   })
 
-  rule`${control_box_vertical} > ${control}:last-child, ${control_box_vertical} > ${control}:last-child > ${inker.cls_container}`({
+  rule`${control_box_vertical} > ${control}:last-child`({
     borderRadius: '0 0 0.25em 0.5em',
   })
 

@@ -45,7 +45,7 @@ export function I(at: any, ...mods:any[]): HTMLElement {
     var has_kind = false
     var classes = ['fa-' + at, ...mods.map(m => {
       if (mod_style[m as keyof typeof mod_style]) has_kind = true
-      return mod_map[m as keyof typeof mod_map] ?? mod_style[m as keyof typeof mod_style] ?? m
+      return mod_map[m as keyof typeof mod_map] ?? mod_style[m as keyof typeof mod_style] ?? 'fa-' + m
     })]
     if (!has_kind) classes.push(mod_style[I.default_style])
     return E('i', {class: classes})
