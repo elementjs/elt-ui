@@ -32,34 +32,26 @@ export namespace Control.css {
       lineHeight: 'normal',
       userSelect: 'none',
       verticalAlign: 'baseline',
-      transition: `border 0.3s, padding 0.3s`,
+      transition: `border 0.3s, padding 0.3s, box-shadow 0.3s`,
     },
     control_border
   )
 
-  rule`${control}::before`({
-    content: '"\u00a0"',
-    display: 'inline-block',
-    height: '1em',
-    width: 0
-  })
+  // rule`${control}::before`({
+  //   content: '"\u00a0"',
+  //   display: 'inline-block',
+  //   height: '1em',
+  //   width: 0
+  // })
 
   // rule`${control_border} > ${inker.cls_container}`({
   //   borderRadius: CONTROL_RADIUS
   // })
 
-  export const active = style('active')
-
-  rule`${active}::after`({
-    position: 'absolute',
-    left: '0.25em',
-    bottom: 0,
-    width: 'calc(100% - 0.5em)',
-    height: '2px',
-    content: '"\u00a0"',
-    transition: 'background 0.3s',
-    background: S.TINT50,
+  export const active = style('active', {
+    boxShadow: `inset 0 -2px 0 0 ${S.TINT50}`,
   })
+
 
   export const color_full = style('color-full', S.box.background(S.TINT).border(S.TINT14).text.color(S.BG))
   rule`${color_full} ${inker.cls_container}`({'--eltui-colors-tint': 'var(--eltui-colors-bg)'})
@@ -113,12 +105,12 @@ export namespace Control.css {
     borderCollapse: 'separate',
   })
 
-  rule`${ctrl_table} > tr > ${control}:not(:last-child)`({ borderRight: 0 })
+  rule`${ctrl_table} > tr > td:not(:last-child) > ${control}`({ borderRight: 0 })
 
-  rule`${ctrl_table} > tr:first-child > ${control}:first-child`({ borderTopLeftRadius: '0.25em', })
-  rule`${ctrl_table} > tr:last-child > ${control}:first-child`({ borderBottomLeftRadius: '0.5em', })
-  rule`${ctrl_table} > tr:first-child > ${control}:last-child`({ borderTopRightRadius: '0.5em', })
-  rule`${ctrl_table} > tr:last-child > ${control}:last-child`({ borderBottomRightRadius: '0.25em', })
+  rule`${ctrl_table} > tr:first-child > td:first-child > ${control}`({ borderTopLeftRadius: '0.25em', })
+  rule`${ctrl_table} > tr:last-child > td:first-child > ${control}`({ borderBottomLeftRadius: '0.5em', })
+  rule`${ctrl_table} > tr:first-child > td:last-child > ${control}`({ borderTopRightRadius: '0.5em', })
+  rule`${ctrl_table} > tr:last-child > td:last-child > ${control}`({ borderBottomRightRadius: '0.25em', })
 
   rule`${ctrl_table} td > ${control}`({
     display: 'block !important',
@@ -131,7 +123,6 @@ export namespace Control.css {
   rule`${ctrl_table} > tr > ${control}`({ borderRadius: 0 })
   rule`${ctrl_table} > tr > ${control}, ${ctrl_table} > tr > td > ${control}`({
     borderRadius: 0,
-    display: 'table-cell',
   })
 }
 
