@@ -37,19 +37,8 @@ export namespace Control.css {
     control_border
   )
 
-  // rule`${control}::before`({
-  //   content: '"\u00a0"',
-  //   display: 'inline-block',
-  //   height: '1em',
-  //   width: 0
-  // })
-
-  // rule`${control_border} > ${inker.cls_container}`({
-  //   borderRadius: CONTROL_RADIUS
-  // })
-
   export const active = style('active', {
-    boxShadow: `inset 0 -2px 0 0 ${S.TINT50}`,
+    boxShadow: `inset 0 -2px 0 0 ${S.TINT07}`,
   })
 
 

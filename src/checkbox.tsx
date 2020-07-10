@@ -12,7 +12,7 @@ import {
 
 import {$inkable} from './ink'
 import { style, rule } from 'osun'
-import S from './styling'
+import S, { Styling } from './styling'
 import { Control } from './control'
 import { I } from './icon'
 
@@ -42,6 +42,7 @@ export class Checkbox extends Component<CheckboxAttributes> {
     let classes = {
       [Checkbox.cls_on]: this.o_model,
       [Checkbox.cls_off]: this.o_model.tf(m => m == false),
+      [Checkbox.cls_disabled]: this.attrs.disabled
     }
 
     return <button disabled={this.attrs.disabled} class={[Checkbox.cls_label, Control.css.control, classes]}>
@@ -63,27 +64,16 @@ export namespace Checkbox {
 
   export const cls_on = style('on', Control.css.active)
   export const cls_off = style('off')
-  export const cls_disabled = style('disabled')
+  export const cls_disabled = style('disabled', Styling.disabled_colors)
 
   export const cls_label = style('label', S.box.border(S.TINT14).background(S.BG).cursorPointer)
-  // rule`${cls_label}${cls_on}`(S.box.background(S.TINT14))
   rule`${cls_label}[disabled]`(S.box.border(S.FG14).background(S.BG).text.color(S.FG50))
-  rule`${cls_label}[disabled] i`(S.text.color(S.FG50))
+  rule`${cls_label}[disabled] {['i', 'i::before', 'span']}`(S.text.color(S.FG50))
 
-  // rule`${cls_on}::after`({
-  //   position: 'absolute',
-  //   bottom: 0,
-  //   left: 0,
-  //   width: '100%',
-  //   height: '2px',
-  //   background: S.TINT,
-  //   content: `"\u00a0"`
-  // })
-
-  export const cls_content = style('content', S.box.paddingLeft('0.25em').text.color(S.FG))
+  export const cls_content = style('content', S.box.paddingLeft('0.25em'))
 
   export const cls_icon = style('icon', S.text.color(S.TINT))
-  rule`${cls_off} ${cls_icon}`(S.text.color(S.TINT50))
+  rule`${[cls_off, cls_disabled]} ${cls_icon}`(S.text.color(S.TINT50))
 }
 
 

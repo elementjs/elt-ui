@@ -109,10 +109,7 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
 }
 
 Input.css = CssNamespace({
-  // focused: style('focused', S.box.borderBottom(S.TINT50, '2px',)),
-  focused: style('focused', {
-    boxShadow: `inset 0 -2px 0 0 ${S.TINT50}`
-  }),
+  focused: style('focused', Control.css.active),
   empty_filled: style('empty-unfocused'),
   input: style('input', S.box.border(S.TINT14), {flexGrow: 1})
 }, ({input}) => {

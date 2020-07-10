@@ -247,6 +247,13 @@ export namespace Styling {
     return new ColorTheme(theme)
   }
 
+  var disabled = {} as any
+  disabled['--eltui-colors-tint'] = `var(--eltui-colors-fg)`
+  for (var i of STEPS) {
+    disabled[`--eltui-colors-tint-${i}`] = `var(--eltui-colors-fg-${i})`
+  }
+  export const disabled_colors = style('disabled-colors', disabled)
+
   export const Tint = (alpha?: number) => `var(--eltui-colors-tint${alpha ? `-${alpha}` : ''})`
   export const Fg = (alpha?: number) => `var(--eltui-colors-fg${alpha ? `-${alpha}` : ''})`
   export const Bg = (alpha?: number) => `var(--eltui-colors-bg${alpha ? `-${alpha}` : ''})`
