@@ -75,9 +75,11 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
     // placeholder,
     error,
     type,
+    placeholder,
     ...other_attrs
   } = attrs
 
+  const o_placeholder = o.tf(placeholder, p => p || '-')
   const o_model = o(model)
   // label = label || placeholder || ''
 
@@ -92,10 +94,12 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
 
   const res = <input
     {...other_attrs}
+    placeholder={o_placeholder}
     id={id}
     class={[Control.css.control, Input.css.input, {
        [Input.css.focused]: o_focused,
        [Input.css.empty_filled]: o_unfocus_and_filled,
+       [Input.css.hidden_placeholder]: o.tf(placeholder, p => !p?.trim())
     }]}
     // class={Input.element}
     type={type || 'text'}
@@ -111,9 +115,11 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
 Input.css = CssNamespace({
   focused: style('focused', Control.css.active),
   empty_filled: style('empty-unfocused'),
-  input: style('input', S.box.border(S.TINT14), {flexGrow: 1})
-}, ({input}) => {
+  input: style('input', S.box.border(S.TINT14), {flexGrow: 1}),
+  hidden_placeholder: style('hidden-placeholder'),
+}, ({input, hidden_placeholder}) => {
   rule`${input}::placeholder`(S.text.color(S.FG14).size('1em').box.padding(0).margin(0).inlineBlock, {
     lineHeight: 'normal'
   })
+  rule`${hidden_placeholder}::placeholder`(S.text.color(S.BG))
 })
