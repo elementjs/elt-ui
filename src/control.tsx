@@ -32,7 +32,7 @@ export namespace Control.css {
       lineHeight: 'normal',
       userSelect: 'none',
       verticalAlign: 'baseline',
-      transition: `border 0.3s, padding 0.3s, box-shadow 0.3s`,
+      transition: `border 0.3s, padding 0.3s, box-shadow 0.3s, background 0.3s`,
     },
     control_border
   )
@@ -57,7 +57,7 @@ export namespace Control.css {
   })
 
   rule`${control_box} > ${control}:not(:last-child)`({
-    borderRightWidth: '0'
+    borderRight: 'hidden'
   })
 
   rule`${control_box} > ${control}:last-child`({
@@ -133,6 +133,6 @@ export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 }
 
 export namespace ControlLabel.css {
-  export const container = style('ctrllabel', S.box.background(S.TINT07).border(S.TINT14))
+  export const container = style('ctrllabel', S.box.background(S.TINT07).border(S.TINT14).flex.column.justifyCenter)
   export const span = style('ctrllabel-span', S.text.color(S.FG75).uppercase.size('0.7em'), {verticalAlign: '.125em'})
 }
