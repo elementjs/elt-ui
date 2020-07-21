@@ -1,11 +1,13 @@
 
 import {
+	e,
 	$click,
-	Component,
 	remove_node,
 	o,
 	Renderable,
 	Attrs,
+	Component,
+	databus,
 } from 'elt'
 
 import { $inkClickDelay } from './ink'
@@ -13,9 +15,10 @@ import { $inkClickDelay } from './ink'
 import { animate } from './animate'
 import S from './styling'
 import { style, rule } from 'osun'
+// import { Overlay } from './dialog'
 
 
-export class Nav extends Component {
+export class Nav extends Component<Attrs<HTMLDivElement>> {
 
 	detach() {
 		this.node.classList.remove(Nav.enter)
@@ -30,22 +33,19 @@ export class Nav extends Component {
 		animate(node, Nav.enter)
 	}
 
-	render(ch: Renderable[]): HTMLElement {
-
+	render(ch: Renderable[]) {
 		return <div>
 			<div class={Nav.overlay}>
-				{$click((e) => {
+				{$click(e => {
 					if (e.target === e.currentTarget)
 						this.detach()
 				})}
 			</div>
-			<div class={[Nav.drawer, S.flex.column]}>
-				{ch}
-			</div>
-		</div> as HTMLElement
+			<div class={[Nav.drawer, S.flex.column]}>{ch}</div>
+		</div> as HTMLDivElement
 	}
-
 }
+
 
 export namespace Nav {
 
@@ -133,11 +133,7 @@ export function NavItem(a: NavItemAttributes, ch: Renderable[]) {
 	let res = <div class={[NavItem.item, S.flex.row.alignCenter]}>
 		{$inkClickDelay(function (e) {
 			if (a.click && a.click(e) !== false) {
-				let c = Nav.get(res)
-				// XXX should we log an error here if c was null ?
-
-				if (c) c.detach()
-				else console.warn('could not get Nav')
+				databus.inClosestParent(e.currentTarget, Nav, nav => nav.detach())
 			}
 		})}
 		{o.tf(a.icon, I => <I class={NavItem.item_icon}/>)}

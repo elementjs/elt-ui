@@ -1,7 +1,7 @@
 import { style, rule } from 'osun'
 import { Styling as S } from './styling'
 import { inker } from './ink'
-import { o, Attrs, Renderable } from 'elt'
+import { o, Attrs, Renderable, e } from 'elt'
 
 export var TOPLEFT_CONTROL_RADIUS = '0.25em'
 export var TOPRIGHT_CONTROL_RADIUS = '0.5em'

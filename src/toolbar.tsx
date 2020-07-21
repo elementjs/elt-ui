@@ -1,6 +1,6 @@
 import S from './styling'
 import { style, rule } from 'osun';
-import { Renderable, Attrs } from 'elt';
+import { Renderable, Attrs, e } from 'elt';
 
 export function Toolbar(_: Attrs<HTMLDivElement>, children: Renderable[]) {
 

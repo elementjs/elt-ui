@@ -6,12 +6,14 @@ import {
   If,
   append_child_and_init,
   remove_node,
-  Component,
   $class,
   Attrs,
   Renderable,
   ClassDefinition,
   $removed,
+  Component,
+  e,
+  databus
 } from 'elt';
 
 import { animate } from './animate'
@@ -48,7 +50,7 @@ export interface DialogAttrs<T> extends Attrs<HTMLElement>, DialogCommon {
 var _dialog_stack = [] as Node[]
 
 
-export class Dialog<T> extends Component<DialogAttrs<T>> {
+export class Dialog<T> extends Component<Attrs<HTMLDivElement> & DialogAttrs<T>> {
 
   _resolve: (v: T) => any = undefined!
   _reject: (...a: Array<any>) => any = undefined!
@@ -87,11 +89,17 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
       this.reject('pressed escape')
   }
 
-  render() {
-    var opts = this.attrs
+  init() {
+    _dialog_stack.push(this.node)
+    if (!this.attrs.noanimate) {
+      animate(this.node, this.attrs.animationEnter)
+    }
+  }
+
+  render(): HTMLDivElement {
     return <Overlay>
       {$click((e) => {
-        if (e.target === e.currentTarget && opts.clickOutsideToClose)
+        if (e.target === e.currentTarget && this.attrs.clickOutsideToClose)
           this.reject('clicked outside to close')
       })}
       {$init(node => {
@@ -103,16 +111,8 @@ export class Dialog<T> extends Component<DialogAttrs<T>> {
         node.ownerDocument!.removeEventListener('keyup', this.handleEscape)
       })}
       {this.attrs.builder(this)}
-    </Overlay> as HTMLElement
+    </Overlay> as HTMLDivElement
   }
-
-  init() {
-    _dialog_stack.push(this.node)
-    if (!this.attrs.noanimate) {
-      animate(this.node, this.attrs.animationEnter)
-    }
-  }
-
 }
 
 export function Overlay(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
@@ -154,8 +154,9 @@ export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promi
     animationEnter={opts.animationEnter || dialog.enter}
     animationLeave={opts.animationLeave || dialog.leave}
   />
+
   // BOOO ugly cast !
-  let ctrl = Dialog.get(dialo) as any as Dialog<T>
+  let ctrl = databus.getInClosestParent(dialo, Dialog) as Dialog<T>
 
   let parent = opts.parent || document.body
   append_child_and_init(parent, dialo)

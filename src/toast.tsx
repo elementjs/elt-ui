@@ -1,5 +1,5 @@
 
-import { append_child_and_init, remove_node, Insertable } from 'elt'
+import { append_child_and_init, remove_node, Insertable, e } from 'elt'
 import { animate } from './animate'
 
 import S from './styling'

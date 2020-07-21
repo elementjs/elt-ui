@@ -376,7 +376,7 @@ rule`*`({
 })
 
 rule`html`(Styling.Theme({
-  fg: '#3c3c3b',
+  fg: '#1c1c1b',
   bg: '#ffffff',
   tint: '#652DC1' // steelblue by default
 }).props)

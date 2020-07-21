@@ -1,5 +1,5 @@
 
-import { $click, append_child_and_init, remove_node } from 'elt'
+import { $click, append_child_and_init, remove_node, e } from 'elt'
 
 import { animate } from './animate'
 import S from './styling'
@@ -87,7 +87,7 @@ export function $inkable<N extends HTMLElement | SVGElement>() {
 	})
 }
 
-export function $inkClickDelay<N extends HTMLElement | SVGElement>(fn: (ev: MouseEvent) => void) {
+export function $inkClickDelay<N extends HTMLElement | SVGElement>(fn: (ev: MouseEvent & { currentTarget: N }) => void) {
 	return $click<N>(function (ev) {
 		inker(ev)
 		setTimeout(() => {

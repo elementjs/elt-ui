@@ -1,11 +1,13 @@
 
 import {
   o,
-  Component,
   $click,
   Listener,
   Attrs,
-  Renderable
+  Renderable,
+  $init,
+  $removed,
+  e
 } from 'elt'
 
 import S from './styling'
@@ -61,7 +63,7 @@ export namespace Button {
 
   export const cls_button = style('button',
     S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer,
-    S.text.centered.bold,
+    S.text.centered,
     // Control.css.color_middle,
   )
 
@@ -93,21 +95,19 @@ export interface ButtonBarAttrs extends Attrs<HTMLDivElement> {
 }
 
 
-export class ButtonBar extends Component<ButtonBarAttrs> {
+export function ButtonBar(attrs: Attrs & ButtonBarAttrs, children: Renderable[]) {
 
-  init(node = this.node) {
-    requestAnimationFrame(() => {
-      node.parentElement!.classList.add(ButtonBar.cls_has_button_bar)
-    })
-  }
-
-  removed(node = this.node, parent: Node) {
-    (parent as Element).classList.remove(ButtonBar.cls_has_button_bar)
-  }
-
-  render(children: Renderable[]) {
-    return <div class={[ButtonBar.cls_button_bar, S.flex.row.justifyCenter]}>{children}</div> as HTMLDivElement
-  }
+  return <div class={[ButtonBar.cls_button_bar, S.flex.row.justifyCenter]}>
+    {$init(node => {
+      requestAnimationFrame(() => {
+        node.parentElement!.classList.add(ButtonBar.cls_has_button_bar)
+      })
+    })}
+    {$removed((node, parent) => {
+      (parent as Element).classList.remove(ButtonBar.cls_has_button_bar)
+    })}
+    {children}
+  </div> as HTMLDivElement
 }
 
 export namespace ButtonBar {

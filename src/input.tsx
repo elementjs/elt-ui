@@ -5,6 +5,7 @@ import {
   $bind,
   Attrs,
   Renderable,
+  e
 } from 'elt'
 
 import { Button } from './button'
