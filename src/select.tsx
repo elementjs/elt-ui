@@ -5,8 +5,6 @@ import {
 	Repeat,
 	$click,
 	Decorator,
-	$style,
-	$class,
 	Renderable,
 	Attrs,
 	$scrollable,
@@ -20,6 +18,7 @@ import { style } from 'osun'
 import { Control, ControlBox } from './control'
 import { $float, Float } from './float'
 import { SvgSelectThingy } from './svg'
+import { $inkable } from './ink'
 
 export type LabelFn<T> = (opt: T) => Renderable
 
@@ -43,21 +42,25 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 	const o_active = o(false)
 	let $decorators: Decorator<HTMLDivElement>[] = [];
 
-	$decorators.push($float(acc =>
-		<Float class={Control.css.control_border}><ControlBox vertical style={{maxHeight: '50vh'}}>
+	$decorators.push($float<void, HTMLElement>(acc =>
+		<Float class={Control.css.control_border}><ControlBox
+			class={S.box.background(S.BG).border(S.TINT14)}
+			style={{width: `${select_container.clientWidth}px`, maxHeight: '50vh'}}
+			vertical
+		>
 			{$inserted(() => o_active.set(true))}
 			{$removed(() => o_active.set(false))}
 			{$scrollable}
-			{$style({width: `${select_container.clientWidth}px`})}
-			{$class(S.box.background(S.BG).border(S.TINT14))}
 			{Repeat(options, (opt, i) => <div
 					class={[Control.css.control, {[Select.css.selected]: o.combine(o.tuple(o_model, opt), ([m, o]) => m === o)}]}
 				>
 					{$click(() => {
 						var val = o.get(opt)
-						acc(model.set(val))
+						model.set(val)
+						setTimeout(acc, 200)
 						if (onchange) onchange(val)
 					})}
+					{$inkable}
 					{opt.tf(val => labelfn(val))}
 				</div>
 			)}

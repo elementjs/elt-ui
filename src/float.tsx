@@ -5,11 +5,8 @@ import { Styling as S } from './styling'
 import { style, rule } from 'osun';
 import { inker } from './ink';
 
-export const M = 17
-export const MMove = M / ( Math.SQRT2)
-
 export function Triangle(a: Attrs<SVGSVGElement>) {
-  return <svg viewBox='0 0 17 8' class={Triangle.css.cls_triangle}>
+  return <svg viewBox={`0 0 ${TRI_WIDTH} ${TRI_HEIGHT}`} class={Triangle.css.cls_triangle}>
     <path d='M0 8 L9 1 L17 8'></path>
   </svg> as SVGSVGElement
 }
@@ -98,25 +95,14 @@ export namespace Float.css {
     animationName: animate.top_leave
   })
 
-  rule`${Float.css.float}::before`({content: '"\u00a0"'},
-    S.box.block.width(M).height(M).background(S.BG).border(S.TINT14).positionAbsolute,
-    {
-      borderRadius: '0.15em',
-      zIndex: -1,
-      transform: `translateZ(0) rotate(-45deg)`,
-      transformOrigin: '50% 50%',
-      boxShadow: `0px 0px 10px ${S.TINT14}`,
-      clip: `rect(0px, 0px, 17px, 0px)`
-    }
-  )
   rule`${Float.css.float}${bottom} ${Triangle.css.cls_triangle}`(S.box.bottom(`-${TRI_HEIGHT - 1}px`), {
     transform: 'rotateZ(180deg)',
   })
   rule`${Float.css.float}${top} ${Triangle.css.cls_triangle}`({
     top: `-${TRI_HEIGHT - 1}px`,
   })
-  rule`${Float.css.float}${left} ${Triangle.css.cls_triangle}`(S.box.left(M))
-  rule`${Float.css.float}${right} ${Triangle.css.cls_triangle}`(S.box.right(M))
+  rule`${Float.css.float}${left} ${Triangle.css.cls_triangle}`(S.box.left(TRI_HEIGHT))
+  rule`${Float.css.float}${right} ${Triangle.css.cls_triangle}`(S.box.right(TRI_HEIGHT))
 
 }
 
