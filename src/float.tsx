@@ -7,11 +7,11 @@ import { inker } from './ink';
 
 export function Triangle(a: Attrs<SVGSVGElement>) {
   return <svg viewBox={`0 0 ${TRI_WIDTH} ${TRI_HEIGHT}`} class={Triangle.css.cls_triangle}>
-    <path d='M0 8 L9 1 L17 8'></path>
+    <path d={`M0 ${TRI_HEIGHT} C${TRI_WIDTH * 0.7} ${9 * 0.3 - 1} ${TRI_WIDTH * 0.3} ${9 * 0.3 - 1} ${TRI_WIDTH} ${TRI_HEIGHT}`}></path>
   </svg> as SVGSVGElement
 }
 
-const TRI_HEIGHT = 8
+const TRI_HEIGHT = 12
 const TRI_WIDTH = 17
 
 export namespace Triangle.css {
@@ -22,7 +22,7 @@ export namespace Triangle.css {
     position: 'absolute',
     fill: S.BG,
     stroke: S.TINT14,
-    strokeWidth: '1.5px',
+    strokeWidth: '1px',
     strokeLinejoin: 'round',
     transformOrigin: `50% 50%`,
   })

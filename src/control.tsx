@@ -42,6 +42,7 @@ export namespace Control.css {
   })
 
 
+  console.log('WHAT', S.box.border(S.TINT14).text, S.text, S.text.box)
   export const color_full = style('color-full', S.box.background(S.TINT).border(S.TINT14).text.color(S.BG))
   rule`${color_full} ${inker.cls_container}`({'--eltui-colors-tint': 'var(--eltui-colors-bg)'})
   export const color_middle = style('color-faint', S.box.background(S.TINT14).border(S.TINT14).text.color(S.TINT))
