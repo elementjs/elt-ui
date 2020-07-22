@@ -5,8 +5,6 @@ import { animate } from './animate'
 import S from './styling'
 import { keyframes, style, rule } from 'osun'
 
-export const ANIM_DURATION = 300
-
 
 export function inker(event: MouseEvent) {
 
@@ -93,7 +91,7 @@ export function $inkClickDelay<N extends HTMLElement | SVGElement>(fn: (ev: Mous
 		setTimeout(() => {
 			fn(ev)
 		// The callback is fired when the opacity starts to decrease
-		}, Math.round(ANIM_DURATION * 0.75))
+		}, Math.round(animate.ANIM_DURATION * 0.75))
 	})
 }
 
@@ -144,11 +142,11 @@ export namespace inker {
 		)
 
 		rule`${cls_container}${cls_ink_animate}`({
-			animation: `${kf_ripple_opacity} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
+			animation: `${kf_ripple_opacity} ${animate.ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
 		rule`${cls_container}${cls_ink_animate} ${cls_ink}`({
-			animation: `${kf_ripple_size} ${ANIM_DURATION}ms ${animate.FN_STANDARD}`
+			animation: `${kf_ripple_size} ${animate.ANIM_DURATION}ms ${animate.FN_STANDARD}`
 		})
 
 	}

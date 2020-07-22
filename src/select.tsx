@@ -19,6 +19,7 @@ import { Control, ControlBox } from './control'
 import { $float, Float } from './float'
 import { SvgSelectThingy } from './svg'
 import { $inkable } from './ink'
+import { animate } from './animate'
 
 export type LabelFn<T> = (opt: T) => Renderable
 
@@ -57,7 +58,7 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 					{$click(() => {
 						var val = o.get(opt)
 						model.set(val)
-						setTimeout(acc, 200)
+						setTimeout(acc, animate.ANIM_DURATION * 0.25)
 						if (onchange) onchange(val)
 					})}
 					{$inkable}

@@ -1,7 +1,6 @@
 
 import { keyframes } from 'osun'
 
-
 /**
  * Create a Promise that will be resolved once all of the animations
  * that started after the class was added to the node end.
@@ -55,6 +54,7 @@ export function animate(node: HTMLElement, cls: string) {
 
 
 export namespace animate {
+	export const ANIM_DURATION = 200
 
 	export const FN_DECELERATION = `cubic-bezier(0, 0, .2, 1)`
 	export const FN_STANDARD = `cubic-bezier(.4, 0, .2, 1)`
@@ -81,13 +81,13 @@ export namespace animate {
 	})
 
 	export const top_enter = keyframes('top-enter', {
-		'0%': {transform: `scale3d(1.1, 1.1, 1)`, transformOrigin: 'top 50%'},
-		'100%': {transform: `scale3d(1, 1, 1)`}
+		'0%': {transform: `scale3d(1.2, 1.2, 1)`, transformOrigin: 'top 50%', opacity: 0},
+		'100%': {transform: `scale3d(1, 1, 1)`, opacity: 1}
 	})
 
 	export const top_leave = keyframes('top-leave', {
 		'0%': {transform: `scale3d(1, 1, 1)`, transformOrigin: 'top 50%'},
-		'100%': {transform: `scale3d(0.9, 0.9, 1)`}
+		'100%': {transform: `scale3d(0.7, 0.7, 1)`, opacity: 0}
 	})
 
 }

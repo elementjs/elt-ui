@@ -86,13 +86,14 @@ export namespace Float.css {
     boxShadow: `0px 0px 10px ${S.TINT14}`,
     animationFillMode: 'forwards',
     animationName: animate.top_enter,
-    animationDuration: '0.1s',
+    animationDuration: `${animate.ANIM_DURATION}ms`,
     animationTimingFunction: 'ease-in',
     transformOrigin: 'top center',
   })
 
   export const leave_float = style('leave-float', {
-    animationName: animate.top_leave
+    animationName: animate.top_leave,
+    animationTimingFunction: animate.FN_SHARP
   })
 
   rule`${Float.css.float}${bottom} ${Triangle.css.cls_triangle}`(S.box.bottom(`-${TRI_HEIGHT - 1}px`), {
