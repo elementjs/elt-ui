@@ -1,3 +1,6 @@
+import { Attrs, e, Renderable, o, If } from 'elt'
+import { Styling as S } from './styling'
+import { style } from 'osun'
 
 export class PathBuilder {
   constructor(public readonly buffer: Readonly<string[]>) { }
@@ -91,3 +94,50 @@ export class PathBuilder {
 }
 
 export const d = new PathBuilder([])
+
+
+export const cls_icon = style('icon', {
+  height: '1em',
+  fill: 'currentcolor',
+  verticalAlign: '-.125em'
+})
+
+export const cls_stroked = style('icon-stroked-path', {
+  stroke: 'currentcolor',
+  strokeWidth: '1.5px',
+  fill: 'none',
+  strokeLinejoin: 'round',
+  strokeLinecap: 'round',
+})
+
+export function SvgCheckBox(attrs: Attrs<SVGSVGElement> & { checked?: o.RO<any>, filled?: o.RO<boolean> }, ch: Renderable[]) {
+  var thickness = 1.5
+  return <svg class={cls_icon} viewBox='0 0 14 16'>
+    <path style={{fillRule: 'evenodd'}} d={d.rect(0, 1, 14, 15, 15).rect(thickness, 1 + thickness, 14 - thickness, 15 - thickness, 15)}/>
+    {ch}
+    {If(attrs.checked, () => <path d={d.moveTo(3.5, 8).lineTo(6, 11).lineTo(10.5, 4.5)} // 'M3 8 L6 11 L11 4'
+      class={cls_stroked}
+    />)}
+  </svg>
+}
+
+
+export function SvgSelectThingy(a: Attrs<SVGSVGElement>) {
+	return <svg viewBox='0 0 14 16'>
+		{/* <path d='M4 6 L7 10 L10 6'/> */}
+		<path style={{strokeWidth: '1.5px', strokeLinecap: 'round', strokeLinejoin: 'round', stroke: S.TINT50, fill: 'none'}} d={d.moveTo(4, 7).lineTo(7, 9).lineTo(10, 7)}/>
+	</svg>
+}
+
+
+export function SvgCircle(a: Attrs<SVGSVGElement> & { checked: o.RO<boolean> }, ch: Renderable[]) {
+  return <svg viewBox='0 0 14 16' class={cls_icon}>
+    <path style={{fillRule: 'evenodd'}} d={d.circle(7, 8, 7).circle(7, 8, 5.5)}/>
+    {If(a.checked, () => <circle
+      cx={7}
+      cy={8}
+      r={3}
+    />)}
+    {ch}
+  </svg>
+}

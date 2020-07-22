@@ -1,5 +1,5 @@
 
-import { $init, insert_before_and_init, remove_node, $click, $class, Attrs, Renderable } from 'elt'
+import { $init, insert_before_and_init, remove_node, $click, $class, Attrs, Renderable, e } from 'elt'
 import { animate } from './animate'
 import { Styling as S } from './styling'
 import { style, rule } from 'osun';
@@ -8,13 +8,37 @@ import { inker } from './ink';
 export const M = 17
 export const MMove = M / ( Math.SQRT2)
 
+export function Triangle(a: Attrs<SVGSVGElement>) {
+  return <svg viewBox='0 0 17 8' class={Triangle.css.cls_triangle}>
+    <path d='M0 8 L9 1 L17 8'></path>
+  </svg> as SVGSVGElement
+}
+
+const TRI_HEIGHT = 8
+const TRI_WIDTH = 17
+
+export namespace Triangle.css {
+  export const cls_triangle = style('triangle', {
+    zIndex: 1,
+    height: `${TRI_HEIGHT}px`,
+    width: `${TRI_WIDTH}px`,
+    position: 'absolute',
+    fill: S.BG,
+    stroke: S.TINT14,
+    strokeWidth: '1.5px',
+    strokeLinejoin: 'round',
+    transformOrigin: `50% 50%`,
+  })
+}
+
 /**
  * Parent needs to be at least absolute.
  */
 export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 
-  return E.DIV(
+  return e.DIV(
     $class(Float.css.float),
+    e(Triangle, {}),
     $init(n => {
       requestAnimationFrame(() => {
         const doc = n.ownerDocument!
@@ -27,11 +51,11 @@ export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 
         if (prect.bottom + rect.height > vh) {
           // console.log(prect.bottom)
-          n.style.bottom = `${vh - prect.top + MMove}px`
+          n.style.bottom = `${vh - prect.top + TRI_HEIGHT}px`
           n.style.transformOrigin = 'bottom center'
           n.classList.add(Float.css.bottom)
         } else {
-          n.style.top = `${prect.bottom + MMove}px`
+          n.style.top = `${prect.bottom + TRI_HEIGHT}px`
           n.style.transformOrigin = 'top center'
           n.classList.add(Float.css.top)
         }
@@ -76,12 +100,23 @@ export namespace Float.css {
 
   rule`${Float.css.float}::before`({content: '"\u00a0"'},
     S.box.block.width(M).height(M).background(S.BG).border(S.TINT14).positionAbsolute,
-    {borderRadius: '0.15em', zIndex: -1, transform: `translateZ(0) rotate(-45deg)`, transformOrigin: '50% 50%', boxShadow: `0px 0px 10px ${S.TINT14}`}
+    {
+      borderRadius: '0.15em',
+      zIndex: -1,
+      transform: `translateZ(0) rotate(-45deg)`,
+      transformOrigin: '50% 50%',
+      boxShadow: `0px 0px 10px ${S.TINT14}`,
+      clip: `rect(0px, 0px, 17px, 0px)`
+    }
   )
-  rule`${Float.css.float}${bottom}::before`(S.box.bottom(-M / 2))
-  rule`${Float.css.float}${top}::before`(S.box.top(-M / 2))
-  rule`${Float.css.float}${left}::before`(S.box.left(M))
-  rule`${Float.css.float}${right}::before`(S.box.right(M))
+  rule`${Float.css.float}${bottom} ${Triangle.css.cls_triangle}`(S.box.bottom(`-${TRI_HEIGHT - 1}px`), {
+    transform: 'rotateZ(180deg)',
+  })
+  rule`${Float.css.float}${top} ${Triangle.css.cls_triangle}`({
+    top: `-${TRI_HEIGHT - 1}px`,
+  })
+  rule`${Float.css.float}${left} ${Triangle.css.cls_triangle}`(S.box.left(M))
+  rule`${Float.css.float}${right} ${Triangle.css.cls_triangle}`(S.box.right(M))
 
 }
 

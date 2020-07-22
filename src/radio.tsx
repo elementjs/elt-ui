@@ -4,55 +4,19 @@ import {
   $click,
   Renderable,
   Attrs,
-  If,
   e,
 } from 'elt'
 
 import { Checkbox } from './checkbox'
 import { $inkable } from './ink'
 import { Control } from './control'
-import { Styling as S } from './styling'
-import { style } from 'osun'
-import { d } from './svg'
+import { SvgCircle } from './svg'
 
 
 export interface RadioAttributes<T> extends Attrs<HTMLButtonElement> {
   model: o.Observable<T>
   value: o.RO<T>
   disabled?: o.RO<boolean>
-}
-
-export const cls_icon = style('icon', {
-  height: '1em',
-  fill: S.TINT50,
-  verticalAlign: '-.125em'
-})
-export const cls_empty = style('icon-empty', {
-  fill: S.BG
-})
-
-
-export function SvgCircle(a: Attrs<SVGSVGElement> & { checked: o.RO<boolean> }, ch: Renderable[]) {
-  return <svg viewBox='0 0 14 16' class={cls_icon}>
-    <path style={{fillRule: 'evenodd'}} d={d.circle(7, 8, 7).circle(7, 8, 5.5)}/>
-    {/* <circle
-      cx={7}
-      cy={8}
-      r={7}
-    />
-    <circle
-      class={cls_empty}
-      cx={7}
-      cy={8}
-      r={5.5}
-    /> */}
-    {If(a.checked, () => <circle
-      cx={7}
-      cy={8}
-      r={3}
-    />)}
-    {ch}
-  </svg>
 }
 
 

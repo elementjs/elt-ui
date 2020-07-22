@@ -8,47 +8,11 @@ import {
   e
 } from 'elt'
 
-import { Button } from './button'
 import S from './styling'
 import { style, rule, CssNamespace } from 'osun'
 import { Control } from './control'
-import { I } from './icon'
 
 var id_gen = 0;
-
-
-export interface SearchAttributes extends Attrs<HTMLInputElement> {
-  model: o.Observable<string>
-  placeholder?: o.RO<string|null|undefined>
-}
-
-export function Search({model, placeholder}: SearchAttributes) {
-  return <input placeholder={placeholder} class={[Search.element]}>
-      {$bind.string(o(model))}
-      <Button class={Search.button} icon><I name='window-close'/></Button>
-    </input> as HTMLInputElement
-}
-
-export namespace Search {
-
-  export const element = style('search',
-    S.box
-      .positionRelative
-      .noSpuriousBorders
-      .noNativeAppearance
-      .background(S.FG07)
-      .border(S.FG14).borderRound
-      .padding('8px 16px'),
-    S.text.size('0.8em').color(S.FG)
-  )
-
-  rule`${element}:placeholder`(
-    S.text.color(S.FG14)
-  )
-
-  export const button = style('search-btn', S.box.positionAbsolute.right(0))
-
-}
 
 export interface InputAttributes extends Attrs<HTMLInputElement> {
   model: o.Observable<string>

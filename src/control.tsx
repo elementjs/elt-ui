@@ -129,10 +129,13 @@ export function ControlBox(a: Attrs<HTMLDivElement> & {vertical?: o.RO<boolean>}
 
 
 export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
-  return <div class={[Control.css.control, ControlLabel.css.container]}><span class={ControlLabel.css.span}>{ch}</span></div> as HTMLDivElement
+  return <div class={[Control.css.control, ControlLabel.css.container]}>
+    <span>&zwnj;</span>
+    <span class={ControlLabel.css.span}>{ch}</span>
+  </div> as HTMLDivElement
 }
 
 export namespace ControlLabel.css {
-  export const container = style('ctrllabel', S.box.background(S.TINT07).border(S.TINT14).flex.column.justifyCenter)
-  export const span = style('ctrllabel-span', S.text.color(S.FG75).uppercase.size('0.7em'), {verticalAlign: '.125em'})
+  export const container = style('ctrllabel', S.box.background(S.TINT07).border(S.TINT14).flex.row.inline.alignCenter)
+  export const span = style('ctrllabel-span', S.text.color(S.FG75).uppercase.size('0.7em'), { verticalAlign: '.142em' })
 }
