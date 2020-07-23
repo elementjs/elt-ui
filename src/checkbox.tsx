@@ -84,8 +84,10 @@ export function Toggle({model, disabled}: Attrs<HTMLButtonElement> & {model: o.O
 }
 
 export namespace Toggle.css {
-  export const container = style('toggle-container', S.box.border(S.TINT14))
-  export const on = style('toggle-on', S.box.background(S.TINT).border(S.TINT))
+  export const container = style('toggle-container', S.box.border(S.TINT14).background(S.BG))
+  export const on = style('toggle-on', {
+    background: `${S.TINT} !important`
+  }, S.box.border(S.TINT))
   export const off = style('toggle-off', {
     boxShadow: `inset 0 0 3px ${S.TINT14}`
   })

@@ -1,6 +1,42 @@
 
+import { o } from 'elt'
 import {style, CSSProperties, raw, rule } from 'osun'
 import * as helpers from 'osun/lib/helpers'
+
+// Breakpoint	Purpose
+// (default)	Mobile-portrait
+// min-width: 480px	Mobile-landscape (and larger)
+// min-width: 768px	Tablet-portrait (and larger)
+// min-width: 992px	Tablet-landscape (and larger)
+// min-width: 1200px	Laptops (and langer)
+
+var watcher = false
+function update(ev: UIEvent) {
+  o_viewport_width.set(window.innerWidth)
+  o_viewport_height.set(window.innerHeight)
+  console.log(window.innerWidth)
+}
+
+function start_watching() {
+  if (!watcher)
+    window.addEventListener('resize', update)
+  watcher = true
+}
+
+function stop_watching() {
+  if (watcher)
+    window.removeEventListener('resize', update)
+  watcher = false
+}
+
+export const o_viewport_width = o(window.innerWidth)
+o_viewport_width.watched = start_watching
+o_viewport_width.unwatched = stop_watching
+
+export const o_viewport_height = o(window.innerHeight)
+o_viewport_height.watched = start_watching
+o_viewport_height.unwatched = stop_watching
+
 
 declare module 'csstype' {
 
