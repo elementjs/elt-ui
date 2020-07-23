@@ -100,7 +100,7 @@ export namespace Float.css {
   export const float = style('float', {
     // maxHeight: '90vh',
     zIndex: 1,
-    position: 'fixed',
+    position: 'absolute',
     boxShadow: `0px 0px 10px ${S.TINT14}`,
     animationFillMode: 'forwards',
     animationName: animate.top_enter,
