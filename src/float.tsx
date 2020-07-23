@@ -35,42 +35,40 @@ export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 
   const o_topbottom = o(undefined as undefined | string)
   const o_leftright = o(undefined as undefined | string)
-  var parent!: Element
 
   function eval_position(n: HTMLDivElement) {
     const doc = n.ownerDocument!
     if (!n.isConnected) doc.body!.appendChild(n)
 
     const rect = n.getBoundingClientRect()
-    if (!parent) {
-      parent = n.parentElement as Element
-      doc.body.appendChild(n)
-    }
+    var parent = n.parentElement as HTMLElement
+    parent.style.transform = `translateZ(0)`
     // const parent = n.parentElement!
     const prect = (parent as Element).getBoundingClientRect()
-    const vw = (window.innerWidth || doc.documentElement!.clientWidth)
+    // const vw = (window.innerWidth || doc.documentElement!.clientWidth)
     const vh = (window.innerHeight || doc.documentElement!.clientHeight)
 
     if (prect.bottom + rect.height > vh) {
-      // console.log(prect.bottom)
-      n.style.bottom = `${vh - prect.top + TRI_HEIGHT}px`
+      // The bottom of my parent + the height of the float would go away from the screen
+      // so I have to put it at the top
+      n.style.bottom = `${prect.height + TRI_HEIGHT}px`
       n.style.top = ''
       o_topbottom.set(Float.css.bottom)
     } else {
-      n.style.top = `${prect.bottom + TRI_HEIGHT}px`
+      n.style.top = `${prect.height + TRI_HEIGHT}px`
       n.style.bottom = ''
       o_topbottom.set(Float.css.top)
     }
 
-    if (prect.left + rect.width > vw) {
-      n.style.right = `${vw - prect.right}px`
-      n.style.left = ''
-      o_leftright.set(Float.css.right)
-    } else {
-      n.style.left = `${prect.left}px`
-      n.style.right = ''
-      o_leftright.set(Float.css.left)
-    }
+    // if (prect.left + rect.width > vw) {
+    //   n.style.right = `${vw - prect.right}px`
+    //   n.style.left = ''
+    //   o_leftright.set(Float.css.right)
+    // } else {
+    //   n.style.left = `${prect.left}px`
+    //   n.style.right = ''
+    //   o_leftright.set(Float.css.left)
+    // }
   }
 
   return e.DIV(
@@ -101,6 +99,7 @@ export namespace Float.css {
 
   export const float = style('float', {
     // maxHeight: '90vh',
+    zIndex: 1,
     position: 'fixed',
     boxShadow: `0px 0px 10px ${S.TINT14}`,
     animationFillMode: 'forwards',
@@ -163,7 +162,8 @@ export function create_float<T>(
 
   prom.then(() => remove()).catch(() => remove)
 
-  insert_before_and_init(node, children)
+  const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: '0', left: '0', height: '100%', width: '100%', zIndex: '1'}}>{children}</div>
+  insert_before_and_init(node, cont)
   setTimeout(() => {
     node.ownerDocument!.body.addEventListener('click', off)
   }, 1)

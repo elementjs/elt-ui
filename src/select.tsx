@@ -83,10 +83,6 @@ export namespace Select.css {
 	export const select = style('select', S.box.cursorPointer.border(S.TINT14).flex.row.inline.alignCenter)
 	export const select_thingy = style('thingy', { color: S.TINT50 })
 
-	export const select_options = style('select-options',
-		S.box.positionAbsolute
-	)
-
 	export const selected = style('selected', S.box.background(S.TINT07))
 
 	// rule`${select}:-moz-focusring`({

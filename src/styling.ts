@@ -378,7 +378,7 @@ table, tbody, td, textarea, tfoot, th, thead, time, tr, ul, var, video {
 	text-align: left;
 	text-decoration: none;
 	vertical-align: baseline;
-	z-index: 1;
+	z-index: auto;
 }
 
 /* Miscellaneous resets */
