@@ -3,6 +3,36 @@ import { o } from 'elt'
 import {style, CSSProperties, raw, rule } from 'osun'
 import * as helpers from 'osun/lib/helpers'
 
+export class WindowEventObservable<T> extends o.CombinedObservable<[], T> {
+  watcher: null | (() => any) = null
+  constructor(key: string, getter: () => T) {
+    super([])
+    this.getter = getter
+  }
+
+  watched() {
+    if (this.watcher) return
+    this.watcher = () => {  }
+    window.addEventListener(this.key, this.watcher)
+  }
+
+  unwatched() {
+    if (!this.watcher) return
+    window.removeEventListener(this.key, this.watcher)
+    this.watcher = null
+  }
+
+  getter() {
+    return null as any as T
+  }
+
+  setter() {
+    // disable setting this observable
+    return o.NoValue as any
+  }
+}
+
+
 // Breakpoint	Purpose
 // (default)	Mobile-portrait
 // min-width: 480px	Mobile-landscape (and larger)

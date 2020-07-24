@@ -13,7 +13,8 @@ import {
   $removed,
   Component,
   e,
-  databus
+  databus,
+  $inserted
 } from 'elt';
 
 import { animate } from './animate'
@@ -89,13 +90,6 @@ export class Dialog<T> extends Component<Attrs<HTMLDivElement> & DialogAttrs<T>>
       this.reject('pressed escape')
   }
 
-  init() {
-    _dialog_stack.push(this.node)
-    if (!this.attrs.noanimate) {
-      animate(this.node, this.attrs.animationEnter)
-    }
-  }
-
   render(): HTMLDivElement {
     return <Overlay>
       {$click((e) => {
@@ -103,9 +97,13 @@ export class Dialog<T> extends Component<Attrs<HTMLDivElement> & DialogAttrs<T>>
           this.reject('clicked outside to close')
       })}
       {$init(node => {
-        requestAnimationFrame(() => {
-          node.ownerDocument!.addEventListener('keyup', this.handleEscape)
-        })
+        _dialog_stack.push(this.node)
+        if (!this.attrs.noanimate) {
+          animate(this.node, this.attrs.animationEnter)
+        }
+      })}
+      {$inserted(node => {
+        node.ownerDocument!.addEventListener('keyup', this.handleEscape)
       })}
       {$removed(node => {
         node.ownerDocument!.removeEventListener('keyup', this.handleEscape)
@@ -228,12 +226,13 @@ export namespace dialog {
     transform: 'translateZ(0)',
     backgroundColor: `rgba(0, 0, 0, 0.54)`,
   })
+
   rule`${overlay}${enter}`({
-    animation: `${animate.fade_in} 0.2s both ease-in`
+    animation: `${animate.fade_in} ${animate.ANIM_DURATION}ms both ease-in`
   })
 
   rule`${overlay}${enter} > ${root}`({
-    animation: `${animate.top_enter} 0.2s both ease-in`
+    animation: `${animate.top_enter} ${animate.ANIM_DURATION}ms both ease-in`
   })
 
   rule`${overlay}${leave}`({
