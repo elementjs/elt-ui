@@ -93,6 +93,7 @@ export namespace Control.css {
     borderCollapse: 'separate',
   })
 
+  rule`${ctrl_table} > tr > td`({verticalAlign: 'middle'})
   rule`${ctrl_table} > tr > td:not(:last-child) > ${control}`({ borderRight: 0 })
 
   rule`${ctrl_table} > tr:first-child > td:first-child > ${control}`({ borderTopLeftRadius: '0.25em', })
