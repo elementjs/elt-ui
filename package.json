@@ -7,7 +7,7 @@
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "build:namespace": "echo 'export as namespace eltui' >> lib/index.d.ts",
+    "build:namespace": "grep namespace lib/index.d.ts || echo 'export as namespace eltui' >> lib/index.d.ts",
     "build:rollup": "rollup -c rollup.config.js",
     "build:js": "tsc | wtsc",
     "build": "npm run build:js && npm run build:rollup && npm run build:namespace",
