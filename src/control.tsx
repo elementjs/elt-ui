@@ -1,7 +1,7 @@
 import { style, rule } from 'osun'
 import { Styling as S } from './styling'
-import { inker } from './ink'
 import { o, Attrs, Renderable, e } from 'elt'
+import { theme as T } from './colors'
 
 export var TOPLEFT_CONTROL_RADIUS = '0.25em'
 export var TOPRIGHT_CONTROL_RADIUS = '0.5em'
@@ -38,13 +38,13 @@ export namespace Control.css {
   )
 
   export const active = style('active', {
-    boxShadow: `inset 0 -2px 0 0 ${S.TINT07}`,
+    boxShadow: `inset 0 -2px 0 0 ${T.tint07}`,
   })
 
-  export const color_full = style('color-full', S.box.background(S.TINT).border(S.TINT14).text.color(S.BG))
-  rule`${color_full} ${inker.cls_container}`({'--eltui-colors-tint': 'var(--eltui-colors-bg)'})
-  export const color_middle = style('color-faint', S.box.background(S.TINT14).border(S.TINT14).text.color(S.TINT))
-  export const color_faint = style('color-faint', S.box.background(S.TINT07).border(S.TINT14))
+  // export const color_full = style('color-full', S.box.background(T.tint).border(T.tint14).text.color(T.bg))
+  // rule`${color_full} ${inker.cls_container}`({'--eltui-colors-tint': 'var(--eltui-colors-bg)'})
+  export const color_middle = style('color-faint', S.box.background(T.tint14).border(T.tint14).text.color(T.tint))
+  export const color_faint = style('color-faint', S.box.background(T.tint07).border(T.tint14))
 
   export const control_box = style('control-box',
     S.flex.row.inline,
@@ -136,6 +136,6 @@ export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 }
 
 export namespace ControlLabel.css {
-  export const container = style('ctrllabel', S.box.background(S.TINT07).border(S.TINT14).flex.row.inline.alignCenter)
-  export const span = style('ctrllabel-span', S.text.color(S.FG75).uppercase.size('0.7em'), { verticalAlign: '.142em' })
+  export const container = style('ctrllabel', S.box.background(T.tint07).border(T.tint14).flex.row.inline.alignCenter)
+  export const span = style('ctrllabel-span', S.text.color(T.fg75).uppercase.size('0.7em'), { verticalAlign: '.142em' })
 }

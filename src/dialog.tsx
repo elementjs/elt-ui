@@ -20,6 +20,7 @@ import {
 import { animate } from './animate'
 import { Button, ButtonBar } from './button';
 import S from './styling'
+import { theme as T } from './colors'
 import { style, rule } from 'osun'
 
 
@@ -120,7 +121,7 @@ export function Overlay(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
 }
 
 export function Title(attrs: Attrs<HTMLHeadingElement>, children: Renderable[]) {
-  return E('h3', $class(S.text.uppercase.bold.color(S.TINT)),
+  return E('h3', $class(S.text.uppercase.bold.color(T.tint)),
     children
   )
 }
@@ -133,7 +134,7 @@ export function Content(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
 
 
 export function Root(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E.DIV($class(dialog.root, S.flex.column, S.box.border(S.TINT07).borderRound.boxShadow),
+  return E.DIV($class(dialog.root, S.flex.column, S.box.border(T.tint07).borderRound.boxShadow),
     children
   )
 }

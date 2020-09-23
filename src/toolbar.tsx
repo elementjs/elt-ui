@@ -1,6 +1,7 @@
 import S from './styling'
 import { style, rule } from 'osun';
-import { Renderable, Attrs, e } from 'elt';
+import { Renderable, Attrs, e } from 'elt'
+import { theme } from './colors'
 
 export function Toolbar(_: Attrs<HTMLDivElement>, children: Renderable[]) {
 
@@ -10,7 +11,7 @@ export function Toolbar(_: Attrs<HTMLDivElement>, children: Renderable[]) {
 export namespace Toolbar.css {
 
   export const toolbar = style('toolbar',
-    S.contrast_on_tint,
+    theme.derive({bg: 'tint'}),
     S.text.bold,
     S.flex.alignCenter.gappedRow(16),
     S.box.padding(16).paddingHorizontal(16),

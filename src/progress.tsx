@@ -1,5 +1,6 @@
 import { o, If, Attrs, e } from 'elt'
 import { Styling as S} from './styling'
+import { theme as T } from './colors'
 import { style } from 'osun'
 
 export interface ProgressAttrs extends Attrs<HTMLDivElement> {
@@ -12,11 +13,11 @@ export function Progress({mode, progress}: ProgressAttrs) {
   const o_mode = o(mode || 'determinate')
   const o_progress = o(progress || 0)
   return <div
-    class={[S.box.background(S.TINT07), Progress.cls_holder]}
+    class={[S.box.background(T.tint07), Progress.cls_holder]}
     style={{opacity: o_progress.tf(v => v > 0 && v < 100 ? '1' : '0')}}
   >
       {If(o_mode.tf(m => m === 'determinate'), () => <div class={[
-        S.box.background(S.TINT75),
+        S.box.background(T.tint75),
         Progress.cls_determinate
         ]}
         style={{width: o_progress.tf(v => `${v}%`)}}

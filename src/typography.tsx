@@ -1,6 +1,6 @@
-import S from './styling'
 import { style, rule } from 'osun'
 import { Attrs, Renderable, e } from 'elt'
+import { theme } from './colors'
 
 export function TypographicZone(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
   return <div class={TypographicZone.css.container}>{ch}</div> as HTMLDivElement
@@ -27,11 +27,11 @@ export namespace TypographicZone.css {
   rule`${container} > b`({ fontWeight: 'bolder' })
   rule`${container} > em`({ fontStyle: 'italic' })
   rule`${container} > blockquote`({
-    color: S.Fg(0.84),
+    color: theme.fg75,
     paddingLeft: '12px',
     borderLeftWidth: '4px',
     borderLeftStyle: 'solid',
-    borderLeftColor: S.FG14
+    borderLeftColor: theme.fg14
   })
 
 }

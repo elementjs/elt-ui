@@ -4,6 +4,7 @@ import { animate } from './animate'
 import { Styling as S } from './styling'
 import { style, rule } from 'osun';
 import { inker } from './ink';
+import { theme as T } from './colors'
 
 export function Triangle(a: Attrs<SVGSVGElement>) {
   return <svg viewBox={`0 0 ${TRI_WIDTH} ${TRI_HEIGHT}`} class={Triangle.css.cls_triangle}>
@@ -20,8 +21,8 @@ export namespace Triangle.css {
     height: `${TRI_HEIGHT}px`,
     width: `${TRI_WIDTH}px`,
     position: 'absolute',
-    fill: S.BG,
-    stroke: S.TINT14,
+    fill: T.bg,
+    stroke: T.tint14,
     strokeWidth: '1px',
     strokeLinejoin: 'round',
     transformOrigin: `50% 50%`,
@@ -101,7 +102,7 @@ export namespace Float.css {
     // maxHeight: '90vh',
     zIndex: 1,
     position: 'absolute',
-    boxShadow: `0px 0px 10px ${S.TINT14}`,
+    boxShadow: `0px 0px 10px ${T.tint14}`,
     animationFillMode: 'forwards',
     animationName: animate.top_enter,
     animationDuration: `${animate.ANIM_DURATION}ms`,

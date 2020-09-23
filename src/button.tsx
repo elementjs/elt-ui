@@ -14,6 +14,7 @@ import S from './styling'
 import { style, rule } from 'osun'
 import {inker} from './ink'
 import { Control } from './control'
+import { theme } from './colors'
 
 
 export interface ButtonAttrs extends Attrs<HTMLButtonElement> {
@@ -55,7 +56,7 @@ export function Button(attrs : ButtonAttrs, children: Renderable[]) {
 Button.cls_bordered = style('button-bordered', {
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: S.TINT
+  borderColor: theme.tint
 })
 
 
@@ -67,14 +68,14 @@ export namespace Button {
     // Control.css.color_middle,
   )
 
-  export const cls_button_classic = style('button-classic', S.text.color(S.TINT).box.border(S.TINT))
-  export const cls_button_contrast = style('button-contrast', S.text.color(S.BG).box.background(S.TINT).border(S.TINT))
-  rule`${cls_button_contrast} ${inker.cls_container}`({'--eltui-colors-tint': `var(--eltui-colors-bg)`})
+  export const cls_button_classic = style('button-classic', S.text.color(theme.tint).box.border(theme.tint).background(theme.bg))
+  export const cls_button_contrast = style('button-contrast', S.text.color(theme.bg).box.background(theme.tint).border(theme.tint))
+  // rule`${cls_button_contrast} ${inker.cls_container}`(colors.setTint('bg'))
 
   export const cls_icon_button = style('icon-button', {
     minWidth: '0',
     fontSize: '1.2em',
-    color: S.TINT
+    color: theme.tint
   })
 
   rule`${cls_button}::-moz-focus-inner`({
@@ -85,7 +86,7 @@ export namespace Button {
     pointerEvents: 'none'
   })
 
-  export const cls_disabled = style('disabled', S.text.color(S.FG14).box.border(S.FG14))
+  export const cls_disabled = style('disabled', S.text.color(theme.fg14).box.border(theme.fg14))
 
 }
 

@@ -4,6 +4,7 @@ import { animate } from './animate'
 
 import S from './styling'
 import { style } from 'osun'
+import { theme } from './colors'
 
 
 /**
@@ -69,11 +70,9 @@ export namespace Toaster {
 	export const cls_toast = style('toast', {
 		padding: '14px 24px',
 		fontSize: '14px',
-		background: S.FG75,
 		borderRadius: '2px 2px 0 0',
-		color: S.BG,
-		cursor: 'pointer'
-	})
+		cursor: 'pointer',
+	}, theme.derive({bg: `#3c3c3b`}))
 
 }
 

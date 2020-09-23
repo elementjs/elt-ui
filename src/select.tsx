@@ -14,6 +14,7 @@ import {
 } from 'elt'
 
 import S from './styling'
+import { theme as T } from './colors'
 import { style } from 'osun'
 import { Control, ControlBox } from './control'
 import { $float, Float } from './float'
@@ -45,7 +46,7 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 
 	$decorators.push($float<void, HTMLElement>(acc =>
 		<Float class={Control.css.control_border}><ControlBox
-			class={S.box.background(S.BG).border(S.TINT14)}
+			class={S.box.background(T.bg).border(T.tint14)}
 			style={{width: `${select_container.clientWidth}px`, maxHeight: '50vh'}}
 			vertical
 		>
@@ -80,14 +81,14 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 
 export namespace Select.css {
 
-	export const select = style('select', S.box.cursorPointer.border(S.TINT14).flex.row.inline.alignCenter)
-	export const select_thingy = style('thingy', { color: S.TINT50 })
+	export const select = style('select', S.box.cursorPointer.border(T.tint14).flex.row.inline.alignCenter)
+	export const select_thingy = style('thingy', { color: T.tint50 })
 
-	export const selected = style('selected', S.box.background(S.TINT07))
+	export const selected = style('selected', S.box.background(T.tint07))
 
 	// rule`${select}:-moz-focusring`({
 	// 	color: S.TRANSPARENT,
-	// 	textShadow: `0 0 0 ${S.FG75}`
+	// 	textShadow: `0 0 0 ${T.fg75}`
 	// })
 
 	export const label = style('label', {position: 'relative'})

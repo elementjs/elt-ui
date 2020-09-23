@@ -14,6 +14,7 @@ import { $inkClickDelay } from './ink'
 
 import { animate } from './animate'
 import S from './styling'
+import { theme as T } from './colors'
 import { style, rule } from 'osun'
 // import { Overlay } from './dialog'
 
@@ -68,7 +69,7 @@ export namespace Nav {
 		height: '100vh',
 		width: '250px',
 		boxShadow: `5px 0px 10px rgba(0, 0, 0, 0.14)`,
-		backgroundColor: S.BG
+		backgroundColor: T.bg
 	})
 
 	export const enter = style('enter')
@@ -118,7 +119,7 @@ export namespace NavDivider {
 	export const divider = style('divider', {
 		position: 'relative',
 		width: '100%',
-		borderBottom: `1px solid ${S.FG07}`,
+		borderBottom: `1px solid ${T.fg07}`,
 		marginTop: '4px',
 		marginBottom: '3px'
 	})

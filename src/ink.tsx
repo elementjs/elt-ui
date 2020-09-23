@@ -2,7 +2,7 @@
 import { $click, append_child_and_init, remove_node, e } from 'elt'
 
 import { animate } from './animate'
-import S from './styling'
+import { theme as T } from './colors'
 import { keyframes, style, rule } from 'osun'
 
 
@@ -115,7 +115,7 @@ export namespace inker {
 		export const cls_ink = style('ink', {
 				display: 'block',
 				position: 'absolute',
-				backgroundColor: S.TINT,
+				backgroundColor: T.tint,
 				borderRadius: '50%',
 				transform: 'scale(0)',
 				pointerEvents: 'none',
@@ -134,7 +134,7 @@ export namespace inker {
 				left: '0px',
 				opacity: 0,
 				borderRadius: 'inherit',
-				backgroundColor: S.TINT14,
+				backgroundColor: T.tint14,
 				overflow: 'hidden',
 				position: 'absolute',
 				pointerEvents: 'none',
