@@ -12,6 +12,92 @@ function expand(hex: string) {
   return result;
 }
 
+const maxZeroTolerance = Math.pow(10, -12)
+/** d65 standard illuminant in XYZ */
+const d65 = [95.05, 100, 108.9]
+
+function luvToXyz(luv: [number, number, number]): [number, number, number] {
+  const L = luv[0];
+  const u = luv[1];
+  const v = luv[2];
+  const eps = 216 / 24389;
+  const kap = 24389 / 27;
+  const Xn = d65[0];
+  const Yn = d65[1];
+  const Zn = d65[2];
+  const v0 = 9 * Yn / (Xn + 15 * Yn + 3 * Zn);
+  const u0 = 4 * Xn / (Xn + 15 * Yn + 3 * Zn);
+  const y = (L > kap * eps) ? Math.pow((L + 16) / 116, 3) : L / kap;
+  // If L is 0 (black), will evaluate to NaN, use 0
+  const d = y * (39 * L / (v + 13 * L * v0) - 5) || 0;
+  const c = -1 / 3;
+  const b = -5 * y;
+  // If L is 0 (black), will evaluate to NaN, use 0
+  const a = (52 * L / (u + 13 * L * u0) - 1) / 3 || 0;
+  const x = (d - b) / (a - c);
+  const z = x * a + b;
+  // x,y,z in [0,1] multiply by 100 to scale to [0,100]
+  // Add zero to prevent signed zeros (force 0 rather than -0)
+  return [x * 100 + 0, y * 100 + 0, z * 100 + 0];
+}
+
+/**
+* Convert a 3 element luv tuple to a 3 element lchuv tuple.
+* @param {number[]} luv - The luv tuple
+* @return {number[]} The lchuv tuple
+*/
+function luvToLCHuv(luv: [number, number, number]): [number, number, number] {
+  const L = luv[0];
+  const u = (Math.abs(luv[1]) < maxZeroTolerance) ? 0 : luv[1];
+  // Since atan2 behaves unpredicably for non-zero values of v near 0,
+  // round v within the given tolerance
+  const v = (Math.abs(luv[2]) < maxZeroTolerance) ? 0 : luv[2];
+  const c = Math.sqrt(u * u + v * v);
+  // Math.atan2 returns angle in radians so convert to degrees
+  let h = Math.atan2(v, u) * 180 / Math.PI;
+  // If hue is negative add 360
+  h = (h >= 0) ? h : h + 360;
+  // Add zero to prevent signed zeros (force 0 rather than -0)
+  return [L + 0, c + 0, h + 0];
+}
+
+function xyzToLuv(xyz: [number, number, number]): [number, number, number] {
+  const x = xyz[0];
+  const y = xyz[1];
+  const z = xyz[2];
+  const eps = 216 / 24389;
+  const kap = 24389 / 27;
+  const Xn = d65[0];
+  const Yn = d65[1];
+  const Zn = d65[2];
+  const vR = 9 * Yn / (Xn + 15 * Yn + 3 * Zn);
+  const uR = 4 * Xn / (Xn + 15 * Yn + 3 * Zn);
+  // If XYZ = [0,0,0], avoid division by zero and return conversion
+  if (x === 0 && y === 0 && z === 0) {
+    return [0, 0, 0];
+  }
+  const v1 = 9 * y / (x + 15 * y + 3 * z);
+  const u1 = 4 * x / (x + 15 * y + 3 * z);
+  const yR = y / Yn;
+  const cbrt = (Math.cbrt != null) ?
+    Math.cbrt :
+    (val: number, exp: number) => Math.pow(val, exp);
+  const L = (yR > eps) ? 116 * cbrt(yR, 1 / 3) - 16 : kap * yR;
+  const u = 13 * L * (u1 - uR);
+  const v = 13 * L * (v1 - vR);
+  // Add zero to prevent signed zeros (force 0 rather than -0)
+  return [L + 0, u + 0, v + 0];
+}
+
+function lchUVToLuv(lchUV: [number, number, number]): [number, number, number] {
+  const L = lchUV[0];
+  const c = lchUV[1];
+  // Convert hue to radians for use with Math.cos and Math.sin
+  const h = lchUV[2] / 180 * Math.PI;
+  const u = c * Math.cos(h);
+  const v = c * Math.sin(h);
+  return [L + 0, u + 0, v + 0];
+}
 
 function hex2rgb(hex: string): [number, number, number] {
   // #RGB or #RGBA
@@ -73,79 +159,9 @@ export function rgb2xyz(rgb: [number, number, number]): [number, number, number]
 }
 
 
-export function xyz2lab(xyz: [number, number, number]): [number, number, number] {
-  var x = xyz[0],
-      y = xyz[1],
-      z = xyz[2],
-      l, a, b;
-
-  x /= 95.047;
-  y /= 100;
-  z /= 108.883;
-
-  x = x > 0.008856 ? Math.pow(x, 1/3) : (7.787 * x) + (16 / 116);
-  y = y > 0.008856 ? Math.pow(y, 1/3) : (7.787 * y) + (16 / 116);
-  z = z > 0.008856 ? Math.pow(z, 1/3) : (7.787 * z) + (16 / 116);
-
-  l = (116 * y) - 16;
-  a = 500 * (x - y);
-  b = 200 * (y - z);
-
-  return [l, a, b];
-}
-
-
-export function lab2lch(lab: [number, number, number]): [number, number, number] {
-  var l = lab[0],
-      a = lab[1],
-      b = lab[2],
-      hr, h, c;
-
-  hr = Math.atan2(b, a);
-  h = hr * 360 / 2 / Math.PI;
-  if (h < 0) {
-    h += 360;
-  }
-  c = Math.sqrt(a * a + b * b);
-  return [l, c, h];
-}
-
-
 export function rgb2lch(rgb: [number, number, number]): [number, number, number] {
-  return lab2lch(xyz2lab(rgb2xyz(rgb)))
+  return luvToLCHuv(xyzToLuv(rgb2xyz(rgb)))
 }
-
-
-export function lch2lab(lch: [number, number, number]): [number, number, number] {
-  var l = lch[0],
-      c = lch[1],
-      h = lch[2],
-      a, b, hr;
-
-  hr = h / 360 * 2 * Math.PI;
-  a = c * Math.cos(hr);
-  b = c * Math.sin(hr);
-  return [l, a, b];
-}
-
-
-export function lab2xyz(lab: [number, number, number]): [number, number, number] {
-  let y = (lab[0] + 16) / 116;
-  let x = lab[1] / 500 + y;
-  let z = y - lab[2] / 200;
-
-  [x, y, z] = [x, y, z].map(v => {
-    return v ** 3 > 0.008856 ? v ** 3 : (v - 16 / 116) / 7.787;
-  });
-
-  const D65 = [95.047, 100, 108.883];
-  x = x * D65[0];
-  y = y * D65[1];
-  z = z * D65[2];
-
-  return [x, y, z];
-}
-
 
 export function xyz2rgb(xyz: [number, number, number]): [number, number, number] {
   var x = xyz[0] / 100,
@@ -206,7 +222,7 @@ export class Color {
   }
 
   toRGBarray(): [number, number, number] {
-    return xyz2rgb(lab2xyz(lch2lab(this.lch)))
+    return xyz2rgb(luvToXyz(lchUVToLuv(this.lch)))
   }
 
   toRGB(): string {
@@ -242,14 +258,13 @@ function luminosity_adjuster(old_bg: string, new_bg: string) {
   // new background
   const nb = rgb2lch(hex2rgb(new_bg))
   const luminosity_center = (nb[0] + ob[0]) / 2
-  console.log(old_bg, new_bg, luminosity_center)
   // const hue_distance = nb[2] * nb[1] - ob[2] * ob[1]
 
   return function adjust_color(color: string, ): string {
     // old_color
     const oc = rgb2lch(hex2rgb(color))
 
-    const res = rgb2hex(xyz2rgb(lab2xyz(lch2lab([
+    const res = rgb2hex(xyz2rgb(luvToXyz(lchUVToLuv([
       oc[0] - (oc[0] - luminosity_center) * 2, // luminosity_center is used as a symmetry point
       oc[1], // chroma is untouched, colors keep their original saturation.
       oc[2],
