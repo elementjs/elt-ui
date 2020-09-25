@@ -1,6 +1,9 @@
 import { style, CssClass } from 'osun'
 
 
+export type ColorArray = [number, number, number]
+
+
 function expand(hex: string) {
   var result = "#";
 
@@ -16,7 +19,7 @@ const maxZeroTolerance = Math.pow(10, -12)
 /** d65 standard illuminant in XYZ */
 const d65 = [95.05, 100, 108.9]
 
-function luvToXyz(luv: [number, number, number]): [number, number, number] {
+function luvToXyz(luv: ColorArray): ColorArray {
   const L = luv[0];
   const u = luv[1];
   const v = luv[2];
@@ -46,7 +49,7 @@ function luvToXyz(luv: [number, number, number]): [number, number, number] {
 * @param {number[]} luv - The luv tuple
 * @return {number[]} The lchuv tuple
 */
-function luvToLCHuv(luv: [number, number, number]): [number, number, number] {
+function luvToLCHuv(luv: ColorArray): ColorArray {
   const L = luv[0];
   const u = (Math.abs(luv[1]) < maxZeroTolerance) ? 0 : luv[1];
   // Since atan2 behaves unpredicably for non-zero values of v near 0,
@@ -61,7 +64,7 @@ function luvToLCHuv(luv: [number, number, number]): [number, number, number] {
   return [L + 0, c + 0, h + 0];
 }
 
-function xyzToLuv(xyz: [number, number, number]): [number, number, number] {
+function xyzToLuv(xyz: ColorArray): ColorArray {
   const x = xyz[0];
   const y = xyz[1];
   const z = xyz[2];
@@ -89,7 +92,7 @@ function xyzToLuv(xyz: [number, number, number]): [number, number, number] {
   return [L + 0, u + 0, v + 0];
 }
 
-function lchUVToLuv(lchUV: [number, number, number]): [number, number, number] {
+function lchUVToLuv(lchUV: ColorArray): ColorArray {
   const L = lchUV[0];
   const c = lchUV[1];
   // Convert hue to radians for use with Math.cos and Math.sin
@@ -99,7 +102,7 @@ function lchUVToLuv(lchUV: [number, number, number]): [number, number, number] {
   return [L + 0, u + 0, v + 0];
 }
 
-function hex2rgb(hex: string): [number, number, number] {
+function hex2rgb(hex: string): ColorArray {
   // #RGB or #RGBA
   if(hex.length === 4 || hex.length === 5) {
     hex = expand(hex);
@@ -109,7 +112,7 @@ function hex2rgb(hex: string): [number, number, number] {
     parseInt(hex.substring(1,3), 16),
     parseInt(hex.substring(3,5), 16),
     parseInt(hex.substring(5,7), 16)
-  ] as [number, number, number]
+  ] as ColorArray
 
   // #RRGGBBAA
   // if (hex.length === 9) {
@@ -134,14 +137,14 @@ function componentToHex(c: number) {
 }
 
 
-function rgb2hex(rgb: [number, number, number]): string {
+function rgb2hex(rgb: ColorArray): string {
   // var alpha = rgb.length === 4 ? componentToHex(rgb[3] * 255) : "";
 
   return "#" + componentToHex(rgb[0]) + componentToHex(rgb[1]) + componentToHex(rgb[2])
 }
 
 
-export function rgb2xyz(rgb: [number, number, number]): [number, number, number] {
+export function rgb2xyz(rgb: ColorArray): ColorArray {
   var r = rgb[0] / 255,
       g = rgb[1] / 255,
       b = rgb[2] / 255;
@@ -159,11 +162,11 @@ export function rgb2xyz(rgb: [number, number, number]): [number, number, number]
 }
 
 
-export function rgb2lch(rgb: [number, number, number]): [number, number, number] {
+export function rgb2lch(rgb: ColorArray): ColorArray {
   return luvToLCHuv(xyzToLuv(rgb2xyz(rgb)))
 }
 
-export function xyz2rgb(xyz: [number, number, number]): [number, number, number] {
+export function xyz2rgb(xyz: ColorArray): ColorArray {
   var x = xyz[0] / 100,
       y = xyz[1] / 100,
       z = xyz[2] / 100,
@@ -191,55 +194,59 @@ export function xyz2rgb(xyz: [number, number, number]): [number, number, number]
 }
 
 
-/**
- * Color is an LCH color
- */
-export class Color {
+// /**
+//  * Color is an LCH color
+//  */
+// export class Color {
 
-  constructor(public lch: [number, number, number]) { }
+//   constructor(public lch: ColorArray) { }
 
-  static fromRGB(rgb: [number, number, number]) {
-    return new Color(rgb2lch(rgb))
-  }
+//   static fromRGB(rgb: ColorArray) {
+//     return new Color(rgb2lch(rgb))
+//   }
 
-  static fromHex(s: string) {
-    if (s[0] === '#') s = s.slice(1)
-    return this.fromRGB([parseInt(s.slice(0, 2), 16), parseInt(s.slice(2, 4), 16), parseInt(s.slice(4, 6), 16)])
-  }
+//   static fromHex(s: string) {
+//     if (s[0] === '#') s = s.slice(1)
+//     return this.fromRGB([parseInt(s.slice(0, 2), 16), parseInt(s.slice(2, 4), 16), parseInt(s.slice(4, 6), 16)])
+//   }
 
-  static parse(s: string | [number, number, number]) {
-    return typeof s === 'string' ? this.fromHex(s) : this.fromRGB(s)
-  }
+//   static parse(s: string | ColorArray) {
+//     return typeof s === 'string' ? this.fromHex(s) : this.fromRGB(s)
+//   }
 
-  rotate(rotation: number): Color {
-    return new Color([this.lch[0], this.lch[1], (this.lch[2] + rotation) % 360])
-  }
+//   rotate(rotation: number): Color {
+//     return new Color([this.lch[0], this.lch[1], (this.lch[2] + rotation) % 360])
+//   }
 
-  interpolate(pct_from: number, other: Color): Color {
-    const oc = other.lch
-    const diff = this.lch.map((n, i) => i < 2 ? n + (oc[i] - n) * pct_from : n) as [number, number, number]
-    return new Color(diff)
-  }
+//   interpolate(pct_from: number, other: Color): Color {
+//     const olch = other.lch
+//     const tlch = this.lch
+//     const light = tlch[0] + (olch[0] - tlch[0]) * pct_from
+//     const chroma = tlch[1] + (olch[1] - tlch[1]) * pct_from
+//     // keep the original hue
+//     // const hue = tlch[2] + (olch[2] - tlch[2]) * pct_from
+//     return new Color([light, chroma, olch[2]])
+//   }
 
-  toRGBarray(): [number, number, number] {
-    return xyz2rgb(luvToXyz(lchUVToLuv(this.lch)))
-  }
+//   toRGBarray(): ColorArray {
+//     return xyz2rgb(luvToXyz(lchUVToLuv(this.lch)))
+//   }
 
-  toRGB(): string {
-    return `rgb(${this.toRGBarray().join(', ')})`
-  }
+//   toRGB(): string {
+//     return `rgb(${this.toRGBarray().join(', ')})`
+//   }
 
-  toRGBA(alpha: number): string {
-    return `rgba(${this.toRGBarray().join(', ')}, ${alpha})`
-  }
-  /**
-   * Convert back to rgb space and back to hex
-   */
-  toHex(): string {
-    function pad(n: string) { return n.length < 2 ? '0' + n : n }
-    return '#' + this.toRGBarray().map(c => pad(Math.round(c).toString(16))).join('')
-  }
-}
+//   toRGBA(alpha: number): string {
+//     return `rgba(${this.toRGBarray().join(', ')}, ${alpha})`
+//   }
+//   /**
+//    * Convert back to rgb space and back to hex
+//    */
+//   toHex(): string {
+//     function pad(n: string) { return n.length < 2 ? '0' + n : n }
+//     return '#' + this.toRGBarray().map(c => pad(Math.round(c).toString(16))).join('')
+//   }
+// }
 
 
 /**
@@ -273,6 +280,16 @@ function luminosity_adjuster(old_bg: string, new_bg: string) {
     return res
     // now, try to maintain this distance to the new background
   }
+}
+
+export function interpolate(from: string, to: string, pct: number) {
+  const fxyz = rgb2xyz(hex2rgb(from))
+  const txyz = rgb2xyz(hex2rgb(to))
+  return rgb2hex(xyz2rgb([
+    fxyz[0] + (txyz[0] - fxyz[0]) * pct,
+    fxyz[1] + (txyz[1] - fxyz[1]) * pct,
+    fxyz[2] + (txyz[2] - fxyz[2]) * pct,
+  ]))
 }
 
 var nbthemes = 0
@@ -318,7 +335,7 @@ export class ColorTheme<T extends ColorTheme.Spec> {
   /**
    * Temporary colors used for computation.
    */
-  private _colors: {[K in keyof T]: Color} = {} as any
+  // private _colors: {[K in keyof T]: Color} = {} as any
 
   private constructor(
     /**
@@ -330,15 +347,16 @@ export class ColorTheme<T extends ColorTheme.Spec> {
     // the original colors
     this.original_colors = colors = Object.assign({}, colors)
     if (!colors['disabled']) {
-      (colors as any)['disabled'] = Color.fromHex(colors.bg).interpolate(0.5, Color.fromHex(colors.fg)).toHex()
+      (colors as any)['disabled'] = interpolate(colors.bg, colors.fg, 0.5) //Color.fromHex(colors.bg).interpolate(0.5, Color.fromHex(colors.fg)).toHex()
     }
     const colordefs: any = this.colors = Object.assign({}, colors)
 
     const keys = Object.keys(colors) as (keyof T)[]
-    for (var k of keys) {
-      this._colors[k] = Color.fromHex(colors[k])
-    }
-    var bg = this._colors.bg
+    const bg = colors.bg
+    // for (var k of keys) {
+    //   this._colors[k] = Color.fromHex(colors[k])
+    // }
+    // var bg = this._colors.bg
 
     const props = {} as any
     const self = this as any
@@ -364,7 +382,7 @@ export class ColorTheme<T extends ColorTheme.Spec> {
       for (var level of this.levels) {
         // generate all levels
         const l = parseInt(level)
-        addcol(bg.interpolate(l / 100, this._colors[k]).toHex(), level)
+        addcol(interpolate(bg, colors[k], l / 100), level)
       }
 
       // this.[color] as the class that changes tint.
