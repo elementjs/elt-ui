@@ -86,7 +86,8 @@ table, tbody, td, textarea, tfoot, th, thead, time, tr, ul, var, video {
 	font: inherit;
 	margin: 0;
 	outline: none;
-	padding: 0;
+  padding: 0;
+  color: currentcolor;
 	text-align: left;
 	text-decoration: none;
 	vertical-align: baseline;

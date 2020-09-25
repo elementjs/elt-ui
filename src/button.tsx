@@ -64,7 +64,6 @@ export namespace Button {
 
   export const cls_button = style('button',
     S.box.inlineBlock.noSpuriousBorders.positionRelative.cursorPointer,
-    S.text.centered,
     // Control.css.color_middle,
   )
 
