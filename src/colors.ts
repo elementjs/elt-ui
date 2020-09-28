@@ -145,9 +145,9 @@ function rgb2hex(rgb: ColorArray): string {
 
 
 export function rgb2xyz(rgb: ColorArray): ColorArray {
-  var r = rgb[0] / 255,
-      g = rgb[1] / 255,
-      b = rgb[2] / 255;
+  var r = rgb[0] / 256,
+      g = rgb[1] / 256,
+      b = rgb[2] / 256;
 
   // assume sRGB
   r = r > 0.04045 ? Math.pow(((r + 0.055) / 1.055), 2.4) : (r / 12.92);
@@ -283,13 +283,13 @@ function luminosity_adjuster(old_bg: string, new_bg: string) {
 }
 
 export function interpolate(from: string, to: string, pct: number) {
-  const fxyz = rgb2xyz(hex2rgb(from))
-  const txyz = rgb2xyz(hex2rgb(to))
-  return rgb2hex(xyz2rgb([
-    fxyz[0] + (txyz[0] - fxyz[0]) * pct,
-    fxyz[1] + (txyz[1] - fxyz[1]) * pct,
-    fxyz[2] + (txyz[2] - fxyz[2]) * pct,
-  ]))
+  const frgb = hex2rgb(from)
+  const trgb = hex2rgb(to)
+  return rgb2hex([
+    frgb[0] + (trgb[0] - frgb[0]) * pct,
+    frgb[1] + (trgb[1] - frgb[1]) * pct,
+    frgb[2] + (trgb[2] - frgb[2]) * pct,
+  ])
 }
 
 var nbthemes = 0
