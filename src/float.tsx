@@ -140,15 +140,16 @@ export function create_float<T>(
 
   const remove = async () => {
     node.ownerDocument!.body.removeEventListener('click', off)
-    await animate(children as HTMLElement, Float.css.leave_float)
-    remove_node(children)
     wm.delete(node)
+    await animate(children as HTMLElement, Float.css.leave_float)
+    remove_node(cont)
     _reject(null)
   }
 
   // Remove the float if we clicked outside of it.
   const off = (ev: MouseEvent | KeyboardEvent | TouchEvent) => {
     if (!children.contains(ev.target as Node) && (ev.target as Element).isConnected) {
+      // console.log(ev)
       remove()
     }
   }
