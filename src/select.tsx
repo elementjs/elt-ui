@@ -25,6 +25,12 @@ import { animate } from './animate'
 export type LabelFn<T> = (opt: T) => Renderable
 
 
+function zwnj(val: any) {
+	if (!!val && val != '')
+		return val
+	return '\u200c'
+}
+
 export interface SelectAttributes<T> extends Attrs<HTMLDivElement> {
 	model: o.Observable<T>
 	options: o.RO<T[]>
@@ -63,14 +69,14 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 						if (onchange) onchange(val)
 					})}
 					{$inkable}
-					{opt.tf(val => labelfn(val))}
+					{opt.tf(val => zwnj(labelfn(val)))}
 				</div>
 			)}
 	</ControlBox></Float> as HTMLDivElement))
 
 	const select_container = <div class={[Control.css.control, Select.css.select, {[Control.css.active]: o_active}]}>
 		{$decorators}
-		{model.tf(m => labelfn(m))}
+		{model.tf(m => zwnj(labelfn(m)))}
 		<span class={S.flex.absoluteGrow(1)}/>
 		<SvgSelectThingy style={{height: '1em'}} />
 

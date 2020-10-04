@@ -134,7 +134,8 @@ rule`button, input, select, textarea`({
 
 rule`::-webkit-scrollbar`({
   position: 'absolute',
-  width: 'calc(1rem / 2)'
+  width: 'calc(1rem / 2)',
+  height: 'calc(1rem / 2)'
 })
 
 rule`::-webkit-scrollbar-track`({

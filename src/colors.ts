@@ -450,7 +450,6 @@ export class ColorTheme<T extends ColorTheme.Spec> {
     colors.bg = op.bg
     colors.fg = op.fg ?? colors.fg
     colors.tint = op.tint ?? colors.tint
-    console.log(colors)
     const res = new ColorTheme(colors, this.levels)
     this.reversed_cache.set(key, res)
     return res.getClass()
