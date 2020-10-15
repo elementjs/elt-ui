@@ -33,8 +33,10 @@ function zwnj(val: any) {
 
 export interface SelectAttributes<T> extends Attrs<HTMLDivElement> {
 	model: o.Observable<T>
-	options: o.RO<T[]>
+	options: o.RO<Iterable<T>>
+	prelabelfn?: (opt: o.ReadonlyObservable<T>) => Renderable
 	labelfn: (opt: T) => Renderable
+	postlabelfn?: (opt: o.ReadonlyObservable<T>) => Renderable
 	onchange?: (val: T) => void
 	disabled?: o.RO<boolean>
 }
@@ -45,6 +47,7 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 	let options = o(attrs.options)
 	let {model, labelfn, onchange} = attrs
 	const o_model = o(model)
+	const o_opts = o.tf(options, opts => Array.isArray(opts) ? opts:  [...opts])
 	////////////////////////////////
 
 	const o_active = o(false)
@@ -59,7 +62,7 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 			{$inserted(() => o_active.set(true))}
 			{$removed(() => o_active.set(false))}
 			{$scrollable}
-			{Repeat(options, (opt, i) => <div
+			{Repeat(o_opts, (opt, i) => <div
 					class={[Control.css.control, {[Select.css.selected]: o.combine(o.tuple(o_model, opt), ([m, o]) => m === o)}]}
 				>
 					{$click(() => {
@@ -69,14 +72,16 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 						if (onchange) onchange(val)
 					})}
 					{$inkable}
-					{opt.tf(val => zwnj(labelfn(val)))}
+					{o.tf(opt, val => zwnj(labelfn(val)))}
 				</div>
 			)}
 	</ControlBox></Float> as HTMLDivElement))
 
 	const select_container = <div class={[Control.css.control, Select.css.select, {[Control.css.active]: o_active}]}>
 		{$decorators}
+		{attrs.prelabelfn?.(model)}
 		{model.tf(m => zwnj(labelfn(m)))}
+		{attrs.postlabelfn?.(model)}
 		<span class={S.flex.absoluteGrow(1)}/>
 		<SvgSelectThingy style={{height: '1em'}} />
 

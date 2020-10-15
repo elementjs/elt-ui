@@ -303,7 +303,7 @@ var nbthemes = 0
  */
 export class ColorTheme<T extends ColorTheme.Spec> {
   own_class: string & CssClass
-  public static fromColors<T extends ColorTheme.Spec>(spec: ColorTheme.Spec, levels = ['75', '50', '14', '07']): ColorTheme<T> & {[K in keyof T]: string} & {
+  public static fromColors<T extends ColorTheme.Spec>(spec: T, levels = ['75', '50', '14', '07']): ColorTheme<T> & {[K in keyof T]: CssClass & string} & {
     tint: string
     tint75: string
     tint50: string
@@ -467,7 +467,7 @@ export class ColorTheme<T extends ColorTheme.Spec> {
   /**
    * Will be made useless by typescript 4.1 with the template string props.
    */
-  getColorDef(name: string, level: number) {
+  getColorDef(name: string, level: string) {
     var key = `${name}${level}`
     return this.colorvars[key]
   }
