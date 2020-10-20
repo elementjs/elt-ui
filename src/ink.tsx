@@ -137,6 +137,7 @@ export namespace inker {
 				backgroundColor: T.tint14,
 				overflow: 'hidden',
 				position: 'absolute',
+				margin: '0 !important',
 				pointerEvents: 'none',
 			}
 		)

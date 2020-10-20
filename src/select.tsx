@@ -66,6 +66,7 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 					class={[Control.css.control, {[Select.css.selected]: o.combine(o.tuple(o_model, opt), ([m, o]) => m === o)}]}
 				>
 					{$click(() => {
+						if (o.get(attrs.disabled)) return
 						var val = o.get(opt)
 						model.set(val)
 						setTimeout(acc, animate.ANIM_DURATION * 0.25)
