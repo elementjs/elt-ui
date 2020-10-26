@@ -5,7 +5,8 @@ import {
   Attrs,
   Renderable,
   If,
-  e
+  e,
+  Fragment as $
 } from 'elt'
 
 
@@ -43,10 +44,10 @@ export function Checkbox(attrs: Attrs<HTMLButtonElement> & CheckboxAttributes, c
     {$click(e => toggle())}
 
     <SvgCheckBox class={Checkbox.css.icon} checked={o_model}/>
-    {If(children.length > 0, () => <>
+    {If(children.length > 0, () => <$>
       {' '}
       <span class={[Checkbox.css.content]}>{children}</span>
-    </>)}
+    </$>)}
   </button> as HTMLButtonElement
 
 }
