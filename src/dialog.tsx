@@ -182,7 +182,7 @@ export function modal(opts: ModalOptions) {
   return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZE_NORMAL).paddingBottom('none'), S.flex.gappedColumn(S.SIZE_NORMAL)]}>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
-      {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((e) => <p>{e}</p>) : opts.text)}
+      {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((item) => <p>{item}</p>) : opts.text)}
     </Content>
     <ButtonBar>
       {If(o(opts.agree), agree =>

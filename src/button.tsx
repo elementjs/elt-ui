@@ -73,7 +73,7 @@ export namespace Button {
 
   export const cls_icon_button = style('icon-button', {
     minWidth: '0',
-    fontSize: '1.2em',
+    fontSize: '1em',
     color: theme.tint
   })
 
