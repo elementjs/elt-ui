@@ -138,8 +138,12 @@ export function create_float<T>(
   if (wm.has(node))
     return wm.get(node)!
 
-  const remove = async () => {
-    node.ownerDocument!.body.removeEventListener('click', off)
+  const remove = async (ev?: MouseEvent | KeyboardEvent | TouchEvent) => {
+    node.ownerDocument!.body.removeEventListener('click', off, true)
+    if (ev != null) {
+      ev.stopImmediatePropagation()
+      ev.stopPropagation()
+    }
     wm.delete(node)
     await animate(children as HTMLElement, Float.css.leave_float)
     remove_node(cont)
@@ -149,8 +153,7 @@ export function create_float<T>(
   // Remove the float if we clicked outside of it.
   const off = (ev: MouseEvent | KeyboardEvent | TouchEvent) => {
     if (!children.contains(ev.target as Node) && (ev.target as Element).isConnected) {
-      // console.log(ev)
-      remove()
+      remove(ev)
     }
   }
 
@@ -167,7 +170,7 @@ export function create_float<T>(
   const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: '0', left: '0', height: '100%', width: '100%', zIndex: '1'}}>{children}</div>
   insert_before_and_init(node, cont)
   setTimeout(() => {
-    node.ownerDocument!.body.addEventListener('click', off)
+    node.ownerDocument!.body.addEventListener('click', off, true)
   }, 1)
 
   return prom
