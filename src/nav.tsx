@@ -6,8 +6,7 @@ import {
 	o,
 	Renderable,
 	Attrs,
-	Component,
-	databus,
+	$init,
 } from 'elt'
 
 import { $inkClickDelay } from './ink'
@@ -16,35 +15,31 @@ import { animate } from './animate'
 import S from './styling'
 import { theme as T } from './colors'
 import { style, rule } from 'osun'
-// import { Overlay } from './dialog'
 
 
-export class Nav extends Component<Attrs<HTMLDivElement>> {
-
-	detach() {
-		this.node.classList.remove(Nav.enter)
-		animate(this.node, Nav.leave).then(() => {
-			remove_node(this.node)
+export function Nav(attrs: Attrs<HTMLDivElement>, ch: Renderable[]) {
+	function detach() {
+		node.classList.remove(Nav.enter)
+		animate(node, Nav.leave).then(() => {
+			remove_node(node)
 		}).catch(e => {
 			console.error(e)
 		})
 	}
 
-	init(node: HTMLElement) {
-		animate(node, Nav.enter)
-	}
-
-	render(ch: Renderable[]) {
-		return <div>
-			<div class={Nav.overlay}>
-				{$click(e => {
-					if (e.target === e.currentTarget)
-						this.detach()
-				})}
-			</div>
-			<div class={[Nav.drawer, S.flex.column]}>{ch}</div>
-		</div> as HTMLDivElement
-	}
+	const node = <div>
+		{$init(node => {
+			animate(node, Nav.enter)
+		})}
+		<div class={Nav.overlay}>
+			{$click(e => {
+				if (e.target === e.currentTarget)
+					detach()
+			})}
+		</div>
+		<div class={[Nav.drawer, S.flex.column]}>{ch}</div>
+	</div> as HTMLDivElement
+	return node
 }
 
 

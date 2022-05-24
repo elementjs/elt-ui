@@ -15,10 +15,8 @@ import { theme as T } from './colors'
 
 var id_gen = 0;
 
-export interface InputAttributes extends Attrs<HTMLInputElement> {
-  model: o.Observable<string>
+export interface BaseInputAttributes extends Attrs<HTMLInputElement> {
   disabled?: o.RO<boolean>
-  type?: o.RO<string>
   label?: o.RO<string>
   placeholder?: o.RO<string>
   autocomplete?: o.RO<'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'>
@@ -30,6 +28,22 @@ export interface InputAttributes extends Attrs<HTMLInputElement> {
   tabindex?: o.RO<number>
 }
 
+export interface NumberInputAttributes extends BaseInputAttributes {
+  model: o.Observable<number>
+  min?: number
+  max?: number
+  step?: number
+  type: "number"
+}
+
+export interface StringInputAttributes extends BaseInputAttributes {
+  model: o.Observable<string>
+  type?: "text"
+}
+
+
+export type InputAttributes = NumberInputAttributes | StringInputAttributes
+
 
 export function Input(attrs: InputAttributes, content: Renderable[]) {
 
@@ -40,13 +54,12 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
     label,
     // placeholder,
     error,
-    type,
     placeholder,
     ...other_attrs
   } = attrs
 
   const o_placeholder = o.tf(placeholder, p => p || '-')
-  const o_model = o(model)
+  const o_model = model//o(model)
   // label = label || placeholder || ''
 
   const o_focused: o.Observable<boolean> = o(false as boolean)
@@ -68,9 +81,9 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
        [Input.css.hidden_placeholder]: o.tf(placeholder, p => !p?.trim())
     }]}
     // class={Input.element}
-    type={type || 'text'}
+    type={attrs.type ?? 'text'}
   >
-    {$bind.string(o_model)}
+    {attrs.type === "number" ? $bind.number(attrs.model) : $bind.string(attrs.model)}
     {$on('focusout', () => o_focused.set(false))}
     {$on('focusin', () => o_focused.set(true))}
   </input> as HTMLInputElement

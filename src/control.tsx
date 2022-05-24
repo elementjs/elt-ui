@@ -93,24 +93,25 @@ export namespace Control.css {
     borderCollapse: 'separate',
   })
 
-  rule`${ctrl_table} > tr > td`({verticalAlign: 'middle'})
-  rule`${ctrl_table} > tr > td:not(:last-child) > ${control}`({ borderRight: 0 })
+  rule`${ctrl_table} > tr > th`({ fontWeight: "bolder" })
+  rule`${ctrl_table} > tr > ${["td","th"]}`({verticalAlign: 'middle'})
+  rule`${ctrl_table} > tr > ${["td","th"]}:not(:last-child) > ${control}`({ borderRight: 0 })
 
-  rule`${ctrl_table} > tr:first-child > td:first-child > ${control}`({ borderTopLeftRadius: '0.25em', })
-  rule`${ctrl_table} > tr:last-child > td:first-child > ${control}`({ borderBottomLeftRadius: '0.5em', })
-  rule`${ctrl_table} > tr:first-child > td:last-child > ${control}`({ borderTopRightRadius: '0.5em', })
-  rule`${ctrl_table} > tr:last-child > td:last-child > ${control}`({ borderBottomRightRadius: '0.25em', })
+  rule`${ctrl_table} > tr:first-child > ${["td","th"]}:first-child > ${control}`({ borderTopLeftRadius: '0.25em', })
+  rule`${ctrl_table} > tr:last-child > ${["td","th"]}:first-child > ${control}`({ borderBottomLeftRadius: '0.5em', })
+  rule`${ctrl_table} > tr:first-child > ${["td","th"]}:last-child > ${control}`({ borderTopRightRadius: '0.5em', })
+  rule`${ctrl_table} > tr:last-child > ${["td","th"]}:last-child > ${control}`({ borderBottomRightRadius: '0.25em', })
 
-  rule`${ctrl_table} td > ${control}`({
-    display: 'block !important',
+  rule`${ctrl_table} ${["td","th"]} > ${control}`({
+    // display: 'block !important',
     width: '100%',
   })
-  rule`${ctrl_table} > tr:not(:first-child) > ${[control, `td > ${control.selector()}`]}`({
+  rule`${ctrl_table} > tr:not(:first-child) > ${[control, `td > ${control.selector()}`, `th > ${control.selector()}`]}`({
     borderTop: 0
   })
 
   rule`${ctrl_table} > tr > ${control}`({ borderRadius: 0 })
-  rule`${ctrl_table} > tr > ${control}, ${ctrl_table} > tr > td > ${control}`({
+  rule`${ctrl_table} > tr > ${control}, ${ctrl_table} > tr > ${["td","th"]} > ${control}`({
     borderRadius: 0,
   })
 }
@@ -135,7 +136,11 @@ export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
   </div> as HTMLDivElement
 }
 
-export namespace ControlLabel.css {
-  export const container = style('ctrllabel', S.box.background(T.tint07).border(T.tint14).flex.row.inline.alignCenter)
-  export const span = style('ctrllabel-span', S.text.color(T.fg75).uppercase.size('0.7em'), { verticalAlign: '.142em' })
+ControlLabel.css = new class ControlLabelCss {
+  container = style('ctrllabel', S.box.background(T.tint07).border(T.tint14).flex.row.inline.alignCenter.justifyCenter)
+  span = style('ctrllabel-span', S.text.color(T.fg75).uppercase.size('0.7em'), { verticalAlign: '.142em' })
+
+  constructor() {
+    rule`th > ${this.container}`(S.box.background(T.tint14))
+  }
 }

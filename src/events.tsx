@@ -1,7 +1,7 @@
 
-import { o, AllEventMap } from 'elt'
+import { o } from 'elt'
 
-export function listenWhenWatched<N extends EventTarget, K extends keyof AllEventMap<N>>(obs: o.Observable<any>, target: N, type: K, listener: (ev: AllEventMap<N>[K]) => any) {
+export function listenWhenWatched<N extends EventTarget, K extends Parameters<N["addEventListener"]>[0]>(obs: o.Observable<any>, target: N, type: K, listener: Parameters<N["addEventListener"]>[1]) {
   const watched = obs.watched.bind(obs)
   const unwatched = obs.unwatched.bind(obs)
   var watching = undefined as any
@@ -45,7 +45,7 @@ listenWhenWatched(o_location_hash, window, 'hashchange', updhash)
 export const oMouseHovering = function (node: Element) {
   const o_res = o(false)
   listenWhenWatched(o_res, node, 'mouseover', () => o_res.set(true))
-  listenWhenWatched(o_res, node, 'mouseout', ev => {
+  listenWhenWatched(o_res, node as HTMLElement, "mouseout", ev => {
     if (!node.contains(ev.relatedTarget as Node)) {
       o_res.set(false)
     }

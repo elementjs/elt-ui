@@ -9,11 +9,8 @@ import {
   $class,
   Attrs,
   Renderable,
-  ClassDefinition,
   $removed,
-  Component,
   e,
-  databus,
   $inserted
 } from 'elt';
 
@@ -26,24 +23,12 @@ import { style, rule } from 'osun'
 
 export type DialogBuilder<T> = (dlc: Dialog<T>) => Node
 
-export interface DialogCommon {
+export interface DialogOpts {
   noanimate?: boolean
   clickOutsideToClose?: boolean
   noEscapeKey?: boolean
-  animationEnter?: string
-  animationLeave?: string
   closeIntercept?: () => Promise<boolean>
-}
-
-
-export interface DialogOptions extends DialogCommon {
   parent?: Node
-  class?: ClassDefinition | ClassDefinition[]
-}
-
-
-export interface DialogAttrs<T> extends Attrs<HTMLElement>, DialogCommon {
-  builder: DialogBuilder<T>
   animationEnter: string
   animationLeave: string
 }
@@ -52,10 +37,17 @@ export interface DialogAttrs<T> extends Attrs<HTMLElement>, DialogCommon {
 var _dialog_stack = [] as Node[]
 
 
-export class Dialog<T> extends Component<Attrs<HTMLDivElement> & DialogAttrs<T>> {
+export class Dialog<T> {
 
   _resolve: (v: T) => any = undefined!
   _reject: (...a: Array<any>) => any = undefined!
+
+  constructor(
+    public builder: DialogBuilder<T>,
+    public opts: DialogOpts
+  ) { }
+
+  node = <Overlay/> as HTMLDivElement
 
   promise: Promise<T> = new Promise((resolve, reject) => {
     this._resolve = resolve;
@@ -63,22 +55,22 @@ export class Dialog<T> extends Component<Attrs<HTMLDivElement> & DialogAttrs<T>>
   })
 
   async tryclose(): Promise<boolean> {
-    if (this.attrs.closeIntercept && !(await this.attrs.closeIntercept()))
+    if (this.opts.closeIntercept && !(await this.opts.closeIntercept()))
       // Do nothing if closing was prevented.
       return false
-    await animate(this.node, this.attrs.animationLeave)
+    await animate(this.node, this.opts.animationLeave)
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
     remove_node(this.node)
     return true
   }
 
   async resolve(value: T) {
-    if (this.tryclose())
+    if (await this.tryclose())
       this._resolve(value);
   }
 
   async reject(value: any) {
-    if (this.tryclose())
+    if (await this.tryclose())
       this._reject(value);
   }
 
@@ -86,31 +78,32 @@ export class Dialog<T> extends Component<Attrs<HTMLDivElement> & DialogAttrs<T>>
     // Ignore the event if it was not meant for us
     if (_dialog_stack[_dialog_stack.length - 1] !== this.node) return
 
-    if (this.attrs.noEscapeKey) return
-    if (ev.keyCode === 27)
+    if (this.opts.noEscapeKey) return
+    if (ev.code === "Escape")
       this.reject('pressed escape')
   }
 
-  render(): HTMLDivElement {
-    return <Overlay>
-      {$click((e) => {
-        if (e.target === e.currentTarget && this.attrs.clickOutsideToClose)
+  render() {
+    return e(
+      this.node,
+      $click((e) => {
+        if (e.target === e.currentTarget && this.opts.clickOutsideToClose)
           this.reject('clicked outside to close')
-      })}
-      {$init(node => {
+      }),
+      $init(node => {
         _dialog_stack.push(this.node)
-        if (!this.attrs.noanimate) {
-          animate(this.node, this.attrs.animationEnter)
+        if (!this.opts.noanimate) {
+          animate(this.node, this.opts.animationEnter)
         }
-      })}
-      {$inserted(node => {
+      }),
+      $inserted(node => {
         node.ownerDocument!.addEventListener('keyup', this.handleEscape)
-      })}
-      {$removed(node => {
+      }),
+      $removed(node => {
         node.ownerDocument!.removeEventListener('keyup', this.handleEscape)
-      })}
-      {this.attrs.builder(this)}
-    </Overlay> as HTMLDivElement
+      }),
+      this.builder(this),
+    )
   }
 }
 
@@ -143,29 +136,19 @@ export function Root(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
 /**
  * A function that returns a promise and that allows us to show a nice dialog.
  */
-export function dialog<T>(opts: DialogOptions, builder: DialogBuilder<T>): Promise<T> {
+export function dialog<T>(opts: DialogOpts, builder: DialogBuilder<T>): Promise<T> {
 
-  let dialo = <Dialog
-    builder={builder}
-    clickOutsideToClose={opts.clickOutsideToClose}
-    closeIntercept={opts.closeIntercept}
-    noanimate={opts.noanimate}
-    animationEnter={opts.animationEnter || dialog.enter}
-    animationLeave={opts.animationLeave || dialog.leave}
-  />
-
-  // BOOO ugly cast !
-  let ctrl = databus.getInClosestParent(dialo, Dialog) as Dialog<T>
+  const ctrl = new Dialog(builder, opts)
 
   let parent = opts.parent || document.body
-  append_child_and_init(parent, dialo)
+  append_child_and_init(parent, ctrl.render())
 
   return ctrl.promise
 
 }
 
 
-export interface ModalOptions extends DialogOptions {
+export interface ModalOptions extends DialogOpts {
   text: o.RO<Renderable>
   title: o.RO<Renderable>
   agree?: o.RO<Renderable>
