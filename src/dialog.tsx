@@ -29,8 +29,8 @@ export interface DialogOpts {
   noEscapeKey?: boolean
   closeIntercept?: () => Promise<boolean>
   parent?: Node
-  animationEnter: string
-  animationLeave: string
+  animationEnter?: string
+  animationLeave?: string
 }
 
 
