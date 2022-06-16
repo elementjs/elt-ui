@@ -58,7 +58,7 @@ export class Dialog<T> {
     if (this.opts.closeIntercept && !(await this.opts.closeIntercept()))
       // Do nothing if closing was prevented.
       return false
-    await animate(this.node, this.opts.animationLeave)
+    await animate(this.node, this.opts.animationLeave ?? dialog.leave)
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
     remove_node(this.node)
     return true
@@ -93,7 +93,7 @@ export class Dialog<T> {
       $init(node => {
         _dialog_stack.push(this.node)
         if (!this.opts.noanimate) {
-          animate(this.node, this.opts.animationEnter)
+          animate(this.node, this.opts.animationEnter ?? dialog.enter)
         }
       }),
       $inserted(node => {
