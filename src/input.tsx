@@ -9,7 +9,7 @@ import {
 } from 'elt'
 
 import S from './styling'
-import { style, rule, CssNamespace } from 'osun'
+import { style, rule } from 'osun'
 import { Control } from './control'
 import { theme as T } from './colors'
 
@@ -26,6 +26,7 @@ export interface BaseInputAttributes extends Attrs<HTMLInputElement> {
   autofocus?: o.RO<boolean>
   error?: o.RO<string>
   tabindex?: o.RO<number>
+  transformer?: o.RO<(v: string | number) => string>
 }
 
 export interface NumberInputAttributes extends BaseInputAttributes {
@@ -55,6 +56,7 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
     // placeholder,
     error,
     placeholder,
+    transformer,
     ...other_attrs
   } = attrs
 
@@ -81,24 +83,29 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
        [Input.css.hidden_placeholder]: o.tf(placeholder, p => !p?.trim())
     }]}
     // class={Input.element}
-    type={attrs.type ?? 'text'}
+    type={transformer ? o.join(attrs.type, o_focused).tf(([type, focused]) => {
+      if (!focused) return type ?? "text"
+      return "text"
+    }) : attrs.type ?? 'text'}
   >
     {attrs.type === "number" ? $bind.number(attrs.model) : $bind.string(attrs.model)}
-    {$on('focusout', () => o_focused.set(false))}
-    {$on('focusin', () => o_focused.set(true))}
+    {$on("focusout", () => o_focused.set(false))}
+    {$on("focusin", () => o_focused.set(true))}
   </input> as HTMLInputElement
 
   return res
 }
 
-Input.css = CssNamespace({
-  focused: style('focused', Control.css.active),
-  empty_filled: style('empty-unfocused'),
-  input: style('input', S.box.border(T.tint14), {flexGrow: 1}),
-  hidden_placeholder: style('hidden-placeholder'),
-}, ({input, hidden_placeholder}) => {
-  rule`${input}::placeholder`(S.text.color(T.fg14).size('1em').box.padding(0).margin(0).inlineBlock, {
-    lineHeight: 'normal'
-  })
-  rule`${hidden_placeholder}::placeholder`(S.text.color(T.bg))
-})
+Input.css = new class {
+  focused = style('focused', Control.css.active)
+  empty_filled = style('empty-unfocused')
+  input = style('input', S.box.border(T.tint14) )
+  hidden_placeholder = style('hidden-placeholder')
+
+  constructor() {
+    rule`${this.input}::placeholder`(S.text.color(T.fg14).size('1em').box.padding(0).margin(0).inlineBlock, {
+      lineHeight: 'normal'
+    })
+    rule`${this.hidden_placeholder}::placeholder`(S.text.color(T.bg))
+  }
+}

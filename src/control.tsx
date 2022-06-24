@@ -91,16 +91,17 @@ export namespace Control.css {
     position: 'relative',
     display: 'inline-table',
     borderCollapse: 'separate',
+    borderSpacing: 0,
   })
 
   rule`${ctrl_table} > tr > th`({ fontWeight: "bolder" })
   rule`${ctrl_table} > tr > ${["td","th"]}`({verticalAlign: 'middle'})
   rule`${ctrl_table} > tr > ${["td","th"]}:not(:last-child) > ${control}`({ borderRight: 0 })
 
-  rule`${ctrl_table} > tr:first-child > ${["td","th"]}:first-child > ${control}`({ borderTopLeftRadius: '0.25em', })
-  rule`${ctrl_table} > tr:last-child > ${["td","th"]}:first-child > ${control}`({ borderBottomLeftRadius: '0.5em', })
-  rule`${ctrl_table} > tr:first-child > ${["td","th"]}:last-child > ${control}`({ borderTopRightRadius: '0.5em', })
-  rule`${ctrl_table} > tr:last-child > ${["td","th"]}:last-child > ${control}`({ borderBottomRightRadius: '0.25em', })
+  rule`${ctrl_table} > tr:first-child > ${["td","th"]}:first-child`({ borderTopLeftRadius: '0.25em', })
+  rule`${ctrl_table} > tr:last-child > ${["td","th"]}:first-child`({ borderBottomLeftRadius: '0.5em', })
+  rule`${ctrl_table} > tr:first-child > ${["td","th"]}:last-child`({ borderTopRightRadius: '0.5em', })
+  rule`${ctrl_table} > tr:last-child > ${["td","th"]}:last-child`({ borderBottomRightRadius: '0.25em', })
 
   rule`${ctrl_table} ${["td","th"]} > ${control}`({
     // display: 'block !important',
@@ -110,6 +111,11 @@ export namespace Control.css {
     borderTop: 0
   })
 
+  rule`${ctrl_table} > tr > ${["td", "th"]}`({ border: `1px solid ${T.tint14}`, borderStyle: "none solid solid none" })
+  rule`${ctrl_table} > tr:first-child > ${["td", "th"]}`({ borderTopStyle: "solid" })
+  rule`${ctrl_table} > tr > ${["td", "th"]}:first-child`({ borderLeftStyle: "solid" })
+  rule`${ctrl_table} > tr > ${["td", "th"]} > ${control}`({border: 0, borderRadius: 0})
+
   rule`${ctrl_table} > tr > ${control}`({ borderRadius: 0 })
   rule`${ctrl_table} > tr > ${control}, ${ctrl_table} > tr > ${["td","th"]} > ${control}`({
     borderRadius: 0,
@@ -118,6 +124,41 @@ export namespace Control.css {
 
 export function ControlTable(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
   return <table class={Control.css.ctrl_table}>{ch}</table>
+}
+
+ControlTable.build = function (...args: (Renderable | number)[][]) {
+  return <ControlTable>
+    {args.map(line => {
+
+      let colspans: (number | null)[] = []
+      let rowspans: (number | null)[] = []
+      let renderables: Renderable[] = []
+      for (let elt of line) {
+        if (typeof elt === "number" && elt !== 0) {
+          if (elt < 0) rowspans[renderables.length] = -elt
+          else colspans[renderables.length] = elt
+        } else {
+          renderables.push(elt)
+          colspans.push(null)
+          rowspans.push(null)
+        }
+      }
+
+      return <tr>
+        {renderables.map((elt, idx) => {
+          const td = <td>{elt}</td> as HTMLTableCellElement
+          if (!(elt instanceof Node)) {
+            td.setAttribute("class", ControlLabel.css.td.toString())
+          }
+          let colspan = colspans[idx]
+          let rowspan = rowspans[idx]
+          if (colspan) td.colSpan = colspan
+          if (rowspan) td.rowSpan = rowspan
+          return td
+        })}
+      </tr>
+    })}
+  </ControlTable>
 }
 
 export function ControlRow(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
@@ -140,7 +181,13 @@ ControlLabel.css = new class ControlLabelCss {
   container = style('ctrllabel', S.box.background(T.tint07).border(T.tint14).flex.row.inline.alignCenter.justifyCenter)
   span = style('ctrllabel-span', S.text.color(T.fg75).uppercase.size('0.7em'), { verticalAlign: '.142em' })
 
+  td = style('ctrllabel-span', S.text.color(T.fg75).uppercase.size('0.7em').box.background(T.tint07).padding("0.2rem 0.5rem"), { verticalAlign: '.142em' })
+
   constructor() {
     rule`th > ${this.container}`(S.box.background(T.tint14))
+    rule`${this.td}::before`({
+      content: "'\u200B'",
+      fontSize: "1rem"
+    })
   }
 }

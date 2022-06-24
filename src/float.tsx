@@ -17,7 +17,7 @@ const TRI_WIDTH = 17
 
 export namespace Triangle.css {
   export const cls_triangle = style('triangle', {
-    zIndex: 1,
+    zIndex: 2,
     height: `${TRI_HEIGHT}px`,
     width: `${TRI_WIDTH}px`,
     position: 'absolute',
@@ -100,7 +100,7 @@ export namespace Float.css {
 
   export const float = style('float', {
     // maxHeight: '90vh',
-    zIndex: 1,
+    zIndex: 2,
     position: 'absolute',
     boxShadow: `0px 0px 10px ${T.tint14}`,
     animationFillMode: 'forwards',
