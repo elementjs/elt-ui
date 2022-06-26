@@ -132,7 +132,7 @@ export namespace Float.css {
 const wm = new WeakMap<Node, Promise<any>>()
 
 export function create_float<T>(
-  node: Node,
+  node: HTMLElement,
   ch: (accept: (t: T) => void, reject: (e: any) => void) => Element
 ): Promise<T> {
   if (wm.has(node))
@@ -167,8 +167,9 @@ export function create_float<T>(
 
   prom.then(() => remove()).catch(() => remove)
 
-  const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: '0', left: '0', height: '100%', width: '100%', zIndex: '2'}}>{children}</div>
-  insert_before_and_init(node, cont)
+  const bbox = node.getBoundingClientRect()
+  const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: `${bbox.y}px`, left: `${bbox.x}px`, height: `${bbox.height}px`, width: `${bbox.width}px`, zIndex: '1'}}>{children}</div> as HTMLDivElement
+  insert_before_and_init(document.body, cont)
   setTimeout(() => {
     node.ownerDocument!.body.addEventListener('click', off, true)
   }, 1)
