@@ -162,19 +162,19 @@ export interface ModalOptions extends DialogOpts {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZE_NORMAL).paddingBottom('none'), S.flex.gappedColumn(S.SIZE_NORMAL)]}>
+  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZE_NORMAL), S.flex.gappedColumn(S.SIZE_NORMAL)]}>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((item) => <p>{item}</p>) : opts.text)}
     </Content>
-    <ButtonBar>
+    <div class={S.flex.gappedRow(24).justifyCenter}>
       {If(o(opts.agree), agree =>
-        <Button click={() => dlg.resolve(true)}>{agree}</Button>
+        <Button kind={"noborder"} click={() => dlg.resolve(true)}>{agree}</Button>
       )}
       {If(o(opts.disagree), disagree =>
-        <Button click={() => dlg.resolve(false)}>{disagree}</Button>
+        <Button kind={"noborder"} class={[T.fg, S.text.color(T.fg50)]} click={() => dlg.resolve(false)}>{disagree}</Button>
       )}
-    </ButtonBar>
+    </div>
   </Root>);
 
 }

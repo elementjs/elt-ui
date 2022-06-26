@@ -1,6 +1,6 @@
 import { style, rule } from 'osun'
 import { Styling as S } from './styling'
-import { o, Attrs, Renderable, e } from 'elt'
+import { o, Attrs, Renderable, e, Insertable } from 'elt'
 import { theme as T } from './colors'
 
 export var TOPLEFT_CONTROL_RADIUS = '0.25em'
@@ -126,9 +126,11 @@ export function ControlTable(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
   return <table class={Control.css.ctrl_table}>{ch}</table>
 }
 
-ControlTable.build = function (...args: (Renderable | number)[][]) {
+ControlTable.build = function (...args: ((Renderable | number)[] | Insertable<HTMLElement>)[]) {
   return <ControlTable>
     {args.map(line => {
+      if (!Array.isArray(line))
+        return line
 
       let colspans: (number | null)[] = []
       let rowspans: (number | null)[] = []

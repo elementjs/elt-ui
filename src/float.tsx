@@ -167,7 +167,7 @@ export function create_float<T>(
 
   prom.then(() => remove()).catch(() => remove)
 
-  const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: '0', left: '0', height: '100%', width: '100%', zIndex: '1'}}>{children}</div>
+  const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: '0', left: '0', height: '100%', width: '100%', zIndex: '2'}}>{children}</div>
   insert_before_and_init(node, cont)
   setTimeout(() => {
     node.ownerDocument!.body.addEventListener('click', off, true)

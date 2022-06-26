@@ -17,10 +17,11 @@ import { Control } from './control'
 import { theme } from './colors'
 
 
+export type ButtonStyle = "contrast" | "bordered" | "noborder"
+
 export interface ButtonAttrs extends Attrs<HTMLButtonElement> {
-  bordered?: o.RO<boolean>
   disabled?: o.RO<boolean>
-  contrast?: o.RO<boolean>
+  kind?: o.RO<ButtonStyle>
   click?: Listener<MouseEvent>
   icon?: o.RO<boolean>
 }
@@ -32,7 +33,12 @@ export function Button(attrs : ButtonAttrs, children: Renderable[]) {
     class={[
       Button.cls_button,
       Control.css.control,
-      o.tf(attrs.contrast, c => c ? Button.cls_button_contrast : Button.cls_button_classic),
+      Control.css.control_border,
+      o.tf(attrs.kind, k =>
+        k === "contrast" ? Button.cls_button_contrast :
+        k === "noborder" ? Button.cls_button_no_border :
+        Button.cls_button_classic
+      ),
       {
         [Button.cls_disabled]: attrs.disabled,
         [Button.cls_icon_button]: attrs.icon,
@@ -53,12 +59,6 @@ export function Button(attrs : ButtonAttrs, children: Renderable[]) {
 
 }
 
-Button.cls_bordered = style('button-bordered', {
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: theme.tint
-})
-
 
 export namespace Button {
 
@@ -68,6 +68,7 @@ export namespace Button {
   )
 
   export const cls_button_classic = style('button-classic', S.text.color(theme.tint).box.border(theme.tint).background(theme.bg))
+  export const cls_button_no_border = style('button-classic', S.text.color(theme.tint).bold.uppercase.box.background(theme.bg))
   export const cls_button_contrast = style('button-contrast', S.text.color(theme.bg).box.background(theme.tint).border(theme.tint))
   // rule`${cls_button_contrast} ${inker.cls_container}`(colors.setTint('bg'))
 
