@@ -171,7 +171,7 @@ export function create_float<T>(
   const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: `${bbox.y}px`, left: `${bbox.x}px`, height: `${bbox.height}px`, width: `${bbox.width}px`, zIndex: '1'}}>{children}</div> as HTMLDivElement
   insert_before_and_init(document.body, cont)
   setTimeout(() => {
-    node.ownerDocument!.body.addEventListener('click', off, true)
+    node.ownerDocument!.body.addEventListener('click', off)
   }, 1)
 
   return prom
