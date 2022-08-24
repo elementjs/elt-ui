@@ -132,7 +132,7 @@ export namespace Float.css {
 const wm = new WeakMap<Node, Promise<any>>()
 
 export function create_float<T>(
-  node: HTMLElement,
+  node: HTMLElement | SVGElement,
   ch: (accept: (t: T) => void, reject: (e: any) => void) => Element
 ): Promise<T> {
   if (wm.has(node))
@@ -171,7 +171,7 @@ export function create_float<T>(
   const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: `${bbox.y}px`, left: `${bbox.x}px`, height: `${bbox.height}px`, width: `${bbox.width}px`, zIndex: '1'}}>{children}</div> as HTMLDivElement
   insert_before_and_init(document.body, cont)
   setTimeout(() => {
-    node.ownerDocument!.body.addEventListener('click', off)
+    node.ownerDocument!.body.addEventListener('click', off, true)
   }, 1)
 
   return prom
@@ -181,7 +181,7 @@ export function create_float<T>(
 export function $float<T, N extends HTMLElement | SVGElement>(ch: (accept: (t: T) => void, reject: (e: any) => void) => Element, cbk?: (promise: Promise<T>) => void) {
   return $click<N>(ev => {
     inker(ev)
-    const prom = create_float(ev.currentTarget, ch)
+    const prom = create_float(ev.currentTarget as N, ch)
     cbk?.(prom)
   })
 }
