@@ -351,7 +351,7 @@ export class ColorTheme<T extends ColorTheme.Spec> {
     }
     const colordefs: any = this.colors = Object.assign({}, colors)
 
-    const keys = Object.keys(colors) as (keyof T)[]
+    const keys = Object.keys(colors) as (Extract<keyof T, string>)[]
     const bg = colors.bg
     // for (var k of keys) {
     //   this._colors[k] = Color.fromHex(colors[k])

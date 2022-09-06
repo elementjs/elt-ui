@@ -128,51 +128,70 @@ export namespace Float.css {
 }
 
 
+interface FloatNode {
+  root: Node
+  reject: (e: any) => any
+  /** outside clicks will stop at the first context */
+  creates_context: boolean
+}
 
-const wm = new WeakMap<Node, Promise<any>>()
+function _check_float_click(ev: MouseEvent | KeyboardEvent | TouchEvent) {
+  for (let fn of [...active_floats].reverse()) {
+    if (!fn.root.contains(ev.target as Node)) {
+      // This float can't survive
+      fn.reject(null!) // This will remove the node graphically
+    } else { break }
+    if (fn.creates_context) { break } // stop checking
+  }
+}
+
+const active_floats = new Set<FloatNode>()
 
 export function create_float<T>(
   node: HTMLElement | SVGElement,
-  ch: (accept: (t: T) => void, reject: (e: any) => void) => Element
+  ch: (accept: (t: T) => void, reject: (e: any) => void) => Element,
+  opts: { creates_context?: boolean } = {}
 ): Promise<T> {
-  if (wm.has(node))
-    return wm.get(node)!
 
-  const remove = async (ev?: MouseEvent | KeyboardEvent | TouchEvent) => {
-    node.ownerDocument!.body.removeEventListener('click', off, true)
-    if (ev != null) {
-      ev.stopImmediatePropagation()
-      ev.stopPropagation()
-    }
-    wm.delete(node)
-    await animate(children as HTMLElement, Float.css.leave_float)
-    remove_node(cont)
-    _reject(null)
-  }
+  /** We first want to know if we are part of another float */
 
-  // Remove the float if we clicked outside of it.
-  const off = (ev: MouseEvent | KeyboardEvent | TouchEvent) => {
-    if (!children.contains(ev.target as Node) && (ev.target as Element).isConnected) {
-      remove(ev)
-    }
-  }
-
-  var children!: Element
-  var _reject: (e: any) => any
+  var _reject!: (e: any) => any
   const prom = new Promise<T>((accept, reject) => {
     _reject = reject
     children = ch(accept, reject)
   })
-  wm.set(node, prom)
 
-  prom.then(() => remove()).catch(() => remove)
+  prom.finally(() => remove())
+
+  const fn: FloatNode = {
+    root: children,
+    reject: _reject,
+    creates_context: !!opts.creates_context,
+  }
+
+  setTimeout(() => {
+    if (active_floats.size === 0) {
+      document.body.addEventListener("click", _check_float_click)
+    }
+    active_floats.add(fn)
+  })
+
+
+  const remove = async () => {
+    await animate(children as HTMLElement, Float.css.leave_float)
+    remove_node(cont)
+    active_floats.delete(fn)
+    if (active_floats.size === 0) {
+      // No more active floats, we remove our event listeners
+      document.body.removeEventListener("click", _check_float_click)
+    }
+  }
+
+  var children!: Element
 
   const bbox = node.getBoundingClientRect()
   const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: `${bbox.y}px`, left: `${bbox.x}px`, height: `${bbox.height}px`, width: `${bbox.width}px`, zIndex: '1'}}>{children}</div> as HTMLDivElement
   insert_before_and_init(document.body, cont)
-  setTimeout(() => {
-    node.ownerDocument!.body.addEventListener('click', off, true)
-  }, 1)
 
   return prom
 }

@@ -12,7 +12,7 @@
         "jsx": "react",
         "jsxFactory": "e",
         "experimentalDecorators": true,
-        "lib": ["es6", "dom"],
+        "lib": ["dom", "es2020"],
         "types": []
     }
 }

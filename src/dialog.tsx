@@ -15,7 +15,7 @@ import {
 } from 'elt';
 
 import { animate } from './animate'
-import { Button, ButtonBar } from './button';
+import { Button, } from './button';
 import S from './styling'
 import { theme as T } from './colors'
 import { style, rule } from 'osun'
