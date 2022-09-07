@@ -293,6 +293,7 @@ export function interpolate(from: string, to: string, pct: number) {
 }
 
 var nbthemes = 0
+
 /**
  * From a color theme, I need to be able to
  *   - define a default tint
@@ -303,21 +304,9 @@ var nbthemes = 0
  */
 export class ColorTheme<T extends ColorTheme.Spec> {
   own_class: string & CssClass
-  public static fromColors<T extends ColorTheme.Spec>(spec: T, levels = ['75', '50', '14', '07']): ColorTheme<T> & {[K in keyof T]: CssClass & string} & {
-    tint: string
-    tint75: string
-    tint50: string
-    tint14: string
-    tint07: string
-    fg: string
-    fg75: string
-    fg50: string
-    fg14: string
-    fg07: string
-    bg: string
-    disabled: string
-  } {
-    return new ColorTheme(spec, levels) as any
+  public static fromColors<T extends ColorTheme.Spec, K extends string = "07" | "14" | "50" | "75">(spec: T, ...levels: K[]): ColorTheme<T> & {[Key in `${Extract<keyof T, string>}${K}` | keyof T]: CssClass & string}
+  {
+    return new ColorTheme(spec, levels.length === 0 ? ["07", "14", "50", "75"] : levels) as any
   }
 
   private reversed_cache = new Map<string, ColorTheme<any>>()
@@ -479,6 +468,7 @@ export namespace ColorTheme {
     tint: string
     fg: string
     bg: string
+    disabled: string
     [name: string]: string
     // contrast: string
   }
@@ -488,6 +478,7 @@ export const theme = ColorTheme.fromColors({
   fg: '#1c1c1b',
   bg: '#ffffff',
   tint: '#652DC1',
+  disabled: "#8f8f8f"
 })
 
 requestAnimationFrame(() => document.body.classList.add(theme.getClass()))

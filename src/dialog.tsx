@@ -14,11 +14,11 @@ import {
   $inserted
 } from 'elt';
 
+import { style, rule, builder as CSS } from 'osun'
+
 import { animate } from './animate'
-import { Button, } from './button';
-import S from './styling'
+import { Button, } from './input'
 import { theme as T } from './colors'
-import { style, rule } from 'osun'
 
 
 export type DialogBuilder<T> = (dlc: Dialog<T>) => Node
@@ -58,7 +58,7 @@ export class Dialog<T> {
     if (this.opts.closeIntercept && !(await this.opts.closeIntercept()))
       // Do nothing if closing was prevented.
       return false
-    await animate(this.node, this.opts.animationLeave ?? dialog.leave)
+    await animate(this.node, this.opts.animationLeave ?? css_dialog_leave_animation)
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
     remove_node(this.node)
     return true
@@ -93,7 +93,7 @@ export class Dialog<T> {
       $init(node => {
         _dialog_stack.push(this.node)
         if (!this.opts.noanimate) {
-          animate(this.node, this.opts.animationEnter ?? dialog.enter)
+          animate(this.node, this.opts.animationEnter ?? css_dialog_enter_animation)
         }
       }),
       $inserted(node => {
@@ -108,26 +108,26 @@ export class Dialog<T> {
 }
 
 export function Overlay(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E('div', $class(dialog.overlay, S.flex.column.alignCenter.justifyCenter),
+  return E('div', $class(css_dialog_overlay, CSS.column.alignCenter.justifyCenter),
     children
   )
 }
 
 export function Title(attrs: Attrs<HTMLHeadingElement>, children: Renderable[]) {
-  return E('h3', $class(S.text.uppercase.bold.color(T.tint)),
+  return E('h3', $class(CSS.uppercase.bold.color(T.tint)),
     children
   )
 }
 
 export function Content(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E('div', $class(S.text.preLine),
+  return E('div', $class(CSS.preLine),
     children
   )
 }
 
 
 export function Root(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E.DIV($class(dialog.root, S.flex.column, S.box.border(T.tint07).borderRound.boxShadow),
+  return E.DIV($class(css_dialog_root, CSS.column, CSS.border(T.tint07).borderRound.boxShadow),
     children
   )
 }
@@ -162,17 +162,17 @@ export interface ModalOptions extends DialogOpts {
  */
 export function modal(opts: ModalOptions) {
 
-  return dialog<boolean>(opts, (dlg) => <Root class={[S.box.padding(S.SIZE_NORMAL), S.flex.gappedColumn(S.SIZE_NORMAL)]}>
+  return dialog<boolean>(opts, (dlg) => <Root class={[CSS.padding("1rem"), CSS.column.gap("1rem")]}>
     {opts.title ? <Title>{opts.title}</Title> : null}
     <Content>
       {(typeof opts.text === 'string' ? opts.text.split(/\s*\n\s*/).map((item) => <p>{item}</p>) : opts.text)}
     </Content>
-    <div class={S.flex.gappedRow(24).justifyCenter}>
+    <div class={CSS.row.gap(24).justifyCenter}>
       {If(o(opts.agree), agree =>
         <Button kind={"noborder"} click={() => dlg.resolve(true)}>{agree}</Button>
       )}
       {If(o(opts.disagree), disagree =>
-        <Button kind={"noborder"} class={[T.fg, S.text.color(T.fg50)]} click={() => dlg.resolve(false)}>{disagree}</Button>
+        <Button kind={"noborder"} class={[T.fg, CSS.color(T.fg50)]} click={() => dlg.resolve(false)}>{disagree}</Button>
       )}
     </div>
   </Root>);
@@ -180,66 +180,59 @@ export function modal(opts: ModalOptions) {
 }
 
 
-/**
- * Our CSS Declarations.
- */
-export namespace dialog {
+export const css_dialog_stacked = style('stacked')
+export const css_dialog_enter_animation = style('enter')
+export const css_dialog_leave_animation = style('leave')
 
-  export const stacked = style('stacked')
-  export const enter = style('enter')
-  export const leave = style('leave')
+export const css_dialog_root = style('root', {
+  WebkitTransformStyle: 'preserve-3d',
+  WebkitBackfaceVisibility: 'hidden',
+  transform: `translateZ(0)`,
+  transformOrigin: `50% 0`,
+  margin: `24px 24px`,
+  backgroundColor: `white`
+})
 
-  export const root = style('root', {
-    WebkitTransformStyle: 'preserve-3d',
-    WebkitBackfaceVisibility: 'hidden',
-    transform: `translateZ(0)`,
-    transformOrigin: `50% 0`,
-    margin: `24px 24px`,
-    backgroundColor: `white`
-  })
+export const css_dialog_overlay = style('overlay', {
+  overflow: 'hidden',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  zIndex: 1,
+  height: '100vh',
+  width: '100vw',
 
-  export const overlay = style('overlay', {
-    overflow: 'hidden',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 1,
-    height: '100vh',
-    width: '100vw',
+  transform: 'translateZ(0)',
+  backgroundColor: `rgba(0, 0, 0, 0.54)`,
+})
 
-    transform: 'translateZ(0)',
-    backgroundColor: `rgba(0, 0, 0, 0.54)`,
-  })
+rule`${css_dialog_overlay}${css_dialog_enter_animation}`({
+  animation: `${animate.fade_in} ${animate.ANIM_DURATION}ms both ease-in`
+})
 
-  rule`${overlay}${enter}`({
-    animation: `${animate.fade_in} ${animate.ANIM_DURATION}ms both ease-in`
-  })
+rule`${css_dialog_overlay}${css_dialog_enter_animation} > ${css_dialog_root}`({
+  animation: `${animate.top_enter} ${animate.ANIM_DURATION}ms both ease-in`
+})
 
-  rule`${overlay}${enter} > ${root}`({
-    animation: `${animate.top_enter} ${animate.ANIM_DURATION}ms both ease-in`
-  })
+rule`${css_dialog_overlay}${css_dialog_leave_animation}`({
+  animation: `${animate.fade_out} 0.2s both ease-in`
+})
 
-  rule`${overlay}${leave}`({
-    animation: `${animate.fade_out} 0.2s both ease-in`
-  })
+rule`${css_dialog_overlay}${css_dialog_leave_animation} > ${css_dialog_root}`({
+  animation: `${animate.top_leave} 0.2s both ease-in`
+})
 
-  rule`${overlay}${leave} > ${root}`({
-    animation: `${animate.top_leave} 0.2s both ease-in`
-  })
+export const css_dialog_content = style('content', {
+  padding: '0 24px',
+  paddingBottom: '24px',
+  color: 'var(--eltui-text-color)',
+})
+rule`${css_dialog_content} > :first-child`({ paddingTop: '24px' })
+rule`${css_dialog_content} > :last-child`({ marginBottom: 0 })
 
-  export const content = style('content', {
-    padding: '0 24px',
-    paddingBottom: '24px',
-    color: 'var(--eltui-text-color)',
-  })
-  rule`${content} > :first-child`({ paddingTop: '24px' })
-  rule`${content} > :last-child`({ marginBottom: 0 })
-
-  export const title = style('title', {
-    margin: '16px 24px',
-    fontSize: '1.25em',
-    fontWeight: 'bolder',
-    padding: 0
-  })
-
-}
+export const css_dialog_title = style('title', {
+  margin: '16px 24px',
+  fontSize: '1.25em',
+  fontWeight: 'bolder',
+  padding: 0
+})

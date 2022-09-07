@@ -1,10 +1,9 @@
 
 import { ColorTheme, theme } from './colors'
 import { raw, rule } from 'osun'
-import * as helpers from 'osun/lib/helpers'
 
 
-declare module 'csstype' {
+declare module "csstype" {
 
   interface PropertiesFallback {
 
@@ -19,10 +18,6 @@ declare module 'csstype' {
 
 
 export namespace Styling {
-
-  export const box = helpers.box
-  export const flex = helpers.flex
-  export const text = helpers.text
   // export const grid = helpers.grid
 
   export function Theme<T extends ColorTheme.Spec>(theme: T) {

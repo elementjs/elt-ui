@@ -45,8 +45,8 @@ listenWhenWatched(o_location_hash, window, 'hashchange', updhash)
 export const oMouseHovering = function (node: Element) {
   const o_res = o(false)
   listenWhenWatched(o_res, node, 'mouseover', () => o_res.set(true))
-  listenWhenWatched(o_res, node as HTMLElement, "mouseout", ev => {
-    if (!node.contains(ev.relatedTarget as Node)) {
+  listenWhenWatched(o_res, node as HTMLElement, "mouseout", (ev) => {
+    if (!node.contains((ev as any).relatedTarget as Node)) {
       o_res.set(false)
     }
   })

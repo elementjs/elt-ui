@@ -1,19 +1,16 @@
 
 import {
   o,
-  $on,
-  $bind,
+  node_add_event_listener,
   Attrs,
   Renderable,
   e,
-  $observe,
   node_observe
 } from 'elt'
 
-import S from './styling'
-import { style, rule } from 'osun'
-import { Control } from './control'
-import { theme as T } from './colors'
+import { style, rule, builder as CSS } from 'osun'
+import * as cnt from './control'
+import { theme as T } from '../colors'
 
 var id_gen = 0;
 
@@ -79,17 +76,16 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
     })
 
   const lock = o.exclusive_lock()
-  const type = attrs.type ?? "text"
 
   const res = <input
     {...other_attrs}
     placeholder={o_placeholder}
     id={id}
-    class={[Control.css.control, Input.css.input, {
-       [Input.css.focused]: o_focused,
-       [Input.css.empty_filled]: o_unfocus_and_filled,
-       [Input.css.hidden_placeholder]: o.tf(placeholder, p => !p?.trim()),
-       [Input.css.disabled]: attrs.disabled
+    class={[cnt.css_control, css_input, {
+       [css_input_focused]: o_focused,
+       [css_input_empty_filled]: o_unfocus_and_filled,
+       [css_input_hidden_placeholder]: o.tf(placeholder, p => !p?.trim()),
+       [css_input_disabled]: attrs.disabled
     }]}
     // class={Input.element}
     type="text"
@@ -99,45 +95,42 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
       node_observe(node, o.join(o_focused, attrs.model, transformer), ([foc, value, transformer]) => {
         lock(() => {
           if (!foc && transformer) {
-            node.value = transformer(value)
+            node.value = (transformer as any)(value)
           } else {
-            node.value = value ?? ""
+            node.value = ""+value ?? ""
           }
         })
       }, undefined, true)
 
-      node.addEventListener("input", ev => {
+      node_add_event_listener(node, "input", ev => {
         lock(() => {
-          if (type === "number") {
+          if (attrs.type === "number") {
             const m = re_number.exec(node.value)
             if (m) {
               node.value = m[0]
-              model.set(Number(m[0]))
+              attrs.model.set(Number(m[0]))
             }
           } else {
-            model.set(node.value as any)
+            attrs.model.set(node.value)
           }
         })
       })
+
+      node_add_event_listener(node, "focusout", () => o_focused.set(false))
+      node_add_event_listener(node, "focusin", () => o_focused.set(true))
     }}
-    {$on("focusout", () => o_focused.set(false))}
-    {$on("focusin", () => o_focused.set(true))}
   </input> as HTMLInputElement
 
   return res
 }
 
-Input.css = new class {
-  focused = style('focused', Control.css.active)
-  empty_filled = style('empty-unfocused')
-  input = style('input', S.box.border(T.tint14) )
-  hidden_placeholder = style('hidden-placeholder')
-  disabled = style("input-disabled", { color: T.fg50 })
+export const css_input_focused = style('focused', cnt.css_control_active)
+export const css_input_empty_filled = style('empty-unfocused')
+export const css_input = style('input', CSS.border(T.tint14) )
+export const css_input_hidden_placeholder = style('hidden-placeholder')
+export const css_input_disabled = style("input-disabled", { color: T.fg50 })
 
-  constructor() {
-    rule`${this.input}::placeholder`(S.text.color(T.fg14).size('1em').box.padding(0).margin(0).inlineBlock, {
-      lineHeight: 'normal'
-    })
-    rule`${this.hidden_placeholder}::placeholder`(S.text.color(T.bg))
-  }
-}
+rule`${css_input}::placeholder`(CSS.color(T.fg14).fontSize('1em').padding(0).margin(0).inlineBlock, {
+  lineHeight: 'normal'
+})
+rule`${css_input_hidden_placeholder}::placeholder`(CSS.color(T.bg))

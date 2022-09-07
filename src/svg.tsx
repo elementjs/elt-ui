@@ -124,7 +124,6 @@ export function SvgCheckBox(attrs: Attrs<SVGSVGElement> & { checked?: o.RO<any>,
 
 export function SvgSelectThingy(a: Attrs<SVGSVGElement>) {
 	return <svg viewBox='0 0 14 16'>
-		{/* <path d='M4 6 L7 10 L10 6'/> */}
 		<path style={{strokeWidth: '1.5px', strokeLinecap: 'round', strokeLinejoin: 'round', stroke: T.tint50, fill: 'none'}} d={d.moveTo(4, 7).lineTo(7, 9).lineTo(10, 7)}/>
 	</svg>
 }

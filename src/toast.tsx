@@ -2,8 +2,7 @@
 import { append_child_and_init, remove_node, Insertable, e } from 'elt'
 import { animate } from './animate'
 
-import S from './styling'
-import { style } from 'osun'
+import { style, builder as CSS } from 'osun'
 import { theme } from './colors'
 
 
@@ -19,7 +18,7 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={[Toaster.cls_holder, S.flex.row.justifyCenter]}/>
+		this._holder = <div class={[Toaster.cls_holder, CSS.row.justifyCenter]}/>
 	}
 
 	kill(node: HTMLElement) {

@@ -6,23 +6,23 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
+  "baseUrl": "lib",
   "scripts": {
     "build:namespace": "grep namespace lib/index.d.ts || echo 'export as namespace eltui' >> lib/index.d.ts",
-    "build:rollup": "rollup -c rollup.config.js",
+    "build:esbuild": "esbuild --external:elt --bundle src/index.ts --outfile=dist/eltui.js --jsx-factory=e --global-name=eltui --jsx-import-source=elt --jsx-fragment=e.Fragment",
     "build:js": "tsc | wtsc",
-    "build": "npm run build:js && npm run build:rollup && npm run build:namespace",
+    "build:other": "npm run build:esbuild && npm run build:namespace",
+    "build": "npm run build:js && npm run build:esbuild && npm run build:namespace",
     "prepublish": "npm run build",
-    "watch": "concurrently -c green,blue -n rollup,tsc,addnamespace 'chokidar --silent \"./lib/**/*.js\" -c \"npm run build:rollup\"' 'tsc -w --preserveWatchOutput | wtsc' 'chokidar --silent \"./lib/index.js\" -c \"npm run build:namespace\"'"
+    "watch": "tsc -w --preserveWatchOutput | wtsc npm run build:other"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",
-    "chokidar-cli": "^2.1.0",
-    "concurrently": "^5.1.0",
-    "rollup": "^1.31.1",
-    "typescript": "^4.0.3",
+    "typescript": "^4.8.2",
+    "esbuild": "^0.15.7",
     "wtsc": "^0.1.x"
   },
-  "dependencies": {
+  "peerDependencies": {
     "osun": "^0.4.x"
   }
 }

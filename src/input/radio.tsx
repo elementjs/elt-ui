@@ -7,10 +7,10 @@ import {
   e,
 } from 'elt'
 
-import { Checkbox } from './checkbox'
-import { $inkable } from './ink'
-import { Control } from './control'
-import { SvgCircle } from './svg'
+import { $inkable } from '../ink'
+import { SvgCircle } from '../svg'
+import * as chk from './checkbox'
+import * as cnt from './control'
 
 
 export interface RadioAttributes<T> extends Attrs<HTMLButtonElement> {
@@ -34,18 +34,18 @@ export function Radio<T>(attrs: Attrs<HTMLButtonElement> & RadioAttributes<T>, c
   const equals = o.combine([model, value], ([m, v]) => m === v)
 
   let classes = {
-    [Checkbox.css.on]: equals,
-    [Checkbox.css.off]: equals.tf(e => !e),
-    [Checkbox.css.disabled]: disabled
+    [chk.css_checkbox_on]: equals,
+    [chk.css_checkbox_off]: equals.tf(e => !e),
+    [chk.css_checkbox_disabled]: disabled
   };
 
-  return <button disabled={attrs.disabled} class={[Control.css.control, Checkbox.css.label, classes]}>
+  return <button disabled={attrs.disabled} class={[cnt.css_control, chk.css_checkbox_label, classes]}>
       {$inkable}
       {$click(e => setValue())}
 
-      <SvgCircle class={Checkbox.css.icon} checked={o_checked}/>
+      <SvgCircle class={chk.css_checkbox_icon} checked={o_checked}/>
       {' '}
-      <span class={Checkbox.css.content}>{children}</span>
+      <span class={chk.css_checkbox_content}>{children}</span>
     </button> as HTMLButtonElement
 
 }

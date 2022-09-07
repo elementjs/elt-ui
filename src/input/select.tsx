@@ -13,14 +13,14 @@ import {
 	e
 } from 'elt'
 
-import S from './styling'
-import { theme as T } from './colors'
-import { style } from 'osun'
-import { Control, ControlBox } from './control'
-import { $float, Float } from './float'
-import { SvgSelectThingy } from './svg'
-import { $inkable } from './ink'
-import { animate } from './animate'
+import { style, builder as CSS } from 'osun'
+import { theme as T } from '../colors'
+import { $float, Float } from '../float'
+import { SvgSelectThingy } from '../svg'
+import { $inkable } from '../ink'
+import { animate } from '../animate'
+import * as control from './control'
+import { ControlBox } from './control'
 
 export type LabelFn<T> = (opt: T) => Renderable
 
@@ -54,8 +54,8 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 	let $decorators: Decorator<HTMLDivElement>[] = [];
 
 	$decorators.push($float<void, HTMLElement>(acc =>
-		<Float class={Control.css.control_border}><ControlBox
-			class={S.box.background(T.bg).border(T.tint14)}
+		<Float class={control.css_control_border}><ControlBox
+			class={CSS.background(T.bg).border(T.tint14)}
 			style={{width: `${select_container.clientWidth}px`, maxHeight: '50vh'}}
 			vertical
 		>
@@ -63,7 +63,7 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 			{$removed(() => o_active.set(false))}
 			{$scrollable}
 			{Repeat(o_opts, (opt, i) => <div
-					class={[Control.css.control, {[Select.css.selected]: o.combine(o.tuple(o_model, opt), ([m, o]) => m === o)}]}
+					class={[control.css_control, {[Select.css.css_select_selected]: o.combine(o.tuple(o_model, opt), ([m, o]) => m === o)}]}
 				>
 					{$click(() => {
 						if (o.get(attrs.disabled)) return
@@ -78,12 +78,12 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 			)}
 	</ControlBox></Float> as HTMLDivElement))
 
-	const select_container = <div class={[Control.css.control, Select.css.select, {[Control.css.active]: o_active}]}>
+	const select_container = <div class={[control.css_control, Select.css.css_select, {[control.css_control_active]: o_active}]}>
 		{$decorators}
 		{attrs.prelabelfn?.(model)}
 		{model.tf(m => zwnj(labelfn(m)))}
 		{attrs.postlabelfn?.(model)}
-		<span class={S.flex.absoluteGrow(1)}/>
+		<span class={CSS.absoluteGrow(1)}/>
 		<SvgSelectThingy style={{height: '1em'}} />
 
 	</div> as HTMLDivElement
@@ -93,15 +93,15 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, ch
 
 export namespace Select.css {
 
-	export const select = style('select', S.box.cursorPointer.border(T.tint14).flex.row.inline.alignCenter)
-	export const select_thingy = style('thingy', { color: T.tint50 })
+	export const css_select = style('select', CSS.cursorPointer.border(T.tint14).row.inline.alignCenter)
+	export const css_select_thingy = style('thingy', { color: T.tint50 })
 
-	export const selected = style('selected', S.box.background(T.tint07))
+	export const css_select_selected = style('selected', CSS.background(T.tint07))
 
 	// rule`${select}:-moz-focusring`({
 	// 	color: S.TRANSPARENT,
 	// 	textShadow: `0 0 0 ${T.fg75}`
 	// })
 
-	export const label = style('label', {position: 'relative'})
+	export const css_select_label = style('label', {position: 'relative'})
 }
