@@ -4,6 +4,183 @@ import { style, CssClass } from 'osun'
 export type ColorArray = [number, number, number]
 
 
+
+var nbthemes = 0
+
+/**
+ * From a color theme, I need to be able to
+ *   - define a default tint
+ *   - switch tint easily
+ *   - every time a tint is used, all corresponding colors are generated as part of the class
+ *   - create "derived" themes that keep the colors but change them according to a new bg
+ *   - get the true RGB colors.
+ */
+export class ColorTheme<T extends ColorTheme.Spec> {
+  _own_class: string & CssClass
+  public static fromColors<T extends ColorTheme.Spec, K extends string = "07" | "14" | "50" | "75">(spec: T, ...levels: K[]): ColorTheme<T> & {[Key in `${Exclude<Extract<keyof T, string>, "bg">}${K}` | keyof T | `${Exclude<Extract<keyof T, string>, "bg" | "tint" | "fg">}100`]: CssClass & string}
+  {
+    return new ColorTheme(spec, levels.length === 0 ? ["07", "14", "50", "75"] : levels) as any
+  }
+
+  private _reversed_cache = new Map<string, ColorTheme<any>>()
+
+  /**
+   * The original definitions of the colors, with computed values.
+   */
+  _colors: T = {} as any
+
+  private _original_colors = {} as any
+  /**
+   * Temporary colors used for computation.
+   */
+  // private _colors: {[K in keyof T]: Color} = {} as any
+
+  private constructor(
+    /**
+     * The original colors, stored in an object + all the calculated ones...
+     */
+    colors: T,
+    private _levels: string[]
+  ) {
+    // the original colors
+    this._original_colors = colors = Object.assign({}, colors)
+    if (!colors['disabled']) {
+      (colors as any)['disabled'] = interpolate(colors.bg, colors.fg, 0.5) //Color.fromHex(colors.bg).interpolate(0.5, Color.fromHex(colors.fg)).toHex()
+    }
+    const colordefs: any = this._colors = Object.assign({}, colors)
+
+    const keys = Object.keys(colors) as (Extract<keyof T, string>)[]
+    const bg = colors.bg
+    // for (var k of keys) {
+    //   this._colors[k] = Color.fromHex(colors[k])
+    // }
+    // var bg = this._colors.bg
+
+    const props = {} as any
+    const self = this as any
+
+    for (var k of keys) {
+      const col = colors[k]
+      const is_basic = k === 'bg' || k === 'fg' || k === 'tint'
+      this._colors[k] = col
+
+      const self_props = {} as any
+
+      const addcol = (value: string, level?: string) => {
+        const key = `${k}${level ?? ''}`
+        const key100 = `${k}${level ?? (is_basic ? "" : "100")}`
+        const keyvar = `--eltui-colors-${key}`
+        if (!is_basic)
+          self_props[`--eltui-colors-tint${level ?? ''}`] = `var(${keyvar})`
+        props[`--eltui-colors-${key}`] = value
+        colordefs[key] = value as any
+        ;(self as any)[key100] = `var(--eltui-colors-${key100})`
+      }
+
+      addcol(col)
+      if (k !== "bg") {
+        for (var level of this._levels) {
+          // generate all levels
+          const l = parseInt(level)
+          addcol(interpolate(bg, colors[k], l / 100), level)
+        }
+      }
+
+      // this.[color] as the class that changes tint.
+      if (!is_basic)
+        self[k] = style(`tint-color-${k}`, self_props)
+    }
+
+    // self[`bg`] = `var(--eltui-colors-bg)`
+    // self[`tint`] = `var(--eltui-colors-tint)`
+    // self[`fg`] = `var(--eltui-colors-fg)`
+    // for (var l of this._levels) {
+    //   self[`tint${l}`] = `var(--eltui-colors-tint${l})`
+    //   self[`fg${l}`] = `var(--eltui-colors-fg${l})`
+    // }
+
+    // Push a regular theme
+    this._own_class = style(`color-theme-${nbthemes++}`, props, {
+      color: `var(--eltui-colors-fg)`,
+      background: `var(--eltui-colors-bg)`,
+    })
+  }
+
+  get className() { return this._own_class }
+
+  /** @deprecated */
+  getClass() {
+    return this._own_class
+  }
+
+  /**
+   * Reverse puts the given color as the background.
+   * The fg color is changed to the value of bg if the contrast of the color is too low
+   * with the current bg, otherwise it stays fg.
+   * The tint becomes what color was chosen as FG.
+   *
+   * If recompute is true, all colors are recalculated to fit the new BG and keep their contrast
+   * more or less the same it was before.
+   */
+  derive(opts: { bg: string, fg?: string, tint?: string, recompute?: boolean}) {
+    var key = `${opts.bg}-${opts.fg ?? ''}-${opts.tint ?? ''}-${opts.recompute ?? 'false'}`
+    if (this._reversed_cache.has(key)) {
+      return this._reversed_cache.get(key)!
+    }
+
+    const op = {...opts}
+    const colors = Object.assign({}, this._original_colors)
+    var old_bg = colors.bg
+
+    if (op.bg[0] !== '#') {
+      op.bg = colors[op.bg] ?? op.bg
+    }
+    if (op.fg && op.fg[0] !== '#') {
+      op.fg = colors[op.fg] ?? op.fg
+    }
+    if (op.tint && op.tint[0] !== '#') {
+      op.tint = colors[op.tint] ?? op.tint
+    }
+
+    if (op.recompute) {
+      const adj = luminosity_adjuster(old_bg, op.bg)
+      const keys = Object.keys(colors)
+      for (var k of keys) {
+        if (k in op) continue
+        colors[k] = adj(colors[k])
+      }
+    }
+
+    colors.bg = op.bg
+    colors.fg = op.fg ?? colors.fg
+    colors.tint = op.tint ?? colors.tint
+    const res = new ColorTheme(colors, this._levels)
+    this._reversed_cache.set(key, res)
+    return res
+  }
+
+}
+
+export namespace ColorTheme {
+  export interface Spec {
+    tint: string
+    fg: string
+    bg: string
+    disabled: string
+    [name: string]: string
+    // contrast: string
+  }
+}
+
+export const theme = ColorTheme.fromColors({
+  fg: '#1c1c1b',
+  bg: '#ffffff',
+  tint: '#652DC1',
+  disabled: "#8f8f8f"
+})
+
+requestAnimationFrame(() => document.body.classList.add(theme.getClass()))
+
 function expand(hex: string) {
   var result = "#";
 
@@ -194,61 +371,6 @@ export function xyz2rgb(xyz: ColorArray): ColorArray {
 }
 
 
-// /**
-//  * Color is an LCH color
-//  */
-// export class Color {
-
-//   constructor(public lch: ColorArray) { }
-
-//   static fromRGB(rgb: ColorArray) {
-//     return new Color(rgb2lch(rgb))
-//   }
-
-//   static fromHex(s: string) {
-//     if (s[0] === '#') s = s.slice(1)
-//     return this.fromRGB([parseInt(s.slice(0, 2), 16), parseInt(s.slice(2, 4), 16), parseInt(s.slice(4, 6), 16)])
-//   }
-
-//   static parse(s: string | ColorArray) {
-//     return typeof s === 'string' ? this.fromHex(s) : this.fromRGB(s)
-//   }
-
-//   rotate(rotation: number): Color {
-//     return new Color([this.lch[0], this.lch[1], (this.lch[2] + rotation) % 360])
-//   }
-
-//   interpolate(pct_from: number, other: Color): Color {
-//     const olch = other.lch
-//     const tlch = this.lch
-//     const light = tlch[0] + (olch[0] - tlch[0]) * pct_from
-//     const chroma = tlch[1] + (olch[1] - tlch[1]) * pct_from
-//     // keep the original hue
-//     // const hue = tlch[2] + (olch[2] - tlch[2]) * pct_from
-//     return new Color([light, chroma, olch[2]])
-//   }
-
-//   toRGBarray(): ColorArray {
-//     return xyz2rgb(luvToXyz(lchUVToLuv(this.lch)))
-//   }
-
-//   toRGB(): string {
-//     return `rgb(${this.toRGBarray().join(', ')})`
-//   }
-
-//   toRGBA(alpha: number): string {
-//     return `rgba(${this.toRGBarray().join(', ')}, ${alpha})`
-//   }
-//   /**
-//    * Convert back to rgb space and back to hex
-//    */
-//   toHex(): string {
-//     function pad(n: string) { return n.length < 2 ? '0' + n : n }
-//     return '#' + this.toRGBarray().map(c => pad(Math.round(c).toString(16))).join('')
-//   }
-// }
-
-
 /**
  * Adjust a color from its old background to its new background, keeping its distance
  * from the old to the new.
@@ -291,194 +413,3 @@ export function interpolate(from: string, to: string, pct: number) {
     frgb[2] + (trgb[2] - frgb[2]) * pct,
   ])
 }
-
-var nbthemes = 0
-
-/**
- * From a color theme, I need to be able to
- *   - define a default tint
- *   - switch tint easily
- *   - every time a tint is used, all corresponding colors are generated as part of the class
- *   - create "derived" themes that keep the colors but change them according to a new bg
- *   - get the true RGB colors.
- */
-export class ColorTheme<T extends ColorTheme.Spec> {
-  own_class: string & CssClass
-  public static fromColors<T extends ColorTheme.Spec, K extends string = "07" | "14" | "50" | "75">(spec: T, ...levels: K[]): ColorTheme<T> & {[Key in `${Extract<keyof T, string>}${K}` | keyof T]: CssClass & string}
-  {
-    return new ColorTheme(spec, levels.length === 0 ? ["07", "14", "50", "75"] : levels) as any
-  }
-
-  private reversed_cache = new Map<string, ColorTheme<any>>()
-
-  /**
-   * All the color variables as var(--eltui-colors-...)
-   */
-  colorvars: T = {} as any
-  /**
-   * The original definitions of the colors, with computed values.
-   */
-  colors: T = {} as any
-
-  private original_colors = {} as any
-  /**
-   * Temporary colors used for computation.
-   */
-  // private _colors: {[K in keyof T]: Color} = {} as any
-
-  private constructor(
-    /**
-     * The original colors, stored in an object + all the calculated ones...
-     */
-    colors: T,
-    private levels: string[]
-  ) {
-    // the original colors
-    this.original_colors = colors = Object.assign({}, colors)
-    if (!colors['disabled']) {
-      (colors as any)['disabled'] = interpolate(colors.bg, colors.fg, 0.5) //Color.fromHex(colors.bg).interpolate(0.5, Color.fromHex(colors.fg)).toHex()
-    }
-    const colordefs: any = this.colors = Object.assign({}, colors)
-
-    const keys = Object.keys(colors) as (Extract<keyof T, string>)[]
-    const bg = colors.bg
-    // for (var k of keys) {
-    //   this._colors[k] = Color.fromHex(colors[k])
-    // }
-    // var bg = this._colors.bg
-
-    const props = {} as any
-    const self = this as any
-
-    for (var k of keys) {
-      const col = colors[k]
-      const is_basic = k === 'bg' || k === 'fg' || k === 'tint'
-      this.colors[k] = col
-
-      var self_props = {} as any
-
-      var addcol = (value: string, level?: string) => {
-        var key = `${k}${level ?? ''}`
-        var keyvar = `--eltui-colors-${k}${level ?? ''}`
-        if (!is_basic)
-          self_props[`--eltui-colors-tint${level ?? ''}`] = `var(${keyvar})`
-        props[keyvar] = value
-        colordefs[key] = value as any
-        (this.colorvars as any)[key] = `var(${keyvar})` as any
-      }
-
-      addcol(col)
-      for (var level of this.levels) {
-        // generate all levels
-        const l = parseInt(level)
-        addcol(interpolate(bg, colors[k], l / 100), level)
-      }
-
-      // this.[color] as the class that changes tint.
-      if (!is_basic)
-        self[k] = style(`tint-color-${k}`, self_props)
-    }
-
-    self[`bg`] = `var(--eltui-colors-bg)`
-    self[`tint`] = `var(--eltui-colors-tint)`
-    self[`fg`] = `var(--eltui-colors-fg)`
-    for (var l of this.levels) {
-      self[`tint${l}`] = `var(--eltui-colors-tint${l})`
-      self[`fg${l}`] = `var(--eltui-colors-fg${l})`
-    }
-
-    // Push a regular theme
-    this.own_class = style(`color-theme-${nbthemes++}`, props, {
-      color: `var(--eltui-colors-fg)`,
-      background: `var(--eltui-colors-bg)`,
-    })
-  }
-
-  getClass() {
-    return this.own_class
-  }
-
-  /**
-   * Reverse puts the given color as the background.
-   * The fg color is changed to the value of bg if the contrast of the color is too low
-   * with the current bg, otherwise it stays fg.
-   * The tint becomes what color was chosen as FG.
-   *
-   * If recompute is true, all colors are recalculated to fit the new BG and keep their contrast
-   * more or less the same it was before.
-   */
-  derive(opts: { bg: string, fg?: string, tint?: string, recompute?: boolean}): string {
-    var key = `${opts.bg}-${opts.fg ?? ''}-${opts.tint ?? ''}-${opts.recompute ?? 'false'}`
-    if (this.reversed_cache.has(key)) {
-      return this.reversed_cache.get(key)!.getClass()
-    }
-
-    const op = {...opts}
-    const colors = Object.assign({}, this.original_colors)
-    var old_bg = colors.bg
-
-    if (op.bg[0] !== '#') {
-      op.bg = colors[op.bg]
-    }
-    if (op.fg && op.fg[0] !== '#') {
-      op.fg = colors[op.fg]
-    }
-    if (op.tint && op.tint[0] !== '#') {
-      op.tint = colors[op.tint]
-    }
-    const adj = luminosity_adjuster(old_bg, op.bg)
-
-    if (op.recompute) {
-      const keys = Object.keys(colors)
-      for (var k of keys) {
-        if (k in op) continue
-        colors[k] = adj(colors[k])
-      }
-    }
-
-    colors.bg = op.bg
-    colors.fg = op.fg ?? colors.fg
-    colors.tint = op.tint ?? colors.tint
-    const res = new ColorTheme(colors, this.levels)
-    this.reversed_cache.set(key, res)
-    return res.getClass()
-    // return style('pouet')
-  }
-
-  /**
-   * Will be made useless by typescript 4.1 with the template string props.
-   */
-  getColor(name: string, level: number) {
-    var key = `${name}${level}`
-    return this.colorvars[key]
-  }
-
-  /**
-   * Will be made useless by typescript 4.1 with the template string props.
-   */
-  getColorDef(name: string, level: string) {
-    var key = `${name}${level}`
-    return this.colorvars[key]
-  }
-
-}
-
-export namespace ColorTheme {
-  export interface Spec {
-    tint: string
-    fg: string
-    bg: string
-    disabled: string
-    [name: string]: string
-    // contrast: string
-  }
-}
-
-export const theme = ColorTheme.fromColors({
-  fg: '#1c1c1b',
-  bg: '#ffffff',
-  tint: '#652DC1',
-  disabled: "#8f8f8f"
-})
-
-requestAnimationFrame(() => document.body.classList.add(theme.getClass()))
