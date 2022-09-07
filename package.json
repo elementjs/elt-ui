@@ -23,6 +23,6 @@
     "wtsc": "^0.1.x"
   },
   "peerDependencies": {
-    "osun": "^0.4.x"
+    "osun": "^0.5.x"
   }
 }
