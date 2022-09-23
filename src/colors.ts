@@ -74,7 +74,7 @@ export class ColorTheme<T extends ColorTheme.Spec> {
           self_props[`--eltui-colors-tint${level ?? ''}`] = `var(${keyvar})`
         props[`--eltui-colors-${key}`] = value
         colordefs[key] = value as any
-        ;(self as any)[key100] = `var(--eltui-colors-${key100})`
+        ;(self as any)[key100] = `var(--eltui-colors-${key})`
       }
 
       addcol(col)
