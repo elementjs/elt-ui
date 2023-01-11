@@ -97,7 +97,7 @@ export function Input(attrs: InputAttributes, content: Renderable[]) {
           if (!foc && transformer) {
             node.value = (transformer as any)(value)
           } else {
-            node.value = ""+value ?? ""
+            node.value = ""+ (value ?? "")
           }
         })
       }, undefined, true)
