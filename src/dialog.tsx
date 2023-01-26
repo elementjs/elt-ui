@@ -199,8 +199,8 @@ export const css_dialog_overlay = style('overlay', {
   top: 0,
   left: 0,
   zIndex: 1,
-  height: '100vh',
-  width: '100vw',
+  height: '100%',
+  width: '100%',
 
   transform: 'translateZ(0)',
   backgroundColor: `rgba(0, 0, 0, 0.54)`,
