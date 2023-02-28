@@ -107,29 +107,21 @@ export class Dialog<T> {
   }
 }
 
-export function Overlay(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E('div', $class(css_dialog_overlay, CSS.column.alignCenter.justifyCenter),
-    children
-  )
+export function Overlay(attrs: Attrs<HTMLDivElement>) {
+  return E('div', $class(css_dialog_overlay, CSS.column.alignCenter.justifyCenter))
 }
 
-export function Title(attrs: Attrs<HTMLHeadingElement>, children: Renderable[]) {
-  return E('h3', $class(CSS.uppercase.bold.color(T.tint)),
-    children
-  )
+export function Title(attrs: Attrs<HTMLHeadingElement>) {
+  return E('h3', $class(CSS.uppercase.bold.color(T.tint)))
 }
 
-export function Content(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E('div', $class(CSS.preLine),
-    children
-  )
+export function Content(attrs: Attrs<HTMLDivElement>) {
+  return E('div', $class(CSS.preLine))
 }
 
 
-export function Root(attrs: Attrs<HTMLDivElement>, children: Renderable[]) {
-  return E.DIV($class(css_dialog_root, CSS.column, CSS.border(T.tint07).borderRound.boxShadow),
-    children
-  )
+export function Root(attrs: Attrs<HTMLDivElement>) {
+  return E.DIV($class(css_dialog_root, CSS.column, CSS.border(T.tint07).borderRound.boxShadow))
 }
 
 

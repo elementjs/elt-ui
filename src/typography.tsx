@@ -1,9 +1,9 @@
 import { style, rule } from 'osun'
-import { Attrs, Renderable, e } from 'elt'
+import { Attrs, e } from 'elt'
 import { theme } from './colors'
 
-export function TypographicZone(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
-  return <div class={TypographicZone.css.container}>{ch}</div> as HTMLDivElement
+export function TypographicZone(a: Attrs<HTMLDivElement>) {
+  return <div class={TypographicZone.css.container}></div> as HTMLDivElement
 }
 
 export namespace TypographicZone.css {

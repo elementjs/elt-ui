@@ -1,5 +1,5 @@
 import { style, rule, builder as CSS } from 'osun'
-import { o, Attrs, Renderable, e, Insertable } from 'elt'
+import { o, Attrs, Renderable, e, Insertable, $shadow } from 'elt'
 import { theme as T } from '../colors'
 
 export var TOPLEFT_CONTROL_RADIUS = '0.25em'
@@ -9,13 +9,13 @@ export var BOTTOM_RIGHT_CONTROL_RADIUS = '0.6em'
 export var CONTROL_PADDING = '0.25em 0.5em'
 export var CONTROL_RADIUS = '0.25em 0.5em'
 
-export function Control(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
-  return <div class={css_control}>{ch}</div> as HTMLDivElement
+export function Control(a: Attrs<HTMLDivElement>) {
+  return <div class={css_control}></div> as HTMLDivElement
 }
 
 
-export function ControlTable(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
-  return <table class={css_control_table}>{ch}</table>
+export function ControlTable(a: Attrs<HTMLDivElement>) {
+  return <table class={css_control_table}></table>
 }
 
 ControlTable.build = function (...args: (Renderable[] | Insertable<HTMLElement>)[]) {
@@ -55,19 +55,21 @@ ControlTable.build = function (...args: (Renderable[] | Insertable<HTMLElement>)
   </ControlTable>
 }
 
-export function ControlRow(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
-  return <tr>{ch}</tr>
+export function ControlRow(a: Attrs<HTMLDivElement>) {
+  return <tr></tr>
 }
 
-export function ControlBox(a: Attrs<HTMLDivElement> & {vertical?: o.RO<boolean>}, ch: Renderable[]) {
-  return <div class={o.tf(a.vertical, v => v ? css_control_box_vertical : css_control_box)}>{ch}</div> as HTMLDivElement
+export function ControlBox(a: Attrs<HTMLDivElement> & {vertical?: o.RO<boolean>}) {
+  return <div class={o.tf(a.vertical, v => v ? css_control_box_vertical : css_control_box)}></div> as HTMLDivElement
 }
 
 
-export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
+export function ControlLabel(a: Attrs<HTMLDivElement>) {
   return <div class={[css_control, css_control_label_container]}>
-    <span>&zwnj;</span>
-    <span class={css_control_label_span}>{ch}</span>
+    {$shadow(<e.Fragment>
+      <span>&zwnj;</span>
+      <span part="label"><slot></slot></span>
+    </e.Fragment>)}
   </div> as HTMLDivElement
 }
 
@@ -75,7 +77,7 @@ export function ControlLabel(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
 ////////////////////////////////////////////////////////////
 
 export const css_control_label_container = style('ctrllabel', CSS.background(T.tint07).border(T.tint14).row.inline.alignCenter.justifyCenter)
-export const css_control_label_span = style('ctrllabel-span', CSS.color(T.fg75).uppercase.fontSize('0.7em'), { verticalAlign: '.142em' })
+rule`${css_control_label_container}::part(label)`(CSS.color(T.fg75).uppercase.fontSize('0.7em'), { verticalAlign: '.142em' })
 export const css_control_label_td = style('ctrllabel-span', CSS.color(T.fg75).uppercase.fontSize('0.7em').background(T.tint07).padding("0.2rem 0.5rem"), { verticalAlign: '.142em' })
 
 rule`th > ${css_control_label_container}`(CSS.background(T.tint14))

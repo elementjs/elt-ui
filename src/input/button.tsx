@@ -4,7 +4,6 @@ import {
   $click,
   Listener,
   Attrs,
-  Renderable,
   e
 } from 'elt'
 
@@ -26,7 +25,7 @@ export interface ButtonAttrs extends Attrs<HTMLButtonElement> {
 }
 
 
-export function Button(attrs : ButtonAttrs, children: Renderable[]) {
+export function Button(attrs : ButtonAttrs) {
 
   return <button
     class={[
@@ -53,7 +52,6 @@ export function Button(attrs : ButtonAttrs, children: Renderable[]) {
         click && click(event)
       }
     })}
-    {children}
   </button> as HTMLButtonElement
 
 }

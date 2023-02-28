@@ -3,7 +3,6 @@ import {
   o,
   node_add_event_listener,
   Attrs,
-  Renderable,
   e,
   node_observe
 } from 'elt'
@@ -19,7 +18,6 @@ export interface BaseInputAttributes extends Attrs<HTMLInputElement> {
   label?: o.RO<string>
   placeholder?: o.RO<string>
   autocomplete?: o.RO<'on' | 'off' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'email' | 'nickname' | 'current-password' | 'organization-title' | 'organization' | 'street-address' | 'country' | 'country-name' | 'bday' | 'bday-day' | 'sex' | 'url' | 'tel' | 'photo'>
-  autocapitalize?: o.RO<'word' | 'words' | 'sentences' | 'sentence' | 'characters' | 'character' | 'off'>
   autocorrect?: o.RO<'on' | 'off'>
   spellcheck?: o.RO<boolean>
   autofocus?: o.RO<boolean>
@@ -48,7 +46,7 @@ export type InputAttributes = NumberInputAttributes | StringInputAttributes
 
 const re_number = /\d+(\.\d*)?/
 
-export function Input(attrs: InputAttributes, content: Renderable[]) {
+export function Input(attrs: InputAttributes) {
 
   let id = attrs.id || `input_${id_gen++}`;
 

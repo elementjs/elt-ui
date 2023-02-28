@@ -42,7 +42,7 @@ export interface SelectAttributes<T> extends Attrs<HTMLDivElement> {
 }
 
 
-export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>, children: Renderable[]) {
+export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>) {
 
 	let options = o(attrs.options)
 	let {model, labelfn, onchange} = attrs

@@ -1,5 +1,5 @@
 
-import { $init, insert_before_and_init, remove_node, $click, $class, Attrs, Renderable, e, $inserted, $removed, o } from 'elt'
+import { $init, insert_before_and_init, remove_node, $click, $class, Attrs, e, $inserted, $removed, o } from 'elt'
 import { animate } from './animate'
 import { style, rule, builder as CSS } from 'osun'
 import { inker } from './ink';
@@ -16,7 +16,7 @@ export function Triangle(a: Attrs<SVGSVGElement>) {
 /**
  * Parent needs to be at least absolute.
  */
-export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
+export function Float(a: Attrs<HTMLDivElement>) {
 
   const o_topbottom = o(undefined as undefined | string)
   const o_leftright = o(undefined as undefined | string)
@@ -57,7 +57,6 @@ export function Float(a: Attrs<HTMLDivElement>, ch: Renderable[]) {
         $inserted(() => document.addEventListener('scroll', upd)),
         $removed(() => document.removeEventListener('scroll', upd)),
     ]},
-    ch
   )
 }
 

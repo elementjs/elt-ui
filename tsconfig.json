@@ -12,6 +12,7 @@
         "jsx": "react",
         "baseUrl": "./",
         "jsxFactory": "e",
+        "jsxFragmentFactory": "e.Fragment",
         "experimentalDecorators": true,
         "lib": ["dom", "es2020"],
         "types": []

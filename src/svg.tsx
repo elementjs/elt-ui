@@ -1,4 +1,4 @@
-import { Attrs, e, Renderable, o, If } from 'elt'
+import { Attrs, e, o, If } from 'elt'
 import { style } from 'osun'
 import { theme as T } from './colors'
 
@@ -110,11 +110,10 @@ export const cls_stroked = style('icon-stroked-path', {
   strokeLinecap: 'round',
 })
 
-export function SvgCheckBox(attrs: Attrs<SVGSVGElement> & { checked?: o.RO<any>, filled?: o.RO<boolean> }, ch: Renderable[]) {
+export function SvgCheckBox(attrs: Attrs<SVGSVGElement> & { checked?: o.RO<any>, filled?: o.RO<boolean> }) {
   var thickness = 1.5
   return <svg class={cls_icon} viewBox='0 0 14 16'>
     <path style={{fillRule: 'evenodd'}} d={d.rect(0, 1, 14, 15, 15).rect(thickness, 1 + thickness, 14 - thickness, 15 - thickness, 15)}/>
-    {ch}
     {If(attrs.checked, () => <path d={d.moveTo(3.5, 8).lineTo(6, 11).lineTo(10.5, 4.5)} // 'M3 8 L6 11 L11 4'
       class={cls_stroked}
     />)}
@@ -129,7 +128,7 @@ export function SvgSelectThingy(a: Attrs<SVGSVGElement>) {
 }
 
 
-export function SvgCircle(a: Attrs<SVGSVGElement> & { checked: o.RO<boolean> }, ch: Renderable[]) {
+export function SvgCircle(a: Attrs<SVGSVGElement> & { checked: o.RO<boolean> }) {
   return <svg viewBox='0 0 14 16' class={cls_icon}>
     <path style={{fillRule: 'evenodd'}} d={d.circle(7, 8, 7).circle(7, 8, 5.5)}/>
     {If(a.checked, () => <circle
@@ -137,6 +136,5 @@ export function SvgCircle(a: Attrs<SVGSVGElement> & { checked: o.RO<boolean> }, 
       cy={8}
       r={3}
     />)}
-    {ch}
   </svg>
 }
