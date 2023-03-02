@@ -5,7 +5,6 @@ import {
 	remove_node,
 	o,
 	Attrs,
-	$init,
 	$shadow,
 } from 'elt'
 
@@ -27,9 +26,9 @@ export function Nav(_: Attrs<HTMLDivElement>) {
 	}
 
 	const node = <div class="nav">
-		{$init(node => {
+		{node => {
 			animate(node, css_animate_enter)
-		})}
+		}}
 		{$shadow(<>
 			<div part="overlay">
 				{$click(e => {

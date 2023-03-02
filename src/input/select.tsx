@@ -85,7 +85,6 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>) {
 		{attrs.postlabelfn?.(model)}
 		<span class={CSS.absoluteGrow(1)}/>
 		<SvgSelectThingy style={{height: '1em'}} />
-
 	</div> as HTMLDivElement
 
 	return select_container
@@ -93,7 +92,7 @@ export function Select<T>(attrs: Attrs<HTMLDivElement> & SelectAttributes<T>) {
 
 export namespace Select.css {
 
-	export const css_select = style('select', CSS.cursorPointer.border(T.tint14).row.inline.alignCenter)
+	export const css_select = style('select', CSS.cursorPointer.border(T.tint14).row.inline.alignBaseline, { display: "inline-flex" })
 	export const css_select_thingy = style('thingy', { color: T.tint50 })
 
 	export const css_select_selected = style('selected', CSS.background(T.tint07))

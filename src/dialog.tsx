@@ -1,17 +1,16 @@
 
 import {
   $click,
-  $init,
   o,
   If,
-  append_child_and_init,
   remove_node,
   $class,
   Attrs,
   Renderable,
   $removed,
   e,
-  $inserted
+  $inserted,
+  node_add_child
 } from 'elt';
 
 import { style, rule, builder as CSS } from 'osun'
@@ -90,12 +89,12 @@ export class Dialog<T> {
         if (e.target === e.currentTarget && this.opts.clickOutsideToClose)
           this.reject('clicked outside to close')
       }),
-      $init(node => {
+      node => {
         _dialog_stack.push(this.node)
         if (!this.opts.noanimate) {
           animate(this.node, this.opts.animationEnter ?? css_dialog_enter_animation)
         }
-      }),
+      },
       $inserted(node => {
         node.ownerDocument!.addEventListener('keyup', this.handleEscape)
       }),
@@ -121,7 +120,7 @@ export function Content(attrs: Attrs<HTMLDivElement>) {
 
 
 export function Root(attrs: Attrs<HTMLDivElement>) {
-  return E.DIV($class(css_dialog_root, CSS.column, CSS.border(T.tint07).borderRound.boxShadow))
+  return E.DIV($class(css_dialog_root, CSS.column, CSS.borderRound.boxShadow))
 }
 
 
@@ -133,7 +132,7 @@ export function dialog<T>(opts: DialogOpts, builder: DialogBuilder<T>): Promise<
   const ctrl = new Dialog(builder, opts)
 
   let parent = opts.parent || document.body
-  append_child_and_init(parent, ctrl.render())
+  node_add_child(parent, ctrl.render())
 
   return ctrl.promise
 
