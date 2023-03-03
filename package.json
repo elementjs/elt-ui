@@ -20,7 +20,7 @@
     "@rollup/plugin-node-resolve": "^7.1.1",
     "typescript": "^4.8.2",
     "esbuild": "^0.15.7",
-    "wtsc": "^0.1.x"
+    "wtsc": "0.1.3"
   },
   "peerDependencies": {
     "osun": "^0.5.x"
