@@ -1,5 +1,5 @@
 
-import { remove_node, $click, $class, Attrs, e, $inserted, $removed, o, node_add_child } from 'elt'
+import { remove_node, $click, $class, Attrs, e, $inserted, $removed, o, node_append } from 'elt'
 import { animate } from './animate'
 import { style, rule, builder as CSS } from 'osun'
 import { inker } from './ink';
@@ -126,7 +126,7 @@ export function create_float<T>(
 
   const bbox = node.getBoundingClientRect()
   const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: `${bbox.y}px`, left: `${bbox.x}px`, height: `${bbox.height}px`, width: `${bbox.width}px`, zIndex: '1'}}>{children}</div> as HTMLDivElement
-  node_add_child(document.body, cont)
+  node_append(document.body, cont)
 
   return prom
 }

@@ -1,5 +1,5 @@
 
-import { $click, remove_node, e, node_add_child } from 'elt'
+import { $click, remove_node, e, node_append } from 'elt'
 
 import { animate } from './animate'
 import { theme as T } from './colors'
@@ -41,7 +41,7 @@ export function inker(event: MouseEvent) {
 		st.height = `${ink_size}px`
 	}
 
-	node_add_child(is_relative ? node : document.body, ink_container)
+	node_append(is_relative ? node : document.body, ink_container)
 
 	const bb = ink_container.getBoundingClientRect()
 

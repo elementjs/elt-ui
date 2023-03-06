@@ -1,5 +1,5 @@
 
-import { remove_node, Insertable, e, node_add_child } from 'elt'
+import { remove_node, Insertable, e, node_append } from 'elt'
 import { animate } from './animate'
 
 import { style, builder as CSS } from 'osun'
@@ -39,14 +39,14 @@ export class Toaster {
 		// let promise: Promise<any> = this._current ? this._current.destroy() : Promise.resolve(true)
 
 		if (!this._holder.parentNode) {
-			node_add_child(document.body, this._holder)
+			node_append(document.body, this._holder)
 		}
 
 		let toast = (msg instanceof Node ? msg
 			: <div class={Toaster.cls_toast}>{msg}</div>) as HTMLElement
 
 		animate(toast, animate.fade_in)
-		node_add_child(this._holder, toast)
+		node_append(this._holder, toast)
 
 		this._cancel = window.setTimeout(() => this.kill(toast), 3000)
 		this._current = toast

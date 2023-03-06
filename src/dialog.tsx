@@ -1,5 +1,6 @@
 
 import {
+  animate,
   $click,
   o,
   If,
@@ -10,12 +11,11 @@ import {
   $removed,
   e,
   $inserted,
-  node_add_child
+  node_append
 } from 'elt';
 
 import { style, rule, builder as CSS } from 'osun'
 
-import { animate } from './animate'
 import { Button, } from './input'
 import { theme as T } from './colors'
 
@@ -57,7 +57,7 @@ export class Dialog<T> {
     if (this.opts.closeIntercept && !(await this.opts.closeIntercept()))
       // Do nothing if closing was prevented.
       return false
-    await animate(this.node, this.opts.animationLeave ?? css_dialog_leave_animation)
+    await animate(this.node, fade_out, { duration: 200, })
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
     remove_node(this.node)
     return true
@@ -91,11 +91,12 @@ export class Dialog<T> {
       }),
       node => {
         _dialog_stack.push(this.node)
-        if (!this.opts.noanimate) {
-          animate(this.node, this.opts.animationEnter ?? css_dialog_enter_animation)
-        }
+
       },
       $inserted(node => {
+        if (!this.opts.noanimate) {
+          animate(this.node, fade_in, { duration: 200 })
+        }
         node.ownerDocument!.addEventListener('keyup', this.handleEscape)
       }),
       $removed(node => {
@@ -120,7 +121,9 @@ export function Content(attrs: Attrs<HTMLDivElement>) {
 
 
 export function Root(attrs: Attrs<HTMLDivElement>) {
-  return E.DIV($class(css_dialog_root, CSS.column, CSS.borderRound.boxShadow))
+  return E.DIV($class(css_dialog_root, CSS.column, CSS.borderRound.boxShadow), $inserted(node => {
+    animate(node, top_enter, { duration: 200 })
+  }))
 }
 
 
@@ -132,7 +135,7 @@ export function dialog<T>(opts: DialogOpts, builder: DialogBuilder<T>): Promise<
   const ctrl = new Dialog(builder, opts)
 
   let parent = opts.parent || document.body
-  node_add_child(parent, ctrl.render())
+  node_append(parent, ctrl.render())
 
   return ctrl.promise
 
@@ -197,21 +200,36 @@ export const css_dialog_overlay = style('overlay', {
   backgroundColor: `rgba(0, 0, 0, 0.54)`,
 })
 
-rule`${css_dialog_overlay}${css_dialog_enter_animation}`({
-  animation: `${animate.fade_in} ${animate.ANIM_DURATION}ms both ease-in`
-})
+// rule`${css_dialog_overlay}${css_dialog_enter_animation}`({
+//   animation: `${animate.fade_in} ${animate.ANIM_DURATION}ms both ease-in`
+// })
 
-rule`${css_dialog_overlay}${css_dialog_enter_animation} > ${css_dialog_root}`({
-  animation: `${animate.top_enter} ${animate.ANIM_DURATION}ms both ease-in`
-})
+// rule`${css_dialog_overlay}${css_dialog_enter_animation} > ${css_dialog_root}`({
+//   animation: `${animate.top_enter} ${animate.ANIM_DURATION}ms both ease-in`
+// })
 
-rule`${css_dialog_overlay}${css_dialog_leave_animation}`({
-  animation: `${animate.fade_out} 0.2s both ease-in`
-})
+// rule`${css_dialog_overlay}${css_dialog_leave_animation}`({
+//   animation: `${animate.fade_out} 0.2s both ease-in`
+// })
 
-rule`${css_dialog_overlay}${css_dialog_leave_animation} > ${css_dialog_root}`({
-  animation: `${animate.top_leave} 0.2s both ease-in`
-})
+// rule`${css_dialog_overlay}${css_dialog_leave_animation} > ${css_dialog_root}`({
+//   animation: `${animate.top_leave} 0.2s both ease-in`
+// })
+
+const fade_in: Keyframe[] = [
+  { opacity: 0 },
+  { opacity: 1 },
+]
+
+const fade_out: Keyframe[] = [
+  { opacity: 1 },
+  { opacity: 0 },
+]
+
+const top_enter: Keyframe[] = [
+  {transform: `scale3d(1.2, 1.2, 1)`, transformOrigin: 'top 50%', opacity: 0},
+  {transform: `scale3d(1, 1, 1)`, opacity: 1},
+]
 
 export const css_dialog_content = style('content', {
   padding: '0 24px',
