@@ -4,7 +4,7 @@ import {
   $click,
   o,
   If,
-  remove_node,
+  node_remove,
   $class,
   Attrs,
   Renderable,
@@ -59,7 +59,7 @@ export class Dialog<T> {
       return false
     await animate(this.node, fade_out, { duration: 200, })
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
-    remove_node(this.node)
+    node_remove(this.node)
     return true
   }
 

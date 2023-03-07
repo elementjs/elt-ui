@@ -1,5 +1,5 @@
 
-import { remove_node, Insertable, e, node_append } from 'elt'
+import { node_remove, Insertable, e, node_append } from 'elt'
 import { animate } from './animate'
 
 import { style, builder as CSS } from 'osun'
@@ -23,7 +23,7 @@ export class Toaster {
 
 	kill(node: HTMLElement) {
 		animate(node, animate.fade_out).then(node =>
-			remove_node(node)
+			node_remove(node)
 		)
 	}
 

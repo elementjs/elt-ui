@@ -1,5 +1,5 @@
 
-import { remove_node, $click, $class, Attrs, e, $inserted, $removed, o, node_append } from 'elt'
+import { node_remove, $click, $class, Attrs, e, $inserted, $removed, o, node_append } from 'elt'
 import { animate } from './animate'
 import { style, rule, builder as CSS } from 'osun'
 import { inker } from './ink';
@@ -114,7 +114,7 @@ export function create_float<T>(
 
   const remove = async () => {
     await animate(children as HTMLElement, css_float_leave_animation)
-    remove_node(cont)
+    node_remove(cont)
     active_floats.delete(fn)
     if (active_floats.size === 0) {
       // No more active floats, we remove our event listeners

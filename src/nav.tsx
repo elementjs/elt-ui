@@ -2,7 +2,7 @@
 import {
 	e,
 	$click,
-	remove_node,
+	node_remove,
 	o,
 	Attrs,
 	$shadow,
@@ -19,7 +19,7 @@ export function Nav(_: Attrs<HTMLDivElement>) {
 	function detach() {
 		node.classList.remove(css_animate_enter)
 		animate(node, css_animate_leave).then(() => {
-			remove_node(node)
+			node_remove(node)
 		}).catch(e => {
 			console.error(e)
 		})
