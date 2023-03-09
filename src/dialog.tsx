@@ -1,6 +1,5 @@
 
 import {
-  animate,
   $click,
   o,
   If,
@@ -18,6 +17,7 @@ import { style, rule, builder as CSS } from 'osun'
 
 import { Button, } from './input'
 import { theme as T } from './colors'
+import { animate } from "./animate"
 
 
 export type DialogBuilder<T> = (dlc: Dialog<T>) => Node
@@ -57,7 +57,11 @@ export class Dialog<T> {
     if (this.opts.closeIntercept && !(await this.opts.closeIntercept()))
       // Do nothing if closing was prevented.
       return false
-    await animate(this.node, fade_out, { duration: 200, })
+    const root = this.node.querySelector(css_dialog_root.selector())
+    await Promise.all([
+      animate(this.node, animate.fade_out),
+      root ? animate(root, animate.top_leave) : null,
+    ])
     _dialog_stack = _dialog_stack.filter(n => n !== this.node)
     node_remove(this.node)
     return true
@@ -95,7 +99,7 @@ export class Dialog<T> {
       },
       $inserted(node => {
         if (!this.opts.noanimate) {
-          animate(this.node, fade_in, { duration: 200 })
+          animate(this.node, animate.fade_in)
         }
         node.ownerDocument!.addEventListener('keyup', this.handleEscape)
       }),
@@ -122,7 +126,7 @@ export function Content(attrs: Attrs<HTMLDivElement>) {
 
 export function Root(attrs: Attrs<HTMLDivElement>) {
   return E.DIV($class(css_dialog_root, CSS.column, CSS.borderRound.boxShadow), $inserted(node => {
-    animate(node, top_enter, { duration: 200 })
+    animate(node, animate.top_enter)
   }))
 }
 
