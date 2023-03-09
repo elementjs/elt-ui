@@ -3,7 +3,7 @@ import { $click, node_remove, e, node_append } from 'elt'
 
 import { animate } from './animate'
 import { theme as T } from './colors'
-import { keyframes, style, rule } from 'osun'
+import { style } from 'osun'
 
 
 export function inker(event: MouseEvent) {
@@ -72,8 +72,12 @@ export function inker(event: MouseEvent) {
 	it.height = size
 	it.marginTop = halved
 	it.marginLeft = halved
+	// it.transformOrigin = `${clientX} ${clientY}`
 
-	animate(ink_container, inker.cls_ink_animate).then(() => {
+	Promise.all([
+		animate(ink_container, inker.kf_ripple_opacity),
+		animate(ink_circle, inker.kf_ripple_size),
+	]).then(() => {
 		node_remove(ink_container)
 	})
 }
@@ -98,17 +102,17 @@ export function $inkClickDelay<N extends HTMLElement | SVGElement>(fn: (ev: Mous
 
 export namespace inker {
 
-		export const kf_ripple_opacity = keyframes('ripple', {
-			'0%': { opacity: 0},
-			'10%': { opacity: 0.26 },
-			'75%': { opacity: 0.26},
-			'100%': { opacity: 0 }
-		})
+		export const kf_ripple_opacity = animate.animation("ripple", [
+			{ opacity: 0},
+			{ opacity: 0.26, offset: 0.25 },
+			{ opacity: 0.26, offset: 0.75 },
+			{ opacity: 0 }
+		], { easing: animate.FN_STANDARD, })
 
-		export const kf_ripple_size = keyframes('size', {
-			'0%': {transform: `scale(0) translateZ(0)`},
-			'100%': { transform: `scale(1) translateZ(0)` }
-		})
+		export const kf_ripple_size = animate.animation("ripple-size", [
+			{ transform: `scale(0) translateZ(0)` },
+			{ transform: `scale(1) translateZ(0)` }
+		])
 
 		export const cls_ink_animate = style('em-ink-animate')
 
@@ -121,8 +125,6 @@ export namespace inker {
 				pointerEvents: 'none',
 				marginTop: '-25px',
 				marginLeft: '-25px',
-				width: '50px',
-				height: '50px',
 			}
 		)
 
@@ -141,13 +143,5 @@ export namespace inker {
 				pointerEvents: 'none',
 			}
 		)
-
-		rule`${cls_container}${cls_ink_animate}`({
-			animation: `${kf_ripple_opacity} ${animate.ANIM_DURATION}ms ${animate.FN_STANDARD}`
-		})
-
-		rule`${cls_container}${cls_ink_animate} ${cls_ink}`({
-			animation: `${kf_ripple_size} ${animate.ANIM_DURATION}ms ${animate.FN_STANDARD}`
-		})
 
 	}

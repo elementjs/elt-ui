@@ -113,7 +113,7 @@ export function create_float<T>(
 
 
   const remove = async () => {
-    await animate(children as HTMLElement, css_float_leave_animation)
+    await animate(children as HTMLElement, animate.top_leave)
     node_remove(cont)
     active_floats.delete(fn)
     if (active_floats.size === 0) {
@@ -127,6 +127,9 @@ export function create_float<T>(
   const bbox = node.getBoundingClientRect()
   const cont = <div style={{position: 'absolute', transform: 'translateZ(0)', top: `${bbox.y}px`, left: `${bbox.x}px`, height: `${bbox.height}px`, width: `${bbox.width}px`, zIndex: '1'}}>{children}</div> as HTMLDivElement
   node_append(document.body, cont)
+  requestAnimationFrame(() => {
+    animate(cont, animate.top_enter)
+  })
 
   return prom
 }
@@ -167,14 +170,6 @@ export const css_float = style('float', {
   position: 'absolute',
   boxShadow: `0px 0px 10px ${T.tint14}`,
   animationFillMode: 'forwards',
-  animationName: animate.top_enter,
-  animationDuration: `${animate.ANIM_DURATION}ms`,
-  animationTimingFunction: 'ease-in',
-})
-
-export const css_float_leave_animation = style('leave-float', {
-  animationName: animate.top_leave,
-  animationTimingFunction: animate.FN_SHARP
 })
 
 rule`${css_float}${css_float_bottom} ${css_float_triangle}`(CSS.bottom(`-${TRI_HEIGHT - 1}px`), {

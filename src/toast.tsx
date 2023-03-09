@@ -18,13 +18,13 @@ export class Toaster {
 
 	constructor() {
 		this._mounted = false
-		this._holder = <div class={[Toaster.cls_holder, CSS.row.justifyCenter]}/>
+		this._holder = <div class={[Toaster.cls_holder, CSS.column.alignCenter]}/>
 	}
 
-	kill(node: HTMLElement) {
-		animate(node, animate.fade_out).then(node =>
-			node_remove(node)
-		)
+	async kill(node: HTMLElement) {
+		await animate(node, animate.slide_to_bottom)
+		node_remove(node)
+
 	}
 
 	toast(msg: Insertable<HTMLDivElement>) {
@@ -45,8 +45,8 @@ export class Toaster {
 		let toast = (msg instanceof Node ? msg
 			: <div class={Toaster.cls_toast}>{msg}</div>) as HTMLElement
 
-		animate(toast, animate.fade_in)
 		node_append(this._holder, toast)
+		animate(toast, animate.slide_from_bottom)
 
 		this._cancel = window.setTimeout(() => this.kill(toast), 3000)
 		this._current = toast
@@ -71,7 +71,8 @@ export namespace Toaster {
 		fontSize: '14px',
 		borderRadius: '2px 2px 0 0',
 		cursor: 'pointer',
-	}, theme.derive({bg: `#3c3c3b`}).className)
+		borderLeft: `6px solid ${theme.tint}`
+	}, theme.derive({ bg: `#3c3c3b`, recompute: true }).className)
 
 }
 

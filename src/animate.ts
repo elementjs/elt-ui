@@ -1,56 +1,36 @@
 
-import { keyframes } from 'osun'
+export interface Animation {
+	name: string
+	keyframes: Keyframe[]
+	opts?: KeyframeAnimationOptions
+}
+
+export function animation(
+	name: string,
+	keyframes: Keyframe[],
+	opts?: KeyframeAnimationOptions): Animation {
+		opts = Object.assign({}, { duration: 200, easing: "linear" }, opts ?? {})
+		return {name, keyframes, opts}
+}
 
 /**
  * Create a Promise that will be resolved once all of the animations
  * that started after the class was added to the node end.
  */
-export function animate(node: HTMLElement, cls: string) {
+export function animate<N extends Element>(node: N, ...animation_definition: Animation[]) {
 
-	return new Promise<HTMLElement>((resolve, reject) => {
-		var ended = false
-		const anims = new Set<string>()
+	return Promise.all(animation_definition.map(animation_definition => new Promise<N>((accept, reject) => {
+		requestAnimationFrame(() => {
+			const anim = node.animate(animation_definition.keyframes, animation_definition.opts)
+			anim.oncancel = () => accept(node)
+			anim.onfinish = () => accept(node)
+			anim.onremove = () => reject()
+		})
+	})))
 
-		function end() {
-			ended = true
-			node.removeEventListener('animationend', fnend)
-			node.removeEventListener('animationstart', fnstart)
-			resolve(node)
-		}
-
-		function fnend (ev: AnimationEvent) {
-			// We didn't see this animation get started here, so we just
-			// won't handle it.
-			if (!anims.has(ev.animationName))
-				return
-
-			anims.delete(ev.animationName)
-
-			// We should be done once we reach here.
-			if (!ended && anims.size === 0) {
-				end()
-			}
-		}
-
-		function fnstart (ev: AnimationEvent) {
-			anims.add(ev.animationName)
-		}
-
-		node.addEventListener('animationstart', fnstart)
-		node.addEventListener('animationend', fnend)
-		node.classList.add(cls)
-
-		// We leave 100 ms to the animations to potentially start. If during
-		// this delay nothing started, we call the end function.
-		setTimeout(() => {
-			if (!ended && anims.size === 0) {
-				console.warn('no animations were started, executing end function anyway.')
-				end()
-			}
-		}, 100)
-
-	})
 }
+
+animate.animation = animation
 
 
 export namespace animate {
@@ -61,33 +41,41 @@ export namespace animate {
 	export const FN_ACCELERATION = `cubic-bezier(.4, 0, 1, 1)`
 	export const FN_SHARP = `cubic-bezier(.4, 0, .6, 1)`
 
-	export const fade_in = keyframes('fade-in', {
-		'0%': {opacity: 0},
-		'100%': {opacity: 1}
+	export const fade_in = animation("fade-in", [
+		{ opacity: 0 },
+		{ opacity: 1 },
+	], {
+		easing: FN_DECELERATION
 	})
 
-	export const fade_out = keyframes('fade-out', {
-		'100%': {opacity: 0}
+	export const fade_out = animation("fade-out", [
+		{ opacity: 0 }
+	], { easing: FN_ACCELERATION })
+
+	function slide(axis: "X" | "Y", start: number, end: number, enter = true) {
+		return animation("slide-", [
+			{transform: `translate${axis}(${start}%) translateZ(0)`},
+			{transform: `translate${axis}(${end}%) translateZ(0)`}
+		], { easing: enter ? FN_DECELERATION : FN_ACCELERATION })
+	}
+
+	export const slide_from_left = slide("X", -100, 0, true)
+	export const slide_to_left = slide("X", 0, -100, false)
+	export const slide_from_bottom = slide("Y", 100, 0, true)
+	export const slide_to_bottom = slide("Y", 0, 100, true)
+
+	export const top_enter = animation('top-enter', [
+		{transform: `scale3d(1.2, 1.2, 1)`, transformOrigin: 'top 50%', opacity: 0},
+		{transform: `scale3d(1, 1, 1)`, opacity: 1}
+	], {
+		easing: FN_DECELERATION
 	})
 
-	export const slide_from_left = keyframes('slide-from-left', {
-		'0%': {transform: `translateX(-100%) translateZ(0)`},
-		'100%': {transform: `translateX(0) translateZ(0)`}
-	})
-
-	export const slide_to_left = keyframes('slide-to-left', {
-		'0%': {transform: `translateX(0) translateZ(0)`},
-		'100%': {transform: `translateX(-100%) translateZ(0)`}
-	})
-
-	export const top_enter = keyframes('top-enter', {
-		'0%': {transform: `scale3d(1.2, 1.2, 1)`, transformOrigin: 'top 50%', opacity: 0},
-		'100%': {transform: `scale3d(1, 1, 1)`, opacity: 1}
-	})
-
-	export const top_leave = keyframes('top-leave', {
-		'0%': {transform: `scale3d(1, 1, 1)`, transformOrigin: 'top 50%'},
-		'100%': {transform: `scale3d(0.7, 0.7, 1)`, opacity: 0}
+	export const top_leave = animation('top-leave', [
+		{transform: `scale3d(1, 1, 1)`, transformOrigin: 'top 50%'},
+		{transform: `scale3d(0.7, 0.7, 1)`, opacity: 0}
+	], {
+		easing: FN_SHARP
 	})
 
 }
