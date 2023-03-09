@@ -204,37 +204,6 @@ export const css_dialog_overlay = style('overlay', {
   backgroundColor: `rgba(0, 0, 0, 0.54)`,
 })
 
-// rule`${css_dialog_overlay}${css_dialog_enter_animation}`({
-//   animation: `${animate.fade_in} ${animate.ANIM_DURATION}ms both ease-in`
-// })
-
-// rule`${css_dialog_overlay}${css_dialog_enter_animation} > ${css_dialog_root}`({
-//   animation: `${animate.top_enter} ${animate.ANIM_DURATION}ms both ease-in`
-// })
-
-// rule`${css_dialog_overlay}${css_dialog_leave_animation}`({
-//   animation: `${animate.fade_out} 0.2s both ease-in`
-// })
-
-// rule`${css_dialog_overlay}${css_dialog_leave_animation} > ${css_dialog_root}`({
-//   animation: `${animate.top_leave} 0.2s both ease-in`
-// })
-
-const fade_in: Keyframe[] = [
-  { opacity: 0 },
-  { opacity: 1 },
-]
-
-const fade_out: Keyframe[] = [
-  { opacity: 1 },
-  { opacity: 0 },
-]
-
-const top_enter: Keyframe[] = [
-  {transform: `scale3d(1.2, 1.2, 1)`, transformOrigin: 'top 50%', opacity: 0},
-  {transform: `scale3d(1, 1, 1)`, opacity: 1},
-]
-
 export const css_dialog_content = style('content', {
   padding: '0 24px',
   paddingBottom: '24px',
