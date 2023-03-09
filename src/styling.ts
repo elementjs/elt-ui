@@ -3,20 +3,6 @@ import { ColorTheme, theme } from './colors'
 import { raw, rule } from 'osun'
 
 
-declare module "csstype" {
-
-  interface PropertiesFallback {
-
-    '--eltui-ratio'?: string
-
-    '--eltui-colors-fg'?: string
-    '--eltui-colors-tint'?: string
-    '--eltui-colors-bg'?: string
-    // Bottom of this is color.
-  }
-}
-
-
 export namespace Styling {
   // export const grid = helpers.grid
 

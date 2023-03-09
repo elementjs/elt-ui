@@ -98,7 +98,7 @@ export function Input(attrs: InputAttributes) {
             node.value = ""+ (value ?? "")
           }
         })
-      }, undefined, true)
+      }, { immediate: true })
 
       node_add_event_listener(node, "input", ev => {
         lock(() => {
