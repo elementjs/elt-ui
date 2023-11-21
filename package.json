@@ -2,6 +2,7 @@
   "name": "elt-ui",
   "version": "0.10.2",
   "repository": "https://github.com/elementjs/elt-ui",
+  "engines": {"node": ">=8.0.0"},
   "description": "some description",
   "license": "MIT",
   "main": "./lib/index.js",
