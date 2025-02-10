@@ -20,7 +20,7 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",
     "typescript": "^4.8.2",
-    "esbuild": "^0.15.7",
+    "esbuild": "^0.25.0",
     "wtsc": "0.1.3"
   },
   "peerDependencies": {
